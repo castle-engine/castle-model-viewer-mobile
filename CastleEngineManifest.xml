@@ -20,6 +20,36 @@
     <icon path="desktop/view3dscene.svg" />
     <icon path="desktop/view3dscene.icns" />
   </icons>
+  <associate_document_types>
+    <document_type name="VRML Scene" icon="">
+      <file_ext ext="wrl" mime="model/vrml" uti="io.castleengine.wrl" />
+      <file_ext ext="wrz" mime="model/vrml" uti="io.castleengine.wrz" />
+    </document_type>
+    <document_type name="X3D Scene">
+      <file_ext ext="x3d" mime="model/x3d+xml" uti="io.castleengine.x3d" />
+      <file_ext ext="x3dz" mime="model/x3d+xml" uti="io.castleengine.x3dz" />
+      <file_ext ext="x3dv" mime="model/x3d+vrml" uti="io.castleengine.x3dv" />
+      <file_ext ext="x3dvz" mime="model/x3d+vrml" uti="io.castleengine.x3dvz" />
+    </document_type>
+    <document_type name="COLLADA Object">
+      <file_ext ext="dae" mime="model/vnd.collada+xml" uti="io.castleengine.dae" />
+    </document_type>
+    <document_type name="Inventor Object">
+      <file_ext ext="iv" mime="object/x-inventor" uti="io.castleengine.iv" />
+    </document_type>
+    <document_type name="3D Studio Object">
+      <file_ext ext="3ds" mime="application/x-3ds" uti="io.castleengine.3ds" />
+    </document_type>
+    <document_type name="Wavefront Object">
+      <file_ext ext="obj" mime="text/plain" uti="io.castleengine.obj" />
+    </document_type>
+    <document_type name="Videoscape Object">
+      <file_ext ext="geo" mime="application/x-geo" uti="io.castleengine.geo" />
+    </document_type>
+    <document_type name="ZIP archive">
+      <file_ext uti="com.pkware.zip-archive" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->
+    </document_type>
+  </associate_document_types>
   <dependencies>
     <dependency name="Zlib" /> <!-- read .gz -->
     <dependency name="Png" /> <!-- read .png -->
