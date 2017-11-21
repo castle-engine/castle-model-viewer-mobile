@@ -1,0 +1,6 @@
+*~
+*.o
+*.ppu
+backup
+castle-engine-output
+.DS_Store
