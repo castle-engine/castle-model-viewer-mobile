@@ -101,14 +101,18 @@ begin
   Window.Controls.InsertFront(Status);
 end;
 
-function ApplicationHandleOpenUrl(Url: string): boolean;
+procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
+var
+  Url: string;
 begin
+  if Length(FileNames) = 0 then Exit;
+  Url := FileNames[0];
+
   Application.Log(etInfo, 'Opened ' + Url);
 
   Window.Load(Url);
   Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
   Window.MainScene.ProcessEvents := true;
-  Result := true;
 end;
 
 procedure WindowUpdate(Container: TUIContainer);
@@ -161,12 +165,12 @@ initialization
 
   { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;
-  Application.OnHandleOpenUrl := @ApplicationHandleOpenUrl;
 
   { create Window and initialize Window callbacks }
   Window := TCastleWindowTouch.Create(Application);
   Window.OnPress := @WindowPress;
   Window.OnUpdate := @WindowUpdate;
+  Window.OnDropFiles := @WindowDropFiles;
   Window.FpsShowOnCaption := true;
   Window.AutomaticTouchInterface := true;
   Window.AutoRedisplay := false;
