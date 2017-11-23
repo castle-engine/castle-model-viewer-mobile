@@ -41,12 +41,15 @@ uses SysUtils, Math,
 { main game stuff ------------------------------------------------------------ }
 
 var
-  ShowAchievements: TCastleButton;
+  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable: TCastleButton;
   Status: TCastleLabel;
 
 type
   TButtonsHandler = class
-    class procedure ShowAchievementsClick(Sender: TObject);
+    class procedure BtnNavWalkClick(Sender: TObject);
+    class procedure BtnNavFlyClick(Sender: TObject);
+    class procedure BtnNavExamineClick(Sender: TObject);
+    class procedure BtnNavTurntableClick(Sender: TObject);
   end;
 
 { One-time initialization. }
@@ -54,14 +57,41 @@ procedure ApplicationInitialize;
 const
   ButtonPadding = 30;
 begin
-  ShowAchievements := TCastleButton.Create(Window);
-  ShowAchievements.Caption := 'Show Achievements';
-  ShowAchievements.OnClick := @TButtonsHandler(nil).ShowAchievementsClick;
-  ShowAchievements.Left := 10;
-  ShowAchievements.Bottom := 190;
-  ShowAchievements.PaddingHorizontal := ButtonPadding;
-  ShowAchievements.PaddingVertical := ButtonPadding;
-  Window.Controls.InsertFront(ShowAchievements);
+  BtnNavWalk := TCastleButton.Create(Window);
+  BtnNavWalk.Caption := 'Walk';
+  BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavWalkClick;
+  BtnNavWalk.Left := 0;
+  BtnNavWalk.Bottom := 0;
+  BtnNavWalk.PaddingHorizontal := ButtonPadding;
+  BtnNavWalk.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnNavWalk);
+
+  BtnNavFly := TCastleButton.Create(Window);
+  BtnNavFly.Caption := 'Fly';
+  BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavFlyClick;
+  BtnNavFly.Left := 150;
+  BtnNavFly.Bottom := 0;
+  BtnNavFly.PaddingHorizontal := ButtonPadding;
+  BtnNavFly.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnNavFly);
+
+  BtnNavExamine := TCastleButton.Create(Window);
+  BtnNavExamine.Caption := 'Examine';
+  BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavExamineClick;
+  BtnNavExamine.Left := 300;
+  BtnNavExamine.Bottom := 0;
+  BtnNavExamine.PaddingHorizontal := ButtonPadding;
+  BtnNavExamine.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnNavExamine);
+
+  BtnNavTurntable := TCastleButton.Create(Window);
+  BtnNavTurntable.Caption := 'Turntable';
+  BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavTurntableClick;
+  BtnNavTurntable.Left := 450;
+  BtnNavTurntable.Bottom := 0;
+  BtnNavTurntable.PaddingHorizontal := ButtonPadding;
+  BtnNavTurntable.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnNavTurntable);
 
   Status := TCastleLabel.Create(Window);
   Status.Padding := 5;
@@ -90,8 +120,6 @@ begin
 end;
 
 procedure WindowPress(Container: TUIContainer; const Event: TInputPressRelease);
-var
-  S: TVector3;
 begin
   if Event.IsKey(K_F5) then
     Window.SaveScreen(FileNameAutoInc(ApplicationName + '_screen_%d.png'));
@@ -100,9 +128,24 @@ begin
 
 end;
 
-
-class procedure TButtonsHandler.ShowAchievementsClick(Sender: TObject);
+class procedure TButtonsHandler.BtnNavWalkClick(Sender: TObject);
 begin
+  Window.NavigationType := ntWalk;
+end;
+
+class procedure TButtonsHandler.BtnNavFlyClick(Sender: TObject);
+begin
+  Window.NavigationType := ntFly;
+end;
+
+class procedure TButtonsHandler.BtnNavExamineClick(Sender: TObject);
+begin
+  Window.NavigationType := ntExamine;
+end;
+
+class procedure TButtonsHandler.BtnNavTurntableClick(Sender: TObject);
+begin
+  Window.NavigationType := ntTurntable;
 end;
 
 function MyGetApplicationName: string;
@@ -125,6 +168,8 @@ initialization
   Window.OnPress := @WindowPress;
   Window.OnUpdate := @WindowUpdate;
   Window.FpsShowOnCaption := true;
+  Window.AutomaticTouchInterface := true;
+  Window.AutoRedisplay := false;
   Application.MainWindow := Window;
 
   OptimizeExtensiveTransformations := true;
