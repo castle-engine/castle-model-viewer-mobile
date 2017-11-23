@@ -71,6 +71,15 @@ begin
   Window.Controls.InsertFront(Status);
 end;
 
+function ApplicationHandleOpenUrl(Url: string): boolean;
+begin
+  Application.Log(etInfo, 'Opened ' + Url);
+
+  Window.Load(Url);
+  Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
+  Window.MainScene.ProcessEvents := true;
+  Result := true;
+end;
 
 procedure WindowUpdate(Container: TUIContainer);
 begin
@@ -109,6 +118,7 @@ initialization
 
   { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;
+  Application.OnHandleOpenUrl := @ApplicationHandleOpenUrl;
 
   { create Window and initialize Window callbacks }
   Window := TCastleWindowTouch.Create(Application);
