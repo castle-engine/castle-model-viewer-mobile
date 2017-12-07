@@ -47,7 +47,7 @@
       <file_ext ext="geo" mime="application/x-geo" uti="io.castleengine.geo" />
     </document_type>
     <document_type name="ZIP archive">
-      <file_ext uti="com.pkware.zip-archive" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->
+      <file_ext ext="zip" mime="application/zip" uti="com.pkware.zip-archive" ios-system="true" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->
     </document_type>
   </associate_document_types>
   <dependencies>

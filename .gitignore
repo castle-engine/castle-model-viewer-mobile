@@ -1,6 +1,7 @@
 *~
 *.o
 *.ppu
+*.apk
 backup
 castle-engine-output
 .DS_Store
