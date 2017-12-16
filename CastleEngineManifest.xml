@@ -21,9 +21,6 @@
     <icon path="desktop/view3dscene.icns" />
   </icons>
   <android project_type="integrated">
-    <services>
-      <service name="open_associated_doctype" />
-    </services>
   </android>
   <associate_document_types>
     <document_type name="VRML Scene" icon="">
