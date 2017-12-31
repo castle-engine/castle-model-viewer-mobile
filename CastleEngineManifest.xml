@@ -5,6 +5,7 @@
   qualified_name="io.castleengine.view3dscene.mobile"
   standalone_source="code/view3dscene-mobile.lpr"
   game_units="Game"
+  fullscreen_immersive="false"
   >
   <version value="1.0.0" code="1" />
   <compiler_options>
