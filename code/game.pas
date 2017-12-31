@@ -32,25 +32,28 @@ var
 
 implementation
 
-uses SysUtils, Math,
+uses Classes, SysUtils, Math,
   CastleControls, CastleKeysMouse, CastleFilesUtils, Castle2DSceneManager,
   CastleVectors, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
-  CastleUIControls, CastleMessaging, CastleLog,
-  CastleCameras, CastleWindow;
+  CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
+  CastleCameras, CastleWindow,
+  CastleGLImages, CastleGLContainer,
+  X3DNodes,
+  V3DMOptions, V3DMOptionsDlg;
 
 { main game stuff ------------------------------------------------------------ }
-
-var
-  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable: TCastleButton;
-  Status: TCastleLabel;
-
 type
   TButtonsHandler = class
     class procedure BtnNavWalkClick(Sender: TObject);
     class procedure BtnNavFlyClick(Sender: TObject);
     class procedure BtnNavExamineClick(Sender: TObject);
     class procedure BtnNavTurntableClick(Sender: TObject);
+    class procedure BtnOptionsClick(Sender: TObject);
   end;
+
+var
+  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions: TCastleButton;
+  Status: TCastleLabel;
 
 { One-time initialization. }
 procedure ApplicationInitialize;
@@ -93,6 +96,15 @@ begin
   BtnNavTurntable.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavTurntable);
 
+  BtnOptions := TCastleButton.Create(Window);
+  BtnOptions.Caption := 'Options';
+  BtnOptions.OnClick := @TButtonsHandler(nil).BtnOptionsClick;
+  BtnOptions.Left := 600;
+  BtnOptions.Bottom := 0;
+  BtnOptions.PaddingHorizontal := ButtonPadding;
+  BtnOptions.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnOptions);
+
   Status := TCastleLabel.Create(Window);
   Status.Padding := 5;
   Status.Color := Red;
@@ -117,9 +129,12 @@ end;
 
 procedure WindowUpdate(Container: TUIContainer);
 begin
-  Status.Caption := Format('FPS: %f (real : %f)',
-    [Window.Fps.FrameTime, Window.Fps.RealTime]);
+  if Status.Exists <> AppOptions.ShowFps then
+    Status.Exists := AppOptions.ShowFps;
 
+  if Status.Exists then
+    Status.Caption := Format('FPS: %f (real : %f)',
+      [Window.Fps.OnlyRenderFps, Window.Fps.RealFps]);
 
 end;
 
@@ -152,6 +167,11 @@ begin
   Window.NavigationType := ntTurntable;
 end;
 
+class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
+begin
+  TUIState.Push(StateOptionsDlg);
+end;
+
 function MyGetApplicationName: string;
 begin
   Result := 'view3dscene-mobile';
@@ -163,6 +183,9 @@ initialization
 
   InitializeLog;
 
+  AppOptions := TAppOptions.Create;
+  AppOptions.Load;
+
   { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;
 
@@ -171,11 +194,14 @@ initialization
   Window.OnPress := @WindowPress;
   Window.OnUpdate := @WindowUpdate;
   Window.OnDropFiles := @WindowDropFiles;
-  Window.FpsShowOnCaption := true;
+  Window.FpsShowOnCaption := false;
   Window.AutomaticTouchInterface := true;
   Window.AutoRedisplay := false;
   Application.MainWindow := Window;
 
+  StateOptionsDlg := TStateOptionsDlg.Create(Application);
+
   OptimizeExtensiveTransformations := true;
+
 finalization
 end.
