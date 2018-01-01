@@ -60,6 +60,12 @@ procedure ApplicationInitialize;
 const
   ButtonPadding = 30;
 begin
+  AppOptions := TAppOptions.Create;
+  AppOptions.Load;
+
+  StateOptionsDlg := TStateOptionsDlg.Create(Application);
+
+  // Create UI
   BtnNavWalk := TCastleButton.Create(Window);
   BtnNavWalk.Caption := 'Walk';
   BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavWalkClick;
@@ -109,7 +115,7 @@ begin
   Status.Padding := 5;
   Status.Color := Red;
   Status.Left := 10;
-  Status.Anchor(vpTop, -10);
+  Status.Anchor(vpTop, -50);
   Window.Controls.InsertFront(Status);
 end;
 
@@ -183,9 +189,6 @@ initialization
 
   InitializeLog;
 
-  AppOptions := TAppOptions.Create;
-  AppOptions.Load;
-
   { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;
 
@@ -198,8 +201,6 @@ initialization
   Window.AutomaticTouchInterface := true;
   Window.AutoRedisplay := false;
   Application.MainWindow := Window;
-
-  StateOptionsDlg := TStateOptionsDlg.Create(Application);
 
   OptimizeExtensiveTransformations := true;
 
