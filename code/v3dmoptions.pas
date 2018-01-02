@@ -22,7 +22,7 @@ uses
 
 type
   TAppOptions = class
-    ShowBBox, ShowFps: boolean;
+    ShowBBox, ShowFps, CollisionsOn: boolean;
 
     procedure Load;
     procedure Save;
@@ -48,13 +48,15 @@ begin
   end;
 
   ShowBBox := UserConfig.GetValue('ShowBBox', true);
-  ShowFps := UserConfig.GetValue('ShowFps', true);
+  ShowFps := UserConfig.GetValue('ShowFps', false);
+  CollisionsOn := UserConfig.GetValue('CollisionsOn', true);
 end;
 
 procedure TAppOptions.Save;
 begin
   UserConfig.SetValue('ShowBBox', ShowBBox);
   UserConfig.SetValue('ShowFps', ShowFps);
+  UserConfig.SetValue('CollisionsOn', CollisionsOn);
   UserConfig.Save;
 end;
 

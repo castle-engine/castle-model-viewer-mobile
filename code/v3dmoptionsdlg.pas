@@ -18,7 +18,7 @@ unit V3DMOptionsDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleUIState, CastleKeysMouse;
+  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
 
 type
   TStateOptionsDlg = class(TUIState)
@@ -27,9 +27,11 @@ type
       TOptionsDialog = class(TCastleRectangleControl)
       strict private
         //ChkShowBBox: TCastleCheckbox;
-        ChkShowBBox, ChkShowFps: TCastleButton;
+        ChkShowBBox, ChkShowFps, ChkHeadlight, ChkCollisions: TCastleButton;
         procedure ChkShowBBoxClick(Sender: TObject);
         procedure ChkShowFpsClick(Sender: TObject);
+        procedure ChkHeadlightClick(Sender: TObject);
+        procedure ChkCollisionsClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
@@ -37,6 +39,7 @@ type
     var
       Dialog: TOptionsDialog;
   public
+    FScene: TCastleScene;
     procedure Start; override;
     function Press(const Event: TInputPressRelease): boolean; override;
   end;
@@ -94,6 +97,26 @@ begin
   ChkShowFps.PaddingHorizontal := 10;
   ChkShowFps.OnClick := @ChkShowFpsClick;
   InsideRect.InsertFront(ChkShowFps);
+
+  ChkHeadlight := TCastleButton.Create(Self);
+  ChkHeadlight.Caption := 'Headlight';
+  ChkHeadlight.Anchor(hpLeft, 10);
+  ChkHeadlight.Anchor(vpTop, -150);
+  ChkHeadlight.PaddingHorizontal := 10;
+  ChkHeadlight.OnClick := @ChkHeadlightClick;
+  ChkHeadlight.Enabled := Assigned(StateOptionsDlg.FScene);
+  //if Assigned(StateOptionsDlg.FScene) then
+  //  ChkHeadlight.Checked := StateOptionsDlg.FScene.HeadLightOn;
+  InsideRect.InsertFront(ChkHeadlight);
+
+  ChkCollisions := TCastleButton.Create(Self);
+  ChkCollisions.Caption := 'Collisions';
+  ChkCollisions.Anchor(hpLeft, 10);
+  ChkCollisions.Anchor(vpTop, -200);
+  ChkCollisions.PaddingHorizontal := 10;
+  ChkCollisions.OnClick := @ChkCollisionsClick;
+  InsideRect.InsertFront(ChkCollisions);
+
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.ChkShowBBoxClick(Sender: TObject);
@@ -104,6 +127,21 @@ end;
 procedure TStateOptionsDlg.TOptionsDialog.ChkShowFpsClick(Sender: TObject);
 begin
   AppOptions.ShowFps := not AppOptions.ShowFps;
+end;
+
+procedure TStateOptionsDlg.TOptionsDialog.ChkHeadlightClick(Sender: TObject);
+begin
+  if Assigned(StateOptionsDlg.FScene) then
+  //  StateOptionsDlg.FScene.HeadLightOn := ChkHeadlight.Checked;
+    StateOptionsDlg.FScene.HeadLightOn := not StateOptionsDlg.FScene.HeadLightOn;
+end;
+
+procedure TStateOptionsDlg.TOptionsDialog.ChkCollisionsClick(Sender: TObject);
+begin
+  AppOptions.CollisionsOn := not AppOptions.CollisionsOn;
+
+  if Assigned(StateOptionsDlg.FScene) then
+    StateOptionsDlg.FScene.Collides := not AppOptions.CollisionsOn;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.DoAnswered;

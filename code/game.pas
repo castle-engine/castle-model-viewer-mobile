@@ -190,6 +190,8 @@ begin
   Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
   Window.MainScene.ProcessEvents := true;
 
+  Window.MainScene.Collides := AppOptions.CollisionsOn;
+
   CurrentViewpointIdx := 0;
   ViewpointsPresent := Window.MainScene.ViewpointsCount > 0;
   BtnViewpointPrev.Exists := ViewpointsPresent;
@@ -241,6 +243,7 @@ end;
 
 class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
 begin
+  StateOptionsDlg.FScene := Window.MainScene;
   TUIState.Push(StateOptionsDlg);
 end;
 
