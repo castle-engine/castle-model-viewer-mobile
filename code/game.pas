@@ -39,22 +39,24 @@ uses Classes, SysUtils, Math,
   CastleCameras, CastleWindow,
   CastleGLImages, CastleGLContainer,
   X3DNodes,
-  V3DMOptions, V3DMOptionsDlg;
+  V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
 
 { main game stuff ------------------------------------------------------------ }
 type
   TButtonsHandler = class
-    class procedure BtnNavWalkClick(Sender: TObject);
-    class procedure BtnNavFlyClick(Sender: TObject);
-    class procedure BtnNavExamineClick(Sender: TObject);
-    class procedure BtnNavTurntableClick(Sender: TObject);
+    class procedure BtnNavClick(Sender: TObject);
     class procedure BtnOptionsClick(Sender: TObject);
+    class procedure BtnViewpointNextClick(Sender: TObject);
+    class procedure BtnViewpointListClick(Sender: TObject);
+    class procedure ViewpointSelected(ViewpointIdx: integer);
   end;
 
 var
-  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions: TCastleButton;
+  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
+    BtnViewpointPrev, BtnViewpointNext, BtnViewpointList: TCastleButton;
   Status: TCastleLabel;
 
+  CurrentViewpointIdx: integer;
   SceneBoundingBox: TShapeNode;
 
 { One-time initialization. }
@@ -66,12 +68,14 @@ begin
   AppOptions.Load;
 
   SceneBoundingBox := nil;
+  CurrentViewpointIdx := 0;
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
+  StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
 
   // Create UI
   BtnNavWalk := TCastleButton.Create(Window);
   BtnNavWalk.Caption := 'Walk';
-  BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavWalkClick;
+  BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavWalk.Left := 0;
   BtnNavWalk.Bottom := 0;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
@@ -80,7 +84,7 @@ begin
 
   BtnNavFly := TCastleButton.Create(Window);
   BtnNavFly.Caption := 'Fly';
-  BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavFlyClick;
+  BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavFly.Left := 150;
   BtnNavFly.Bottom := 0;
   BtnNavFly.PaddingHorizontal := ButtonPadding;
@@ -89,7 +93,7 @@ begin
 
   BtnNavExamine := TCastleButton.Create(Window);
   BtnNavExamine.Caption := 'Examine';
-  BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavExamineClick;
+  BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavExamine.Left := 300;
   BtnNavExamine.Bottom := 0;
   BtnNavExamine.PaddingHorizontal := ButtonPadding;
@@ -98,7 +102,7 @@ begin
 
   BtnNavTurntable := TCastleButton.Create(Window);
   BtnNavTurntable.Caption := 'Turntable';
-  BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavTurntableClick;
+  BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavTurntable.Left := 450;
   BtnNavTurntable.Bottom := 0;
   BtnNavTurntable.PaddingHorizontal := ButtonPadding;
@@ -113,6 +117,33 @@ begin
   BtnOptions.PaddingHorizontal := ButtonPadding;
   BtnOptions.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnOptions);
+
+  BtnViewpointPrev := TCastleButton.Create(Window);
+  BtnViewpointPrev.Caption := '<';
+  BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
+  BtnViewpointPrev.Left := 400;
+  BtnViewpointPrev.Bottom := 80;
+  BtnViewpointPrev.PaddingHorizontal := ButtonPadding;
+  BtnViewpointPrev.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnViewpointPrev);
+
+  BtnViewpointList := TCastleButton.Create(Window);
+  BtnViewpointList.Caption := 'Viewpoints';
+  BtnViewpointList.OnClick := @TButtonsHandler(nil).BtnViewpointListClick;
+  BtnViewpointList.Left := 450;
+  BtnViewpointList.Bottom := 80;
+  BtnViewpointList.PaddingHorizontal := ButtonPadding;
+  BtnViewpointList.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnViewpointList);
+
+  BtnViewpointNext := TCastleButton.Create(Window);
+  BtnViewpointNext.Caption := '>';
+  BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
+  BtnViewpointNext.Left := 600;
+  BtnViewpointNext.Bottom := 80;
+  BtnViewpointNext.PaddingHorizontal := ButtonPadding;
+  BtnViewpointNext.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnViewpointNext);
 
   Status := TCastleLabel.Create(Window);
   Status.Padding := 5;
@@ -146,6 +177,7 @@ end;
 procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
 var
   Url: string;
+  ViewpointsPresent: boolean;
 begin
   if Length(FileNames) = 0 then Exit;
   Url := FileNames[0];
@@ -157,6 +189,12 @@ begin
   Window.Load(Url);
   Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
   Window.MainScene.ProcessEvents := true;
+
+  CurrentViewpointIdx := 0;
+  ViewpointsPresent := Window.MainScene.ViewpointsCount > 0;
+  BtnViewpointPrev.Exists := ViewpointsPresent;
+  BtnViewpointList.Exists := ViewpointsPresent;
+  BtnViewpointNext.Exists := ViewpointsPresent;
 end;
 
 procedure WindowUpdate(Container: TUIContainer);
@@ -189,29 +227,50 @@ begin
 
 end;
 
-class procedure TButtonsHandler.BtnNavWalkClick(Sender: TObject);
+class procedure TButtonsHandler.BtnNavClick(Sender: TObject);
 begin
-  Window.NavigationType := ntWalk;
-end;
-
-class procedure TButtonsHandler.BtnNavFlyClick(Sender: TObject);
-begin
-  Window.NavigationType := ntFly;
-end;
-
-class procedure TButtonsHandler.BtnNavExamineClick(Sender: TObject);
-begin
-  Window.NavigationType := ntExamine;
-end;
-
-class procedure TButtonsHandler.BtnNavTurntableClick(Sender: TObject);
-begin
-  Window.NavigationType := ntTurntable;
+  if Sender = BtnNavWalk then
+     Window.NavigationType := ntWalk
+  else if Sender = BtnNavFly then
+    Window.NavigationType := ntFly
+  else if Sender = BtnNavExamine then
+    Window.NavigationType := ntExamine
+  else if Sender = BtnNavTurntable then
+    Window.NavigationType := ntTurntable;
 end;
 
 class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
 begin
   TUIState.Push(StateOptionsDlg);
+end;
+
+class procedure TButtonsHandler.BtnViewpointNextClick(Sender: TObject);
+begin
+  if Window.MainScene = nil then exit;
+  if Sender = BtnViewpointNext then
+    Inc(CurrentViewpointIdx)
+  else
+    Dec(CurrentViewpointIdx);
+
+  if CurrentViewpointIdx < 0 then
+    CurrentViewpointIdx := Window.MainScene.ViewpointsCount;
+  if CurrentViewpointIdx > Window.MainScene.ViewpointsCount - 1 then
+    CurrentViewpointIdx := 0;
+
+  Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
+end;
+
+class procedure TButtonsHandler.BtnViewpointListClick(Sender: TObject);
+begin
+  StateViewpointsDlg.FScene := Window.MainScene;
+  StateViewpointsDlg.FOnViewpointSelected := @TButtonsHandler(nil).ViewpointSelected;
+  TUIState.Push(StateViewpointsDlg);
+end;
+
+class procedure TButtonsHandler.ViewpointSelected(ViewpointIdx: integer);
+begin
+  CurrentViewpointIdx := ViewpointIdx;
+  Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
 end;
 
 function MyGetApplicationName: string;
