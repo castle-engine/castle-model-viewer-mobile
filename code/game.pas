@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2017 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -36,16 +36,17 @@ uses Classes, SysUtils, Math,
   CastleControls, CastleKeysMouse, CastleFilesUtils, Castle2DSceneManager,
   CastleVectors, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
-  CastleCameras, CastleWindow,
-  CastleGLImages, CastleGLContainer,
+  CastleCameras, CastleWindow, CastleScene,
+  CastleGLImages,
   X3DNodes,
-  V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
+  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
 
 { main game stuff ------------------------------------------------------------ }
 type
   TButtonsHandler = class
     class procedure BtnNavClick(Sender: TObject);
     class procedure BtnOptionsClick(Sender: TObject);
+    class procedure BtnInfoClick(Sender: TObject);
     class procedure BtnViewpointNextClick(Sender: TObject);
     class procedure BtnViewpointListClick(Sender: TObject);
     class procedure ViewpointSelected(ViewpointIdx: integer);
@@ -53,7 +54,8 @@ type
 
 var
   BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
-    BtnViewpointPrev, BtnViewpointNext, BtnViewpointList: TCastleButton;
+    BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
+    BtnInfo: TCastleButton;
   Status: TCastleLabel;
 
   CurrentViewpointIdx: integer;
@@ -62,13 +64,14 @@ var
 { One-time initialization. }
 procedure ApplicationInitialize;
 const
-  ButtonPadding = 30;
+  ButtonPadding = 20;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
 
   SceneBoundingBox := nil;
   CurrentViewpointIdx := 0;
+  StateInfoDlg := TStateInfoDlg.Create(Application);
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
   StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
 
@@ -117,6 +120,15 @@ begin
   BtnOptions.PaddingHorizontal := ButtonPadding;
   BtnOptions.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnOptions);
+
+  BtnInfo := TCastleButton.Create(Window);
+  BtnInfo.Caption := '(i)';
+  BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
+  BtnInfo.Left := 700;
+  BtnInfo.Bottom := 0;
+  BtnInfo.PaddingHorizontal := ButtonPadding;
+  BtnInfo.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnInfo);
 
   BtnViewpointPrev := TCastleButton.Create(Window);
   BtnViewpointPrev.Caption := '<';
@@ -192,6 +204,10 @@ begin
 
   Window.MainScene.Collides := AppOptions.CollisionsOn;
 
+  { // TODO: not implemented in the engine for OpenGLES yet
+  Window.MainScene.Attributes.WireframeEffect := weWireframeOnly;
+  Window.MainScene.Attributes.WireframeColor  := RedRGB;}
+
   CurrentViewpointIdx := 0;
   ViewpointsPresent := Window.MainScene.ViewpointsCount > 0;
   BtnViewpointPrev.Exists := ViewpointsPresent;
@@ -245,6 +261,12 @@ class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
 begin
   StateOptionsDlg.FScene := Window.MainScene;
   TUIState.Push(StateOptionsDlg);
+end;
+
+class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
+begin
+  StateInfoDlg.FScene := Window.MainScene;
+  TUIState.Push(StateInfoDlg);
 end;
 
 class procedure TButtonsHandler.BtnViewpointNextClick(Sender: TObject);
