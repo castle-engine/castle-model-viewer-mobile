@@ -55,6 +55,8 @@ var
   BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions: TCastleButton;
   Status: TCastleLabel;
 
+  SceneBoundingBox: TShapeNode;
+
 { One-time initialization. }
 procedure ApplicationInitialize;
 const
@@ -63,6 +65,7 @@ begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
 
+  SceneBoundingBox := nil;
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
 
   // Create UI
@@ -119,12 +122,35 @@ begin
   Window.Controls.InsertFront(Status);
 end;
 
+procedure InitializeSceneBoundingBox;
+var
+  BoxNode: TBoxNode;
+  Material: TMaterialNode;
+begin
+  BoxNode := TBoxNode.Create;
+  BoxNode.Size := Window.MainScene.BoundingBox.Size;
+
+  Material := TMaterialNode.Create;
+  Material.ForcePureEmissive;
+  Material.EmissiveColor := GreenRGB;
+
+  SceneBoundingBox := TShapeNode.Create;
+  SceneBoundingBox.Geometry := BoxNode;
+  SceneBoundingBox.Shading := shWireframe;
+  SceneBoundingBox.Material := Material;
+  SceneBoundingBox.Appearance.ShadowCaster := false;
+
+  Window.MainScene.RootNode.AddChildren(SceneBoundingBox);
+end;
+
 procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
 var
   Url: string;
 begin
   if Length(FileNames) = 0 then Exit;
   Url := FileNames[0];
+
+  SceneBoundingBox := nil;
 
   Application.Log(etInfo, 'Opened ' + Url);
 
@@ -141,6 +167,16 @@ begin
   if Status.Exists then
     Status.Caption := Format('FPS: %f (real : %f)',
       [Window.Fps.OnlyRenderFps, Window.Fps.RealFps]);
+
+  if (Window.MainScene <> nil) and (Assigned(SceneBoundingBox) <> AppOptions.ShowBBox) then
+  begin
+    if AppOptions.ShowBBox then
+      InitializeSceneBoundingBox
+    else begin
+      Window.MainScene.RootNode.RemoveChildren(SceneBoundingBox);
+      SceneBoundingBox := nil;
+    end;
+  end;
 
 end;
 
