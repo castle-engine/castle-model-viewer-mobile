@@ -36,8 +36,9 @@ uses Classes, SysUtils, Math,
   CastleControls, CastleKeysMouse, CastleFilesUtils, Castle2DSceneManager,
   CastleVectors, CastleBoxes, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
-  CastleCameras, CastleWindow, CastleScene,
+  CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
   CastleGLImages,
+  CastleDialogStates,
   X3DNodes,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
 
@@ -52,6 +53,7 @@ type
     class procedure BtnViewpointListClick(Sender: TObject);
     class procedure ViewpointSelected(ViewpointIdx: integer);
     class procedure BoundNavigationInfoChanged(Sender: TObject);
+    class procedure OnWarningHandle(Sender: TObject; const Category, S: string);
   end;
 
 var
@@ -63,6 +65,8 @@ var
 
   CurrentViewpointIdx: integer;
   SceneBoundingBox: TTransformNode;
+  SceneWarnings: TStringList;
+  SceneWarningsDlg: TStateDialogOK;
 
 { One-time initialization. }
 procedure ApplicationInitialize;
@@ -77,8 +81,12 @@ begin
   StateInfoDlg := TStateInfoDlg.Create(Application);
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
   StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
+  SceneWarningsDlg := TStateDialogOK.Create(Application);
+
+  SceneWarnings := TStringList.Create;
 
   Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
+  ApplicationProperties.OnWarning.Add(@TButtonsHandler(nil).OnWarningHandle);
 
   // Create UI
   ToolbarPanel := TCastlePanel.Create(Application);
@@ -266,6 +274,17 @@ begin
   Window.MainScene.RootNode.AddChildren(SceneBoundingBox);
 end;
 
+class procedure TButtonsHandler.OnWarningHandle(Sender: TObject; const Category, S: string);
+begin
+  SceneWarnings.Add(Category + ': ' + S);
+
+  // show only when not other warnings arrive within that timer
+  if TUIState.Current = SceneWarningsDlg then
+    TUIState.Pop;
+  SceneWarningsDlg.Caption := SceneWarnings.Text;
+  TUIState.Push(SceneWarningsDlg);
+end;
+
 procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
 var
   Url: string;
@@ -275,6 +294,7 @@ begin
   Url := FileNames[0];
 
   SceneBoundingBox := nil;
+  SceneWarnings.Clear;
 
   Application.Log(etInfo, 'Opened ' + Url);
 
