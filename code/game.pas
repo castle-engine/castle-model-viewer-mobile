@@ -309,8 +309,14 @@ begin
 end;
 
 class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
+var
+  Statistics: TRenderStatistics;
 begin
+  Statistics := Window.SceneManager.Statistics;
+
   StateInfoDlg.FScene := Window.MainScene;
+  StateInfoDlg.FStatistics := Format('Rendered shapes: %d / %d',
+                           [Statistics.ShapesRendered, Statistics.ShapesVisible]);
   TUIState.Push(StateInfoDlg);
 end;
 

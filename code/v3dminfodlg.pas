@@ -37,6 +37,7 @@ type
       Dialog: TInfoDialog;
   public
     FScene: TCastleScene;
+    FStatistics: string;
     procedure Start; override;
     function Press(const Event: TInputPressRelease): boolean; override;
   end;
@@ -64,7 +65,7 @@ begin
   inherited Create(AOwner);
 
   Width := 500;
-  Height := 700;
+  Height := 620;
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
@@ -85,11 +86,11 @@ begin
 
   LabelSceneStats := TCastleLabel.Create(Self);
   LabelSceneStats.Color := White;
-  LabelSceneStats.Caption := 'Scene has many and many triangles.';   // TODO!!!!!!
+  LabelSceneStats.Caption := StateInfoDlg.FStatistics;
   LabelSceneStats.Width := InsideRect.Width - 20;
   LabelSceneStats.Alignment := hpLeft;
   //LabelSceneStats.AutoSizeWidth := false;
-  LabelSceneStats.Anchor(hpMiddle);
+  LabelSceneStats.Anchor(hpLeft, 10);
   LabelSceneStats.Anchor(vpTop, -60);
   InsideRect.InsertFront(LabelSceneStats);
 
