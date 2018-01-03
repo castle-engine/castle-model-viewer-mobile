@@ -88,6 +88,8 @@ begin
   ChkShowBBox.Anchor(vpTop, -50);
   ChkShowBBox.PaddingHorizontal := 10;
   ChkShowBBox.OnClick := @ChkShowBBoxClick;
+  ChkShowBBox.Toggle := true;
+  ChkShowBBox.Pressed := AppOptions.ShowBBox;
   InsideRect.InsertFront(ChkShowBBox);
 
   ChkShowFps := TCastleButton.Create(Self);
@@ -96,6 +98,8 @@ begin
   ChkShowFps.Anchor(vpTop, -100);
   ChkShowFps.PaddingHorizontal := 10;
   ChkShowFps.OnClick := @ChkShowFpsClick;
+  ChkShowFps.Toggle := true;
+  ChkShowFps.Pressed := AppOptions.ShowFps;
   InsideRect.InsertFront(ChkShowFps);
 
   ChkHeadlight := TCastleButton.Create(Self);
@@ -105,8 +109,9 @@ begin
   ChkHeadlight.PaddingHorizontal := 10;
   ChkHeadlight.OnClick := @ChkHeadlightClick;
   ChkHeadlight.Enabled := Assigned(StateOptionsDlg.FScene);
-  //if Assigned(StateOptionsDlg.FScene) then
-  //  ChkHeadlight.Checked := StateOptionsDlg.FScene.HeadLightOn;
+  ChkHeadlight.Toggle := true;
+  if Assigned(StateOptionsDlg.FScene) then
+    ChkHeadlight.Pressed := StateOptionsDlg.FScene.HeadLightOn;
   InsideRect.InsertFront(ChkHeadlight);
 
   ChkCollisions := TCastleButton.Create(Self);
@@ -115,33 +120,38 @@ begin
   ChkCollisions.Anchor(vpTop, -200);
   ChkCollisions.PaddingHorizontal := 10;
   ChkCollisions.OnClick := @ChkCollisionsClick;
+  ChkCollisions.Toggle := true;
+  ChkCollisions.Pressed := AppOptions.CollisionsOn;
   InsideRect.InsertFront(ChkCollisions);
 
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.ChkShowBBoxClick(Sender: TObject);
 begin
-  AppOptions.ShowBBox := not AppOptions.ShowBBox;
+  ChkShowBBox.Pressed := not ChkShowBBox.Pressed;
+  AppOptions.ShowBBox := ChkShowBBox.Pressed;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.ChkShowFpsClick(Sender: TObject);
 begin
-  AppOptions.ShowFps := not AppOptions.ShowFps;
+  ChkShowFps.Pressed := not ChkShowFps.Pressed;
+  AppOptions.ShowFps := ChkShowFps.Pressed;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.ChkHeadlightClick(Sender: TObject);
 begin
+  ChkHeadlight.Pressed := not ChkHeadlight.Pressed;
   if Assigned(StateOptionsDlg.FScene) then
-  //  StateOptionsDlg.FScene.HeadLightOn := ChkHeadlight.Checked;
-    StateOptionsDlg.FScene.HeadLightOn := not StateOptionsDlg.FScene.HeadLightOn;
+    StateOptionsDlg.FScene.HeadLightOn := ChkHeadlight.Pressed;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.ChkCollisionsClick(Sender: TObject);
 begin
-  AppOptions.CollisionsOn := not AppOptions.CollisionsOn;
+  ChkCollisions.Pressed := not ChkCollisions.Pressed;
+  AppOptions.CollisionsOn := ChkCollisions.Pressed;
 
   if Assigned(StateOptionsDlg.FScene) then
-    StateOptionsDlg.FScene.Collides := not AppOptions.CollisionsOn;
+    StateOptionsDlg.FScene.Collides := ChkCollisions.Pressed;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.DoAnswered;

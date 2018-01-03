@@ -45,17 +45,19 @@ uses Classes, SysUtils, Math,
 type
   TButtonsHandler = class
     class procedure BtnNavClick(Sender: TObject);
+    class procedure BtnScreenshotClick(Sender: TObject);
     class procedure BtnOptionsClick(Sender: TObject);
     class procedure BtnInfoClick(Sender: TObject);
     class procedure BtnViewpointNextClick(Sender: TObject);
     class procedure BtnViewpointListClick(Sender: TObject);
     class procedure ViewpointSelected(ViewpointIdx: integer);
+    class procedure BoundNavigationInfoChanged(Sender: TObject);
   end;
 
 var
-  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
+  BtnNavWalk, BtnNavFly, BtnNavExamine, {BtnNavTurntable,} BtnOptions,
     BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
-    BtnInfo: TCastleButton;
+    BtnScreenshot, BtnInfo: TCastleButton;
   Status: TCastleLabel;
 
   CurrentViewpointIdx: integer;
@@ -75,10 +77,16 @@ begin
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
   StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
 
+  Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
+
   // Create UI
+  // TODO: check view3Dscene.CreateStatusToolbar
+
   BtnNavWalk := TCastleButton.Create(Window);
-  BtnNavWalk.Caption := 'Walk';
+  //BtnNavWalk.Caption := 'Walk';
+  BtnNavWalk.Image := CastleImages.LoadImage(ApplicationData('nav_walk.png'));
   BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavClick;
+  BtnNavWalk.Toggle := true;
   BtnNavWalk.Left := 0;
   BtnNavWalk.Bottom := 0;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
@@ -86,8 +94,10 @@ begin
   Window.Controls.InsertFront(BtnNavWalk);
 
   BtnNavFly := TCastleButton.Create(Window);
-  BtnNavFly.Caption := 'Fly';
+  //BtnNavFly.Caption := 'Fly';
+  BtnNavFly.Image := CastleImages.LoadImage(ApplicationData('nav_fly.png'));
   BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavClick;
+  BtnNavFly.Toggle := true;
   BtnNavFly.Left := 150;
   BtnNavFly.Bottom := 0;
   BtnNavFly.PaddingHorizontal := ButtonPadding;
@@ -95,22 +105,33 @@ begin
   Window.Controls.InsertFront(BtnNavFly);
 
   BtnNavExamine := TCastleButton.Create(Window);
-  BtnNavExamine.Caption := 'Examine';
+  //BtnNavExamine.Caption := 'Examine';
+  BtnNavExamine.Image := CastleImages.LoadImage(ApplicationData('nav_examine.png'));
   BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavClick;
+  BtnNavExamine.Toggle := true;
   BtnNavExamine.Left := 300;
   BtnNavExamine.Bottom := 0;
   BtnNavExamine.PaddingHorizontal := ButtonPadding;
   BtnNavExamine.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavExamine);
 
-  BtnNavTurntable := TCastleButton.Create(Window);
+  {BtnNavTurntable := TCastleButton.Create(Window);
   BtnNavTurntable.Caption := 'Turntable';
   BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavTurntable.Left := 450;
   BtnNavTurntable.Bottom := 0;
   BtnNavTurntable.PaddingHorizontal := ButtonPadding;
   BtnNavTurntable.PaddingVertical := ButtonPadding;
-  Window.Controls.InsertFront(BtnNavTurntable);
+  Window.Controls.InsertFront(BtnNavTurntable);}
+
+  BtnScreenshot := TCastleButton.Create(Window);
+  BtnScreenshot.Image := CastleImages.LoadImage(ApplicationData('screenshot.png'));
+  BtnScreenshot.OnClick := @TButtonsHandler(nil).BtnScreenshotClick;
+  BtnScreenshot.Left := 450;
+  BtnScreenshot.Bottom := 0;
+  BtnScreenshot.PaddingHorizontal := ButtonPadding;
+  BtnScreenshot.PaddingVertical := ButtonPadding;
+  Window.Controls.InsertFront(BtnScreenshot);
 
   BtnOptions := TCastleButton.Create(Window);
   BtnOptions.Caption := 'Options';
@@ -252,9 +273,33 @@ begin
   else if Sender = BtnNavFly then
     Window.NavigationType := ntFly
   else if Sender = BtnNavExamine then
-    Window.NavigationType := ntExamine
-  else if Sender = BtnNavTurntable then
-    Window.NavigationType := ntTurntable;
+    Window.NavigationType := ntExamine;
+  {else if Sender = BtnNavTurntable then
+    Window.NavigationType := ntTurntable;}
+  BoundNavigationInfoChanged(Sender);
+end;
+
+class procedure TButtonsHandler.BoundNavigationInfoChanged(Sender: TObject);
+var
+  NavType: TNavigationType;
+begin
+  NavType := Window.NavigationType;
+  BtnNavWalk.Pressed := (NavType = ntWalk);
+  BtnNavFly.Pressed := (NavType = ntFly);
+  BtnNavExamine.Pressed := ((NavType = ntExamine) or (NavType = ntTurntable));
+end;
+
+class procedure TButtonsHandler.BtnScreenshotClick(Sender: TObject);
+var
+  Image: TRGBImage;
+begin
+  // TODO: hide controls
+  Image := Window.SaveScreen;
+  try
+    //SaveImage(Image, File);
+  finally FreeAndNil(Image) end;
+  // TODO: show controls
+  // TODO: save to photos app
 end;
 
 class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
