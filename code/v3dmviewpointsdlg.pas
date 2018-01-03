@@ -37,6 +37,7 @@ type
       Dialog: TViewpointsDialog;
   public
     FScene: TCastleScene;
+    FCurrentViewpointIdx: integer;
     FOnViewpointSelected: TViewpointSelectedEvent;
     procedure Start; override;
     function Press(const Event: TInputPressRelease): boolean; override;
@@ -56,16 +57,13 @@ constructor TStateViewpointsDlg.TViewpointsDialog.Create(AOwner: TComponent);
 var
   InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
-  I, ViewpointCount: integer;
+  I, ViewpointCount, NextTop: integer;
   ViewpointBtn: TCastleButton;
 begin
   inherited Create(AOwner);
 
-  if StateViewpointsDlg.FScene = nil then exit;
-  ViewpointCount := StateViewpointsDlg.FScene.ViewpointsCount;
-
   Width := 400;
-  Height := 50 * (ViewpointCount + 1) + 20;
+  Height := 500;
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
@@ -84,18 +82,31 @@ begin
   LabelWndTitle.Anchor(vpTop, -10);
   InsideRect.InsertFront(LabelWndTitle);
 
+  NextTop := -50; // title size
+
+  if Assigned(StateViewpointsDlg.FScene) then
+     ViewpointCount := StateViewpointsDlg.FScene.ViewpointsCount
+  else
+     ViewpointCount := 0;
+
   for I := 0 to ViewpointCount - 1 do
   begin
     ViewpointBtn := TCastleButton.Create(Self);
     ViewpointBtn.Caption := StateViewpointsDlg.FScene.GetViewpointName(I);
     ViewpointBtn.OnClick := @ViewpointNameClick;
     ViewpointBtn.Tag := I;
+    ViewpointBtn.Toggle := true;
+    ViewpointBtn.Pressed := (I = StateViewpointsDlg.FCurrentViewpointIdx);
     ViewpointBtn.AutoSizeWidth := false;
-    ViewpointBtn.Width := InsideRect.Width - 2;
+    ViewpointBtn.Width := InsideRect.Width - 20;
     ViewpointBtn.Anchor(hpMiddle);
-    ViewpointBtn.Anchor(vpTop, -50 * (I+1));
+    ViewpointBtn.Anchor(vpTop, NextTop);
     InsideRect.InsertFront(ViewpointBtn);
+    NextTop := NextTop - ViewpointBtn.CalculatedHeight;
   end;
+
+  Height := -NextTop + 20;
+  InsideRect.Height := CalculatedHeight - 10;
 end;
 
 procedure TStateViewpointsDlg.TViewpointsDialog.ViewpointNameClick(Sender: TObject);

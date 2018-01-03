@@ -34,7 +34,7 @@ implementation
 
 uses Classes, SysUtils, Math,
   CastleControls, CastleKeysMouse, CastleFilesUtils, Castle2DSceneManager,
-  CastleVectors, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
+  CastleVectors, CastleBoxes, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
   CastleCameras, CastleWindow, CastleScene,
   CastleGLImages,
@@ -58,10 +58,11 @@ var
   BtnNavWalk, BtnNavFly, BtnNavExamine, {BtnNavTurntable,} BtnOptions,
     BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
     BtnScreenshot, BtnInfo: TCastleButton;
+  ToolbarPanel: TCastlePanel;
   Status: TCastleLabel;
 
   CurrentViewpointIdx: integer;
-  SceneBoundingBox: TShapeNode;
+  SceneBoundingBox: TTransformNode;
 
 { One-time initialization. }
 procedure ApplicationInitialize;
@@ -80,6 +81,9 @@ begin
   Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
 
   // Create UI
+  ToolbarPanel := TCastlePanel.Create(Application);
+  ToolbarPanel.VerticalSeparators.Count := 3;
+  Window.Controls.InsertFront(ToolbarPanel);
   // TODO: check view3Dscene.CreateStatusToolbar
 
   BtnNavWalk := TCastleButton.Create(Window);
@@ -87,8 +91,6 @@ begin
   BtnNavWalk.Image := CastleImages.LoadImage(ApplicationData('nav_walk.png'));
   BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavWalk.Toggle := true;
-  BtnNavWalk.Left := 0;
-  BtnNavWalk.Bottom := 0;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
   BtnNavWalk.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavWalk);
@@ -98,8 +100,6 @@ begin
   BtnNavFly.Image := CastleImages.LoadImage(ApplicationData('nav_fly.png'));
   BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavFly.Toggle := true;
-  BtnNavFly.Left := 150;
-  BtnNavFly.Bottom := 0;
   BtnNavFly.PaddingHorizontal := ButtonPadding;
   BtnNavFly.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavFly);
@@ -109,8 +109,6 @@ begin
   BtnNavExamine.Image := CastleImages.LoadImage(ApplicationData('nav_examine.png'));
   BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavExamine.Toggle := true;
-  BtnNavExamine.Left := 300;
-  BtnNavExamine.Bottom := 0;
   BtnNavExamine.PaddingHorizontal := ButtonPadding;
   BtnNavExamine.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavExamine);
@@ -118,8 +116,6 @@ begin
   {BtnNavTurntable := TCastleButton.Create(Window);
   BtnNavTurntable.Caption := 'Turntable';
   BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
-  BtnNavTurntable.Left := 450;
-  BtnNavTurntable.Bottom := 0;
   BtnNavTurntable.PaddingHorizontal := ButtonPadding;
   BtnNavTurntable.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavTurntable);}
@@ -127,8 +123,6 @@ begin
   BtnScreenshot := TCastleButton.Create(Window);
   BtnScreenshot.Image := CastleImages.LoadImage(ApplicationData('screenshot.png'));
   BtnScreenshot.OnClick := @TButtonsHandler(nil).BtnScreenshotClick;
-  BtnScreenshot.Left := 450;
-  BtnScreenshot.Bottom := 0;
   BtnScreenshot.PaddingHorizontal := ButtonPadding;
   BtnScreenshot.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnScreenshot);
@@ -136,8 +130,6 @@ begin
   BtnOptions := TCastleButton.Create(Window);
   BtnOptions.Caption := 'Options';
   BtnOptions.OnClick := @TButtonsHandler(nil).BtnOptionsClick;
-  BtnOptions.Left := 600;
-  BtnOptions.Bottom := 0;
   BtnOptions.PaddingHorizontal := ButtonPadding;
   BtnOptions.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnOptions);
@@ -145,8 +137,6 @@ begin
   BtnInfo := TCastleButton.Create(Window);
   BtnInfo.Caption := '(i)';
   BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
-  BtnInfo.Left := 700;
-  BtnInfo.Bottom := 0;
   BtnInfo.PaddingHorizontal := ButtonPadding;
   BtnInfo.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnInfo);
@@ -154,8 +144,6 @@ begin
   BtnViewpointPrev := TCastleButton.Create(Window);
   BtnViewpointPrev.Caption := '<';
   BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
-  BtnViewpointPrev.Left := 400;
-  BtnViewpointPrev.Bottom := 80;
   BtnViewpointPrev.PaddingHorizontal := ButtonPadding;
   BtnViewpointPrev.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnViewpointPrev);
@@ -163,8 +151,6 @@ begin
   BtnViewpointList := TCastleButton.Create(Window);
   BtnViewpointList.Caption := 'Viewpoints';
   BtnViewpointList.OnClick := @TButtonsHandler(nil).BtnViewpointListClick;
-  BtnViewpointList.Left := 450;
-  BtnViewpointList.Bottom := 80;
   BtnViewpointList.PaddingHorizontal := ButtonPadding;
   BtnViewpointList.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnViewpointList);
@@ -172,37 +158,110 @@ begin
   BtnViewpointNext := TCastleButton.Create(Window);
   BtnViewpointNext.Caption := '>';
   BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
-  BtnViewpointNext.Left := 600;
-  BtnViewpointNext.Bottom := 80;
   BtnViewpointNext.PaddingHorizontal := ButtonPadding;
   BtnViewpointNext.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnViewpointNext);
 
   Status := TCastleLabel.Create(Window);
+  Status.Caption := ' ';
   Status.Padding := 5;
   Status.Color := Red;
-  Status.Left := 10;
-  Status.Anchor(vpTop, -50);
   Window.Controls.InsertFront(Status);
+end;
+
+procedure WindowResize(Container: TUIContainer);
+const
+  ToolbarMargin = 5;  {< between buttons and toolbar panel }
+  ButtonsMargin = 8; {< between buttons }
+  ButtonsSeparatorsMargin = 8; {< between buttons and separators }
+var
+  NextLeft, ButtonsHeight, ButtonsBottom: Integer;
+  NextTop: Integer;
+begin
+  NextLeft := ToolbarMargin;
+  NextTop := Window.Height;
+  NextTop := NextTop - 50; // Device status bar height (window extends below it)
+
+  ButtonsHeight := Max(BtnNavExamine.CalculatedHeight, BtnOptions.CalculatedHeight);
+  ButtonsBottom := NextTop - ButtonsHeight - ToolbarMargin;
+
+  if ToolbarPanel.Exists then
+  begin
+    ToolbarPanel.Left := 0;
+    ToolbarPanel.Width := Window.Width;
+    ToolbarPanel.Height := ButtonsHeight + ToolbarMargin * 2;
+    ToolbarPanel.Bottom := NextTop - ToolbarPanel.Height;
+    NextTop := ToolbarPanel.Bottom;
+
+    BtnNavWalk.Left := NextLeft;
+    BtnNavWalk.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnNavWalk.CalculatedWidth;
+    BtnNavFly.Left := NextLeft;
+    BtnNavFly.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnNavFly.CalculatedWidth;
+    BtnNavExamine.Left := NextLeft;
+    BtnNavExamine.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnNavExamine.CalculatedWidth + ButtonsSeparatorsMargin;
+
+    ToolbarPanel.VerticalSeparators[0] := NextLeft;
+    NextLeft := NextLeft + ToolbarPanel.SeparatorSize + ButtonsSeparatorsMargin;
+
+    BtnViewpointPrev.Left := NextLeft;
+    BtnViewpointPrev.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnViewpointPrev.CalculatedWidth;
+    BtnViewpointList.Left := NextLeft;
+    BtnViewpointList.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnViewpointList.CalculatedWidth;
+    BtnViewpointNext.Left := NextLeft;
+    BtnViewpointNext.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnViewpointNext.CalculatedWidth + ButtonsSeparatorsMargin;
+
+    ToolbarPanel.VerticalSeparators[1] := NextLeft;
+    NextLeft := NextLeft + ToolbarPanel.SeparatorSize + ButtonsSeparatorsMargin;
+
+    BtnScreenshot.Left := NextLeft;
+    BtnScreenshot.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnScreenshot.CalculatedWidth + ButtonsSeparatorsMargin;
+
+    ToolbarPanel.VerticalSeparators[2] := NextLeft;
+    NextLeft := NextLeft + ToolbarPanel.SeparatorSize + ButtonsSeparatorsMargin;
+
+    BtnOptions.Left := NextLeft;
+    BtnOptions.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnOptions.CalculatedWidth + ButtonsMargin;
+    BtnInfo.Left := NextLeft;
+    BtnInfo.Bottom := ButtonsBottom;
+    NextLeft := NextLeft + BtnInfo.CalculatedWidth + ButtonsMargin;
+  end;
+
+  Status.Left := 10;
+  Status.Bottom := NextTop - ButtonsMargin - Status.CalculatedHeight;
 end;
 
 procedure InitializeSceneBoundingBox;
 var
+  BBox: TBox3D;
   BoxNode: TBoxNode;
+  ShapeNode: TShapeNode;
   Material: TMaterialNode;
 begin
+  BBox := Window.MainScene.BoundingBox;
   BoxNode := TBoxNode.Create;
-  BoxNode.Size := Window.MainScene.BoundingBox.Size;
+  BoxNode.Size := BBox.Size;
 
   Material := TMaterialNode.Create;
   Material.ForcePureEmissive;
   Material.EmissiveColor := GreenRGB;
 
-  SceneBoundingBox := TShapeNode.Create;
-  SceneBoundingBox.Geometry := BoxNode;
-  SceneBoundingBox.Shading := shWireframe;
-  SceneBoundingBox.Material := Material;
-  SceneBoundingBox.Appearance.ShadowCaster := false;
+  ShapeNode := TShapeNode.Create;
+  ShapeNode.Geometry := BoxNode;
+  ShapeNode.Shading := shWireframe;
+  ShapeNode.Material := Material;
+  ShapeNode.Appearance.ShadowCaster := false;
+
+  SceneBoundingBox := TTransformNode.Create;
+  SceneBoundingBox.Translation := BBox.Center;
+  SceneBoundingBox.AddChildren(ShapeNode);
 
   Window.MainScene.RootNode.AddChildren(SceneBoundingBox);
 end;
@@ -231,9 +290,9 @@ begin
 
   CurrentViewpointIdx := 0;
   ViewpointsPresent := Window.MainScene.ViewpointsCount > 0;
-  BtnViewpointPrev.Exists := ViewpointsPresent;
-  BtnViewpointList.Exists := ViewpointsPresent;
-  BtnViewpointNext.Exists := ViewpointsPresent;
+  BtnViewpointPrev.Enabled := ViewpointsPresent;
+  BtnViewpointList.Enabled := ViewpointsPresent;
+  BtnViewpointNext.Enabled := ViewpointsPresent;
 end;
 
 procedure WindowUpdate(Container: TUIContainer);
@@ -254,15 +313,6 @@ begin
       SceneBoundingBox := nil;
     end;
   end;
-
-end;
-
-procedure WindowPress(Container: TUIContainer; const Event: TInputPressRelease);
-begin
-  if Event.IsKey(K_F5) then
-    Window.SaveScreen(FileNameAutoInc(ApplicationName + '_screen_%d.png'));
-  if Event.IsKey(K_Escape) then
-    Application.Terminate;
 
 end;
 
@@ -311,12 +361,14 @@ end;
 class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
 var
   Statistics: TRenderStatistics;
+  NumShapesSkip: integer;
 begin
   Statistics := Window.SceneManager.Statistics;
+  if SceneBoundingBox <> nil then NumShapesSkip := 1 else NumShapesSkip := 0;
 
   StateInfoDlg.FScene := Window.MainScene;
   StateInfoDlg.FStatistics := Format('Rendered shapes: %d / %d',
-                           [Statistics.ShapesRendered, Statistics.ShapesVisible]);
+    [Statistics.ShapesRendered - NumShapesSkip, Statistics.ShapesVisible - NumShapesSkip]);
   TUIState.Push(StateInfoDlg);
 end;
 
@@ -339,6 +391,7 @@ end;
 class procedure TButtonsHandler.BtnViewpointListClick(Sender: TObject);
 begin
   StateViewpointsDlg.FScene := Window.MainScene;
+  StateViewpointsDlg.FCurrentViewpointIdx := CurrentViewpointIdx;
   StateViewpointsDlg.FOnViewpointSelected := @TButtonsHandler(nil).ViewpointSelected;
   TUIState.Push(StateViewpointsDlg);
 end;
@@ -365,7 +418,7 @@ initialization
 
   { create Window and initialize Window callbacks }
   Window := TCastleWindowTouch.Create(Application);
-  Window.OnPress := @WindowPress;
+  Window.OnResize := @WindowResize;
   Window.OnUpdate := @WindowUpdate;
   Window.OnDropFiles := @WindowDropFiles;
   Window.FpsShowOnCaption := false;
