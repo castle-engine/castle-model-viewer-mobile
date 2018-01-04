@@ -71,7 +71,7 @@ var
 { One-time initialization. }
 procedure ApplicationInitialize;
 const
-  ButtonPadding = 20;
+  ButtonPadding = 6;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -89,8 +89,10 @@ begin
   ApplicationProperties.OnWarning.Add(@TButtonsHandler(nil).OnWarningHandle);
 
   // Create UI
+  Window.Container.UIExplicitScale := Window.Dpi / 96.0;
+  Window.Container.UIScaling := usExplicitScale;
+
   ToolbarPanel := TCastlePanel.Create(Application);
-  ToolbarPanel.VerticalSeparators.Count := 3;
   Window.Controls.InsertFront(ToolbarPanel);
   // TODO: check view3Dscene.CreateStatusToolbar
 
@@ -179,25 +181,25 @@ end;
 
 procedure WindowResize(Container: TUIContainer);
 const
-  ToolbarMargin = 5;  {< between buttons and toolbar panel }
-  ButtonsMargin = 8; {< between buttons }
-  ButtonsSeparatorsMargin = 8; {< between buttons and separators }
+  ToolbarMargin = 2;  {< between buttons and toolbar panel }
+  ButtonsMargin = 5; {< between buttons }
+  ButtonsSeparatorsMargin = 4; {< between buttons and separators }
+  OSStatusBarHeight = 24;   { window extends below top status bar (clock, battery), TODO: get the exact size}
 var
   NextLeft, ButtonsHeight, ButtonsBottom: Integer;
   NextTop: Integer;
 begin
   NextLeft := ToolbarMargin;
-  NextTop := Window.Height;
-  NextTop := NextTop - 50; // Device status bar height (window extends below it)
+  NextTop := Window.Container.UnscaledHeight;
 
   ButtonsHeight := Max(BtnNavExamine.CalculatedHeight, BtnOptions.CalculatedHeight);
-  ButtonsBottom := NextTop - ButtonsHeight - ToolbarMargin;
+  ButtonsBottom := NextTop - ButtonsHeight - ToolbarMargin - OSStatusBarHeight;
 
   if ToolbarPanel.Exists then
   begin
     ToolbarPanel.Left := 0;
-    ToolbarPanel.Width := Window.Width;
-    ToolbarPanel.Height := ButtonsHeight + ToolbarMargin * 2;
+    ToolbarPanel.Width := Window.Container.UnscaledWidth;
+    ToolbarPanel.Height := ButtonsHeight + ToolbarMargin * 2 + OSStatusBarHeight;
     ToolbarPanel.Bottom := NextTop - ToolbarPanel.Height;
     NextTop := ToolbarPanel.Bottom;
 
@@ -211,8 +213,7 @@ begin
     BtnNavExamine.Bottom := ButtonsBottom;
     NextLeft := NextLeft + BtnNavExamine.CalculatedWidth + ButtonsSeparatorsMargin;
 
-    ToolbarPanel.VerticalSeparators[0] := NextLeft;
-    NextLeft := NextLeft + ToolbarPanel.SeparatorSize + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + ButtonsSeparatorsMargin;
 
     BtnViewpointPrev.Left := NextLeft;
     BtnViewpointPrev.Bottom := ButtonsBottom;
@@ -224,15 +225,13 @@ begin
     BtnViewpointNext.Bottom := ButtonsBottom;
     NextLeft := NextLeft + BtnViewpointNext.CalculatedWidth + ButtonsSeparatorsMargin;
 
-    ToolbarPanel.VerticalSeparators[1] := NextLeft;
-    NextLeft := NextLeft + ToolbarPanel.SeparatorSize + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + ButtonsSeparatorsMargin;
 
     BtnScreenshot.Left := NextLeft;
     BtnScreenshot.Bottom := ButtonsBottom;
     NextLeft := NextLeft + BtnScreenshot.CalculatedWidth + ButtonsSeparatorsMargin;
 
-    ToolbarPanel.VerticalSeparators[2] := NextLeft;
-    NextLeft := NextLeft + ToolbarPanel.SeparatorSize + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + ButtonsSeparatorsMargin;
 
     BtnOptions.Left := NextLeft;
     BtnOptions.Bottom := ButtonsBottom;
@@ -282,6 +281,7 @@ begin
   if TUIState.Current = SceneWarningsDlg then
     TUIState.Pop;
   SceneWarningsDlg.Caption := SceneWarnings.Text;
+  SceneWarningsDlg.KeepInFront := true;
   TUIState.Push(SceneWarningsDlg);
 end;
 
