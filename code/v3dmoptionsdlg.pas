@@ -79,14 +79,13 @@ begin
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>Options</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, -10);
+  LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);
 
   ChkShowBBox := TCastleButton.Create(Self);
   ChkShowBBox.Caption := 'Show Bounding Box';
   ChkShowBBox.Anchor(hpLeft, 10);
   ChkShowBBox.Anchor(vpTop, -50);
-  ChkShowBBox.PaddingHorizontal := 10;
   ChkShowBBox.OnClick := @ChkShowBBoxClick;
   ChkShowBBox.Toggle := true;
   ChkShowBBox.Pressed := AppOptions.ShowBBox;
@@ -96,7 +95,6 @@ begin
   ChkShowFps.Caption := 'Show FPS';
   ChkShowFps.Anchor(hpLeft, 10);
   ChkShowFps.Anchor(vpTop, -100);
-  ChkShowFps.PaddingHorizontal := 10;
   ChkShowFps.OnClick := @ChkShowFpsClick;
   ChkShowFps.Toggle := true;
   ChkShowFps.Pressed := AppOptions.ShowFps;
@@ -106,7 +104,6 @@ begin
   ChkHeadlight.Caption := 'Headlight';
   ChkHeadlight.Anchor(hpLeft, 10);
   ChkHeadlight.Anchor(vpTop, -150);
-  ChkHeadlight.PaddingHorizontal := 10;
   ChkHeadlight.OnClick := @ChkHeadlightClick;
   ChkHeadlight.Enabled := Assigned(StateOptionsDlg.FScene);
   ChkHeadlight.Toggle := true;
@@ -118,7 +115,6 @@ begin
   ChkCollisions.Caption := 'Collisions';
   ChkCollisions.Anchor(hpLeft, 10);
   ChkCollisions.Anchor(vpTop, -200);
-  ChkCollisions.PaddingHorizontal := 10;
   ChkCollisions.OnClick := @ChkCollisionsClick;
   ChkCollisions.Toggle := true;
   ChkCollisions.Pressed := AppOptions.CollisionsOn;
@@ -171,7 +167,7 @@ begin
   InterceptInput := true;
 
   TransparentBackground := TCastleRectangleControl.Create(FreeAtStop);
-  TransparentBackground.Color := Vector4(0.1, 0.1, 0.1, 0.5);
+  TransparentBackground.Color := Theme.BackgroundColor;
   TransparentBackground.FullSize := true;
   InsertFront(TransparentBackground);
 

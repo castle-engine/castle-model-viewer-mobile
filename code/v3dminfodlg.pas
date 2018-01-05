@@ -64,8 +64,8 @@ var
 begin
   inherited Create(AOwner);
 
-  Width := 500;
-  Height := 620;
+  Width := 320;
+  Height := 500;
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
@@ -81,49 +81,49 @@ begin
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>About</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, -10);
+  LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);
 
   LabelSceneStats := TCastleLabel.Create(Self);
-  LabelSceneStats.Color := White;
+  LabelSceneStats.Color := Silver;
+  LabelSceneStats.SmallFont := true;
   LabelSceneStats.Caption := StateInfoDlg.FStatistics;
   LabelSceneStats.Width := InsideRect.Width - 20;
   LabelSceneStats.Alignment := hpLeft;
   //LabelSceneStats.AutoSizeWidth := false;
   LabelSceneStats.Anchor(hpLeft, 10);
-  LabelSceneStats.Anchor(vpTop, -60);
+  LabelSceneStats.Anchor(vpTop, -30);
   InsideRect.InsertFront(LabelSceneStats);
 
   BtnOpenGlInfo := TCastleButton.Create(Self);
   BtnOpenGlInfo.Caption := 'OpenGL information';
   BtnOpenGlInfo.Anchor(hpMiddle);
-  BtnOpenGlInfo.Anchor(vpBottom, 460);
-  BtnOpenGlInfo.PaddingHorizontal := 20;
+  BtnOpenGlInfo.Anchor(vpBottom, 390);
   BtnOpenGlInfo.OnClick := @BtnOpenGlInfoClick;
   InsideRect.InsertFront(BtnOpenGlInfo);
 
   ImgLogo := TCastleImageControl.Create(Self);
   ImgLogo.URL := ApplicationData('castle_game_engine_icon.png');
   ImgLogo.Anchor(hpMiddle);
-  ImgLogo.Anchor(vpBottom, 160);
+  ImgLogo.Anchor(vpBottom, 120);
   InsideRect.InsertFront(ImgLogo);
 
   LabelAbout := TCastleLabel.Create(Self);
-  LabelAbout.Color := White;
+  LabelAbout.Color := Silver;
+  LabelAbout.SmallFont := true;
   LabelAbout.Caption := 'This application uses Castle Game Engine,' + NL
                      +  'open-source multi-platform 3D engine' + NL
                      +  'written in Modern Pascal.';
   LabelAbout.Width := InsideRect.Width - 40;
   //LabelSceneStats.AutoSizeWidth := false;
   LabelAbout.Anchor(hpMiddle);
-  LabelAbout.Anchor(vpBottom, 70);
+  LabelAbout.Anchor(vpBottom, 60);
   InsideRect.InsertFront(LabelAbout);
 
   BtnDonate := TCastleButton.Create(Self);
   BtnDonate.Caption := 'Donate';
   BtnDonate.Anchor(hpLeft, 10);
   BtnDonate.Anchor(vpBottom, 10);
-  BtnDonate.PaddingHorizontal := 40;
   BtnDonate.OnClick := @BtnDonateClick;
   InsideRect.InsertFront(BtnDonate);
 
@@ -131,7 +131,6 @@ begin
   BtnWeb.Caption := 'Website';
   BtnWeb.Anchor(hpRight, -10);
   BtnWeb.Anchor(vpBottom, 10);
-  BtnWeb.PaddingHorizontal := 40;
   BtnWeb.OnClick := @BtnWebClick;
   InsideRect.InsertFront(BtnWeb);
 end;
@@ -172,7 +171,7 @@ begin
   InterceptInput := true;
 
   TransparentBackground := TCastleRectangleControl.Create(FreeAtStop);
-  TransparentBackground.Color := Vector4(0.1, 0.1, 0.1, 0.5);
+  TransparentBackground.Color := Theme.BackgroundColor;
   TransparentBackground.FullSize := true;
   InsertFront(TransparentBackground);
 

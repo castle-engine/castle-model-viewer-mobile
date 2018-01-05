@@ -37,7 +37,7 @@ uses Classes, SysUtils, Math,
   CastleVectors, CastleBoxes, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
   CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
-  CastleGLImages,
+  CastleGLImages, CastleFonts,
   CastleDialogStates,
   X3DNodes,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
@@ -74,6 +74,7 @@ const
   ButtonPadding = 6;
 var
   ButtonsHeight: Cardinal;
+  NewUIFont: TCastleFont;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -94,9 +95,17 @@ begin
   Window.Container.UIExplicitScale := Window.Dpi / 96.0;
   Window.Container.UIScaling := usExplicitScale;
 
+  Theme.BackgroundColor := Vector4(0.1, 0.1, 0.1, 0.5);
+  Theme.MessageTextColor := Silver;
+  Theme.Images[tiWindow] := CastleImages.LoadImage(ApplicationData('theme_window.png')); // dialog background color and frame
+
+  NewUIFont := UIFont;
+  NewUIFont.Size := NewUIFont.Size * 0.75;
+  UIFont := NewUIFont;
+  UIFontSmallScale := 0.8;
+
   ToolbarPanel := TCastlePanel.Create(Application);
   Window.Controls.InsertFront(ToolbarPanel);
-  // TODO: check view3Dscene.CreateStatusToolbar
 
   BtnNavWalk := TCastleButton.Create(Window);
   //BtnNavWalk.Caption := 'Walk';
@@ -194,6 +203,7 @@ begin
   Status.Caption := ' ';
   Status.Padding := 5;
   Status.Color := Red;
+  Status.SmallFont := true;
   Window.Controls.InsertFront(Status);
 end;
 

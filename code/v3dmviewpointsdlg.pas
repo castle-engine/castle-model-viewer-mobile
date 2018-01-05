@@ -79,10 +79,10 @@ begin
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>Viewpoints</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, -10);
+  LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);
 
-  NextTop := -50; // title size
+  NextTop := -40; // title size
 
   if Assigned(StateViewpointsDlg.FScene) then
      ViewpointCount := StateViewpointsDlg.FScene.ViewpointsCount
@@ -136,7 +136,7 @@ begin
   InterceptInput := true;
 
   TransparentBackground := TCastleRectangleControl.Create(FreeAtStop);
-  TransparentBackground.Color := Vector4(0.1, 0.1, 0.1, 0.5);
+  TransparentBackground.Color := Theme.BackgroundColor;
   TransparentBackground.FullSize := true;
   InsertFront(TransparentBackground);
 
