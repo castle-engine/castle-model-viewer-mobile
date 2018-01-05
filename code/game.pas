@@ -72,6 +72,8 @@ var
 procedure ApplicationInitialize;
 const
   ButtonPadding = 6;
+var
+  ButtonsHeight: Cardinal;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -123,6 +125,8 @@ begin
   BtnNavExamine.PaddingVertical := ButtonPadding;
   Window.Controls.InsertFront(BtnNavExamine);
 
+  ButtonsHeight := BtnNavExamine.CalculatedHeight;
+
   {BtnNavTurntable := TCastleButton.Create(Window);
   BtnNavTurntable.Caption := 'Turntable';
   BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
@@ -135,27 +139,37 @@ begin
   BtnScreenshot.OnClick := @TButtonsHandler(nil).BtnScreenshotClick;
   BtnScreenshot.PaddingHorizontal := ButtonPadding;
   BtnScreenshot.PaddingVertical := ButtonPadding;
+  BtnScreenshot.Height := ButtonsHeight;
+  BtnScreenshot.AutoSizeHeight := false;
   Window.Controls.InsertFront(BtnScreenshot);
 
   BtnOptions := TCastleButton.Create(Window);
-  BtnOptions.Caption := 'Options';
+  //BtnOptions.Caption := 'Options';
+  BtnOptions.Image := CastleImages.LoadImage(ApplicationData('gear-b.png'));
   BtnOptions.OnClick := @TButtonsHandler(nil).BtnOptionsClick;
   BtnOptions.PaddingHorizontal := ButtonPadding;
   BtnOptions.PaddingVertical := ButtonPadding;
+  BtnOptions.Height := ButtonsHeight;
+  BtnOptions.AutoSizeHeight := false;
   Window.Controls.InsertFront(BtnOptions);
 
   BtnInfo := TCastleButton.Create(Window);
-  BtnInfo.Caption := '(i)';
+  //BtnInfo.Caption := '(i)';
+  BtnInfo.Image := CastleImages.LoadImage(ApplicationData('info-circle.png'));
   BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
   BtnInfo.PaddingHorizontal := ButtonPadding;
   BtnInfo.PaddingVertical := ButtonPadding;
+  BtnInfo.Height := ButtonsHeight;
+  BtnInfo.AutoSizeHeight := false;
   Window.Controls.InsertFront(BtnInfo);
 
   BtnViewpointPrev := TCastleButton.Create(Window);
-  BtnViewpointPrev.Caption := '<';
+  BtnViewpointPrev.Image := CastleImages.LoadImage(ApplicationData('arrow-left-b.png'));
   BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
-  BtnViewpointPrev.PaddingHorizontal := ButtonPadding;
+  BtnViewpointPrev.PaddingHorizontal := 0;
   BtnViewpointPrev.PaddingVertical := ButtonPadding;
+  BtnViewpointPrev.Height := ButtonsHeight;
+  BtnViewpointPrev.AutoSizeHeight := false;
   Window.Controls.InsertFront(BtnViewpointPrev);
 
   BtnViewpointList := TCastleButton.Create(Window);
@@ -163,13 +177,17 @@ begin
   BtnViewpointList.OnClick := @TButtonsHandler(nil).BtnViewpointListClick;
   BtnViewpointList.PaddingHorizontal := ButtonPadding;
   BtnViewpointList.PaddingVertical := ButtonPadding;
+  BtnViewpointList.Height := ButtonsHeight;
+  BtnViewpointList.AutoSizeHeight := false;
   Window.Controls.InsertFront(BtnViewpointList);
 
   BtnViewpointNext := TCastleButton.Create(Window);
-  BtnViewpointNext.Caption := '>';
+  BtnViewpointNext.Image := CastleImages.LoadImage(ApplicationData('arrow-right-b.png'));
   BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
-  BtnViewpointNext.PaddingHorizontal := ButtonPadding;
+  BtnViewpointNext.PaddingHorizontal := 0;
   BtnViewpointNext.PaddingVertical := ButtonPadding;
+  BtnViewpointNext.Height := ButtonsHeight;
+  BtnViewpointNext.AutoSizeHeight := false;
   Window.Controls.InsertFront(BtnViewpointNext);
 
   Status := TCastleLabel.Create(Window);
@@ -189,7 +207,7 @@ var
   NextLeft, ButtonsHeight, ButtonsBottom: Integer;
   NextTop: Integer;
 begin
-  NextLeft := ToolbarMargin;
+  NextLeft := ToolbarMargin + ButtonsSeparatorsMargin;
   NextTop := Window.Container.UnscaledHeight;
 
   ButtonsHeight := Max(BtnNavExamine.CalculatedHeight, BtnOptions.CalculatedHeight);
@@ -223,22 +241,24 @@ begin
     NextLeft := NextLeft + BtnViewpointList.CalculatedWidth;
     BtnViewpointNext.Left := NextLeft;
     BtnViewpointNext.Bottom := ButtonsBottom;
-    NextLeft := NextLeft + BtnViewpointNext.CalculatedWidth + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + BtnViewpointNext.CalculatedWidth;
 
-    NextLeft := NextLeft + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + 2*ButtonsSeparatorsMargin;
 
     BtnScreenshot.Left := NextLeft;
     BtnScreenshot.Bottom := ButtonsBottom;
-    NextLeft := NextLeft + BtnScreenshot.CalculatedWidth + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + BtnScreenshot.CalculatedWidth;
 
-    NextLeft := NextLeft + ButtonsSeparatorsMargin;
+    NextLeft := NextLeft + 2*ButtonsSeparatorsMargin;
 
     BtnOptions.Left := NextLeft;
     BtnOptions.Bottom := ButtonsBottom;
-    NextLeft := NextLeft + BtnOptions.CalculatedWidth + ButtonsMargin;
+    NextLeft := NextLeft + BtnOptions.CalculatedWidth;
+
+    //NextLeft := NextLeft + 2*ButtonsSeparatorsMargin;
+
     BtnInfo.Left := NextLeft;
     BtnInfo.Bottom := ButtonsBottom;
-    NextLeft := NextLeft + BtnInfo.CalculatedWidth + ButtonsMargin;
   end;
 
   Status.Left := 10;
