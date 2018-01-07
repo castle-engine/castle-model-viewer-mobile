@@ -383,6 +383,11 @@ class procedure TButtonsHandler.BoundNavigationInfoChanged(Sender: TObject);
 var
   NavType: TNavigationType;
 begin
+  { this may be called when Window, and everythig it owned (like BtnNavWalk)
+    is getting destroyed }
+  if csDestroying in Window.ComponentState then
+    Exit;
+
   NavType := Window.NavigationType;
   BtnNavWalk.Pressed := (NavType = ntWalk);
   BtnNavFly.Pressed := (NavType = ntFly);

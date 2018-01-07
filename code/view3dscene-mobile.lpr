@@ -21,7 +21,7 @@
 }
 
 { "view3dscene-mobile" standalone game binary. }
-program view3Dscene-mobile;
+//program view3Dscene-mobile; // cannot use - in program name, also it's not needed
 
 {$ifdef MSWINDOWS} {$apptype GUI} {$endif}
 
