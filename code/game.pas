@@ -74,7 +74,6 @@ const
   ButtonPadding = 6;
 var
   ButtonsHeight: Cardinal;
-  NewUIFont: TCastleFont;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -99,9 +98,7 @@ begin
   Theme.MessageTextColor := Silver;
   Theme.Images[tiWindow] := CastleImages.LoadImage(ApplicationData('theme_window.png')); // dialog background color and frame
 
-  NewUIFont := UIFont;
-  NewUIFont.Size := NewUIFont.Size * 0.75;
-  UIFont := NewUIFont;
+  UIFont.Size := UIFont.Size * 0.75;
 
   ToolbarPanel := TCastlePanel.Create(Application);
   Window.Controls.InsertFront(ToolbarPanel);
