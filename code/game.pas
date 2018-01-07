@@ -30,6 +30,8 @@ uses CastleWindowTouch;
 var
   Window: TCastleWindowTouch;
 
+procedure OpenScene(const Url: string);
+
 implementation
 
 uses Classes, SysUtils, Math,
@@ -311,14 +313,10 @@ begin
   TUIState.Push(SceneWarningsDlg);
 end;
 
-procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
+procedure OpenScene(const Url: string);
 var
-  Url: string;
   ViewpointsPresent: boolean;
 begin
-  if Length(FileNames) = 0 then Exit;
-  Url := FileNames[0];
-
   SceneBoundingBox := nil;
   SceneWarnings.Clear;
 
@@ -339,6 +337,12 @@ begin
   BtnViewpointPrev.Enabled := ViewpointsPresent;
   BtnViewpointList.Enabled := ViewpointsPresent;
   BtnViewpointNext.Enabled := ViewpointsPresent;
+end;
+
+procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
+begin
+  if Length(FileNames) <> 0 then
+    OpenScene(FileNames[0]);
 end;
 
 procedure WindowUpdate(Container: TUIContainer);

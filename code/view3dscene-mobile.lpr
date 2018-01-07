@@ -47,5 +47,8 @@ end;
 begin
   Window.ParseParameters;
   Parameters.Parse(Options, @OptionProc, nil);
-  Window.OpenAndRun;
+  Window.Open;
+  if Parameters.High >= 1 then
+    OpenScene(Parameters[1]);
+  Application.Run;
 end.
