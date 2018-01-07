@@ -102,7 +102,6 @@ begin
   NewUIFont := UIFont;
   NewUIFont.Size := NewUIFont.Size * 0.75;
   UIFont := NewUIFont;
-  UIFontSmallScale := 0.8;
 
   ToolbarPanel := TCastlePanel.Create(Application);
   Window.Controls.InsertFront(ToolbarPanel);
@@ -203,7 +202,7 @@ begin
   Status.Caption := ' ';
   Status.Padding := 5;
   Status.Color := Red;
-  Status.SmallFont := true;
+  Status.FontScale := SmallFontScale;
   Window.Controls.InsertFront(Status);
 end;
 

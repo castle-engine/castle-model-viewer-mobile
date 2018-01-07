@@ -45,6 +45,9 @@ type
 var
   StateInfoDlg: TStateInfoDlg;
 
+const
+  SmallFontScale = 0.8;
+
 implementation
 
 uses
@@ -86,7 +89,7 @@ begin
 
   LabelSceneStats := TCastleLabel.Create(Self);
   LabelSceneStats.Color := Silver;
-  LabelSceneStats.SmallFont := true;
+  LabelSceneStats.FontScale := SmallFontScale;
   LabelSceneStats.Caption := StateInfoDlg.FStatistics;
   LabelSceneStats.Width := InsideRect.Width - 20;
   LabelSceneStats.Alignment := hpLeft;
@@ -110,7 +113,7 @@ begin
 
   LabelAbout := TCastleLabel.Create(Self);
   LabelAbout.Color := Silver;
-  LabelAbout.SmallFont := true;
+  LabelAbout.FontScale := SmallFontScale;
   LabelAbout.Caption := 'This application uses Castle Game Engine,' + NL
                      +  'open-source multi-platform 3D engine' + NL
                      +  'written in Modern Pascal.';
