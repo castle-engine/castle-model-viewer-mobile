@@ -347,8 +347,7 @@ begin
     Status.Exists := AppOptions.ShowFps;
 
   if Status.Exists then
-    Status.Caption := Format('FPS: %f (real : %f)',
-      [Window.Fps.OnlyRenderFps, Window.Fps.RealFps]);
+    Status.Caption := 'FPS: ' + Window.Fps.ToString;
 
   if (Window.MainScene <> nil) and (Assigned(SceneBoundingBox) <> AppOptions.ShowBBox) then
   begin
