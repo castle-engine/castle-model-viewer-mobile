@@ -41,6 +41,7 @@ uses Classes, SysUtils, Math,
   CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
   CastleGLImages, CastleFonts,
   CastleDialogStates,
+  CastlePhotoService,
   X3DNodes,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
 
@@ -413,7 +414,7 @@ begin
   try
     Filename := ApplicationConfig('screenshot.png');
     SaveImage(Image, Filename);
-    // TODO: save to photos app
+    TPhotoService.StoreImage(Filename);
   finally FreeAndNil(Image) end;
   // TODO: show controls
 end;

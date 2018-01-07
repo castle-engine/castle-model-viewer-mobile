@@ -23,6 +23,11 @@
   </icons>
   <android project_type="integrated">
   </android>
+  <ios>
+    <services>
+      <service name="photo_service" />
+    </services>
+  </ios>
   <associate_document_types>
     <document_type name="VRML Scene" icon="">
       <file_extension extension="wrl" mime="model/vrml" />
