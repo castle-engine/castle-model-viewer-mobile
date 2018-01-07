@@ -82,7 +82,7 @@ begin
   LabelWndTitle := TCastleLabel.Create(Self);
   LabelWndTitle.Color := White;
   LabelWndTitle.Html := true;
-  LabelWndTitle.Caption := '<b>About</b>';
+  LabelWndTitle.Caption := '<b>About view3Dscene</b>';
   LabelWndTitle.Anchor(hpMiddle);
   LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);

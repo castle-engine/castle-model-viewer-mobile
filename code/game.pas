@@ -66,7 +66,9 @@ var
   Status: TCastleLabel;
 
   CurrentViewpointIdx: integer;
-  SceneBoundingBox: TTransformNode;
+  SceneBoundingBox: TCastleScene;
+  BBoxTransform: TTransformNode;
+  BBoxGeometry: TBoxNode;
   SceneWarnings: TStringList;
   SceneWarningsDlg: TStateDialogOK;
 
@@ -275,30 +277,38 @@ end;
 
 procedure InitializeSceneBoundingBox;
 var
+  RootNode: TX3DRootNode;
   BBox: TBox3D;
-  BoxNode: TBoxNode;
   ShapeNode: TShapeNode;
   Material: TMaterialNode;
 begin
   BBox := Window.MainScene.BoundingBox;
-  BoxNode := TBoxNode.Create;
-  BoxNode.Size := BBox.Size;
+  BBoxGeometry := TBoxNode.Create;
+  BBoxGeometry.Size := BBox.Size;
 
   Material := TMaterialNode.Create;
   Material.ForcePureEmissive;
   Material.EmissiveColor := GreenRGB;
 
   ShapeNode := TShapeNode.Create;
-  ShapeNode.Geometry := BoxNode;
+  ShapeNode.Geometry := BBoxGeometry;
   ShapeNode.Shading := shWireframe;
   ShapeNode.Material := Material;
   ShapeNode.Appearance.ShadowCaster := false;
 
-  SceneBoundingBox := TTransformNode.Create;
-  SceneBoundingBox.Translation := BBox.Center;
-  SceneBoundingBox.AddChildren(ShapeNode);
+  BBoxTransform := TTransformNode.Create;
+  BBoxTransform.Translation := BBox.Center;
+  BBoxTransform.AddChildren(ShapeNode);
 
-  Window.MainScene.RootNode.AddChildren(SceneBoundingBox);
+  RootNode := TX3DRootNode.Create;
+  RootNode.AddChildren(BBoxTransform);
+
+  SceneBoundingBox := TCastleScene.Create(Window.MainScene);
+  SceneBoundingBox.Load(RootNode, true);
+
+  Window.MainScene.Add(SceneBoundingBox);
+  SceneBoundingBox.Exists := AppOptions.ShowBBox;
+  SceneBoundingBox.ExcludeFromStatistics := true;
 end;
 
 class procedure TButtonsHandler.OnWarningHandle(Sender: TObject; const Category, S: string);
@@ -328,15 +338,13 @@ begin
 
   Window.MainScene.Collides := AppOptions.CollisionsOn;
 
-  { // TODO: not implemented in the engine for OpenGLES yet
-  Window.MainScene.Attributes.WireframeEffect := weWireframeOnly;
-  Window.MainScene.Attributes.WireframeColor  := RedRGB;}
-
   CurrentViewpointIdx := 0;
   ViewpointsPresent := Window.MainScene.ViewpointsCount > 0;
   BtnViewpointPrev.Enabled := ViewpointsPresent;
   BtnViewpointList.Enabled := ViewpointsPresent;
   BtnViewpointNext.Enabled := ViewpointsPresent;
+
+  InitializeSceneBoundingBox;
 end;
 
 procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
@@ -346,6 +354,8 @@ begin
 end;
 
 procedure WindowUpdate(Container: TUIContainer);
+var
+  BBox: TBox3D;
 begin
   if Status.Exists <> AppOptions.ShowFps then
     Status.Exists := AppOptions.ShowFps;
@@ -353,16 +363,16 @@ begin
   if Status.Exists then
     Status.Caption := 'FPS: ' + Window.Fps.ToString;
 
-  if (Window.MainScene <> nil) and (Assigned(SceneBoundingBox) <> AppOptions.ShowBBox) then
+  if (Window.MainScene <> nil) and (SceneBoundingBox <> nil) then
   begin
+    SceneBoundingBox.Exists := AppOptions.ShowBBox;
     if AppOptions.ShowBBox then
-      InitializeSceneBoundingBox
-    else begin
-      Window.MainScene.RootNode.RemoveChildren(SceneBoundingBox);
-      SceneBoundingBox := nil;
+    begin
+      BBox := Window.MainScene.BoundingBox;
+      BBoxGeometry.Size := BBox.Size;
+      BBoxTransform.Translation := BBox.Center
     end;
   end;
-
 end;
 
 class procedure TButtonsHandler.BtnNavClick(Sender: TObject);
@@ -396,14 +406,16 @@ end;
 class procedure TButtonsHandler.BtnScreenshotClick(Sender: TObject);
 var
   Image: TRGBImage;
+  Filename: string;
 begin
   // TODO: hide controls
   Image := Window.SaveScreen;
   try
-    //SaveImage(Image, File);
+    Filename := ApplicationConfig('screenshot.png');
+    SaveImage(Image, Filename);
+    // TODO: save to photos app
   finally FreeAndNil(Image) end;
   // TODO: show controls
-  // TODO: save to photos app
 end;
 
 class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
@@ -415,14 +427,12 @@ end;
 class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
 var
   Statistics: TRenderStatistics;
-  NumShapesSkip: integer;
 begin
   Statistics := Window.SceneManager.Statistics;
-  if SceneBoundingBox <> nil then NumShapesSkip := 1 else NumShapesSkip := 0;
 
   StateInfoDlg.FScene := Window.MainScene;
   StateInfoDlg.FStatistics := Format('Rendered shapes: %d / %d',
-    [Statistics.ShapesRendered - NumShapesSkip, Statistics.ShapesVisible - NumShapesSkip]);
+    [Statistics.ShapesRendered, Statistics.ShapesVisible]);
   TUIState.Push(StateInfoDlg);
 end;
 
