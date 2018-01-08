@@ -22,6 +22,9 @@
     <icon path="desktop/view3dscene.icns" />
   </icons>
   <android project_type="integrated">
+    <services>
+      <service name="photo_service" />
+    </services>
   </android>
   <ios>
     <services>
