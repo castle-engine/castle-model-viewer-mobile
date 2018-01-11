@@ -202,13 +202,16 @@ begin
     end;
   end;
 
-
   Status := TCastleLabel.Create(Window);
   Status.Caption := ' ';
   Status.Padding := 5;
   Status.Color := Red;
   Status.FontScale := SmallFontScale;
   Window.Controls.InsertFront(Status);
+
+  // TODO: do not always open demo scene
+  OpenScene(ApplicationData('demo/castle_walk.wrl'));
+  //OpenScene(ApplicationData('demo/chinchilla.wrl.gz'));
 end;
 
 procedure WindowResize(Container: TUIContainer);
@@ -312,6 +315,7 @@ begin
   Window.MainScene.Add(SceneBoundingBox);
   SceneBoundingBox.Exists := AppOptions.ShowBBox;
   SceneBoundingBox.ExcludeFromStatistics := true;
+  SceneBoundingBox.Collides := false;
 end;
 
 class procedure TButtonsHandler.OnWarningHandle(Sender: TObject; const Category, S: string);
