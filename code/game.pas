@@ -43,7 +43,7 @@ uses Classes, SysUtils, Math,
   CastleDialogStates,
   CastlePhotoService,
   X3DNodes,
-  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg;
+  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg;
 
 { main game stuff ------------------------------------------------------------ }
 type
@@ -52,6 +52,8 @@ type
     class procedure BtnScreenshotClick(Sender: TObject);
     class procedure BtnOptionsClick(Sender: TObject);
     class procedure BtnInfoClick(Sender: TObject);
+    class procedure BtnFilesClick(Sender: TObject);
+    class procedure FileSelected(Url: string);
     class procedure BtnViewpointNextClick(Sender: TObject);
     class procedure BtnViewpointListClick(Sender: TObject);
     class procedure ViewpointSelected(ViewpointIdx: integer);
@@ -62,7 +64,7 @@ type
 var
   BtnNavWalk, BtnNavFly, BtnNavExamine, {BtnNavTurntable,} BtnOptions,
     BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
-    BtnScreenshot, BtnInfo: TCastleButton;
+    BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
   ToolbarPanel: TCastlePanel;
   Status: TCastleLabel;
 
@@ -90,6 +92,7 @@ begin
   StateInfoDlg := TStateInfoDlg.Create(Application);
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
   StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
+  StateFilesDlg := TStateFilesDlg.Create(Application);
   SceneWarningsDlg := TStateDialogOK.Create(Application);
 
   SceneWarnings := TStringList.Create;
@@ -168,6 +171,12 @@ begin
   BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
   ToolbarPanel.InsertFront(BtnInfo);
 
+  BtnFiles := TCastleButton.Create(ToolbarPanel);
+  BtnFiles.Tooltip := 'Saved scenes';
+  BtnFiles.Image := CastleImages.LoadImage(ApplicationData('file.png'));
+  BtnFiles.OnClick := @TButtonsHandler(nil).BtnFilesClick;
+  ToolbarPanel.InsertFront(BtnFiles);
+
   BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
   BtnViewpointPrev.Tooltip := 'Previous viewpoint';
   BtnViewpointPrev.Image := CastleImages.LoadImage(ApplicationData('arrow-left-b.png'));
@@ -211,7 +220,6 @@ begin
 
   // TODO: do not always open demo scene
   OpenScene(ApplicationData('demo/castle_walk.wrl'));
-  //OpenScene(ApplicationData('demo/chinchilla.wrl.gz'));
 end;
 
 procedure WindowResize(Container: TUIContainer);
@@ -271,7 +279,9 @@ begin
     BtnOptions.Bottom := ToolbarMargin;
     NextLeft := NextLeft + BtnOptions.CalculatedWidth;
 
-    //NextLeft := NextLeft + 2*ButtonsSeparatorsMargin;
+    BtnFiles.Left := NextLeft;
+    BtnFiles.Bottom := ToolbarMargin;
+    NextLeft := NextLeft + BtnFiles.CalculatedWidth;
 
     BtnInfo.Left := NextLeft;
     BtnInfo.Bottom := ToolbarMargin;
@@ -441,6 +451,17 @@ begin
   StateInfoDlg.FStatistics := Format('Rendered shapes: %d / %d',
     [Statistics.ShapesRendered, Statistics.ShapesVisible]);
   TUIState.Push(StateInfoDlg);
+end;
+
+class procedure TButtonsHandler.BtnFilesClick(Sender: TObject);
+begin
+  StateFilesDlg.FOnFileSelected := @TButtonsHandler(nil).FileSelected;
+  TUIState.Push(StateFilesDlg);
+end;
+
+class procedure TButtonsHandler.FileSelected(Url: string);
+begin
+  OpenScene(Url);
 end;
 
 class procedure TButtonsHandler.BtnViewpointNextClick(Sender: TObject);
