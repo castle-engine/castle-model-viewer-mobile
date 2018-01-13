@@ -294,13 +294,13 @@ begin
 
           NextLeft2 := NextLeft2 + ToolButton.CalculatedWidth;
           if ToolButton.Tag = 0 then
-            NextLeft2 := NextLeft2 + ButtonsMargin
+            NextLeft2 := NextLeft2 + ButtonsMargin;
         end
         else begin
            // 1st line
            ToolButton.Left := NextLeft1;
            if TwoLineToolbar then
-              ToolButton.Bottom := ToolbarMargin + ButtonsHeight + ToolbarMargin
+             ToolButton.Bottom := ToolbarMargin + ButtonsHeight + ToolbarMargin
            else
              ToolButton.Bottom := ToolbarMargin;
 
@@ -447,15 +447,33 @@ class procedure TButtonsHandler.BtnScreenshotClick(Sender: TObject);
 var
   Image: TRGBImage;
   Filename: string;
+  RestoreCtls: TUIControlList;
+  I: Integer;
+  C: TUIControl;
 begin
-  // TODO: hide controls
-  Image := Window.SaveScreen;
+  RestoreCtls := TUIControlList.Create(false);
   try
-    Filename := ApplicationConfig('screenshot.png');
-    SaveImage(Image, Filename);
-    TPhotoService.StoreImage(Filename);
-  finally FreeAndNil(Image) end;
-  // TODO: show controls
+    // hide touch controls
+    for I := 0 to Window.Controls.Count - 1 do
+    begin
+      C := Window.Controls[I];
+      if C.Exists then
+      begin
+        C.Exists := false;
+        RestoreCtls.InsertFront(C);
+      end;
+    end;
+    // make screenshot
+    Image := Window.SaveScreen;
+    try
+      Filename := ApplicationConfig('screenshot.png');
+      SaveImage(Image, Filename);
+      TPhotoService.StoreImage(Filename);
+    finally FreeAndNil(Image) end;
+    // restore hidden controls
+    for I := 0 to RestoreCtls.Count - 1 do
+      RestoreCtls[I].Exists := true;
+  finally FreeAndNil(RestoreCtls) end;
 end;
 
 class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
