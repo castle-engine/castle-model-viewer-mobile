@@ -78,10 +78,10 @@ var
 { One-time initialization. }
 procedure ApplicationInitialize;
 const
-  ButtonPadding = 6;
+  ButtonPadding = 3;
 var
   ButtonsHeight: Cardinal;
-  I, ControlCount: Integer;
+  I: Integer;
   ToolButton: TCastleButton;
 begin
   AppOptions := TAppOptions.Create;
@@ -120,9 +120,11 @@ begin
 
   UIFont.Size := 15;
 
+  // toolbar
   ToolbarPanel := TCastlePanel.Create(Application);
   Window.Controls.InsertFront(ToolbarPanel);
 
+  // add buttons to toolbar - Tag=1 marks button should not add space after it
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
   BtnNavWalk.Image := CastleImages.LoadImage(ApplicationData('nav_walk.png'));
@@ -130,6 +132,7 @@ begin
   BtnNavWalk.Toggle := true;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
   BtnNavWalk.PaddingVertical := ButtonPadding;
+  BtnNavWalk.Tag := 1;
   ToolbarPanel.InsertFront(BtnNavWalk);
   ButtonsHeight := BtnNavWalk.CalculatedHeight;
 
@@ -138,6 +141,7 @@ begin
   BtnNavFly.Image := CastleImages.LoadImage(ApplicationData('nav_fly.png'));
   BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavFly.Toggle := true;
+  BtnNavFly.Tag := 1;
   ToolbarPanel.InsertFront(BtnNavFly);
 
   BtnNavExamine := TCastleButton.Create(ToolbarPanel);
@@ -153,6 +157,25 @@ begin
   BtnNavTurntable.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavTurntable);}
 
+  BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
+  BtnViewpointPrev.Tooltip := 'Previous viewpoint';
+  BtnViewpointPrev.Image := CastleImages.LoadImage(ApplicationData('arrow-left-b.png'));
+  BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
+  BtnViewpointPrev.Tag := 1;
+  ToolbarPanel.InsertFront(BtnViewpointPrev);
+
+  BtnViewpointList := TCastleButton.Create(ToolbarPanel);
+  BtnViewpointList.Caption := 'Viewpoints';
+  BtnViewpointList.OnClick := @TButtonsHandler(nil).BtnViewpointListClick;
+  BtnViewpointList.Tag := 1;
+  ToolbarPanel.InsertFront(BtnViewpointList);
+
+  BtnViewpointNext := TCastleButton.Create(ToolbarPanel);
+  BtnViewpointNext.Tooltip := 'Next viewpoint';
+  BtnViewpointNext.Image := CastleImages.LoadImage(ApplicationData('arrow-right-b.png'));
+  BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
+  ToolbarPanel.InsertFront(BtnViewpointNext);
+
   BtnScreenshot := TCastleButton.Create(ToolbarPanel);
   BtnScreenshot.Tooltip := 'Screenshot';
   BtnScreenshot.Image := CastleImages.LoadImage(ApplicationData('screenshot.png'));
@@ -165,38 +188,20 @@ begin
   BtnOptions.OnClick := @TButtonsHandler(nil).BtnOptionsClick;
   ToolbarPanel.InsertFront(BtnOptions);
 
-  BtnInfo := TCastleButton.Create(ToolbarPanel);
-  BtnInfo.Tooltip := 'About';
-  BtnInfo.Image := CastleImages.LoadImage(ApplicationData('info-circle.png'));
-  BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
-  ToolbarPanel.InsertFront(BtnInfo);
-
   BtnFiles := TCastleButton.Create(ToolbarPanel);
   BtnFiles.Tooltip := 'Saved scenes';
   BtnFiles.Image := CastleImages.LoadImage(ApplicationData('file.png'));
   BtnFiles.OnClick := @TButtonsHandler(nil).BtnFilesClick;
   ToolbarPanel.InsertFront(BtnFiles);
 
-  BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
-  BtnViewpointPrev.Tooltip := 'Previous viewpoint';
-  BtnViewpointPrev.Image := CastleImages.LoadImage(ApplicationData('arrow-left-b.png'));
-  BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
-  ToolbarPanel.InsertFront(BtnViewpointPrev);
-
-  BtnViewpointList := TCastleButton.Create(ToolbarPanel);
-  BtnViewpointList.Caption := 'Viewpoints';
-  BtnViewpointList.OnClick := @TButtonsHandler(nil).BtnViewpointListClick;
-  ToolbarPanel.InsertFront(BtnViewpointList);
-
-  BtnViewpointNext := TCastleButton.Create(ToolbarPanel);
-  BtnViewpointNext.Tooltip := 'Next viewpoint';
-  BtnViewpointNext.Image := CastleImages.LoadImage(ApplicationData('arrow-right-b.png'));
-  BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
-  ToolbarPanel.InsertFront(BtnViewpointNext);
+  BtnInfo := TCastleButton.Create(ToolbarPanel);
+  BtnInfo.Tooltip := 'About';
+  BtnInfo.Image := CastleImages.LoadImage(ApplicationData('info-circle.png'));
+  BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
+  ToolbarPanel.InsertFront(BtnInfo);
 
   // style all toolbar buttons - make them flat (no background), apart from PressedState
-  ControlCount := ToolbarPanel.ControlsCount;
-  for I := 0 to ControlCount-1 do
+  for I := 0 to ToolbarPanel.ControlsCount - 1 do
   begin
     if ToolbarPanel.Controls[I] is TCastleButton then
     begin
@@ -225,70 +230,92 @@ end;
 procedure WindowResize(Container: TUIContainer);
 const
   ToolbarMargin = 2;  {< between buttons and toolbar panel }
-  ButtonsMargin = 5; {< between buttons }
-  ButtonsSeparatorsMargin = 4; {< between buttons and separators }
+  ButtonsMargin = 3;  {< between buttons }
   OSStatusBarHeight = 24;   { window extends below top status bar (clock, battery), TODO: get the exact size}
 var
-  NextLeft, ButtonsHeight: Integer;
-  NextTop: Integer;
+  ToolButton: TCastleButton;
+  NextLeft1, NextLeft2, ButtonsHeight: Integer;
+  I, ViewpointCount: Integer;
+  SpaceForButtons: Integer;
+  TwoLineToolbar: boolean;
 begin
-  NextLeft := ToolbarMargin + ButtonsSeparatorsMargin;
-  NextTop := Window.Container.UnscaledHeight;
+  if not ToolbarPanel.Exists then exit;
+
+  ViewpointCount := Window.MainScene.ViewpointsCount;
+  BtnViewpointPrev.Exists := (ViewpointCount > 1);
+  BtnViewpointList.Exists := (ViewpointCount > 0);
+  BtnViewpointNext.Exists := (ViewpointCount > 1);
+
+  SpaceForButtons := 0;
+  for I := 0 to ToolbarPanel.ControlsCount - 1 do
+  begin
+    if ToolbarPanel.Controls[I] is TCastleButton then
+    begin
+      ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
+      if ToolButton.Exists then
+      begin
+        SpaceForButtons := SpaceForButtons + ToolButton.CalculatedWidth;
+        if ToolButton.Tag = 0 then
+          SpaceForButtons := SpaceForButtons + ButtonsMargin;
+      end;
+    end;
+  end;
 
   ButtonsHeight := Max(BtnNavExamine.CalculatedHeight, BtnOptions.CalculatedHeight);
 
-  if ToolbarPanel.Exists then
+  // test if all buttons fit on one line
+  TwoLineToolbar := (SpaceForButtons + 2*ToolbarMargin > Container.UnscaledWidth);
+  if TwoLineToolbar then
+    ToolbarPanel.Height := 2*ButtonsHeight + 3*ToolbarMargin + OSStatusBarHeight
+  else
+    ToolbarPanel.Height := ButtonsHeight + 2*ToolbarMargin + OSStatusBarHeight;
+
+  // toolbar
+  ToolbarPanel.Left := 0;
+  ToolbarPanel.Width := Container.UnscaledWidth;
+  ToolbarPanel.Bottom := Container.UnscaledHeight - ToolbarPanel.Height;
+
+  NextLeft1 := ToolbarMargin;
+  NextLeft2 := ToolbarMargin;
+
+  for I := 0 to ToolbarPanel.ControlsCount - 1 do
   begin
-    ToolbarPanel.Left := 0;
-    ToolbarPanel.Width := Window.Container.UnscaledWidth;
-    ToolbarPanel.Height := ButtonsHeight + ToolbarMargin * 2 + OSStatusBarHeight;
-    ToolbarPanel.Bottom := NextTop - ToolbarPanel.Height;
-    NextTop := ToolbarPanel.Bottom;
+    if ToolbarPanel.Controls[I] is TCastleButton then
+    begin
+      ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
+      if ToolButton.Exists then
+      begin
+        // put viewpoints on next line, let's hope it's enough
+        if TwoLineToolbar and ((ToolButton = BtnViewpointPrev) or (ToolButton = BtnViewpointList) or (ToolButton = BtnViewpointNext)) then
+        begin
+           // 2nd line
+          ToolButton.Left := NextLeft2;
+          ToolButton.Bottom := ToolbarMargin;
 
-    BtnNavWalk.Left := NextLeft;
-    BtnNavWalk.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnNavWalk.CalculatedWidth;
-    BtnNavFly.Left := NextLeft;
-    BtnNavFly.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnNavFly.CalculatedWidth;
-    BtnNavExamine.Left := NextLeft;
-    BtnNavExamine.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnNavExamine.CalculatedWidth + ButtonsSeparatorsMargin;
+          NextLeft2 := NextLeft2 + ToolButton.CalculatedWidth;
+          if ToolButton.Tag = 0 then
+            NextLeft2 := NextLeft2 + ButtonsMargin
+        end
+        else begin
+           // 1st line
+           ToolButton.Left := NextLeft1;
+           if TwoLineToolbar then
+              ToolButton.Bottom := ToolbarMargin + ButtonsHeight + ToolbarMargin
+           else
+             ToolButton.Bottom := ToolbarMargin;
 
-    NextLeft := NextLeft + ButtonsSeparatorsMargin;
+           NextLeft1 := NextLeft1 + ToolButton.CalculatedWidth;
+           if ToolButton.Tag = 0 then
+             NextLeft1 := NextLeft1 + ButtonsMargin;
+        end;
 
-    BtnViewpointPrev.Left := NextLeft;
-    BtnViewpointPrev.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnViewpointPrev.CalculatedWidth;
-    BtnViewpointList.Left := NextLeft;
-    BtnViewpointList.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnViewpointList.CalculatedWidth;
-    BtnViewpointNext.Left := NextLeft;
-    BtnViewpointNext.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnViewpointNext.CalculatedWidth;
-
-    NextLeft := NextLeft + 2*ButtonsSeparatorsMargin;
-
-    BtnScreenshot.Left := NextLeft;
-    BtnScreenshot.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnScreenshot.CalculatedWidth;
-
-    NextLeft := NextLeft + 2*ButtonsSeparatorsMargin;
-
-    BtnOptions.Left := NextLeft;
-    BtnOptions.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnOptions.CalculatedWidth;
-
-    BtnFiles.Left := NextLeft;
-    BtnFiles.Bottom := ToolbarMargin;
-    NextLeft := NextLeft + BtnFiles.CalculatedWidth;
-
-    BtnInfo.Left := NextLeft;
-    BtnInfo.Bottom := ToolbarMargin;
+      end;
+    end;
   end;
 
+  // status text (FPS)
   Status.Left := 10;
-  Status.Bottom := NextTop - ButtonsMargin - Status.CalculatedHeight;
+  Status.Bottom := ToolbarPanel.Bottom - ButtonsMargin - Status.CalculatedHeight;
 end;
 
 procedure InitializeSceneBoundingBox;
@@ -341,8 +368,6 @@ begin
 end;
 
 procedure OpenScene(const Url: string);
-var
-  ViewpointsPresent: boolean;
 begin
   SceneBoundingBox := nil;
   SceneWarnings.Clear;
@@ -356,10 +381,8 @@ begin
   Window.MainScene.Collides := AppOptions.CollisionsOn;
 
   CurrentViewpointIdx := 0;
-  ViewpointsPresent := Window.MainScene.ViewpointsCount > 0;
-  BtnViewpointPrev.Enabled := ViewpointsPresent;
-  BtnViewpointList.Enabled := ViewpointsPresent;
-  BtnViewpointNext.Enabled := ViewpointsPresent;
+
+  WindowResize(Window.Container); // to hide viewpoints, etc
 
   InitializeSceneBoundingBox;
 end;
