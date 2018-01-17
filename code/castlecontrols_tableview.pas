@@ -130,8 +130,8 @@ begin
 
     if FAccessoryType = tvcaCheckmark then
     begin
-      FAccessoryTypeLabel.Caption := 'V';  // TODO
-      FAccessoryTypeLabel.Color := White; // default label colo
+      FAccessoryTypeLabel.Caption := 'V';  // TODO: checkmark U+2714 or 2713
+      FAccessoryTypeLabel.Color := FTextLabel.Color;
     end
     else if FAccessoryType = tvcaDisclosureIndicator then begin
       FAccessoryTypeLabel.Caption := '>';
