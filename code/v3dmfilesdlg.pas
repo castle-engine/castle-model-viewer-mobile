@@ -30,7 +30,7 @@ type
       TFilesDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
         FileList: TStringList;
-        procedure FileNameClick(Sender: TObject);
+        procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         destructor Destroy; override;
@@ -38,7 +38,6 @@ type
 
         function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
         procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
-        procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
       end;
     var
       Dialog: TFilesDialog;
@@ -53,24 +52,19 @@ var
 
 implementation
 
-uses CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+uses
+  Math,
+  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors;
 
 { TStateFilesDlg.TFilesDialog ---------------------------------------------- }
-
-{$define use_tableview}
 
 constructor TStateFilesDlg.TFilesDialog.Create(AOwner: TComponent);
 var
   InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
-  NextTop: integer;
-  {$ifdef use_tableview}
+  TableTop, Diff: integer;
   TableView: TCastleTableView;
-  {$else}
-  I, FilesCount: integer;
-  FileBtn: TCastleButton;
-  {$endif use_tableview}
 begin
   inherited Create(AOwner);
 
@@ -81,8 +75,8 @@ begin
   FileList.Add(ApplicationData('demo/teapot (fresnel and toon shader).x3dv'));
   FileList.Add(ApplicationData('demo/teapot (time to shader).x3dv'));
 
-  Width := 400;
-  Height := 500;
+  Width := Min(400, StateFilesDlg.StateContainer.UnscaledWidth - 20);
+  Height := Min(500, StateFilesDlg.StateContainer.UnscaledHeight - 20);
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
@@ -101,38 +95,26 @@ begin
   LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);
 
-  NextTop := -40; // title size
+  TableTop := -(LabelWndTitle.CalculatedHeight + 14);
 
-  {$ifdef use_tableview}
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
   TableView.OnSelectCell := @TableViewDidSelectCell;
   TableView.Width := InsideRect.Width - 10;
-  TableView.Height := 150;
+  TableView.Height := InsideRect.Height - 5 + TableTop;
   TableView.Anchor(hpMiddle);
-  TableView.Anchor(vpTop, NextTop);
+  TableView.Anchor(vpTop, TableTop);
   InsideRect.InsertFront(TableView);
   TableView.DataSource := Self;
-  NextTop := NextTop - TableView.CalculatedHeight;
-  {$else}
-  FilesCount := FileList.Count;
-  for I := 0 to FilesCount - 1 do
-  begin
-    FileBtn := TCastleButton.Create(Self);
-    FileBtn.Caption := ExtractFileName(FileList[I]);
-    FileBtn.OnClick := @FileNameClick;
-    FileBtn.Tag := I;
-    FileBtn.AutoSizeWidth := false;
-    FileBtn.Width := InsideRect.Width - 20;
-    FileBtn.Anchor(hpMiddle);
-    FileBtn.Anchor(vpTop, NextTop);
-    InsideRect.InsertFront(FileBtn);
-    NextTop := NextTop - FileBtn.CalculatedHeight;
-  end;
-  {$endif use_tableview}
 
-  Height := -NextTop + 10;
-  InsideRect.Height := CalculatedHeight - 4;
+  // when tableView contents take less space, make the window smaller
+  if TableView.ScrollArea.Height < TableView.Height then
+  begin
+    Diff := TableView.Height - TableView.ScrollArea.Height;
+    TableView.Height := TableView.ScrollArea.Height;
+    Height := Height - Diff;
+    InsideRect.Height := CalculatedHeight - 4;
+  end;
 end;
 
 destructor TStateFilesDlg.TFilesDialog.Destroy;
@@ -149,24 +131,13 @@ end;
 procedure TStateFilesDlg.TFilesDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 begin
   Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
-  Cell.FText := ExtractFileName(FileList[Row]);
+  Cell.TextLabel.Caption := ExtractFileName(FileList[Row]);
 end;
 
 procedure TStateFilesDlg.TFilesDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
 begin
   if Assigned(StateFilesDlg.FOnFileSelected) then
     StateFilesDlg.FOnFileselected(FileList[Row]);
-
-  DoAnswered;
-end;
-
-procedure TStateFilesDlg.TFilesDialog.FileNameClick(Sender: TObject);
-var
-  FileIdx: integer;
-begin
-  FileIdx := (Sender as TCastleButton).Tag;
-  if Assigned(StateFilesDlg.FOnFileSelected) then
-    StateFilesDlg.FOnFileselected(FileList[FileIdx]);
 
   DoAnswered;
 end;

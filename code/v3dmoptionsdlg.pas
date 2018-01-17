@@ -49,7 +49,9 @@ var
 
 implementation
 
-uses CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+uses
+  Math,
+  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors,
   V3DMOptions;
 
@@ -62,8 +64,8 @@ var
 begin
   inherited Create(AOwner);
 
-  Width := 400;
-  Height := 500;
+  Width := Min(400, StateOptionsDlg.StateContainer.UnscaledWidth - 20);
+  Height := Min(500, StateOptionsDlg.StateContainer.UnscaledHeight - 20);
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);

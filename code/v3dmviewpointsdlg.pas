@@ -18,7 +18,8 @@ unit V3DMViewpointsDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
+  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  CastleControls_TableView;
 
 type
   TViewpointSelectedEvent = procedure (ViewpointIdx : integer) of object;
@@ -26,12 +27,15 @@ type
   TStateViewpointsDlg = class(TUIState)
   strict private
     type
-      TViewpointsDialog = class(TCastleRectangleControl)
+      TViewpointsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
-        procedure ViewpointNameClick(Sender: TObject);
+        procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
+
+        function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+        procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
       end;
     var
       Dialog: TViewpointsDialog;
@@ -48,7 +52,9 @@ var
 
 implementation
 
-uses CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+uses
+  Math,
+  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors;
 
 { TStateViewpointsDlg.TViewpointsDialog ---------------------------------------------- }
@@ -57,18 +63,18 @@ constructor TStateViewpointsDlg.TViewpointsDialog.Create(AOwner: TComponent);
 var
   InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
-  I, ViewpointCount, NextTop: integer;
-  ViewpointBtn: TCastleButton;
+  TableTop, Diff: integer;
+  TableView: TCastleTableView;
 begin
   inherited Create(AOwner);
 
-  Width := 400;
-  Height := 500;
+  Width := Min(400, StateViewpointsDlg.StateContainer.UnscaledWidth - 20);
+  Height := Min(500, StateViewpointsDlg.StateContainer.UnscaledHeight - 20);
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
-  InsideRect.Width := CalculatedWidth - 10;
-  InsideRect.Height := CalculatedHeight - 10;
+  InsideRect.Width := CalculatedWidth - 4;
+  InsideRect.Height := CalculatedHeight - 4;
   InsideRect.Color := HexToColor('505050');
   InsideRect.Anchor(hpMiddle);
   InsideRect.Anchor(vpMiddle);
@@ -82,40 +88,48 @@ begin
   LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);
 
-  NextTop := -40; // title size
+  TableTop := -(LabelWndTitle.CalculatedHeight + 14);
 
-  if Assigned(StateViewpointsDlg.FScene) then
-     ViewpointCount := StateViewpointsDlg.FScene.ViewpointsCount
-  else
-     ViewpointCount := 0;
+  TableView := TCastleTableView.Create(Self);
+  TableView.EnableDragging := true;
+  TableView.OnSelectCell := @TableViewDidSelectCell;
+  TableView.Width := InsideRect.Width - 10;
+  TableView.Height := InsideRect.Height - 5 + TableTop;
+  TableView.Anchor(hpMiddle);
+  TableView.Anchor(vpTop, TableTop);
+  InsideRect.InsertFront(TableView);
+  TableView.DataSource := Self;
 
-  for I := 0 to ViewpointCount - 1 do
+  // when tableView contents take less space, make the window smaller
+  if TableView.ScrollArea.Height < TableView.Height then
   begin
-    ViewpointBtn := TCastleButton.Create(Self);
-    ViewpointBtn.Caption := StateViewpointsDlg.FScene.GetViewpointName(I);
-    ViewpointBtn.OnClick := @ViewpointNameClick;
-    ViewpointBtn.Tag := I;
-    ViewpointBtn.Toggle := true;
-    ViewpointBtn.Pressed := (I = StateViewpointsDlg.FCurrentViewpointIdx);
-    ViewpointBtn.AutoSizeWidth := false;
-    ViewpointBtn.Width := InsideRect.Width - 20;
-    ViewpointBtn.Anchor(hpMiddle);
-    ViewpointBtn.Anchor(vpTop, NextTop);
-    InsideRect.InsertFront(ViewpointBtn);
-    NextTop := NextTop - ViewpointBtn.CalculatedHeight;
+    Diff := TableView.Height - TableView.ScrollArea.Height;
+    TableView.Height := TableView.ScrollArea.Height;
+    Height := Height - Diff;
+    InsideRect.Height := CalculatedHeight - 4;
   end;
-
-  Height := -NextTop + 20;
-  InsideRect.Height := CalculatedHeight - 10;
 end;
 
-procedure TStateViewpointsDlg.TViewpointsDialog.ViewpointNameClick(Sender: TObject);
-var
-  ViewpointIdx: integer;
+function TStateViewpointsDlg.TViewpointsDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
 begin
-  ViewpointIdx := (Sender as TCastleButton).Tag;
+  if Assigned(StateViewpointsDlg.FScene) then
+     Result := StateViewpointsDlg.FScene.ViewpointsCount
+  else
+     Result := 0;
+end;
+
+procedure TStateViewpointsDlg.TViewpointsDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+begin
+  Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
+  Cell.TextLabel.Caption := StateViewpointsDlg.FScene.GetViewpointName(Row);
+  if Row = StateViewpointsDlg.FCurrentViewpointIdx then
+    Cell.AccessoryType := tvcaCheckmark;
+end;
+
+procedure TStateViewpointsDlg.TViewpointsDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
+begin
   if Assigned(StateViewpointsDlg.FOnViewpointSelected) then
-    StateViewpointsDlg.FOnViewpointSelected(ViewpointIdx);
+    StateViewpointsDlg.FOnViewpointSelected(Row);
 
   DoAnswered;
 end;

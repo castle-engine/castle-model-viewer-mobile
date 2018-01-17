@@ -27,18 +27,21 @@ type
   TCastleTableViewCellAccessoryType = (tvcaNone, tvcaCheckmark, tvcaDisclosureIndicator);
 
   TCastleTableViewCell = class(TCastleRectangleControl)
-    public
-      FText: string;
-      FAccessoryType: TCastleTableViewCellAccessoryType;
-      FTag: Integer;
     private
       FTextLabel, FAccessoryTypeLabel: TCastleLabel;
+      FTag: Integer;
+      FAccessoryType: TCastleTableViewCellAccessoryType;
+
+      procedure ReflectUIControls;
     public
       constructor Create(AOwner: TComponent); override;
       destructor Destroy; override;
       procedure MakeEmpty;
-    private
-      procedure ReflectUIControls;
+
+      property TextLabel: TCastleLabel read FTextLabel;
+      property AccessoryType: TCastleTableViewCellAccessoryType
+                              read FAccessoryType write FAccessoryType default tvcaNone;
+      property Tag: Integer read FTag write FTag default 0;
   end;
 
   TCastleTableViewCellList = specialize TObjectList<TCastleTableViewCell>;
@@ -86,6 +89,12 @@ begin
   inherited;
   FTextLabel := nil;
   FAccessoryTypeLabel := nil;
+
+  FTextLabel := TCastleLabel.Create(Self);
+  FTextLabel.Anchor(hpLeft, 5);
+  FTextLabel.Anchor(vpMiddle);
+  InsertFront(FTextLabel);
+
   MakeEmpty;
 end;
 
@@ -96,7 +105,7 @@ end;
 
 procedure TCastleTableViewCell.MakeEmpty;
 begin
-  FText := '';
+  FTextLabel.Caption := '';
   FAccessoryType := tvcaNone;
   FTag := 0;
   Color := Vector4(0.0, 0.0, 0.0, 0.0); // transparent
@@ -104,16 +113,6 @@ end;
 
 procedure TCastleTableViewCell.ReflectUIControls;
 begin
-  if FTextLabel = nil then
-  begin
-    FTextLabel := TCastleLabel.Create(Self);
-    FTextLabel.Anchor(hpLeft, 5);
-    FTextLabel.Anchor(vpMiddle);
-    InsertFront(FTextLabel);
-  end;
-
-  FTextLabel.Caption := FText;
-
   if FAccessoryType = tvcaNone then
   begin
     if FAccessoryTypeLabel <> nil then
@@ -130,16 +129,20 @@ begin
     end;
 
     if FAccessoryType = tvcaCheckmark then
-      FAccessoryTypeLabel.Caption := 'V'  // TODO
-    else if FAccessoryType = tvcaDisclosureIndicator then
+    begin
+      FAccessoryTypeLabel.Caption := 'V';  // TODO
+      FAccessoryTypeLabel.Color := White; // default label colo
+    end
+    else if FAccessoryType = tvcaDisclosureIndicator then begin
       FAccessoryTypeLabel.Caption := '>';
+      FAccessoryTypeLabel.Color := Theme.DisabledTextColor;
+    end;
   end;
 
-  {FTextLabel.AutoSize := false;
   if (FAccessoryTypeLabel <> nil) and FAccessoryTypeLabel.Exists then
-    FTextLabel.Width := CalculatedWidth - FAccessoryTypeLabel.CalculatedWidth - 10
+    FTextLabel.MaxWidth := CalculatedWidth - FAccessoryTypeLabel.CalculatedWidth - 15
   else
-    FTextLabel.Width := CalculatedWidth - 10;}
+    FTextLabel.MaxWidth := CalculatedWidth - 10;
 end;
 
 constructor TCastleTableView.Create(AOwner: TComponent);
@@ -148,6 +151,7 @@ begin
   FCells := TCastleTableViewCellList.Create;
   FDataSource := nil;
   FOnDidSelectCell := nil;
+  FMotionIsClick := false;
 end;
 
 destructor TCastleTableView.Destroy;
@@ -186,10 +190,10 @@ begin
     if Assigned(FDataSource) then
       FDataSource.TableViewUpdateCell(Cell, I, Self)
     else
-      Cell.FText := Format('Cell %d', [I+1]);
+      Cell.TextLabel.Caption := Format('Cell %d', [I+1]);
 
     Cell.Left := 0;
-    Cell.Width := Width;
+    Cell.Width := Width - ScrollBarWidth;
     Cell.Height := CellHeight;
     Cell.Anchor(vpTop, -I * (CellHeight + SeparatorHeight));
     Cell.ReflectUIControls;
@@ -218,8 +222,13 @@ end;
 function TCastleTableView.Press(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
-  FPressPos := Event.Position;
-  FMotionIsClick := true;
+
+  if Assigned(FOnDidSelectCell) then
+  begin
+    FPressPos := Event.Position;
+    FMotionIsClick := true;
+    Result := ExclusiveEvents;   // be sure to get messages
+  end;
 end;
 
 function TCastleTableView.Release(const Event: TInputPressRelease): boolean;
@@ -228,11 +237,13 @@ var
   CellRect: TRectangle;
 begin
   Result := inherited;
-  if FMotionIsClick and Assigned(FOnDidSelectCell) then
+  if Assigned(FOnDidSelectCell) and FMotionIsClick then
   begin
+    //Application.Log(etInfo, Format('Touch at %d, %d', [Integer(FPressPos.X), Integer(FPressPos.Y)]));
     for I := 0 to FCells.Count - 1 do
     begin
       CellRect := FCells.Items[I].ScreenRect;
+      //Application.Log(etInfo, Format('Rect at %d, %d, sz: %dx%d', [CellRect.Left, CellRect.Top, CellRect.Width, CellRect.Height]));
       if CellRect.Contains(FPressPos) then
       begin
         FOnDidSelectCell(I, Self);
@@ -240,13 +251,14 @@ begin
       end;
     end;
   end;
+  FMotionIsClick := false;
 end;
 
 function TCastleTableView.Motion(const Event: TInputMotion): boolean;
 begin
   Result := inherited;
 
-  if FMotionIsClick and (PointsDistance(Event.Position, FPressPos) > 4.0) then
+  if Assigned(FOnDidSelectCell) and FMotionIsClick and (PointsDistance(Event.Position, FPressPos) > 4.0) then
     FMotionIsClick := false;
 end;
 
