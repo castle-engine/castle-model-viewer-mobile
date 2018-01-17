@@ -117,6 +117,8 @@ begin
   Theme.Corners[tiButtonDisabled] := Vector4Integer(3, 3, 3, 3);
   Theme.Corners[tiButtonFocused] := Vector4Integer(3, 3, 3, 3);
   Theme.Corners[tiButtonPressed] := Vector4Integer(3, 3, 3, 3);
+  Theme.Images[tiScrollbarSlider] := CastleImages.LoadImage(ApplicationData('theme_btnNormal.png'));
+  Theme.Corners[tiScrollbarSlider] := Vector4Integer(3, 3, 3, 3);
 
   UIFont.Size := 15;
 

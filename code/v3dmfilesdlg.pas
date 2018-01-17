@@ -27,7 +27,7 @@ type
   TStateFilesDlg = class(TUIState)
   strict private
     type
-      TFilesDialog = class(TCastleRectangleControl, ICastleTableViewDelegate)
+      TFilesDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
         FileList: TStringList;
         procedure FileNameClick(Sender: TObject);
@@ -37,8 +37,8 @@ type
         procedure DoAnswered;
 
         function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
-        procedure TableViewUpdateCellForRow(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
-        procedure TableViewDidSelectCellAtRow(Row: Integer; Sender: TCastleTableView);
+        procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+        procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
       end;
     var
       Dialog: TFilesDialog;
@@ -58,7 +58,7 @@ uses CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
 
 { TStateFilesDlg.TFilesDialog ---------------------------------------------- }
 
-{ $define use_tableview}
+{$define use_tableview}
 
 constructor TStateFilesDlg.TFilesDialog.Create(AOwner: TComponent);
 var
@@ -86,8 +86,8 @@ begin
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
-  InsideRect.Width := CalculatedWidth - 10;
-  InsideRect.Height := CalculatedHeight - 10;
+  InsideRect.Width := CalculatedWidth - 4;
+  InsideRect.Height := CalculatedHeight - 4;
   InsideRect.Color := HexToColor('505050');
   InsideRect.Anchor(hpMiddle);
   InsideRect.Anchor(vpMiddle);
@@ -106,12 +106,13 @@ begin
   {$ifdef use_tableview}
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
-  TableView.Width := InsideRect.Width - 20;
+  TableView.OnSelectCell := @TableViewDidSelectCell;
+  TableView.Width := InsideRect.Width - 10;
   TableView.Height := 150;
   TableView.Anchor(hpMiddle);
   TableView.Anchor(vpTop, NextTop);
   InsideRect.InsertFront(TableView);
-  TableView.Delegate := Self;
+  TableView.DataSource := Self;
   NextTop := NextTop - TableView.CalculatedHeight;
   {$else}
   FilesCount := FileList.Count;
@@ -130,8 +131,8 @@ begin
   end;
   {$endif use_tableview}
 
-  Height := -NextTop + 20;
-  InsideRect.Height := CalculatedHeight - 10;
+  Height := -NextTop + 10;
+  InsideRect.Height := CalculatedHeight - 4;
 end;
 
 destructor TStateFilesDlg.TFilesDialog.Destroy;
@@ -145,12 +146,13 @@ begin
   Result := FileList.Count;
 end;
 
-procedure TStateFilesDlg.TFilesDialog.TableViewUpdateCellForRow(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+procedure TStateFilesDlg.TFilesDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 begin
+  Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
   Cell.FText := ExtractFileName(FileList[Row]);
 end;
 
-procedure TStateFilesDlg.TFilesDialog.TableViewDidSelectCellAtRow(Row: Integer; Sender: TCastleTableView);
+procedure TStateFilesDlg.TFilesDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
 begin
   if Assigned(StateFilesDlg.FOnFileSelected) then
     StateFilesDlg.FOnFileselected(FileList[Row]);
