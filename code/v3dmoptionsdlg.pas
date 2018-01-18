@@ -18,23 +18,22 @@ unit V3DMOptionsDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
+  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  CastleControls_Switch, CastleControls_TableView;
 
 type
   TStateOptionsDlg = class(TUIState)
   strict private
     type
-      TOptionsDialog = class(TCastleRectangleControl)
+      TOptionsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
-        //ChkShowBBox: TCastleCheckbox;
-        ChkShowBBox, ChkShowFps, ChkHeadlight, ChkCollisions: TCastleButton;
-        procedure ChkShowBBoxClick(Sender: TObject);
-        procedure ChkShowFpsClick(Sender: TObject);
-        procedure ChkHeadlightClick(Sender: TObject);
-        procedure ChkCollisionsClick(Sender: TObject);
+        procedure TableViewSwitchChanged(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
+
+        function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+        procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
       end;
     var
       Dialog: TOptionsDialog;
@@ -55,12 +54,22 @@ uses
   CastleUtils, CastleVectors,
   V3DMOptions;
 
+const
+  OptCellTagShowBBox    = 0;
+  OptCellTagShowFps     = 1;
+  OptCellTagHeadlight   = 2;
+  OptCellTagCollisions  = 3;
+
+  OptCellCount          = 4;
+
 { TStateOptionsDlg.TOptionsDialog ---------------------------------------------- }
 
 constructor TStateOptionsDlg.TOptionsDialog.Create(AOwner: TComponent);
 var
   InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
+  TableTop, Diff: integer;
+  TableView: TCastleTableView;
 begin
   inherited Create(AOwner);
 
@@ -69,8 +78,8 @@ begin
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
-  InsideRect.Width := CalculatedWidth - 10;
-  InsideRect.Height := CalculatedHeight - 10;
+  InsideRect.Width := CalculatedWidth - 4;
+  InsideRect.Height := CalculatedHeight - 4;
   InsideRect.Color := HexToColor('505050');
   InsideRect.Anchor(hpMiddle);
   InsideRect.Anchor(vpMiddle);
@@ -84,72 +93,102 @@ begin
   LabelWndTitle.Anchor(vpTop, 0);
   InsideRect.InsertFront(LabelWndTitle);
 
-  ChkShowBBox := TCastleButton.Create(Self);
-  ChkShowBBox.Caption := 'Show Bounding Box';
-  ChkShowBBox.Anchor(hpLeft, 10);
-  ChkShowBBox.Anchor(vpTop, -50);
-  ChkShowBBox.OnClick := @ChkShowBBoxClick;
-  ChkShowBBox.Toggle := true;
-  ChkShowBBox.Pressed := AppOptions.ShowBBox;
-  InsideRect.InsertFront(ChkShowBBox);
+  TableTop := -(LabelWndTitle.CalculatedHeight + 14);
 
-  ChkShowFps := TCastleButton.Create(Self);
-  ChkShowFps.Caption := 'Show FPS';
-  ChkShowFps.Anchor(hpLeft, 10);
-  ChkShowFps.Anchor(vpTop, -100);
-  ChkShowFps.OnClick := @ChkShowFpsClick;
-  ChkShowFps.Toggle := true;
-  ChkShowFps.Pressed := AppOptions.ShowFps;
-  InsideRect.InsertFront(ChkShowFps);
+  TableView := TCastleTableView.Create(Self);
+  TableView.EnableDragging := true;
+  TableView.Width := InsideRect.Width - 10;
+  TableView.Height := InsideRect.Height - 5 + TableTop;
+  TableView.Anchor(hpMiddle);
+  TableView.Anchor(vpTop, TableTop);
+  InsideRect.InsertFront(TableView);
+  TableView.DataSource := Self;
 
-  ChkHeadlight := TCastleButton.Create(Self);
-  ChkHeadlight.Caption := 'Headlight';
-  ChkHeadlight.Anchor(hpLeft, 10);
-  ChkHeadlight.Anchor(vpTop, -150);
-  ChkHeadlight.OnClick := @ChkHeadlightClick;
-  ChkHeadlight.Enabled := Assigned(StateOptionsDlg.FScene);
-  ChkHeadlight.Toggle := true;
-  if Assigned(StateOptionsDlg.FScene) then
-    ChkHeadlight.Pressed := StateOptionsDlg.FScene.HeadLightOn;
-  InsideRect.InsertFront(ChkHeadlight);
-
-  ChkCollisions := TCastleButton.Create(Self);
-  ChkCollisions.Caption := 'Collisions';
-  ChkCollisions.Anchor(hpLeft, 10);
-  ChkCollisions.Anchor(vpTop, -200);
-  ChkCollisions.OnClick := @ChkCollisionsClick;
-  ChkCollisions.Toggle := true;
-  ChkCollisions.Pressed := AppOptions.CollisionsOn;
-  InsideRect.InsertFront(ChkCollisions);
-
+  // when tableView contents take less space, make the window smaller
+  if TableView.ScrollArea.Height < TableView.Height then
+  begin
+    Diff := TableView.Height - TableView.ScrollArea.Height;
+    TableView.Height := TableView.ScrollArea.Height;
+    Height := Height - Diff;
+    InsideRect.Height := CalculatedHeight - 4;
+  end;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.ChkShowBBoxClick(Sender: TObject);
+function TStateOptionsDlg.TOptionsDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
 begin
-  ChkShowBBox.Pressed := not ChkShowBBox.Pressed;
-  AppOptions.ShowBBox := ChkShowBBox.Pressed;
+  Result := OptCellCount;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.ChkShowFpsClick(Sender: TObject);
+procedure TStateOptionsDlg.TOptionsDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+var
+  CellCaption: string;
+  SwitchState, CellEnabled: boolean;
+  SwitchCtl: TCastleSwitch;
 begin
-  ChkShowFps.Pressed := not ChkShowFps.Pressed;
-  AppOptions.ShowFps := ChkShowFps.Pressed;
+  Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
+  CellEnabled := true;
+  SwitchState := true;
+
+  case Row of
+    OptCellTagShowBBox:
+      begin
+        CellCaption := 'Show Bounding Box';
+        SwitchState := AppOptions.ShowBBox;
+      end;
+    OptCellTagShowFps:
+      begin
+        CellCaption := 'Show FPS';
+        SwitchState := AppOptions.ShowFps;
+      end;
+    OptCellTagHeadlight:
+      begin
+        CellCaption := 'Headlight';
+        CellEnabled := Assigned(StateOptionsDlg.FScene);
+        if Assigned(StateOptionsDlg.FScene) then
+          SwitchState := StateOptionsDlg.FScene.HeadLightOn
+        else
+          SwitchState := false;
+      end;
+    OptCellTagCollisions:
+      begin
+        CellCaption := 'Collisions';
+        SwitchState := AppOptions.CollisionsOn;
+      end;
+  end;
+  Cell.TextLabel.Caption := CellCaption;
+  SwitchCtl := TCastleSwitch.Create(Cell);
+  SwitchCtl.IsOn := SwitchState;
+  SwitchCtl.Enabled := CellEnabled;
+  SwitchCtl.Tag := Row;
+  SwitchCtl.OnChange := @TableViewSwitchChanged;
+  Cell.AccessoryControl := SwitchCtl;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.ChkHeadlightClick(Sender: TObject);
+procedure TStateOptionsDlg.TOptionsDialog.TableViewSwitchChanged(Sender: TObject);
+var
+  SwitchCtl: TCastleSwitch;
 begin
-  ChkHeadlight.Pressed := not ChkHeadlight.Pressed;
-  if Assigned(StateOptionsDlg.FScene) then
-    StateOptionsDlg.FScene.HeadLightOn := ChkHeadlight.Pressed;
-end;
+  if not (Sender is TCastleSwitch) then Exit;
+  SwitchCtl := (Sender as TCastleSwitch);
+  case SwitchCtl.Tag of
+    OptCellTagShowBBox:  AppOptions.ShowBBox := SwitchCtl.IsOn;
 
-procedure TStateOptionsDlg.TOptionsDialog.ChkCollisionsClick(Sender: TObject);
-begin
-  ChkCollisions.Pressed := not ChkCollisions.Pressed;
-  AppOptions.CollisionsOn := ChkCollisions.Pressed;
+    OptCellTagShowFps:   AppOptions.ShowFps  := SwitchCtl.IsOn;
 
-  if Assigned(StateOptionsDlg.FScene) then
-    StateOptionsDlg.FScene.Collides := ChkCollisions.Pressed;
+    OptCellTagHeadlight:
+      begin
+        if Assigned(StateOptionsDlg.FScene) then
+          StateOptionsDlg.FScene.HeadLightOn := SwitchCtl.IsOn;
+      end;
+
+    OptCellTagCollisions:
+      begin
+        AppOptions.CollisionsOn := SwitchCtl.IsOn;
+
+        if Assigned(StateOptionsDlg.FScene) then
+          StateOptionsDlg.FScene.Collides := AppOptions.CollisionsOn;
+      end;
+  end;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.DoAnswered;

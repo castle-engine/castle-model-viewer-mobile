@@ -19,10 +19,10 @@ interface
 
 uses
   Classes, Generics.Collections,
-  CastleControls, CastleColors, CastleKeysMouse, CastleVectors, CastleRectangles;
+  CastleUIControls, CastleColors, CastleKeysMouse, CastleVectors, CastleRectangles;
 
 type
-  TCastleSwitch = class(TUIControlFont)
+  TCastleSwitch = class(TUIControl)
     strict private
       FIsOn: boolean;
       FEnabled: boolean;
@@ -55,7 +55,7 @@ implementation
 
 uses
   SysUtils, Math,
-  CastleUIControls, CastleGLImages;
+  CastleControls;
 
 constructor TCastleSwitch.Create(AOwner: TComponent);
 begin
@@ -84,9 +84,9 @@ begin
 
   // background
   BackRect := BaseRect;
-  BackRect.Height := BaseRect.Height div 2;
-  BackRect.Bottom := BaseRect.Bottom + (BaseRect.Height div 4);
-  //Theme.GLImages[tiProgressFill].IgnoreTooLargeCorners := true;
+  BackRect.Height := Round(BaseRect.Height * 0.5);  //*0.4; //BaseRect.Height div 2;
+  BackRect.Bottom := BaseRect.Bottom + ((BaseRect.Height - BackRect.Height) div 2);
+  //Theme.GLImages[tiProgressFill].IgnoreTooLargeCorners := true; // this property is available only inside CastleControl.pas (private), uncomment after TCastleSwitch gets there
   //Theme.GLImages[tiProgressBar].IgnoreTooLargeCorners := true;
   if IsOn then
     Theme.Draw(BackRect, tiProgressFill, UIScale)
@@ -95,7 +95,7 @@ begin
 
   // handle
   HandleRect := BaseRect;
-  HandleRect.Width := HandleRect.Height;
+  HandleRect.Width := BaseRect.Width div 3; //HandleRect.Height;
   if IsOn then
     HandleRect.Left := BaseRect.Right - HandleRect.Width;
 

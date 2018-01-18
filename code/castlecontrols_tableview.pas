@@ -19,7 +19,7 @@ interface
 
 uses
   Classes, Generics.Collections,
-  CastleControls, CastleColors, CastleKeysMouse, CastleVectors;
+  CastleControls, CastleUIControls, CastleColors, CastleKeysMouse, CastleVectors;
 
 type
   TCastleTableView = class;
@@ -31,8 +31,11 @@ type
       FTextLabel, FAccessoryTypeLabel: TCastleLabel;
       FTag: Integer;
       FAccessoryType: TCastleTableViewCellAccessoryType;
+      FAccessoryControl: TUIControl;
 
+      procedure SetAccessoryControl(AControl: TUIControl);
       procedure ReflectUIControls;
+
     public
       constructor Create(AOwner: TComponent); override;
       destructor Destroy; override;
@@ -41,6 +44,8 @@ type
       property TextLabel: TCastleLabel read FTextLabel;
       property AccessoryType: TCastleTableViewCellAccessoryType
                               read FAccessoryType write FAccessoryType default tvcaNone;
+      property AccessoryControl: TUIControl
+                              read FAccessoryControl write SetAccessoryControl default nil;
       property Tag: Integer read FTag write FTag default 0;
   end;
 
@@ -82,18 +87,18 @@ implementation
 
 uses
   SysUtils, Math,
-  CastleUIControls, CastleRectangles, CastleLog, CastleWindow;
+  CastleRectangles, CastleLog, CastleWindow;
 
 constructor TCastleTableViewCell.Create(AOwner: TComponent);
 begin
   inherited;
-  FTextLabel := nil;
-  FAccessoryTypeLabel := nil;
-
   FTextLabel := TCastleLabel.Create(Self);
   FTextLabel.Anchor(hpLeft, 5);
   FTextLabel.Anchor(vpMiddle);
   InsertFront(FTextLabel);
+
+  FAccessoryTypeLabel := nil;
+  FAccessoryControl := nil;
 
   MakeEmpty;
 end;
@@ -105,13 +110,37 @@ end;
 
 procedure TCastleTableViewCell.MakeEmpty;
 begin
-  FTextLabel.Caption := '';
-  FAccessoryType := tvcaNone;
-  FTag := 0;
+  TextLabel.Caption := '';
+  AccessoryType := tvcaNone;
+  AccessoryControl := nil;
+  Tag := 0;
   Color := Vector4(0.0, 0.0, 0.0, 0.0); // transparent
 end;
 
+procedure TCastleTableViewCell.SetAccessoryControl(AControl: TUIControl);
+begin
+  if AControl = FAccessoryControl then
+    Exit;
+  // remove old
+  if FAccessoryControl <> nil then
+  begin
+    RemoveControl(FAccessoryControl);
+    RemoveComponent(FAccessoryControl);
+    FreeAndNil(FAccessoryControl);
+  end;
+
+  // set new
+  if AControl <> nil then
+  begin
+    AControl.Anchor(vpMiddle);    // horizontal posistion is set in ReflectUIControls
+    InsertFront(AControl);
+    FAccessoryControl := AControl;
+  end;
+end;
+
 procedure TCastleTableViewCell.ReflectUIControls;
+var
+  NextRight, Spacing: Integer;
 begin
   if FAccessoryType = tvcaNone then
   begin
@@ -123,7 +152,6 @@ begin
       FAccessoryTypeLabel.Exists := true
     else begin
       FAccessoryTypeLabel := TCastleLabel.Create(Self);
-      FAccessoryTypeLabel.Anchor(hpRight, -5);
       FAccessoryTypeLabel.Anchor(vpMiddle);
       InsertFront(FAccessoryTypeLabel);
     end;
@@ -139,10 +167,23 @@ begin
     end;
   end;
 
+  // update horizontal positions
+  NextRight := -5;
+  Spacing := 8;
+
   if (FAccessoryTypeLabel <> nil) and FAccessoryTypeLabel.Exists then
-    FTextLabel.MaxWidth := CalculatedWidth - FAccessoryTypeLabel.CalculatedWidth - 15
-  else
-    FTextLabel.MaxWidth := CalculatedWidth - 10;
+  begin
+    FAccessoryTypeLabel.Anchor(hpRight, NextRight);
+    NextRight := NextRight - FAccessoryTypeLabel.CalculatedWidth - Spacing;
+  end;
+
+  if (FAccessoryControl <> nil) and (FAccessoryControl.Exists) then
+  begin
+    FAccessoryControl.Anchor(hpRight, NextRight);
+    NextRight := NextRight - FAccessoryControl.CalculatedWidth - Spacing;
+  end;
+
+  FTextLabel.MaxWidth := CalculatedWidth - 5 + NextRight;
 end;
 
 constructor TCastleTableView.Create(AOwner: TComponent);
