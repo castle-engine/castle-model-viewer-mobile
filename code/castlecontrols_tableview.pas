@@ -28,9 +28,10 @@ type
 
   TCastleTableViewCell = class(TCastleRectangleControl)
     private
-      FTextLabel, FAccessoryTypeLabel: TCastleLabel;
+      FTextLabel: TCastleLabel;
       FTag: Integer;
       FAccessoryType: TCastleTableViewCellAccessoryType;
+      FAccessoryTypeImage: TCastleImageControl;
       FAccessoryControl: TUIControl;
 
       procedure SetAccessoryControl(AControl: TUIControl);
@@ -87,7 +88,8 @@ implementation
 
 uses
   SysUtils, Math,
-  CastleRectangles, CastleLog, CastleWindow;
+  CastleRectangles, CastleLog, CastleWindow,
+  CastleControls_TableView_Img;
 
 constructor TCastleTableViewCell.Create(AOwner: TComponent);
 begin
@@ -97,7 +99,7 @@ begin
   FTextLabel.Anchor(vpMiddle);
   InsertFront(FTextLabel);
 
-  FAccessoryTypeLabel := nil;
+  FAccessoryTypeImage := nil;
   FAccessoryControl := nil;
 
   MakeEmpty;
@@ -144,26 +146,28 @@ var
 begin
   if FAccessoryType = tvcaNone then
   begin
-    if FAccessoryTypeLabel <> nil then
-      FAccessoryTypeLabel.Exists := false;
+    if FAccessoryTypeImage <> nil then
+      FAccessoryTypeImage.Exists := false;
   end
   else begin
-    if FAccessoryTypeLabel <> nil then
-      FAccessoryTypeLabel.Exists := true
+    if FAccessoryTypeImage <> nil then
+      FAccessoryTypeImage.Exists := true
     else begin
-      FAccessoryTypeLabel := TCastleLabel.Create(Self);
-      FAccessoryTypeLabel.Anchor(vpMiddle);
-      InsertFront(FAccessoryTypeLabel);
+      FAccessoryTypeImage := TCastleImageControl.Create(Self);
+      FAccessoryTypeImage.Anchor(vpMiddle);
+      InsertFront(FAccessoryTypeImage);
     end;
 
     if FAccessoryType = tvcaCheckmark then
     begin
-      FAccessoryTypeLabel.Caption := 'V';  // TODO: checkmark U+2714 or 2713
-      FAccessoryTypeLabel.Color := FTextLabel.Color;
+      FAccessoryTypeImage.OwnsImage := false;
+      FAccessoryTypeImage.Image := TableViewImages.tviCheckmark;
+      FAccessoryTypeImage.Color := FTextLabel.Color;
     end
     else if FAccessoryType = tvcaDisclosureIndicator then begin
-      FAccessoryTypeLabel.Caption := '>';
-      FAccessoryTypeLabel.Color := Theme.DisabledTextColor;
+      FAccessoryTypeImage.OwnsImage := false;
+      FAccessoryTypeImage.Image := TableViewImages.tviDisclosureIndicator;
+      FAccessoryTypeImage.Color := Theme.DisabledTextColor;
     end;
   end;
 
@@ -171,10 +175,10 @@ begin
   NextRight := -5;
   Spacing := 8;
 
-  if (FAccessoryTypeLabel <> nil) and FAccessoryTypeLabel.Exists then
+  if (FAccessoryTypeImage <> nil) and FAccessoryTypeImage.Exists then
   begin
-    FAccessoryTypeLabel.Anchor(hpRight, NextRight);
-    NextRight := NextRight - FAccessoryTypeLabel.CalculatedWidth - Spacing;
+    FAccessoryTypeImage.Anchor(hpRight, NextRight);
+    NextRight := NextRight - FAccessoryTypeImage.CalculatedWidth - Spacing;
   end;
 
   if (FAccessoryControl <> nil) and (FAccessoryControl.Exists) then
