@@ -49,10 +49,8 @@ end;
 
 destructor TCastleTableViewImages.Destroy;
 begin
-  if tviCheckmark <> nil then
-     FreeAndNil(tviCheckmark);
-  if tviDisclosureIndicator <> nil then
-     FreeAndNil(tviDisclosureIndicator);
+  FreeAndNil(tviCheckmark);
+  FreeAndNil(tviDisclosureIndicator);
   inherited;
 end;
 
