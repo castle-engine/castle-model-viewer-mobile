@@ -60,5 +60,7 @@ begin
   UserConfig.Save;
 end;
 
+finalization
+  FreeAndNil(AppOptions);
 end.
 

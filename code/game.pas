@@ -109,16 +109,24 @@ begin
   Theme.MessageTextColor := Silver;
   Theme.TextColor := Black;
   Theme.DisabledTextColor := Gray;
+
   Theme.Images[tiWindow] := CastleImages.LoadImage(ApplicationData('theme_window.png')); // dialog background color and frame
   Theme.Images[tiButtonNormal] := CastleImages.LoadImage(ApplicationData('theme_btnNormal.png'));
   Theme.Images[tiButtonDisabled] := CastleImages.LoadImage(ApplicationData('theme_btnDisabled.png'));
   Theme.Images[tiButtonFocused] := CastleImages.LoadImage(ApplicationData('theme_btnFocused.png'));
   Theme.Images[tiButtonPressed] := CastleImages.LoadImage(ApplicationData('theme_btnPressed.png'));
+  Theme.OwnsImages[tiWindow] := true;
+  Theme.OwnsImages[tiButtonNormal] := true;
+  Theme.OwnsImages[tiButtonDisabled] := true;
+  Theme.OwnsImages[tiButtonFocused] := true;
+  Theme.OwnsImages[tiButtonPressed] := true;
   Theme.Corners[tiButtonNormal] := Vector4Integer(3, 3, 3, 3);
   Theme.Corners[tiButtonDisabled] := Vector4Integer(3, 3, 3, 3);
   Theme.Corners[tiButtonFocused] := Vector4Integer(3, 3, 3, 3);
   Theme.Corners[tiButtonPressed] := Vector4Integer(3, 3, 3, 3);
+
   Theme.Images[tiScrollbarSlider] := CastleImages.LoadImage(ApplicationData('theme_btnNormal.png'));
+  Theme.OwnsImages[tiScrollbarSlider] := true;
   Theme.Corners[tiScrollbarSlider] := Vector4Integer(3, 3, 3, 3);
 
   UIFont.Size := 15;
@@ -135,6 +143,7 @@ begin
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
   BtnNavWalk.Image := CastleImages.LoadImage(ApplicationData('nav_walk.png'));
+  BtnNavWalk.OwnsImage := true;
   BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavWalk.Toggle := true;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
@@ -146,6 +155,7 @@ begin
   BtnNavFly := TCastleButton.Create(ToolbarPanel);
   BtnNavFly.Tooltip := 'Fly';
   BtnNavFly.Image := CastleImages.LoadImage(ApplicationData('nav_fly.png'));
+  BtnNavFly.OwnsImage := true;
   BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavFly.Toggle := true;
   BtnNavFly.Tag := 1;
@@ -154,6 +164,7 @@ begin
   BtnNavExamine := TCastleButton.Create(ToolbarPanel);
   BtnNavExamine.Tooltip := 'Examine';
   BtnNavExamine.Image := CastleImages.LoadImage(ApplicationData('nav_examine.png'));
+  BtnNavExamine.OwnsImage := true;
   BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavExamine.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavExamine);
@@ -167,6 +178,7 @@ begin
   BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
   BtnViewpointPrev.Tooltip := 'Previous viewpoint';
   BtnViewpointPrev.Image := CastleImages.LoadImage(ApplicationData('arrow-left-b.png'));
+  BtnViewpointPrev.OwnsImage := true;
   BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
   BtnViewpointPrev.Tag := 1;
   ToolbarPanel.InsertFront(BtnViewpointPrev);
@@ -180,30 +192,35 @@ begin
   BtnViewpointNext := TCastleButton.Create(ToolbarPanel);
   BtnViewpointNext.Tooltip := 'Next viewpoint';
   BtnViewpointNext.Image := CastleImages.LoadImage(ApplicationData('arrow-right-b.png'));
+  BtnViewpointNext.OwnsImage := true;
   BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
   ToolbarPanel.InsertFront(BtnViewpointNext);
 
   BtnScreenshot := TCastleButton.Create(ToolbarPanel);
   BtnScreenshot.Tooltip := 'Screenshot';
   BtnScreenshot.Image := CastleImages.LoadImage(ApplicationData('screenshot.png'));
+  BtnScreenshot.OwnsImage := true;
   BtnScreenshot.OnClick := @TButtonsHandler(nil).BtnScreenshotClick;
   ToolbarPanel.InsertFront(BtnScreenshot);
 
   BtnOptions := TCastleButton.Create(ToolbarPanel);
   BtnOptions.Tooltip := 'Options';
   BtnOptions.Image := CastleImages.LoadImage(ApplicationData('gear-b.png'));
+  BtnOptions.OwnsImage := true;
   BtnOptions.OnClick := @TButtonsHandler(nil).BtnOptionsClick;
   ToolbarPanel.InsertFront(BtnOptions);
 
   BtnFiles := TCastleButton.Create(ToolbarPanel);
   BtnFiles.Tooltip := 'Saved scenes';
   BtnFiles.Image := CastleImages.LoadImage(ApplicationData('file.png'));
+  BtnFiles.OwnsImage := true;
   BtnFiles.OnClick := @TButtonsHandler(nil).BtnFilesClick;
   ToolbarPanel.InsertFront(BtnFiles);
 
   BtnInfo := TCastleButton.Create(ToolbarPanel);
   BtnInfo.Tooltip := 'About';
   BtnInfo.Image := CastleImages.LoadImage(ApplicationData('info-circle.png'));
+  BtnInfo.OwnsImage := true;
   BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
   ToolbarPanel.InsertFront(BtnInfo);
 
@@ -569,4 +586,6 @@ initialization
   OptimizeExtensiveTransformations := true;
 
 finalization
+  FreeAndNil(TableViewImages);
+  FreeAndNil(SceneWarnings);
 end.
