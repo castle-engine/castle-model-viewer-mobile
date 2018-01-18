@@ -477,11 +477,11 @@ var
 begin
   RestoreCtls := TUIControlList.Create(false);
   try
-    // hide touch controls
+    // hide everything except SceneManager
     for I := 0 to Window.Controls.Count - 1 do
     begin
       C := Window.Controls[I];
-      if C.Exists then
+      if C.Exists and (C <> Window.SceneManager) then
       begin
         C.Exists := false;
         RestoreCtls.InsertFront(C);
