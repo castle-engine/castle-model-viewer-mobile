@@ -30,6 +30,7 @@ type
       TViewpointsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
         procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
+        procedure BtnDoneClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
@@ -63,6 +64,7 @@ constructor TStateViewpointsDlg.TViewpointsDialog.Create(AOwner: TComponent);
 var
   InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
+  BtnDone: TCastleButton;
   TableTop, Diff: integer;
   TableView: TCastleTableView;
 begin
@@ -85,10 +87,17 @@ begin
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>Viewpoints</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, 0);
+  LabelWndTitle.Anchor(vpTop, -8);
   InsideRect.InsertFront(LabelWndTitle);
 
-  TableTop := -(LabelWndTitle.CalculatedHeight + 14);
+  BtnDone := TCastleButton.Create(Self);
+  BtnDone.Caption := 'Done';
+  BtnDone.OnClick := @BtnDoneClick;
+  BtnDone.Anchor(vpTop, -4);
+  BtnDone.Anchor(hpRight, -4);
+  InsideRect.InsertFront(BtnDone);
+
+  TableTop := -(BtnDone.CalculatedHeight + 14);
 
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
@@ -131,6 +140,11 @@ begin
   if Assigned(StateViewpointsDlg.FOnViewpointSelected) then
     StateViewpointsDlg.FOnViewpointSelected(Row);
 
+  DoAnswered;
+end;
+
+procedure TStateViewpointsDlg.TViewpointsDialog.BtnDoneClick(Sender: TObject);
+begin
   DoAnswered;
 end;
 

@@ -559,14 +559,8 @@ begin
   Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
 end;
 
-function MyGetApplicationName: string;
-begin
-  Result := 'view3dscene-mobile';
-end;
-
 initialization
-  { This should be done as early as possible to mark our log lines correctly. }
-  OnGetApplicationName := @MyGetApplicationName;
+  ApplicationProperties.ApplicationName := 'view3dscene-mobile';
 
   InitializeLog;
 

@@ -28,6 +28,7 @@ type
       TOptionsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
         procedure TableViewSwitchChanged(Sender: TObject);
+        procedure BtnDoneClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
@@ -68,6 +69,7 @@ constructor TStateOptionsDlg.TOptionsDialog.Create(AOwner: TComponent);
 var
   InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
+  BtnDone: TCastleButton;
   TableTop, Diff: integer;
   TableView: TCastleTableView;
 begin
@@ -90,10 +92,17 @@ begin
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>Options</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, 0);
+  LabelWndTitle.Anchor(vpTop, -8);
   InsideRect.InsertFront(LabelWndTitle);
 
-  TableTop := -(LabelWndTitle.CalculatedHeight + 14);
+  BtnDone := TCastleButton.Create(Self);
+  BtnDone.Caption := 'Done';
+  BtnDone.OnClick := @BtnDoneClick;
+  BtnDone.Anchor(vpTop, -4);
+  BtnDone.Anchor(hpRight, -4);
+  InsideRect.InsertFront(BtnDone);
+
+  TableTop := -(BtnDone.CalculatedHeight + 14);
 
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
@@ -189,6 +198,11 @@ begin
           StateOptionsDlg.FScene.Collides := AppOptions.CollisionsOn;
       end;
   end;
+end;
+
+procedure TStateOptionsDlg.TOptionsDialog.BtnDoneClick(Sender: TObject);
+begin
+  DoAnswered;
 end;
 
 procedure TStateOptionsDlg.TOptionsDialog.DoAnswered;

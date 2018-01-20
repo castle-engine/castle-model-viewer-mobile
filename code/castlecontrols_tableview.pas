@@ -194,6 +194,7 @@ constructor TCastleTableView.Create(AOwner: TComponent);
 begin
   inherited;
   FCells := TCastleTableViewCellList.Create;
+  FCells.OwnsObjects := false;
   FDataSource := nil;
   FOnDidSelectCell := nil;
   FMotionIsClick := false;
