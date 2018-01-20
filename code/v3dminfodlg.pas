@@ -29,6 +29,7 @@ type
         procedure BtnDonateClick(Sender: TObject);
         procedure BtnWebClick(Sender: TObject);
         procedure BtnOpenGlInfoClick(Sender: TObject);
+        procedure BtnDoneClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
@@ -60,32 +61,48 @@ uses
 
 constructor TStateInfoDlg.TInfoDialog.Create(AOwner: TComponent);
 var
-  InsideRect: TCastleRectangleControl;
+  InsideRect, HeaderRect: TCastleRectangleControl;
   LabelWndTitle, LabelSceneStats, LabelAbout: TCastleLabel;
   ImgLogo: TCastleImageControl;
-  BtnOpenGlInfo, BtnDonate, BtnWeb: TCastleButton;
+  BtnOpenGlInfo, BtnDonate, BtnWeb, BtnDone: TCastleButton;
 begin
   inherited Create(AOwner);
 
   Width := 320;
-  Height := 500;
+  Height := 520;
   Color := Black;
 
   InsideRect := TCastleRectangleControl.Create(Self);
-  InsideRect.Width := CalculatedWidth - 10;
-  InsideRect.Height := CalculatedHeight - 10;
+  InsideRect.Width := CalculatedWidth - 4;
+  InsideRect.Height := CalculatedHeight - 4;
   InsideRect.Color := HexToColor('505050');
   InsideRect.Anchor(hpMiddle);
   InsideRect.Anchor(vpMiddle);
   InsertFront(InsideRect);
+
+  HeaderRect := TCastleRectangleControl.Create(Self);
+  HeaderRect.Width := CalculatedWidth - 4;
+  HeaderRect.Color := HexToColor('5A5A5A');
+  HeaderRect.Anchor(hpMiddle);
+  HeaderRect.Anchor(vpTop, 0);
+  InsideRect.InsertFront(HeaderRect);
 
   LabelWndTitle := TCastleLabel.Create(Self);
   LabelWndTitle.Color := White;
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>About view3Dscene</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, 0);
+  LabelWndTitle.Anchor(vpTop, -8);
   InsideRect.InsertFront(LabelWndTitle);
+
+  BtnDone := TCastleButton.Create(Self);
+  BtnDone.Caption := 'Done';
+  BtnDone.OnClick := @BtnDoneClick;
+  BtnDone.Anchor(vpTop, -4);
+  BtnDone.Anchor(hpRight, -4);
+  InsideRect.InsertFront(BtnDone);
+
+  HeaderRect.Height := BtnDone.CalculatedHeight + 12;
 
   LabelSceneStats := TCastleLabel.Create(Self);
   LabelSceneStats.Color := Silver;
@@ -95,7 +112,7 @@ begin
   LabelSceneStats.Alignment := hpLeft;
   //LabelSceneStats.AutoSizeWidth := false;
   LabelSceneStats.Anchor(hpLeft, 10);
-  LabelSceneStats.Anchor(vpTop, -30);
+  LabelSceneStats.Anchor(vpTop, -50);
   InsideRect.InsertFront(LabelSceneStats);
 
   BtnOpenGlInfo := TCastleButton.Create(Self);
@@ -156,6 +173,11 @@ begin
   Dlg := TStateDialogOK.Create(Self);
   Dlg.Caption := GLInformationString;
   TUIState.Push(Dlg);
+end;
+
+procedure TStateInfoDlg.TInfoDialog.BtnDoneClick(Sender: TObject);
+begin
+  DoAnswered;
 end;
 
 procedure TStateInfoDlg.TInfoDialog.DoAnswered;
