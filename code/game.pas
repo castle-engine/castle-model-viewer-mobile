@@ -44,8 +44,7 @@ uses Classes, SysUtils, Math,
   CastleDialogStates,
   CastlePhotoService,
   X3DNodes,
-  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
-  CastleControls_TableView_Img;
+  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg;
 
 { main game stuff ------------------------------------------------------------ }
 type
@@ -131,10 +130,6 @@ begin
   Theme.Corners[tiScrollbarSlider] := Vector4Integer(3, 3, 3, 3);
 
   UIFont.Size := 15;
-
-  // images for controls defined here
-  TableViewImages := TCastleTableViewImages.Create;
-  TableViewImages.LoadImages;
 
   // toolbar
   ToolbarPanel := TCastlePanel.Create(Application);
@@ -647,6 +642,5 @@ initialization
   OptimizeExtensiveTransformations := true;
 
 finalization
-  FreeAndNil(TableViewImages);
   FreeAndNil(SceneWarnings);
 end.

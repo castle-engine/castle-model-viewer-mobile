@@ -108,8 +108,7 @@ implementation
 
 uses
   SysUtils, Math,
-  CastleRectangles, CastleLog, CastleWindow,
-  CastleControls_TableView_Img;
+  CastleRectangles, CastleLog, CastleWindow;
 
 constructor TCastleTableViewCell.Create(AOwner: TComponent);
 begin
@@ -181,12 +180,12 @@ begin
     if FAccessoryType = tvcaCheckmark then
     begin
       FAccessoryTypeImage.OwnsImage := false;
-      FAccessoryTypeImage.Image := TableViewImages.tviCheckmark;
+      FAccessoryTypeImage.Image := Theme.Images[tiCheckmark];
       FAccessoryTypeImage.Color := FTextLabel.Color;
     end
     else if FAccessoryType = tvcaDisclosureIndicator then begin
       FAccessoryTypeImage.OwnsImage := false;
-      FAccessoryTypeImage.Image := TableViewImages.tviDisclosureIndicator;
+      FAccessoryTypeImage.Image := Theme.Images[tiDisclosure];
       FAccessoryTypeImage.Color := Theme.DisabledTextColor;
     end;
   end;
