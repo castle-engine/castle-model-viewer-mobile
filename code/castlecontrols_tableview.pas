@@ -35,6 +35,8 @@ type
       FAccessoryControl: TUIControl;
 
       procedure SetAccessoryControl(AControl: TUIControl);
+
+    private
       procedure ReflectUIControls;
 
     public
@@ -98,7 +100,7 @@ type
       { Event called when cell was selected by user. }
       property OnSelectCell: TTableViewDidSelectCellEvent
                              read FOnDidSelectCell write FOnDidSelectCell;
-      { Height of all cells }
+      { Height of all cells. }
       property CellHeight: Integer read FCellHeight write FCellHeight default DefaultCellHeight;
   end;
 

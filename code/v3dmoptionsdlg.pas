@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils,
   CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  CastleControls_Switch, CastleControls_TableView,
+  CastleControls_TableView,
   Game;
 
 type
