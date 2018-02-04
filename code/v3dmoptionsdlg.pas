@@ -19,7 +19,6 @@ interface
 
 uses Classes, SysUtils,
   CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  CastleControls_TableView,
   Game;
 
 type

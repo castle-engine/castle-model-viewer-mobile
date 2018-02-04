@@ -18,8 +18,7 @@ unit V3DMViewpointsDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  CastleControls_TableView;
+  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
 
 type
   TViewpointSelectedEvent = procedure (ViewpointIdx : integer) of object;

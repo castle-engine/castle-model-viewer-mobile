@@ -18,8 +18,7 @@ unit V3DMFilesDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  CastleControls_TableView;
+  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
 
 type
   TFileSelectedEvent = procedure (Url : string) of object;
