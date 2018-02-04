@@ -31,6 +31,7 @@ var
   Window: TCastleWindowTouch;
 
 procedure OpenScene(const Url: string);
+procedure ShowHideNavigationButtons(UpdateToobar: boolean);
 
 implementation
 
@@ -63,7 +64,7 @@ type
   end;
 
 var
-  BtnNavWalk, BtnNavFly, BtnNavExamine, {BtnNavTurntable,} BtnOptions,
+  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
     BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
     BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
   ToolbarPanel: TCastlePanel;
@@ -169,11 +170,13 @@ begin
   BtnNavExamine.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavExamine);
 
-  {BtnNavTurntable := TCastleButton.Create(ToolbarPanel);
-  BtnNavTurntable.Caption := 'Turntable';
+  BtnNavTurntable := TCastleButton.Create(ToolbarPanel);
+  BtnNavTurntable.Tooltip := 'Turntable';
+  BtnNavTurntable.Image := CastleImages.LoadImage(ApplicationData('nav_turntable.png'));
+  BtnNavTurntable.OwnsImage := true;
   BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavTurntable.Toggle := true;
-  ToolbarPanel.InsertFront(BtnNavTurntable);}
+  ToolbarPanel.InsertFront(BtnNavTurntable);
 
   BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
   BtnViewpointPrev.Tooltip := 'Previous viewpoint';
@@ -406,6 +409,8 @@ begin
 
   CurrentViewpointIdx := 0;
 
+  ShowHideNavigationButtons(false);
+
   WindowResize(Window.Container); // to hide viewpoints, etc
 
   InitializeSceneBoundingBox;
@@ -446,9 +451,9 @@ begin
   else if Sender = BtnNavFly then
     Window.NavigationType := ntFly
   else if Sender = BtnNavExamine then
-    Window.NavigationType := ntExamine;
-  {else if Sender = BtnNavTurntable then
-    Window.NavigationType := ntTurntable;}
+    Window.NavigationType := ntExamine
+  else if Sender = BtnNavTurntable then
+    Window.NavigationType := ntTurntable;
   BoundNavigationInfoChanged(Sender);
 end;
 
@@ -464,7 +469,69 @@ begin
   NavType := Window.NavigationType;
   BtnNavWalk.Pressed := (NavType = ntWalk);
   BtnNavFly.Pressed := (NavType = ntFly);
-  BtnNavExamine.Pressed := ((NavType = ntExamine) or (NavType = ntTurntable));
+  BtnNavExamine.Pressed := (NavType = ntExamine);
+  BtnNavTurntable.Pressed := (NavType = ntTurntable);
+
+  ShowHideNavigationButtons(true);
+end;
+
+procedure ShowHideNavigationButtons(UpdateToobar: boolean);
+var
+  CurrentNavNode: TNavigationInfoNode;
+  AnyTypePresent, WalkPresent, FlyPresent, ExaminePresent, TurntablePresent: boolean;
+  I: Integer;
+  TypeString: string;
+  NeedsToolbarUpdate: boolean;
+
+  function ShowNavButton(Btn: TCastleButton; ShowButton: boolean): boolean;
+  begin
+    Result := (Btn.Exists <> ShowButton);
+    if Result then
+      Btn.Exists := ShowButton;
+  end;
+
+begin
+  if Window.MainScene = nil then
+    exit;
+
+  AnyTypePresent := false;
+  WalkPresent := false;
+  FlyPresent := false;
+  ExaminePresent := false;
+  TurntablePresent := false;
+
+  CurrentNavNode := Window.MainScene.NavigationInfoStack.Top;
+  if CurrentNavNode = nil then
+    ExaminePresent := true
+  else begin
+    for I := 0 to CurrentNavNode.FdType.Items.Count - 1 do
+    begin
+      TypeString := CurrentNavNode.FdType.ItemsSafe[I];
+      if CompareText(TypeString, 'ANY') = 0 then AnyTypePresent := true
+      else if CompareText(TypeString, 'WALK') = 0 then WalkPresent := true
+      else if CompareText(TypeString, 'FLY') = 0 then FlyPresent := true
+      else if CompareText(TypeString, 'EXAMINE') = 0 then ExaminePresent := true
+      else if CompareText(TypeString, 'TURNTABLE') = 0 then TurntablePresent := true;
+    end;
+  end;
+
+  { When only default VRML 97 types set, it probably means the 3D file did not
+    contain any navigationInfo node. IMHO it's better to show only Examine. }
+  if ExaminePresent and AnyTypePresent and (not WalkPresent)
+      and (not FlyPresent) and (not TurntablePresent) then
+    AnyTypePresent := false;
+
+  { Option to show all navigation types }
+  if AppOptions.ShowAllNavgationButtons then
+    AnyTypePresent := true;
+
+  { Update the visibility of toolbar buttons }
+  NeedsToolbarUpdate := ShowNavButton(BtnNavWalk, WalkPresent or AnyTypePresent);
+  NeedsToolbarUpdate := ShowNavButton(BtnNavFly, FlyPresent or AnyTypePresent) or NeedsToolbarUpdate;
+  NeedsToolbarUpdate := ShowNavButton(BtnNavExamine, ExaminePresent or AnyTypePresent) or NeedsToolbarUpdate;
+  NeedsToolbarUpdate := ShowNavButton(BtnNavTurntable, TurntablePresent or AnyTypePresent) or NeedsToolbarUpdate;
+  if UpdateToobar and NeedsToolbarUpdate then
+    WindowResize(Window.Container);
 end;
 
 class procedure TButtonsHandler.BtnScreenshotClick(Sender: TObject);

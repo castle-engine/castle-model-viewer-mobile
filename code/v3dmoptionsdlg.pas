@@ -19,7 +19,8 @@ interface
 
 uses Classes, SysUtils,
   CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  CastleControls_Switch, CastleControls_TableView;
+  CastleControls_Switch, CastleControls_TableView,
+  Game;
 
 type
   TStateOptionsDlg = class(TUIState)
@@ -60,8 +61,9 @@ const
   OptCellTagShowFps     = 1;
   OptCellTagHeadlight   = 2;
   OptCellTagCollisions  = 3;
+  OptCellTagAllNavTypes = 4;
 
-  OptCellCount          = 4;
+  OptCellCount          = 5;
 
 { TStateOptionsDlg.TOptionsDialog ---------------------------------------------- }
 
@@ -141,7 +143,7 @@ begin
   case Row of
     OptCellTagShowBBox:
       begin
-        CellCaption := 'Show Bounding Box';
+        CellCaption := 'Show bounding box';
         SwitchState := AppOptions.ShowBBox;
       end;
     OptCellTagShowFps:
@@ -162,6 +164,11 @@ begin
       begin
         CellCaption := 'Collisions';
         SwitchState := AppOptions.CollisionsOn;
+      end;
+    OptCellTagAllNavTypes:
+      begin
+        CellCaption := 'Enable all navigation types';
+        SwitchState := AppOptions.ShowAllNavgationButtons;
       end;
   end;
   Cell.TextLabel.Caption := CellCaption;
@@ -196,6 +203,12 @@ begin
 
         if Assigned(StateOptionsDlg.FScene) then
           StateOptionsDlg.FScene.Collides := AppOptions.CollisionsOn;
+      end;
+
+    OptCellTagAllNavTypes:
+      begin
+        AppOptions.ShowAllNavgationButtons := SwitchCtl.IsOn;
+        ShowHideNavigationButtons(true);
       end;
   end;
 end;

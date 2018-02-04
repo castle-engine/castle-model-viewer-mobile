@@ -23,6 +23,7 @@ uses
 type
   TAppOptions = class
     ShowBBox, ShowFps, CollisionsOn: boolean;
+    ShowAllNavgationButtons: boolean;
 
     procedure Load;
     procedure Save;
@@ -50,6 +51,7 @@ begin
   ShowBBox := UserConfig.GetValue('ShowBBox', true);
   ShowFps := UserConfig.GetValue('ShowFps', false);
   CollisionsOn := UserConfig.GetValue('CollisionsOn', true);
+  ShowAllNavgationButtons := UserConfig.GetValue('ShowAllNavgationButtons', false);
 end;
 
 procedure TAppOptions.Save;
@@ -57,6 +59,7 @@ begin
   UserConfig.SetValue('ShowBBox', ShowBBox);
   UserConfig.SetValue('ShowFps', ShowFps);
   UserConfig.SetValue('CollisionsOn', CollisionsOn);
+  UserConfig.SetValue('ShowAllNavgationButtons', ShowAllNavgationButtons);
   UserConfig.Save;
 end;
 
