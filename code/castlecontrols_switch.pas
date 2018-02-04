@@ -44,10 +44,12 @@ type
       function Release(const Event: TInputPressRelease): boolean; override;
 
     published
+      { Switch state. }
       property IsOn: boolean read FIsOn write SetIsOn default false;
       property Enabled: boolean read FEnabled write SetEnabled default true;
       property Width: Cardinal read FWidth;
       property Height: Cardinal read FHeight;
+      { Event sent when switch value changed. }
       property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;
 

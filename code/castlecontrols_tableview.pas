@@ -27,7 +27,7 @@ type
   TCastleTableViewCellAccessoryType = (tvcaNone, tvcaCheckmark, tvcaDisclosureIndicator);
 
   TCastleTableViewCell = class(TCastleRectangleControl)
-    private
+    strict private
       FTextLabel: TCastleLabel;
       FTag: Integer;
       FAccessoryType: TCastleTableViewCellAccessoryType;
