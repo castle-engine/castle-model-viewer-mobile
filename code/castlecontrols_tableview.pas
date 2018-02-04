@@ -42,18 +42,26 @@ type
       destructor Destroy; override;
       procedure MakeEmpty;
 
+      { Use TextLabel.Caption to set the text visible on the cell. }
       property TextLabel: TCastleLabel read FTextLabel;
+      { Decoration shown at the right cell border. }
       property AccessoryType: TCastleTableViewCellAccessoryType
                               read FAccessoryType write FAccessoryType default tvcaNone;
+      { Any custom control added at the right cell border (e.g. SwitchControl, ImageControl) }
       property AccessoryControl: TUIControl
                               read FAccessoryControl write SetAccessoryControl default nil;
+      { Custom data. }
       property Tag: Integer read FTag write FTag default 0;
   end;
 
   TCastleTableViewCellList = specialize TObjectList<TCastleTableViewCell>;
 
   ICastleTableViewDataSource = interface
+      { Return number of cells (rows). }
       function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+      { Called when TableView needs the contents for the cell. TableView manages
+        its cells automatically. For example set Cell.TextLabel.Caption to
+        define the text displayed in the cell. }
       procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
   end;
 
@@ -63,12 +71,16 @@ type
     strict private
       FDataSource: ICastleTableViewDataSource;
       FCells: TCastleTableViewCellList;
+      FCellHeight: Integer;
 
       FOnDidSelectCell: TTableViewDidSelectCellEvent;
 
       FPressPos: TVector2;
       FMotionIsClick: boolean;
     public
+      const
+        DefaultCellHeight = 50;
+
       constructor Create(AOwner: TComponent); override;
       destructor Destroy; override;
 
@@ -78,10 +90,16 @@ type
       function Press(const Event: TInputPressRelease): boolean; override;
       function Release(const Event: TInputPressRelease): boolean; override;
       function Motion(const Event: TInputMotion): boolean; override;
+      procedure Update(const SecondsPassed: Single;
+        var HandleInput: boolean); override;
 
+      { TableView needs data source set in order to show some contents. }
       property DataSource: ICastleTableViewDatasource read FDataSource write SetDataSource;
+      { Event called when cell was selected by user. }
       property OnSelectCell: TTableViewDidSelectCellEvent
                              read FOnDidSelectCell write FOnDidSelectCell;
+      { Height of all cells }
+      property CellHeight: Integer read FCellHeight write FCellHeight default DefaultCellHeight;
   end;
 
 implementation
@@ -198,6 +216,7 @@ begin
   FDataSource := nil;
   FOnDidSelectCell := nil;
   FMotionIsClick := false;
+  FCellHeight := DefaultCellHeight;
 end;
 
 destructor TCastleTableView.Destroy;
@@ -210,9 +229,12 @@ procedure TCastleTableView.ReloadData;
 var
   I, ItemCount, OldCount: Integer;
   Cell: TCastleTableViewCell;
-  CellHeight, SeparatorHeight: Integer;
+  CellWidth, SeparatorHeight: Integer;
 begin
-  CellHeight := 50; // TODO
+  if ScrollbarVisible then
+    CellWidth := Width - ScrollBarWidth
+  else
+    CellWidth := Width;
   SeparatorHeight := 1;
 
   if Assigned(FDataSource) then
@@ -239,7 +261,7 @@ begin
       Cell.TextLabel.Caption := Format('Cell %d', [I+1]);
 
     Cell.Left := 0;
-    Cell.Width := Width - ScrollBarWidth;
+    Cell.Width := CellWidth;
     Cell.Height := CellHeight;
     Cell.Anchor(vpTop, -I * (CellHeight + SeparatorHeight));
     Cell.ReflectUIControls;
@@ -257,6 +279,33 @@ begin
 
   ScrollArea.Height := ItemCount * (CellHeight + SeparatorHeight);
   ScrollArea.Width := CalculatedWidth;
+end;
+
+procedure TCastleTableView.Update(const SecondsPassed: Single;
+  var HandleInput: boolean);
+var
+  WasScrollbar: boolean;
+  Cell: TCastleTableViewCell;
+  I, CellWidth: Integer;
+begin
+  WasScrollbar := ScrollbarVisible;
+
+  inherited;
+
+  { update the cell width when scrollbar changed visibility }
+  if WasScrollbar <> ScrollbarVisible then
+  begin
+    if ScrollbarVisible then
+      CellWidth := Width - ScrollBarWidth
+    else
+      CellWidth := Width;
+    for I := 0 to FCells.Count - 1 do
+    begin
+      Cell := FCells.Items[I];
+      Cell.Width := CellWidth;
+      Cell.ReflectUIControls;
+    end;
+  end;
 end;
 
 procedure TCastleTableView.SetDataSource(ADataSource: ICastleTableViewDataSource);

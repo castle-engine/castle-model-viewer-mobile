@@ -134,7 +134,7 @@ procedure TStateOptionsDlg.TOptionsDialog.TableViewUpdateCell(Cell: TCastleTable
 var
   CellCaption: string;
   SwitchState, CellEnabled: boolean;
-  SwitchCtl: TCastleSwitch;
+  SwitchCtl: TCastleSwitchControl;
 begin
   Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
   CellEnabled := true;
@@ -172,7 +172,7 @@ begin
       end;
   end;
   Cell.TextLabel.Caption := CellCaption;
-  SwitchCtl := TCastleSwitch.Create(Cell);
+  SwitchCtl := TCastleSwitchControl.Create(Cell);
   SwitchCtl.IsOn := SwitchState;
   SwitchCtl.Enabled := CellEnabled;
   SwitchCtl.Tag := Row;
@@ -182,10 +182,10 @@ end;
 
 procedure TStateOptionsDlg.TOptionsDialog.TableViewSwitchChanged(Sender: TObject);
 var
-  SwitchCtl: TCastleSwitch;
+  SwitchCtl: TCastleSwitchControl;
 begin
-  if not (Sender is TCastleSwitch) then Exit;
-  SwitchCtl := (Sender as TCastleSwitch);
+  if not (Sender is TCastleSwitchControl) then Exit;
+  SwitchCtl := (Sender as TCastleSwitchControl);
   case SwitchCtl.Tag of
     OptCellTagShowBBox:  AppOptions.ShowBBox := SwitchCtl.IsOn;
 

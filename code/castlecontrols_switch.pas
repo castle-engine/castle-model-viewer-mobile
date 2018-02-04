@@ -22,7 +22,7 @@ uses
   CastleUIControls, CastleColors, CastleKeysMouse, CastleVectors, CastleRectangles;
 
 type
-  TCastleSwitch = class(TUIControl)
+  TCastleSwitchControl = class(TUIControl)
     strict private
       FIsOn: boolean;
       FEnabled: boolean;
@@ -57,7 +57,7 @@ uses
   SysUtils, Math,
   CastleControls;
 
-constructor TCastleSwitch.Create(AOwner: TComponent);
+constructor TCastleSwitchControl.Create(AOwner: TComponent);
 begin
   inherited;
   FIsOn := false;
@@ -68,12 +68,12 @@ begin
   FHeight := 28;
 end;
 
-destructor TCastleSwitch.Destroy;
+destructor TCastleSwitchControl.Destroy;
 begin
   inherited;
 end;
 
-procedure TCastleSwitch.Render;
+procedure TCastleSwitchControl.Render;
 var
   BaseRect, BackRect, HandleRect: TRectangle;
   HandleImage: TThemeImage;
@@ -86,7 +86,7 @@ begin
   BackRect := BaseRect;
   BackRect.Height := Round(BaseRect.Height * 0.5);  //*0.4; //BaseRect.Height div 2;
   BackRect.Bottom := BaseRect.Bottom + ((BaseRect.Height - BackRect.Height) div 2);
-  //Theme.GLImages[tiProgressFill].IgnoreTooLargeCorners := true; // this property is available only inside CastleControl.pas (private), uncomment after TCastleSwitch gets there
+  //Theme.GLImages[tiProgressFill].IgnoreTooLargeCorners := true; // this property is available only inside CastleControl.pas (private), uncomment after TCastleSwitchControl gets there
   //Theme.GLImages[tiProgressBar].IgnoreTooLargeCorners := true;
   if IsOn then
     Theme.Draw(BackRect, tiProgressFill, UIScale)
@@ -110,13 +110,13 @@ begin
   Theme.Draw(HandleRect, HandleImage, UIScale)
 end;
 
-function TCastleSwitch.Rect: TRectangle;
+function TCastleSwitchControl.Rect: TRectangle;
 begin
   Result := Rectangle(Left, Bottom, Width, Height);
   Result := Result.ScaleAround0(UIScale);
 end;
 
-procedure TCastleSwitch.SetEnabled(const Value: boolean);
+procedure TCastleSwitchControl.SetEnabled(const Value: boolean);
 begin
   if FEnabled <> Value then
   begin
@@ -125,7 +125,7 @@ begin
   end;
 end;
 
-procedure TCastleSwitch.SetIsOn(const Value: boolean);
+procedure TCastleSwitchControl.SetIsOn(const Value: boolean);
 begin
   if FIsOn <> Value then
   begin
@@ -134,14 +134,14 @@ begin
   end;
 end;
 
-function TCastleSwitch.Press(const Event: TInputPressRelease): boolean;
+function TCastleSwitchControl.Press(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
   FPressed := true;
   Result := ExclusiveEvents;
 end;
 
-function TCastleSwitch.Release(const Event: TInputPressRelease): boolean;
+function TCastleSwitchControl.Release(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
   FPressed := false;
