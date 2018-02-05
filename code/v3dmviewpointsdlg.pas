@@ -61,7 +61,6 @@ uses
 
 constructor TStateViewpointsDlg.TViewpointsDialog.Create(AOwner: TComponent);
 var
-  InsideRect: TCastleRectangleControl;
   LabelWndTitle: TCastleLabel;
   BtnDone: TCastleButton;
   TableTop, Diff: integer;
@@ -71,41 +70,33 @@ begin
 
   Width := Min(400, StateViewpointsDlg.StateContainer.UnscaledWidth - 20);
   Height := Min(500, StateViewpointsDlg.StateContainer.UnscaledHeight - 20);
-  Color := Black;
-
-  InsideRect := TCastleRectangleControl.Create(Self);
-  InsideRect.Width := CalculatedWidth - 4;
-  InsideRect.Height := CalculatedHeight - 4;
-  InsideRect.Color := HexToColor('505050');
-  InsideRect.Anchor(hpMiddle);
-  InsideRect.Anchor(vpMiddle);
-  InsertFront(InsideRect);
+  ThemeImage := tiWindow;
 
   LabelWndTitle := TCastleLabel.Create(Self);
   LabelWndTitle.Color := White;
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>Viewpoints</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, -8);
-  InsideRect.InsertFront(LabelWndTitle);
+  LabelWndTitle.Anchor(vpTop, -12);
+  InsertFront(LabelWndTitle);
 
   BtnDone := TCastleButton.Create(Self);
   BtnDone.Caption := 'Done';
   BtnDone.OnClick := @BtnDoneClick;
-  BtnDone.Anchor(vpTop, -4);
-  BtnDone.Anchor(hpRight, -4);
-  InsideRect.InsertFront(BtnDone);
+  BtnDone.Anchor(vpTop, -7);
+  BtnDone.Anchor(hpRight, -7);
+  InsertFront(BtnDone);
 
   TableTop := -(BtnDone.CalculatedHeight + 14);
 
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
   TableView.OnSelectCell := @TableViewDidSelectCell;
-  TableView.Width := InsideRect.Width - 10;
-  TableView.Height := InsideRect.Height - 5 + TableTop;
+  TableView.Width := Width - 14;
+  TableView.Height := Height - 7 + TableTop;
   TableView.Anchor(hpMiddle);
   TableView.Anchor(vpTop, TableTop);
-  InsideRect.InsertFront(TableView);
+  InsertFront(TableView);
   TableView.DataSource := Self;
 
   // when tableView contents take less space, make the window smaller
@@ -114,7 +105,6 @@ begin
     Diff := TableView.Height - TableView.ScrollArea.Height;
     TableView.Height := TableView.ScrollArea.Height;
     Height := Height - Diff;
-    InsideRect.Height := CalculatedHeight - 4;
   end;
 end;
 
