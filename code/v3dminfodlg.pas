@@ -52,7 +52,7 @@ const
 implementation
 
 uses
-  SysUtils,
+  Math, SysUtils,
   CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
   CastleGLUtils, CastleUtils, CastleVectors, CastleOpenDocument,
   CastleDialogStates;
@@ -69,7 +69,7 @@ begin
   inherited Create(AOwner);
 
   Width := 320;
-  Height := 520;
+  Height := Min(480, StateInfoDlg.StateContainer.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
 
@@ -101,9 +101,9 @@ begin
   LabelSceneStats.Color := Silver;
   LabelSceneStats.FontScale := SmallFontScale;
   LabelSceneStats.Caption := StateInfoDlg.FStatistics;
-  LabelSceneStats.Width := Width - 24;
+  LabelSceneStats.MaxWidth := Width - 16;
   LabelSceneStats.Alignment := hpLeft;
-  //LabelSceneStats.AutoSizeWidth := false;
+  LabelSceneStats.VerticalAlignment := vpTop;
   LabelSceneStats.Anchor(hpLeft, 10);
   LabelSceneStats.Anchor(vpTop, -54);
   InsertFront(LabelSceneStats);
@@ -111,25 +111,27 @@ begin
   BtnOpenGlInfo := TCastleButton.Create(Self);
   BtnOpenGlInfo.Caption := 'OpenGL information';
   BtnOpenGlInfo.Anchor(hpMiddle);
-  BtnOpenGlInfo.Anchor(vpBottom, 390);
+  BtnOpenGlInfo.Anchor(vpBottom, 285);
   BtnOpenGlInfo.OnClick := @BtnOpenGlInfoClick;
   InsertFront(BtnOpenGlInfo);
 
   ImgLogo := TCastleImageControl.Create(Self);
   ImgLogo.URL := ApplicationData('castle_game_engine_icon.png');
+  ImgLogo.Stretch := true;
+  ImgLogo.ProportionalScaling := psFit;
+  ImgLogo.Width := Width - 14;
+  ImgLogo.Height := 160;
   ImgLogo.Anchor(hpMiddle);
-  ImgLogo.Anchor(vpBottom, 120);
+  ImgLogo.Anchor(vpBottom, 110);
   InsertFront(ImgLogo);
 
   LabelAbout := TCastleLabel.Create(Self);
   LabelAbout.Color := Silver;
   LabelAbout.FontScale := SmallFontScale;
-  LabelAbout.Caption := 'This application uses Castle Game Engine,' + NL
-                     +  'open-source multi-platform 3D engine' + NL
-                     +  'written in Modern Pascal.';
-  LabelAbout.Width := Width - 44;
+  LabelAbout.Caption := 'This application uses Castle Game Engine, open-source multi-platform 3D engine written in Modern Pascal.';
+  LabelAbout.MaxWidth := Width - 16;
   //LabelSceneStats.AutoSizeWidth := false;
-  LabelAbout.Anchor(hpMiddle);
+  LabelAbout.Anchor(hpLeft, 10);
   LabelAbout.Anchor(vpBottom, 60);
   InsertFront(LabelAbout);
 

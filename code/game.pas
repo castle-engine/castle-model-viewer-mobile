@@ -569,14 +569,60 @@ begin
 end;
 
 class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
-var
-  Statistics: TRenderStatistics;
+
+  function SceneVertexTriangleInfo(const Scene: TCastleScene): string;
+  const
+    SSceneInfoTriVertCounts_Same = 'Scene contains %d triangles and %d ' +
+      'vertices (with and without over-triangulating).';
+    SSceneInfoTriVertCounts_1 =
+      'When we don''t use over-triangulating (e.g. when we do collision '+
+      'detection or ray tracing) scene has %d triangles and %d vertices.';
+    SSceneInfoTriVertCounts_2 =
+      'When we use over-triangulating (e.g. when we do OpenGL rendering) '+
+      'scene has %d triangles and %d vertices.';
+  begin
+    if (Scene.VerticesCount(false) = Scene.VerticesCount(true)) and
+       (Scene.TrianglesCount(false) = Scene.TrianglesCount(true)) then
+      Result := Format(SSceneInfoTriVertCounts_Same,
+        [Scene.TrianglesCount(false), Scene.VerticesCount(false)]) + NL else
+    begin
+      Result :=
+        Format(SSceneInfoTriVertCounts_1,
+          [Scene.TrianglesCount(false), Scene.VerticesCount(false)]) + NL +
+        Format(SSceneInfoTriVertCounts_2,
+          [Scene.TrianglesCount(true), Scene.VerticesCount(true)]) + NL;
+    end;
+  end;
+
+  function SceneBoundingBoxInfo(const Scene: TCastleScene): string;
+  var
+    BBox: TBox3D;
+  begin
+    BBox := Scene.BoundingBox;
+    Result := 'Bounding box : ' + BBox.ToString;
+    if not BBox.IsEmpty then
+    begin
+      Result := Result + Format(', average size : %f', [BBox.AverageSize]);
+    end;
+    Result := Result + NL;
+  end;
+
+  function SceneRenderedShapes: string;
+  var
+    Statistics: TRenderStatistics;
+  begin
+    Statistics := Window.SceneManager.Statistics;
+    Result := Format('Rendered shapes: %d / %d',
+           [Statistics.ShapesRendered, Statistics.ShapesVisible]);
+  end;
+
 begin
-  Statistics := Window.SceneManager.Statistics;
 
   StateInfoDlg.FScene := Window.MainScene;
-  StateInfoDlg.FStatistics := Format('Rendered shapes: %d / %d',
-    [Statistics.ShapesRendered, Statistics.ShapesVisible]);
+  StateInfoDlg.FStatistics := 'Scene information:' + NL
+                           + SceneVertexTriangleInfo(Window.MainScene)
+                           + SceneBoundingBoxInfo(Window.MainScene)
+                           + SceneRenderedShapes;
   TUIState.Push(StateInfoDlg);
 end;
 
