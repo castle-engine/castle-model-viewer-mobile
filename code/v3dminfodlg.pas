@@ -71,6 +71,7 @@ begin
   Width := 320;
   Height := 520;
   ThemeImage := tiWindow;
+  UseThemeImage := true;
 
   HeaderRect := TCastleRectangleControl.Create(Self);
   HeaderRect.Width := CalculatedWidth - 4;

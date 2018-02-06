@@ -71,6 +71,7 @@ begin
   Width := Min(400, StateViewpointsDlg.StateContainer.UnscaledWidth - 20);
   Height := Min(500, StateViewpointsDlg.StateContainer.UnscaledHeight - 20);
   ThemeImage := tiWindow;
+  UseThemeImage := true;
 
   LabelWndTitle := TCastleLabel.Create(Self);
   LabelWndTitle.Color := White;
