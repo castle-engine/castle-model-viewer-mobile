@@ -65,10 +65,11 @@ var
   LabelWndTitle, LabelSceneStats, LabelAbout: TCastleLabel;
   ImgLogo: TCastleImageControl;
   BtnOpenGlInfo, BtnDonate, BtnWeb, BtnDone: TCastleButton;
+  NextTop, NextBottom, LogoHeight: Integer;
 begin
   inherited Create(AOwner);
 
-  Width := 320;
+  Width := Min(320, StateInfoDlg.StateContainer.UnscaledWidth - 20);
   Height := Min(480, StateInfoDlg.StateContainer.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
@@ -96,6 +97,7 @@ begin
   InsertFront(BtnDone);
 
   HeaderRect.Height := BtnDone.CalculatedHeight + 12;
+  NextTop := HeaderRect.Height + 8;
 
   LabelSceneStats := TCastleLabel.Create(Self);
   LabelSceneStats.Color := Silver;
@@ -105,36 +107,19 @@ begin
   LabelSceneStats.Alignment := hpLeft;
   LabelSceneStats.VerticalAlignment := vpTop;
   LabelSceneStats.Anchor(hpLeft, 10);
-  LabelSceneStats.Anchor(vpTop, -54);
+  LabelSceneStats.Anchor(vpTop, -NextTop);
   InsertFront(LabelSceneStats);
+  NextTop := NextTop + LabelSceneStats.CalculatedHeight + 10;
 
   BtnOpenGlInfo := TCastleButton.Create(Self);
   BtnOpenGlInfo.Caption := 'OpenGL information';
   BtnOpenGlInfo.Anchor(hpMiddle);
-  BtnOpenGlInfo.Anchor(vpBottom, 285);
+  BtnOpenGlInfo.Anchor(vpTop, -NextTop);
   BtnOpenGlInfo.OnClick := @BtnOpenGlInfoClick;
   InsertFront(BtnOpenGlInfo);
+  NextTop := NextTop + BtnOpenGlInfo.CalculatedHeight + 10;
 
-  ImgLogo := TCastleImageControl.Create(Self);
-  ImgLogo.URL := ApplicationData('castle_game_engine_icon.png');
-  ImgLogo.Stretch := true;
-  ImgLogo.ProportionalScaling := psFit;
-  ImgLogo.Width := Width - 14;
-  ImgLogo.Height := 160;
-  ImgLogo.Anchor(hpMiddle);
-  ImgLogo.Anchor(vpBottom, 110);
-  InsertFront(ImgLogo);
-
-  LabelAbout := TCastleLabel.Create(Self);
-  LabelAbout.Color := Silver;
-  LabelAbout.FontScale := SmallFontScale;
-  LabelAbout.Caption := 'This application uses Castle Game Engine, open-source multi-platform 3D engine written in Modern Pascal.';
-  LabelAbout.MaxWidth := Width - 16;
-  //LabelSceneStats.AutoSizeWidth := false;
-  LabelAbout.Anchor(hpLeft, 10);
-  LabelAbout.Anchor(vpBottom, 60);
-  InsertFront(LabelAbout);
-
+  // from the bottom
   BtnDonate := TCastleButton.Create(Self);
   BtnDonate.Caption := 'Donate';
   BtnDonate.Anchor(hpLeft, 10);
@@ -148,6 +133,32 @@ begin
   BtnWeb.Anchor(vpBottom, 10);
   BtnWeb.OnClick := @BtnWebClick;
   InsertFront(BtnWeb);
+  NextBottom := 10 + BtnWeb.CalculatedHeight + 10;
+
+  LabelAbout := TCastleLabel.Create(Self);
+  LabelAbout.Color := Silver;
+  LabelAbout.FontScale := SmallFontScale;
+  LabelAbout.Caption := 'This application uses Castle Game Engine, open-source multi-platform 3D engine written in Modern Pascal.';
+  LabelAbout.MaxWidth := Width - 16;
+  LabelAbout.Anchor(hpLeft, 10);
+  LabelAbout.Anchor(vpBottom, NextBottom);
+  InsertFront(LabelAbout);
+  NextBottom := NextBottom + LabelAbout.CalculatedHeight + 10;
+
+  // put logo in the center of the remaining space
+  LogoHeight := Height - NextBottom - NextTop;
+  if LogoHeight > 50 then
+  begin
+    ImgLogo := TCastleImageControl.Create(Self);
+    ImgLogo.URL := ApplicationData('castle_game_engine_icon.png');
+    ImgLogo.Stretch := true;
+    ImgLogo.ProportionalScaling := psFit;
+    ImgLogo.Width := Width - 14;
+    ImgLogo.Height := LogoHeight;
+    ImgLogo.Anchor(hpMiddle);
+    ImgLogo.Anchor(vpBottom, NextBottom);
+    InsertFront(ImgLogo);
+  end;
 end;
 
 procedure TStateInfoDlg.TInfoDialog.BtnDonateClick(Sender: TObject);
