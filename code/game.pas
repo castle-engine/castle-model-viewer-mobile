@@ -44,11 +44,13 @@ uses Classes, SysUtils, Math,
   CastleDialogStates,
   CastlePhotoService,
   X3DNodes,
-  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg;
+  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
+  V3DMNavToolbar;
 
 { main game stuff ------------------------------------------------------------ }
 type
   TButtonsHandler = class
+    class procedure BtnNavPopupClick(Sender: TObject);
     class procedure BtnNavClick(Sender: TObject);
     class procedure BtnScreenshotClick(Sender: TObject);
     class procedure BtnOptionsClick(Sender: TObject);
@@ -58,12 +60,13 @@ type
     class procedure BtnViewpointNextClick(Sender: TObject);
     class procedure BtnViewpointListClick(Sender: TObject);
     class procedure ViewpointSelected(ViewpointIdx: integer);
+    class procedure NavigationTypeInPopupSelected(NavType: TNavigationType);
     class procedure BoundNavigationInfoChanged(Sender: TObject);
     class procedure OnWarningHandle(Sender: TObject; const Category, S: string);
   end;
 
 var
-  BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
+  BtnNavPopup, BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
     BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
     BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
   ToolbarPanel: TCastlePanel;
@@ -75,6 +78,8 @@ var
   BBoxGeometry: TBoxNode;
   SceneWarnings: TStringList;
   SceneWarningsDlg: TStateDialogOK;
+  AvailableNavTypes: TNavTypeList;
+  ShowNavButtonsOnMainToolbar: boolean;
 
 { One-time initialization. }
 procedure ApplicationInitialize;
@@ -94,9 +99,14 @@ begin
   StateOptionsDlg := TStateOptionsDlg.Create(Application);
   StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
   StateFilesDlg := TStateFilesDlg.Create(Application);
+  StateNavToolbarDlg := TStateNavToolbarDlg.Create(Application);
   SceneWarningsDlg := TStateDialogOK.Create(Application);
 
   SceneWarnings := TStringList.Create;
+
+  AvailableNavTypes := TNavTypeList.Create;
+  AvailableNavTypes.Add(ntExamine);
+  ShowNavButtonsOnMainToolbar := true;
 
   Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
   ApplicationProperties.OnWarning.Add(@TButtonsHandler(nil).OnWarningHandle);
@@ -136,6 +146,11 @@ begin
   Window.Controls.InsertFront(ToolbarPanel);
 
   // add buttons to toolbar - Tag=1 marks button should not add space after it
+  BtnNavPopup := TCastleButton.Create(ToolbarPanel);
+  BtnNavPopup.Tooltip := 'Navigation type';
+  BtnNavPopup.OnClick := @TButtonsHandler(nil).BtnNavPopupClick;
+  ToolbarPanel.InsertFront(BtnNavPopup);
+
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
   BtnNavWalk.Image := CastleImages.LoadImage(ApplicationData('nav_walk.png'));
@@ -172,6 +187,9 @@ begin
   BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavTurntable.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavTurntable);
+
+  BtnNavPopup.Image := BtnNavExamine.Image;
+  BtnNavPopup.OwnsImage := false;
 
   BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
   BtnViewpointPrev.Tooltip := 'Previous viewpoint';
@@ -245,6 +263,18 @@ begin
   Status.FontScale := SmallFontScale;
   Window.Controls.InsertFront(Status);
 
+  // decide if to show all navigation buttons on the toolbar or not (i.e. hide on phones, show on tablets)
+  ShowNavButtonsOnMainToolbar := (Min(Window.Container.UnscaledWidth, Window.Container.UnscaledHeight)
+                                   > BtnNavWalk.CalculatedWidth * 10);
+  if ShowNavButtonsOnMainToolbar then
+    BtnNavPopup.Exists := false
+  else begin
+    BtnNavWalk.Exists := false;
+    BtnNavFly.Exists := false;
+    BtnNavExamine.Exists := false;
+    BtnNavTurntable.Exists := false;
+  end;
+
   // TODO: do not always open demo scene
   OpenScene(ApplicationData('demo/castle_walk.wrl'));
 end;
@@ -253,7 +283,6 @@ procedure WindowResize(Container: TUIContainer);
 const
   ToolbarMargin = 2;  {< between buttons and toolbar panel }
   ButtonsMargin = 3;  {< between buttons }
-  OSStatusBarHeight = 24;   { window extends below top status bar (clock, battery), TODO: get the exact size}
 var
   ToolButton: TCastleButton;
   NextLeft1, NextLeft2, ButtonsHeight: Integer;
@@ -288,9 +317,9 @@ begin
   // test if all buttons fit on one line
   TwoLineToolbar := (SpaceForButtons + 2*ToolbarMargin > Container.UnscaledWidth);
   if TwoLineToolbar then
-    ToolbarPanel.Height := 2*ButtonsHeight + 3*ToolbarMargin + OSStatusBarHeight
+    ToolbarPanel.Height := 2*ButtonsHeight + 3*ToolbarMargin + Container.StatusBarHeight { window extends below top status bar (clock, battery)}
   else
-    ToolbarPanel.Height := ButtonsHeight + 2*ToolbarMargin + OSStatusBarHeight;
+    ToolbarPanel.Height := ButtonsHeight + 2*ToolbarMargin + Container.StatusBarHeight;
 
   // toolbar
   ToolbarPanel.Left := 0;
@@ -439,6 +468,16 @@ begin
   end;
 end;
 
+class procedure TButtonsHandler.BtnNavPopupClick(Sender: TObject);
+begin
+  StateNavToolbarDlg.FAvailableNavTypes := AvailableNavTypes;
+  StateNavToolbarDlg.FSelectedNavType := Window.NavigationType;
+  StateNavToolbarDlg.FOnNavTypeSelected := @TButtonsHandler(nil).NavigationTypeInPopupSelected;
+  StateNavToolbarDlg.FShowAtPositionLeft := BtnNavPopup.Left;
+  StateNavToolbarDlg.FShowAtPositionTop := Window.Container.UnscaledHeight - ToolbarPanel.Bottom + 2;
+  TUIState.Push(StateNavToolbarDlg);
+end;
+
 class procedure TButtonsHandler.BtnNavClick(Sender: TObject);
 begin
   if Sender = BtnNavWalk then
@@ -449,7 +488,11 @@ begin
     Window.NavigationType := ntExamine
   else if Sender = BtnNavTurntable then
     Window.NavigationType := ntTurntable;
-  BoundNavigationInfoChanged(Sender);
+end;
+
+class procedure TButtonsHandler.NavigationTypeInPopupSelected(NavType: TNavigationType);
+begin
+  Window.NavigationType := NavType;
 end;
 
 class procedure TButtonsHandler.BoundNavigationInfoChanged(Sender: TObject);
@@ -466,6 +509,13 @@ begin
   BtnNavFly.Pressed := (NavType = ntFly);
   BtnNavExamine.Pressed := (NavType = ntExamine);
   BtnNavTurntable.Pressed := (NavType = ntTurntable);
+
+  case NavType of
+    ntWalk:    BtnNavPopup.Image := BtnNavWalk.Image;
+    ntFly:     BtnNavPopup.Image := BtnNavFly.Image;
+    ntExamine: BtnNavPopup.Image := BtnNavExamine.Image;
+    ntTurntable: BtnNavPopup.Image := BtnNavTurntable.Image;
+  end;
 
   ShowHideNavigationButtons(true);
 end;
@@ -520,13 +570,22 @@ begin
   if AppOptions.ShowAllNavgationButtons then
     AnyTypePresent := true;
 
+  AvailableNavTypes.Clear;
+  if WalkPresent or AnyTypePresent then AvailableNavTypes.Add(ntWalk);
+  if FlyPresent or AnyTypePresent then AvailableNavTypes.Add(ntFly);
+  if ExaminePresent or AnyTypePresent then AvailableNavTypes.Add(ntExamine);
+  if TurntablePresent or AnyTypePresent then AvailableNavTypes.Add(ntTurntable);
+
   { Update the visibility of toolbar buttons }
-  NeedsToolbarUpdate := ShowNavButton(BtnNavWalk, WalkPresent or AnyTypePresent);
-  NeedsToolbarUpdate := ShowNavButton(BtnNavFly, FlyPresent or AnyTypePresent) or NeedsToolbarUpdate;
-  NeedsToolbarUpdate := ShowNavButton(BtnNavExamine, ExaminePresent or AnyTypePresent) or NeedsToolbarUpdate;
-  NeedsToolbarUpdate := ShowNavButton(BtnNavTurntable, TurntablePresent or AnyTypePresent) or NeedsToolbarUpdate;
-  if UpdateToobar and NeedsToolbarUpdate then
-    WindowResize(Window.Container);
+  if ShowNavButtonsOnMainToolbar then
+  begin
+    NeedsToolbarUpdate := ShowNavButton(BtnNavWalk, AvailableNavTypes.Contains(ntWalk));
+    NeedsToolbarUpdate := ShowNavButton(BtnNavFly, AvailableNavTypes.Contains(ntFly)) or NeedsToolbarUpdate;
+    NeedsToolbarUpdate := ShowNavButton(BtnNavExamine, AvailableNavTypes.Contains(ntExamine)) or NeedsToolbarUpdate;
+    NeedsToolbarUpdate := ShowNavButton(BtnNavTurntable, AvailableNavTypes.Contains(ntTurntable)) or NeedsToolbarUpdate;
+    if UpdateToobar and NeedsToolbarUpdate then
+      WindowResize(Window.Container);
+  end;
 end;
 
 class procedure TButtonsHandler.BtnScreenshotClick(Sender: TObject);
@@ -689,4 +748,5 @@ initialization
 
 finalization
   FreeAndNil(SceneWarnings);
+  FreeAndNil(AvailableNavTypes);
 end.
