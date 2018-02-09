@@ -56,21 +56,20 @@ implementation
 
 uses
   Math,
-  CastleColors, CastleWindow, CastleUIControls, CastleLog,
+  CastleColors, CastleWindow, CastleUIControls, CastleImages, CastleFilesUtils,
   CastleUtils, CastleVectors;
 
 { TStateNavToolbarDlg.TNavToolbarDialog ---------------------------------------------- }
 
 constructor TStateNavToolbarDlg.TNavToolbarDialog.Create(AOwner: TComponent);
 var
-  Diff: integer;
   TableView: TCastleTableView;
 begin
   inherited Create(AOwner);
 
-  Width := 130;
+  Width := 160;
   Height := Min(300, StateNavToolbarDlg.StateContainer.UnscaledHeight - 20);
-  ThemeImage := tiWindow;
+  ThemeImage := tiPanel;
   UseThemeImage := true;
 
   TableView := TCastleTableView.Create(Self);
@@ -87,9 +86,8 @@ begin
   // when tableView contents take less space, make the window smaller
   if TableView.ScrollArea.Height < TableView.Height then
   begin
-    Diff := TableView.Height - TableView.ScrollArea.Height;
     TableView.Height := TableView.ScrollArea.Height;
-    Height := Height - Diff;
+    Height := TableView.Height + 4;
   end;
 end;
 
@@ -101,30 +99,37 @@ end;
 procedure TStateNavToolbarDlg.TNavToolbarDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 var
   NavType: TNavigationType;
-  Title: string;
+  Title, Icon: string;
 begin
   NavType := StateNavToolbarDlg.FAvailableNavTypes.Items[Row];
   case NavType of
     ntWalk:
       begin
         Title := 'Walk';
+        Icon := 'nav_walk.png';
       end;
     ntFly:
       begin
         Title := 'Fly';
+        Icon := 'nav_fly.png';
       end;
     ntExamine:
       begin
         Title := 'Examine';
+        Icon := 'nav_examine.png';
       end;
     ntTurntable:
       begin
         Title := 'Turntable';
+        Icon := 'nav_turntable.png';
       end;
   end;
 
-  Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
+  Cell.Color := Vector4(1.0, 1.0, 1.0, 0.3);
   Cell.TextLabel.Caption := Title;
+  Cell.TextLabel.Color := Black;
+  Cell.ImageIcon.Image := CastleImages.LoadImage(ApplicationData(Icon));
+  Cell.ImageIcon.OwnsImage := true;
   if NavType = StateNavToolbarDlg.FSelectedNavType then
     Cell.AccessoryType := tvcaCheckmark;
 end;
