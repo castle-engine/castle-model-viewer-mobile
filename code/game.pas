@@ -89,6 +89,7 @@ var
   ButtonsHeight: Cardinal;
   I: Integer;
   ToolButton: TCastleButton;
+  ImgTriangle: TCastleImageControl;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -147,9 +148,16 @@ begin
 
   // add buttons to toolbar - Tag=1 marks button should not add space after it
   BtnNavPopup := TCastleButton.Create(ToolbarPanel);
+  BtnNavPopup.Caption := ' ';  // leave space for triangle
   BtnNavPopup.Tooltip := 'Navigation type';
   BtnNavPopup.OnClick := @TButtonsHandler(nil).BtnNavPopupClick;
   ToolbarPanel.InsertFront(BtnNavPopup);
+  ImgTriangle := TCastleImageControl.Create(BtnNavPopup);
+  ImgTriangle.Image := CastleImages.LoadImage(ApplicationData('popup_triangle.png'));
+  ImgTriangle.OwnsImage := true;
+  ImgTriangle.Anchor(hpRight, -6);
+  ImgTriangle.Anchor(vpMiddle);
+  BtnNavPopup.InsertFront(ImgTriangle);
 
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
