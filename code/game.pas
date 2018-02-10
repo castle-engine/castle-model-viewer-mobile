@@ -40,9 +40,10 @@ uses Classes, SysUtils, Math,
   CastleVectors, CastleBoxes, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
   CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
-  CastleGLImages, CastleFonts,
-  CastleDialogStates,
-  CastlePhotoService,
+  CastleGLImages, CastleFonts, CastleFontFamily,
+  CastleTextureFont_DjvSans_20, CastleTextureFont_DjvSansB_20,
+  CastleTextureFont_DjvSansO_20, CastleTextureFont_DjvSansBO_20,
+  CastleDialogStates, CastlePhotoService,
   X3DNodes,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
   V3DMNavToolbar;
@@ -90,6 +91,7 @@ var
   I: Integer;
   ToolButton: TCastleButton;
   ImgTriangle: TCastleImageControl;
+  CustomUIFont: TFontFamily;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -140,7 +142,18 @@ begin
   Theme.OwnsImages[tiScrollbarSlider] := true;
   Theme.Corners[tiScrollbarSlider] := Vector4Integer(3, 3, 3, 3);
 
-  UIFont.Size := 15;
+  { prepare TFontFamily with font varians for bold, italic }
+  CustomUIFont := TFontFamily.Create(Window);
+  CustomUIFont.RegularFont := TTextureFont.Create(CustomUIFont);
+  (CustomUIFont.RegularFont as TTextureFont).Load(TextureFont_DejaVuSans_20);
+  CustomUIFont.BoldFont := TTextureFont.Create(CustomUIFont);
+  (CustomUIFont.BoldFont as TTextureFont).Load(TextureFont_DejaVuSansBold_20);
+  CustomUIFont.ItalicFont := TTextureFont.Create(CustomUIFont);
+  (CustomUIFont.ItalicFont as TTextureFont).Load(TextureFont_DejaVuSansOblique_20);
+  CustomUIFont.BoldItalicFont := TTextureFont.Create(CustomUIFont);
+  (CustomUIFont.BoldItalicFont as TTextureFont).Load(TextureFont_DejaVuSansBoldOblique_20);
+  CustomUIFont.Size := 15;
+  UIFont := CustomUIFont;
 
   // toolbar
   ToolbarPanel := TCastlePanel.Create(Application);

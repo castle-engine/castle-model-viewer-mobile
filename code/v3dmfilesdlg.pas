@@ -85,7 +85,7 @@ begin
   LabelWndTitle.Html := true;
   LabelWndTitle.Caption := '<b>Demo Scenes</b>';
   LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, -12);
+  LabelWndTitle.Anchor(vpTop, -14);
   InsertFront(LabelWndTitle);
 
   BtnDone := TCastleButton.Create(Self);
