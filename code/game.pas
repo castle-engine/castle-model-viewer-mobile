@@ -31,14 +31,15 @@ var
   Window: TCastleWindowTouch;
 
 procedure OpenScene(const Url: string);
+procedure OpenZippedScene(const Url: string);
 procedure ShowHideNavigationButtons(UpdateToobar: boolean);
 
 implementation
 
-uses Classes, SysUtils, Math,
+uses Classes, SysUtils, Math, Zipper,
   CastleControls, CastleKeysMouse, CastleFilesUtils, Castle2DSceneManager,
   CastleVectors, CastleBoxes, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
-  CastleUIControls, CastleUIState, CastleMessaging, CastleLog, CastleImages,
+  CastleUIControls, CastleUIState, CastleMessages, CastleMessaging, CastleLog, CastleImages,
   CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
   CastleGLImages, CastleFonts, CastleFontFamily,
   CastleTextureFont_DjvSans_20, CastleTextureFont_DjvSansB_20,
@@ -441,6 +442,12 @@ end;
 
 procedure OpenScene(const Url: string);
 begin
+  if LowerCase(ExtractFileExt(Url)) = '.zip' then
+  begin
+    OpenZippedScene(Url);
+    exit;
+  end;
+
   SceneBoundingBox := nil;
   SceneWarnings.Clear;
 
@@ -745,6 +752,91 @@ class procedure TButtonsHandler.ViewpointSelected(ViewpointIdx: integer);
 begin
   CurrentViewpointIdx := ViewpointIdx;
   Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
+end;
+
+procedure OpenZippedScene(const Url: string);
+var
+  ZippedFile, UnpackDir, SceneFile: string;
+  UnpackedFile, UnpackedFilePart, FileExt: string;
+  UnZipper: TUnZipper;
+  I: Integer;
+  Message: string;
+begin
+  if LeftStr(Url, 7) = 'file://' then
+    ZippedFile := Copy(Url, 8, Length(Url)-7)
+  else
+    ZippedFile := Url;
+
+  UnpackDir := ApplicationConfig('unpack');
+  if LeftStr(UnpackDir, 7) = 'file://' then
+    UnpackDir := Copy(UnpackDir, 8, Length(UnpackDir)-7);
+
+  SceneFile := '';
+
+  // unzip everything
+  UnZipper := TUnZipper.Create;
+  try
+    UnZipper.FileName := ZippedFile;
+    UnZipper.OutputPath := UnpackDir;
+    UnZipper.Examine;
+    UnZipper.UnZipAllFiles;
+  except
+    on E: Exception do
+         Application.Log(etError, 'Unzip error: ' + E.ClassName + #13#10 + E.Message);
+  end;
+
+  // find the scene file
+  for I := UnZipper.Entries.Count-1 downto 0 do
+  begin
+    UnpackedFilePart := UnZipper.Entries.Entries[I].DiskFileName;
+    UnpackedFile := SysUtils.IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
+
+    // check if is file and is not inside a subdir
+    if FileExists(UnpackedFile) and (ExtractFileDir(UnpackedFilePart) = '') then
+    begin
+      FileExt := LowerCase(ExtractFileExt(UnpackedFile));
+      if (FileExt = '.wrl') or (FileExt = '.wrz')
+          or (FileExt = '.x3d') or (FileExt = '.x3dv') or (FileExt = '.x3dz') or (FileExt = '.x3dvz')
+          or (FileExt = '.dae') or (FileExt = '.iv') or (FileExt = '.3ds')
+          or (FileExt = '.obj') or (FileExt = '.geo') or (FileExt = '.stl')
+          or (FileExt = '.castle-anim-frames') then
+      begin
+        SceneFile := UnpackedFile;
+        break;
+      end;
+    end;
+  end;
+
+  // open it (or show error message)
+  if SceneFile <> '' then
+    OpenScene(SceneFile)
+  else begin
+    Message := 'No supported scene file found inside the zip file.' + NL + NL
+             + 'We enable opening scenes from ZIP archives to be able to ship the main geometry file '
+             + 'together with material files and textures inside one file. It is nearly impossible '
+             + 'to pass multiple files at once on mobile platforms.' + NL + NL
+             + 'Zip contains:';
+    for I := UnZipper.Entries.Count-1 downto 0 do
+      Message := Message + NL + '  ' + UnZipper.Entries.Entries[I].DiskFileName;
+    MessageOKPushesState := true;
+    MessageOK(Window, Message);
+  end;
+
+  // delete all files afterwards?
+  for I := UnZipper.Entries.Count-1 downto 0 do
+  begin
+    UnpackedFilePart := UnZipper.Entries.Entries[I].DiskFileName;
+    UnpackedFile := SysUtils.IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
+    try
+      if FileExists(UnpackedFile) then
+        DeleteFile(UnpackedFile)
+      else if DirectoryExists(UnpackedFile) then
+        RmDir(UnpackedFile);
+    finally
+    end;
+  end;
+
+  FreeAndNil(UnZipper);
 end;
 
 initialization
