@@ -58,10 +58,10 @@
       <file_extension extension="geo" mime="application/x-geo" />
     </document_type>
     <document_type name="Stereolithography Object">
-      <file_extension extension="stl" mime="text/plain" />
+      <file_extension extension="stl" mime="application/x-stl" />
     </document_type>
     <document_type name="Castle Animation Frames">
-      <file_extension extension="castle-anim-frames" mime="text/plain" />
+      <file_extension extension="castle-anim-frames" mime="application/x-castle-anim-frames" />
     </document_type>
     <document_type name="ZIP Archive">
       <file_extension extension="zip" mime="application/zip" ios_type_identifier="com.pkware.zip-archive" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->

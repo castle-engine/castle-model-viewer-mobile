@@ -33,6 +33,8 @@ var
 procedure OpenScene(const Url: string);
 procedure OpenZippedScene(const Url: string);
 procedure ShowHideNavigationButtons(UpdateToobar: boolean);
+function GetSceneUnpackDir: string;
+procedure DeleteDirectoryRecursive(const DirName: string);
 
 implementation
 
@@ -471,7 +473,10 @@ end;
 procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
 begin
   if Length(FileNames) <> 0 then
+  begin
+    DeleteDirectoryRecursive(GetSceneUnpackDir);
     OpenScene(FileNames[0]);
+  end;
 end;
 
 procedure WindowUpdate(Container: TUIContainer);
@@ -754,6 +759,45 @@ begin
   Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
 end;
 
+procedure DeleteDirectoryRecursive(const DirName: string);
+var
+  F: TSearchRec;
+  DirNameSlash: string;
+begin
+  DirNameSlash := IncludeTrailingPathDelimiter(DirName);
+  if FindFirst(DirNameSlash + '*', faAnyFile, F) = 0 then
+  begin
+    try
+      repeat
+        if (F.Attr and faDirectory) <> 0 then
+        begin
+          if (F.Name <> '.') and (F.Name <> '..') then
+            DeleteDirectoryRecursive(DirNameSlash + F.Name);
+        end
+        else
+          DeleteFile(DirNameSlash + F.Name);
+      until FindNext(F) <> 0;
+    finally
+      FindClose(F);
+    end;
+
+    try
+      RemoveDir(DirName);
+    finally
+    end;
+  end;
+end;
+
+function GetSceneUnpackDir: string;
+var
+  UnpackDir: string;
+begin
+  UnpackDir := ApplicationConfig('unpack'); // returns URL
+  if LeftStr(UnpackDir, 7) = 'file://' then
+    UnpackDir := Copy(UnpackDir, 8, Length(UnpackDir)-7);
+  Result := UnpackDir;
+end;
+
 procedure OpenZippedScene(const Url: string);
 var
   ZippedFile, UnpackDir, SceneFile: string;
@@ -767,9 +811,8 @@ begin
   else
     ZippedFile := Url;
 
-  UnpackDir := ApplicationConfig('unpack');
-  if LeftStr(UnpackDir, 7) = 'file://' then
-    UnpackDir := Copy(UnpackDir, 8, Length(UnpackDir)-7);
+  UnpackDir := GetSceneUnpackDir;
+  DeleteDirectoryRecursive(UnpackDir);
 
   SceneFile := '';
 
@@ -789,7 +832,7 @@ begin
   for I := UnZipper.Entries.Count-1 downto 0 do
   begin
     UnpackedFilePart := UnZipper.Entries.Entries[I].DiskFileName;
-    UnpackedFile := SysUtils.IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
+    UnpackedFile := IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
 
     // check if is file and is not inside a subdir
     if FileExists(UnpackedFile) and (ExtractFileDir(UnpackedFilePart) = '') then
@@ -822,19 +865,7 @@ begin
     MessageOK(Window, Message);
   end;
 
-  // delete all files afterwards?
-  for I := UnZipper.Entries.Count-1 downto 0 do
-  begin
-    UnpackedFilePart := UnZipper.Entries.Entries[I].DiskFileName;
-    UnpackedFile := SysUtils.IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
-    try
-      if FileExists(UnpackedFile) then
-        DeleteFile(UnpackedFile)
-      else if DirectoryExists(UnpackedFile) then
-        RmDir(UnpackedFile);
-    finally
-    end;
-  end;
+  // cannot delete all unpacked files now, textures load a bit later
 
   FreeAndNil(UnZipper);
 end;
