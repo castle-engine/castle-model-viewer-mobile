@@ -762,6 +762,7 @@ initialization
   Window.OnDropFiles := @WindowDropFiles;
   Window.FpsShowOnCaption := false;
   Window.AutomaticTouchInterface := true;
+  Window.AutomaticExamineTouchCtl := tiNone; // use 2-finger gesture to pan, not touchControl
   Window.AutoRedisplay := false;
   Application.MainWindow := Window;
 
