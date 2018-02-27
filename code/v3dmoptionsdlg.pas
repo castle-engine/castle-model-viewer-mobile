@@ -52,7 +52,7 @@ implementation
 uses
   Math,
   CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
-  CastleUtils, CastleVectors,
+  CastleUtils, CastleVectors, CastleDownload,
   V3DMOptions;
 
 const
@@ -61,8 +61,9 @@ const
   OptCellTagHeadlight   = 2;
   OptCellTagCollisions  = 3;
   OptCellTagAllNavTypes = 4;
+  OptCellTagDownloadRes = 5;
 
-  OptCellCount          = 5;
+  OptCellCount          = 6;
 
 { TStateOptionsDlg.TOptionsDialog ---------------------------------------------- }
 
@@ -160,6 +161,11 @@ begin
         CellCaption := 'Enable all navigation types';
         SwitchState := AppOptions.ShowAllNavgationButtons;
       end;
+    OptCellTagDownloadRes:
+      begin
+        CellCaption := 'Download resources from network';
+        SwitchState := AppOptions.DownloadResourcesFromNetwork;
+      end;
   end;
   Cell.TextLabel.Caption := CellCaption;
   SwitchCtl := TCastleSwitchControl.Create(Cell);
@@ -199,6 +205,12 @@ begin
       begin
         AppOptions.ShowAllNavgationButtons := SwitchCtl.IsOn;
         ShowHideNavigationButtons(true);
+      end;
+
+      OptCellTagDownloadRes:
+      begin
+        AppOptions.DownloadResourcesFromNetwork := SwitchCtl.IsOn;
+        EnableNetwork := AppOptions.DownloadResourcesFromNetwork;
       end;
   end;
 end;

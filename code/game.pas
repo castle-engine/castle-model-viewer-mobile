@@ -46,7 +46,7 @@ uses Classes, SysUtils, Math, Zipper,
   CastleGLImages, CastleFonts, CastleFontFamily,
   CastleTextureFont_DjvSans_20, CastleTextureFont_DjvSansB_20,
   CastleTextureFont_DjvSansO_20, CastleTextureFont_DjvSansBO_20,
-  CastleDialogStates, CastlePhotoService,
+  CastleDialogStates, CastlePhotoService, CastleDownload,
   X3DNodes,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
   V3DMNavToolbar;
@@ -98,6 +98,8 @@ var
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
+
+  EnableNetwork := AppOptions.DownloadResourcesFromNetwork;
 
   SceneBoundingBox := nil;
   CurrentViewpointIdx := 0;

@@ -24,6 +24,7 @@ type
   TAppOptions = class
     ShowBBox, ShowFps, CollisionsOn: boolean;
     ShowAllNavgationButtons: boolean;
+    DownloadResourcesFromNetwork: boolean;
 
     procedure Load;
     procedure Save;
@@ -52,6 +53,7 @@ begin
   ShowFps := UserConfig.GetValue('ShowFps', false);
   CollisionsOn := UserConfig.GetValue('CollisionsOn', true);
   ShowAllNavgationButtons := UserConfig.GetValue('ShowAllNavgationButtons', false);
+  DownloadResourcesFromNetwork := UserConfig.GetValue('DownloadResourcesFromNetwork', true);
 end;
 
 procedure TAppOptions.Save;
@@ -60,6 +62,7 @@ begin
   UserConfig.SetValue('ShowFps', ShowFps);
   UserConfig.SetValue('CollisionsOn', CollisionsOn);
   UserConfig.SetValue('ShowAllNavgationButtons', ShowAllNavgationButtons);
+  UserConfig.SetValue('DownloadResourcesFromNetwork', DownloadResourcesFromNetwork);
   UserConfig.Save;
 end;
 
