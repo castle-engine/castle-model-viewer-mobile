@@ -24,6 +24,7 @@
   <android project_type="integrated">
     <services>
       <service name="photo_service" />
+      <service name="download_urls" />
     </services>
   </android>
   <ios>
