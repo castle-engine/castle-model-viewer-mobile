@@ -21,7 +21,7 @@
 }
 
 { Implements the application logic, independent from Android / standalone. }
-unit Game;
+unit GameInitialize;
 
 interface
 
