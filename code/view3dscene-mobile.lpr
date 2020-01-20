@@ -27,7 +27,7 @@
 
 uses CastleWindow, CastleConfig, CastleParameters, CastleLog, CastleUtils,
   CastleSoundEngine, CastleClassUtils,
-  Game;
+  GameInitialize;
 
 const
   Options: array [0..0] of TOption =

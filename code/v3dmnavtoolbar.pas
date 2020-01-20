@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils, Generics.Collections,
   CastleControls, CastleUIState, CastleKeysMouse, CastleCameras,
-  Game;
+  GameInitialize;
 
 type
   TNavTypeList = class(specialize TList<TNavigationType>) end;

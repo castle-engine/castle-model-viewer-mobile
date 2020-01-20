@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils,
   CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  Game;
+  GameInitialize;
 
 type
   TStateOptionsDlg = class(TUIState)
