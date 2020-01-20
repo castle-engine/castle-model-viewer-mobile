@@ -17,9 +17,7 @@
     <include path="LICENSE" />
   </package>
   <icons>
-    <icon path="windows/view3dscene.ico" />
-    <icon path="desktop/view3dscene.svg" />
-    <icon path="desktop/view3dscene.icns" />
+    <icon path="icon.png" />
   </icons>
   <android project_type="integrated">
     <services>
