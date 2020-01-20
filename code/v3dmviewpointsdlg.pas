@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -63,7 +63,7 @@ constructor TStateViewpointsDlg.TViewpointsDialog.Create(AOwner: TComponent);
 var
   LabelWndTitle: TCastleLabel;
   BtnDone: TCastleButton;
-  TableTop, Diff: integer;
+  TableTop, Diff: Single;
   TableView: TCastleTableView;
 begin
   inherited Create(AOwner);
@@ -88,7 +88,7 @@ begin
   BtnDone.Anchor(hpRight, -7);
   InsertFront(BtnDone);
 
-  TableTop := -(BtnDone.CalculatedHeight + 14);
+  TableTop := -(BtnDone.EffectiveHeight + 14);
 
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
@@ -169,7 +169,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.ScreenRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;

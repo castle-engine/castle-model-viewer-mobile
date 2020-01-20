@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -41,7 +41,7 @@ type
     var
       Dialog: TNavToolbarDialog;
   public
-    FShowAtPositionTop, FShowAtPositionLeft: Integer;
+    FShowAtPositionTop, FShowAtPositionLeft: Single;
     FSelectedNavType: TNavigationType;
     FAvailableNavTypes: TNavTypeList;
     FOnNavTypeSelected: TNavTypeSelectedEvent;
@@ -177,7 +177,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.ScreenRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;

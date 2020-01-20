@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 

@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -71,7 +71,7 @@ constructor TStateOptionsDlg.TOptionsDialog.Create(AOwner: TComponent);
 var
   LabelWndTitle: TCastleLabel;
   BtnDone: TCastleButton;
-  TableTop, Diff: integer;
+  TableTop, Diff: Single;
   TableView: TCastleTableView;
 begin
   inherited Create(AOwner);
@@ -96,7 +96,7 @@ begin
   BtnDone.Anchor(hpRight, -7);
   InsertFront(BtnDone);
 
-  TableTop := -(BtnDone.CalculatedHeight + 14);
+  TableTop := -(BtnDone.EffectiveHeight + 14);
 
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
@@ -169,7 +169,7 @@ begin
   end;
   Cell.TextLabel.Caption := CellCaption;
   SwitchCtl := TCastleSwitchControl.Create(Cell);
-  SwitchCtl.IsOn := SwitchState;
+  SwitchCtl.Checked := SwitchState;
   SwitchCtl.Enabled := CellEnabled;
   SwitchCtl.Tag := Row;
   SwitchCtl.OnChange := @TableViewSwitchChanged;
@@ -183,19 +183,19 @@ begin
   if not (Sender is TCastleSwitchControl) then Exit;
   SwitchCtl := (Sender as TCastleSwitchControl);
   case SwitchCtl.Tag of
-    OptCellTagShowBBox:  AppOptions.ShowBBox := SwitchCtl.IsOn;
+    OptCellTagShowBBox:  AppOptions.ShowBBox := SwitchCtl.Checked;
 
-    OptCellTagShowFps:   AppOptions.ShowFps  := SwitchCtl.IsOn;
+    OptCellTagShowFps:   AppOptions.ShowFps  := SwitchCtl.Checked;
 
     OptCellTagHeadlight:
       begin
         if Assigned(StateOptionsDlg.FScene) then
-          StateOptionsDlg.FScene.HeadLightOn := SwitchCtl.IsOn;
+          StateOptionsDlg.FScene.HeadLightOn := SwitchCtl.Checked;
       end;
 
     OptCellTagCollisions:
       begin
-        AppOptions.CollisionsOn := SwitchCtl.IsOn;
+        AppOptions.CollisionsOn := SwitchCtl.Checked;
 
         if Assigned(StateOptionsDlg.FScene) then
           StateOptionsDlg.FScene.Collides := AppOptions.CollisionsOn;
@@ -203,13 +203,13 @@ begin
 
     OptCellTagAllNavTypes:
       begin
-        AppOptions.ShowAllNavgationButtons := SwitchCtl.IsOn;
+        AppOptions.ShowAllNavgationButtons := SwitchCtl.Checked;
         ShowHideNavigationButtons(true);
       end;
 
       OptCellTagDownloadRes:
       begin
-        AppOptions.DownloadResourcesFromNetwork := SwitchCtl.IsOn;
+        AppOptions.DownloadResourcesFromNetwork := SwitchCtl.Checked;
         EnableNetwork := AppOptions.DownloadResourcesFromNetwork;
       end;
   end;
@@ -252,7 +252,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.ScreenRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;

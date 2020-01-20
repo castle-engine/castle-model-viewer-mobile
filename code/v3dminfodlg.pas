@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -65,7 +65,7 @@ var
   LabelWndTitle, LabelSceneStats, LabelAbout: TCastleLabel;
   ImgLogo: TCastleImageControl;
   BtnOpenGlInfo, BtnDonate, BtnWeb, BtnDone: TCastleButton;
-  NextTop, NextBottom, LogoHeight: Integer;
+  NextTop, NextBottom, LogoHeight: Single;
 begin
   inherited Create(AOwner);
 
@@ -75,7 +75,7 @@ begin
   UseThemeImage := true;
 
   HeaderRect := TCastleRectangleControl.Create(Self);
-  HeaderRect.Width := CalculatedWidth - 4;
+  HeaderRect.Width := EffectiveWidth - 4;
   HeaderRect.Color := HexToColor('5A5A5A');
   HeaderRect.Anchor(hpMiddle);
   HeaderRect.Anchor(vpTop, -2);
@@ -96,7 +96,7 @@ begin
   BtnDone.Anchor(hpRight, -7);
   InsertFront(BtnDone);
 
-  HeaderRect.Height := BtnDone.CalculatedHeight + 12;
+  HeaderRect.Height := BtnDone.EffectiveHeight + 12;
   NextTop := HeaderRect.Height + 8;
 
   LabelSceneStats := TCastleLabel.Create(Self);
@@ -109,7 +109,7 @@ begin
   LabelSceneStats.Anchor(hpLeft, 10);
   LabelSceneStats.Anchor(vpTop, -NextTop);
   InsertFront(LabelSceneStats);
-  NextTop := NextTop + LabelSceneStats.CalculatedHeight + 10;
+  NextTop := NextTop + LabelSceneStats.EffectiveHeight + 10;
 
   BtnOpenGlInfo := TCastleButton.Create(Self);
   BtnOpenGlInfo.Caption := 'OpenGL information';
@@ -117,7 +117,7 @@ begin
   BtnOpenGlInfo.Anchor(vpTop, -NextTop);
   BtnOpenGlInfo.OnClick := @BtnOpenGlInfoClick;
   InsertFront(BtnOpenGlInfo);
-  NextTop := NextTop + BtnOpenGlInfo.CalculatedHeight + 10;
+  NextTop := NextTop + BtnOpenGlInfo.EffectiveHeight + 10;
 
   // from the bottom
   BtnDonate := TCastleButton.Create(Self);
@@ -133,7 +133,7 @@ begin
   BtnWeb.Anchor(vpBottom, 10);
   BtnWeb.OnClick := @BtnWebClick;
   InsertFront(BtnWeb);
-  NextBottom := 10 + BtnWeb.CalculatedHeight + 10;
+  NextBottom := 10 + BtnWeb.EffectiveHeight + 10;
 
   LabelAbout := TCastleLabel.Create(Self);
   LabelAbout.Color := Silver;
@@ -143,14 +143,14 @@ begin
   LabelAbout.Anchor(hpLeft, 10);
   LabelAbout.Anchor(vpBottom, NextBottom);
   InsertFront(LabelAbout);
-  NextBottom := NextBottom + LabelAbout.CalculatedHeight + 10;
+  NextBottom := NextBottom + LabelAbout.EffectiveHeight + 10;
 
   // put logo in the center of the remaining space
   LogoHeight := Height - NextBottom - NextTop;
   if LogoHeight > 50 then
   begin
     ImgLogo := TCastleImageControl.Create(Self);
-    ImgLogo.URL := ApplicationData('castle_game_engine_icon.png');
+    ImgLogo.URL := 'castle-data:/castle_game_engine_icon.png';
     ImgLogo.Stretch := true;
     ImgLogo.ProportionalScaling := psFit;
     ImgLogo.Width := Width - 14;
@@ -168,7 +168,7 @@ end;
 
 procedure TStateInfoDlg.TInfoDialog.BtnWebClick(Sender: TObject);
 begin
-  OpenURL('https://castle-engine.sourceforge.io');
+  OpenURL('https://castle-engine.io');
 end;
 
 procedure TStateInfoDlg.TInfoDialog.BtnOpenGlInfoClick(Sender: TObject);
@@ -217,7 +217,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.ScreenRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;

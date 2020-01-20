@@ -39,11 +39,11 @@ procedure DeleteDirectoryRecursive(const DirName: string);
 implementation
 
 uses Classes, SysUtils, Math, Zipper,
-  CastleControls, CastleKeysMouse, CastleFilesUtils, Castle2DSceneManager,
-  CastleVectors, CastleBoxes, Castle3D, CastleSceneCore, CastleUtils, CastleColors,
+  CastleControls, CastleKeysMouse, CastleFilesUtils,
+  CastleVectors, CastleBoxes, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessages, CastleMessaging, CastleLog, CastleImages,
   CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
-  CastleGLImages, CastleFonts, CastleFontFamily,
+  CastleGLImages, CastleFonts, CastleFontFamily, CastleTransform,
   CastleTextureFont_DjvSans_20, CastleTextureFont_DjvSansB_20,
   CastleTextureFont_DjvSansO_20, CastleTextureFont_DjvSansBO_20,
   CastleDialogStates, CastlePhotoService, CastleDownload,
@@ -90,7 +90,7 @@ procedure ApplicationInitialize;
 const
   ButtonPadding = 3;
 var
-  ButtonsHeight: Cardinal;
+  ButtonsHeight: Single;
   I: Integer;
   ToolButton: TCastleButton;
   ImgTriangle: TCastleImageControl;
@@ -128,24 +128,24 @@ begin
   Theme.TextColor := Black;
   Theme.DisabledTextColor := Gray;
 
-  Theme.Images[tiWindow] := CastleImages.LoadImage(ApplicationData('theme_window.png')); // dialog background color and frame
-  Theme.Images[tiButtonNormal] := CastleImages.LoadImage(ApplicationData('theme_btnNormal.png'));
-  Theme.Images[tiButtonDisabled] := CastleImages.LoadImage(ApplicationData('theme_btnDisabled.png'));
-  Theme.Images[tiButtonFocused] := CastleImages.LoadImage(ApplicationData('theme_btnFocused.png'));
-  Theme.Images[tiButtonPressed] := CastleImages.LoadImage(ApplicationData('theme_btnPressed.png'));
+  Theme.Images[tiWindow] := CastleImages.LoadImage('castle-data:/theme_window.png'); // dialog background color and frame
+  Theme.Images[tiButtonNormal] := CastleImages.LoadImage('castle-data:/theme_btnNormal.png');
+  Theme.Images[tiButtonDisabled] := CastleImages.LoadImage('castle-data:/theme_btnDisabled.png');
+  Theme.Images[tiButtonFocused] := CastleImages.LoadImage('castle-data:/theme_btnFocused.png');
+  Theme.Images[tiButtonPressed] := CastleImages.LoadImage('castle-data:/theme_btnPressed.png');
   Theme.OwnsImages[tiWindow] := true;
   Theme.OwnsImages[tiButtonNormal] := true;
   Theme.OwnsImages[tiButtonDisabled] := true;
   Theme.OwnsImages[tiButtonFocused] := true;
   Theme.OwnsImages[tiButtonPressed] := true;
-  Theme.Corners[tiButtonNormal] := Vector4Integer(3, 3, 3, 3);
-  Theme.Corners[tiButtonDisabled] := Vector4Integer(3, 3, 3, 3);
-  Theme.Corners[tiButtonFocused] := Vector4Integer(3, 3, 3, 3);
-  Theme.Corners[tiButtonPressed] := Vector4Integer(3, 3, 3, 3);
+  Theme.Corners[tiButtonNormal] := Vector4(3, 3, 3, 3);
+  Theme.Corners[tiButtonDisabled] := Vector4(3, 3, 3, 3);
+  Theme.Corners[tiButtonFocused] := Vector4(3, 3, 3, 3);
+  Theme.Corners[tiButtonPressed] := Vector4(3, 3, 3, 3);
 
-  Theme.Images[tiScrollbarSlider] := CastleImages.LoadImage(ApplicationData('theme_btnNormal.png'));
+  Theme.Images[tiScrollbarSlider] := CastleImages.LoadImage('castle-data:/theme_btnNormal.png');
   Theme.OwnsImages[tiScrollbarSlider] := true;
-  Theme.Corners[tiScrollbarSlider] := Vector4Integer(3, 3, 3, 3);
+  Theme.Corners[tiScrollbarSlider] := Vector4(3, 3, 3, 3);
 
   { prepare TFontFamily with font varians for bold, italic }
   CustomUIFont := TFontFamily.Create(Window);
@@ -169,9 +169,11 @@ begin
   BtnNavPopup.Caption := ' ';  // leave space for triangle
   BtnNavPopup.Tooltip := 'Navigation type';
   BtnNavPopup.OnClick := @TButtonsHandler(nil).BtnNavPopupClick;
+  BtnNavPopup.Image.Url := 'castle-data:/nav_examine.png';
   ToolbarPanel.InsertFront(BtnNavPopup);
+
   ImgTriangle := TCastleImageControl.Create(BtnNavPopup);
-  ImgTriangle.Image := CastleImages.LoadImage(ApplicationData('popup_triangle.png'));
+  ImgTriangle.Image := CastleImages.LoadImage('castle-data:/popup_triangle.png');
   ImgTriangle.OwnsImage := true;
   ImgTriangle.Anchor(hpRight, -6);
   ImgTriangle.Anchor(vpMiddle);
@@ -179,20 +181,18 @@ begin
 
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
-  BtnNavWalk.Image := CastleImages.LoadImage(ApplicationData('nav_walk.png'));
-  BtnNavWalk.OwnsImage := true;
+  BtnNavWalk.Image.Url := 'castle-data:/nav_walk.png';
   BtnNavWalk.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavWalk.Toggle := true;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
   BtnNavWalk.PaddingVertical := ButtonPadding;
   BtnNavWalk.Tag := 1;
   ToolbarPanel.InsertFront(BtnNavWalk);
-  ButtonsHeight := BtnNavWalk.CalculatedHeight;
+  ButtonsHeight := BtnNavWalk.EffectiveHeight;
 
   BtnNavFly := TCastleButton.Create(ToolbarPanel);
   BtnNavFly.Tooltip := 'Fly';
-  BtnNavFly.Image := CastleImages.LoadImage(ApplicationData('nav_fly.png'));
-  BtnNavFly.OwnsImage := true;
+  BtnNavFly.Image.Url := 'castle-data:/nav_fly.png';
   BtnNavFly.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavFly.Toggle := true;
   BtnNavFly.Tag := 1;
@@ -200,27 +200,21 @@ begin
 
   BtnNavExamine := TCastleButton.Create(ToolbarPanel);
   BtnNavExamine.Tooltip := 'Examine';
-  BtnNavExamine.Image := CastleImages.LoadImage(ApplicationData('nav_examine.png'));
-  BtnNavExamine.OwnsImage := true;
+  BtnNavExamine.Image.Url := 'castle-data:/nav_examine.png';
   BtnNavExamine.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavExamine.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavExamine);
 
   BtnNavTurntable := TCastleButton.Create(ToolbarPanel);
   BtnNavTurntable.Tooltip := 'Turntable';
-  BtnNavTurntable.Image := CastleImages.LoadImage(ApplicationData('nav_turntable.png'));
-  BtnNavTurntable.OwnsImage := true;
+  BtnNavTurntable.Image.Url := 'castle-data:/nav_turntable.png';
   BtnNavTurntable.OnClick := @TButtonsHandler(nil).BtnNavClick;
   BtnNavTurntable.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavTurntable);
 
-  BtnNavPopup.Image := BtnNavExamine.Image;
-  BtnNavPopup.OwnsImage := false;
-
   BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
   BtnViewpointPrev.Tooltip := 'Previous viewpoint';
-  BtnViewpointPrev.Image := CastleImages.LoadImage(ApplicationData('arrow-left-b.png'));
-  BtnViewpointPrev.OwnsImage := true;
+  BtnViewpointPrev.Image.Url := 'castle-data:/arrow-left-b.png';
   BtnViewpointPrev.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
   BtnViewpointPrev.Tag := 1;
   ToolbarPanel.InsertFront(BtnViewpointPrev);
@@ -233,36 +227,31 @@ begin
 
   BtnViewpointNext := TCastleButton.Create(ToolbarPanel);
   BtnViewpointNext.Tooltip := 'Next viewpoint';
-  BtnViewpointNext.Image := CastleImages.LoadImage(ApplicationData('arrow-right-b.png'));
-  BtnViewpointNext.OwnsImage := true;
+  BtnViewpointNext.Image.Url := 'castle-data:/arrow-right-b.png';
   BtnViewpointNext.OnClick := @TButtonsHandler(nil).BtnViewpointNextClick;
   ToolbarPanel.InsertFront(BtnViewpointNext);
 
   BtnScreenshot := TCastleButton.Create(ToolbarPanel);
   BtnScreenshot.Tooltip := 'Screenshot';
-  BtnScreenshot.Image := CastleImages.LoadImage(ApplicationData('screenshot.png'));
-  BtnScreenshot.OwnsImage := true;
+  BtnScreenshot.Image.Url := 'castle-data:/screenshot.png';
   BtnScreenshot.OnClick := @TButtonsHandler(nil).BtnScreenshotClick;
   ToolbarPanel.InsertFront(BtnScreenshot);
 
   BtnOptions := TCastleButton.Create(ToolbarPanel);
   BtnOptions.Tooltip := 'Options';
-  BtnOptions.Image := CastleImages.LoadImage(ApplicationData('gear-b.png'));
-  BtnOptions.OwnsImage := true;
+  BtnOptions.Image.Url := 'castle-data:/gear-b.png';
   BtnOptions.OnClick := @TButtonsHandler(nil).BtnOptionsClick;
   ToolbarPanel.InsertFront(BtnOptions);
 
   BtnFiles := TCastleButton.Create(ToolbarPanel);
   BtnFiles.Tooltip := 'Saved scenes';
-  BtnFiles.Image := CastleImages.LoadImage(ApplicationData('file.png'));
-  BtnFiles.OwnsImage := true;
+  BtnFiles.Image.Url := 'castle-data:/file.png';
   BtnFiles.OnClick := @TButtonsHandler(nil).BtnFilesClick;
   ToolbarPanel.InsertFront(BtnFiles);
 
   BtnInfo := TCastleButton.Create(ToolbarPanel);
   BtnInfo.Tooltip := 'About';
-  BtnInfo.Image := CastleImages.LoadImage(ApplicationData('info-circle.png'));
-  BtnInfo.OwnsImage := true;
+  BtnInfo.Image.Url := 'castle-data:/info-circle.png';
   BtnInfo.OnClick := @TButtonsHandler(nil).BtnInfoClick;
   ToolbarPanel.InsertFront(BtnInfo);
 
@@ -273,8 +262,9 @@ begin
     begin
       ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
       ToolButton.CustomBackground := true;
-      ToolButton.CustomBackgroundPressed := Theme.Images[tiButtonPressed];
-      ToolButton.CustomBackgroundCorners := Vector4Integer(3, 3, 3, 3);
+      ToolButton.CustomBackgroundPressed.Image := Theme.Images[tiButtonPressed];
+      ToolButton.CustomBackgroundPressed.OwnsImage := false;
+      ToolButton.CustomBackgroundPressed.ProtectedSides.AllSides := 3;
       ToolButton.PaddingHorizontal := ButtonPadding;
       ToolButton.PaddingVertical := ButtonPadding;
       ToolButton.Height := ButtonsHeight;
@@ -291,7 +281,7 @@ begin
 
   // decide if to show all navigation buttons on the toolbar or not (i.e. hide on phones, show on tablets)
   ShowNavButtonsOnMainToolbar := (Min(Window.Container.UnscaledWidth, Window.Container.UnscaledHeight)
-                                   > BtnNavWalk.CalculatedWidth * 10);
+                                   > BtnNavWalk.EffectiveWidth * 10);
   if ShowNavButtonsOnMainToolbar then
     BtnNavPopup.Exists := false
   else begin
@@ -302,7 +292,7 @@ begin
   end;
 
   // TODO: do not always open demo scene
-  OpenScene(ApplicationData('demo/castle_walk.wrl'));
+  OpenScene('castle-data:/demo/castle_walk.wrl');
 end;
 
 procedure WindowResize(Container: TUIContainer);
@@ -311,9 +301,9 @@ const
   ButtonsMargin = 3;  {< between buttons }
 var
   ToolButton: TCastleButton;
-  NextLeft1, NextLeft2, ButtonsHeight: Integer;
+  NextLeft1, NextLeft2, ButtonsHeight: Single;
   I, ViewpointCount: Integer;
-  SpaceForButtons: Integer;
+  SpaceForButtons: Single;
   TwoLineToolbar: boolean;
 begin
   if not ToolbarPanel.Exists then exit;
@@ -331,14 +321,14 @@ begin
       ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
       if ToolButton.Exists then
       begin
-        SpaceForButtons := SpaceForButtons + ToolButton.CalculatedWidth;
+        SpaceForButtons := SpaceForButtons + ToolButton.EffectiveWidth;
         if ToolButton.Tag = 0 then
           SpaceForButtons := SpaceForButtons + ButtonsMargin;
       end;
     end;
   end;
 
-  ButtonsHeight := Max(BtnNavExamine.CalculatedHeight, BtnOptions.CalculatedHeight);
+  ButtonsHeight := Max(BtnNavExamine.EffectiveHeight, BtnOptions.EffectiveHeight);
 
   // test if all buttons fit on one line
   TwoLineToolbar := (SpaceForButtons + 2*ToolbarMargin > Container.UnscaledWidth);
@@ -369,7 +359,7 @@ begin
           ToolButton.Left := NextLeft2;
           ToolButton.Bottom := ToolbarMargin;
 
-          NextLeft2 := NextLeft2 + ToolButton.CalculatedWidth;
+          NextLeft2 := NextLeft2 + ToolButton.EffectiveWidth;
           if ToolButton.Tag = 0 then
             NextLeft2 := NextLeft2 + ButtonsMargin;
         end
@@ -381,7 +371,7 @@ begin
            else
              ToolButton.Bottom := ToolbarMargin;
 
-           NextLeft1 := NextLeft1 + ToolButton.CalculatedWidth;
+           NextLeft1 := NextLeft1 + ToolButton.EffectiveWidth;
            if ToolButton.Tag = 0 then
              NextLeft1 := NextLeft1 + ButtonsMargin;
         end;
@@ -392,7 +382,7 @@ begin
 
   // status text (FPS)
   Status.Left := 10;
-  Status.Bottom := ToolbarPanel.Bottom - ButtonsMargin - Status.CalculatedHeight;
+  Status.Bottom := ToolbarPanel.Bottom - ButtonsMargin - Status.EffectiveHeight;
 end;
 
 procedure InitializeSceneBoundingBox;
@@ -546,10 +536,10 @@ begin
   BtnNavTurntable.Pressed := (NavType = ntTurntable);
 
   case NavType of
-    ntWalk:    BtnNavPopup.Image := BtnNavWalk.Image;
-    ntFly:     BtnNavPopup.Image := BtnNavFly.Image;
-    ntExamine: BtnNavPopup.Image := BtnNavExamine.Image;
-    ntTurntable: BtnNavPopup.Image := BtnNavTurntable.Image;
+    ntWalk  :    BtnNavPopup.Image.Url := BtnNavWalk.Image.Url;
+    ntFly  :     BtnNavPopup.Image.Url := BtnNavFly.Image.Url;
+    ntExamine  : BtnNavPopup.Image.Url := BtnNavExamine.Image.Url;
+    ntTurntable: BtnNavPopup.Image.Url := BtnNavTurntable.Image.Url;
   end;
 
   ShowHideNavigationButtons(true);
@@ -627,11 +617,11 @@ class procedure TButtonsHandler.BtnScreenshotClick(Sender: TObject);
 var
   Image: TRGBImage;
   Filename: string;
-  RestoreCtls: TUIControlList;
+  RestoreCtls: TCastleUserInterfaceList;
   I: Integer;
-  C: TUIControl;
+  C: TCastleUserInterface;
 begin
-  RestoreCtls := TUIControlList.Create(false);
+  RestoreCtls := TCastleUserInterfaceList.Create(false);
   try
     // hide everything except SceneManager
     for I := 0 to Window.Controls.Count - 1 do
@@ -706,8 +696,10 @@ class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
     Statistics: TRenderStatistics;
   begin
     Statistics := Window.SceneManager.Statistics;
-    Result := Format('Rendered shapes: %d / %d',
-           [Statistics.ShapesRendered, Statistics.ShapesVisible]);
+    Result := Format('Rendered shapes: %d / %d', [
+      Statistics.ShapesRendered,
+      Statistics.ShapesVisible
+    ]);
   end;
 
 begin
