@@ -799,7 +799,7 @@ end;
 
 procedure OpenZippedScene(const Url: string);
 var
-  ZippedFile, UnpackDir, SceneFile: string;
+  ZippedFile, UnpackDir, SceneFileCandidate1, SceneFileCandidate2: string;
   UnpackedFile, UnpackedFilePart: string;
   UnZipper: TUnZipper;
   I: Integer;
@@ -813,7 +813,8 @@ begin
   UnpackDir := GetSceneUnpackDir;
   DeleteDirectoryRecursive(UnpackDir);
 
-  SceneFile := '';
+  SceneFileCandidate1 := '';
+  SceneFileCandidate2 := '';
 
   // unzip everything
   UnZipper := TUnZipper.Create;
@@ -833,20 +834,29 @@ begin
     UnpackedFilePart := UnZipper.Entries.Entries[I].DiskFileName;
     UnpackedFile := IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
 
-    // check if is file and is not inside a subdir
+    // check if it is file and is not inside a subdir
     if FileExists(UnpackedFile) and
        (ExtractFileDir(UnpackedFilePart) = '') and
        TFileFilterList.Matches(LoadScene_FileFilters, UnpackedFile) then
     begin
-      SceneFile := UnpackedFile;
-      break;
+      { Prefer other filenames than 'library'
+        to allow opening archive with Room Arranger data,
+        where library.wrl is an empty collection of PROTOs. }
+      if ChangeFileExt(ExtractFileName(UnpackedFile), '') = 'library' then
+        SceneFileCandidate2 := UnpackedFile
+      else
+        SceneFileCandidate1 := UnpackedFile;
     end;
   end;
 
   // open it (or show error message)
-  if SceneFile <> '' then
-    OpenScene(SceneFile)
-  else begin
+  if SceneFileCandidate1 <> '' then
+    OpenScene(SceneFileCandidate1)
+  else
+  if SceneFileCandidate2 <> '' then
+    OpenScene(SceneFileCandidate2)
+  else
+  begin
     Message := 'No supported scene file found inside the zip file.' + NL + NL
              + 'We enable opening scenes from ZIP archives to easily ship the main geometry file '
              + 'together with material files and textures inside one file.' + NL + NL
