@@ -74,6 +74,8 @@ begin
   FileList.Add('castle-data:/demo/chinchilla.wrl.gz');
   FileList.Add('castle-data:/demo/teapot (fresnel and toon shader).x3dv');
   FileList.Add('castle-data:/demo/teapot (time to shader).x3dv');
+  FileList.Add('castle-data:/demo/dragon-spine/dragon.json');
+  FileList.Add('castle-data:/demo/gltf-duck/duck.gltf');
 
   Width := Min(400, StateFilesDlg.StateContainer.UnscaledWidth - 20);
   Height := Min(500, StateFilesDlg.StateContainer.UnscaledHeight - 20);
