@@ -46,8 +46,8 @@ uses Classes, SysUtils, Math, Zipper,
   CastleGLImages, CastleFonts, CastleFontFamily, CastleTransform,
   CastleTextureFont_DjvSans_20, CastleTextureFont_DjvSansB_20,
   CastleTextureFont_DjvSansO_20, CastleTextureFont_DjvSansBO_20,
-  CastleDialogStates, CastlePhotoService, CastleDownload,
-  X3DNodes,
+  CastleDialogStates, CastlePhotoService, CastleDownload, CastleFileFilters,
+  X3DNodes, X3DLoad,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
   V3DMNavToolbar;
 
@@ -796,7 +796,7 @@ end;
 procedure OpenZippedScene(const Url: string);
 var
   ZippedFile, UnpackDir, SceneFile: string;
-  UnpackedFile, UnpackedFilePart, FileExt: string;
+  UnpackedFile, UnpackedFilePart: string;
   UnZipper: TUnZipper;
   I: Integer;
   Message: string;
@@ -830,18 +830,12 @@ begin
     UnpackedFile := IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
 
     // check if is file and is not inside a subdir
-    if FileExists(UnpackedFile) and (ExtractFileDir(UnpackedFilePart) = '') then
+    if FileExists(UnpackedFile) and
+       (ExtractFileDir(UnpackedFilePart) = '') and
+       TFileFilterList.Matches(LoadScene_FileFilters, UnpackedFile) then
     begin
-      FileExt := LowerCase(ExtractFileExt(UnpackedFile));
-      if (FileExt = '.wrl') or (FileExt = '.wrz')
-          or (FileExt = '.x3d') or (FileExt = '.x3dv') or (FileExt = '.x3dz') or (FileExt = '.x3dvz')
-          or (FileExt = '.dae') or (FileExt = '.iv') or (FileExt = '.3ds')
-          or (FileExt = '.obj') or (FileExt = '.geo') or (FileExt = '.stl')
-          or (FileExt = '.castle-anim-frames') then
-      begin
-        SceneFile := UnpackedFile;
-        break;
-      end;
+      SceneFile := UnpackedFile;
+      break;
     end;
   end;
 
@@ -850,9 +844,8 @@ begin
     OpenScene(SceneFile)
   else begin
     Message := 'No supported scene file found inside the zip file.' + NL + NL
-             + 'We enable opening scenes from ZIP archives to be able to ship the main geometry file '
-             + 'together with material files and textures inside one file. It is nearly impossible '
-             + 'to pass multiple files at once on mobile platforms.' + NL + NL
+             + 'We enable opening scenes from ZIP archives to easily ship the main geometry file '
+             + 'together with material files and textures inside one file.' + NL + NL
              + 'Zip contains:';
     for I := UnZipper.Entries.Count-1 downto 0 do
       Message := Message + NL + '  ' + UnZipper.Entries.Entries[I].DiskFileName;
