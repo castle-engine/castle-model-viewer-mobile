@@ -117,6 +117,7 @@ begin
   ShowNavButtonsOnMainToolbar := true;
 
   Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
+  Window.SceneManager.PreventInfiniteFallingDown := true;
   ApplicationProperties.OnWarning.Add(@TButtonsHandler(nil).OnWarningHandle);
 
   // Create UI
