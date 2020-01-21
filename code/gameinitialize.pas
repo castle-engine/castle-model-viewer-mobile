@@ -394,6 +394,8 @@ var
   Material: TMaterialNode;
 begin
   BBox := Window.MainScene.BoundingBox;
+  if BBox.IsEmpty then Exit;
+
   BBoxGeometry := TBoxNode.Create;
   BBoxGeometry.Size := BBox.Size;
 
@@ -449,6 +451,8 @@ begin
   Application.Log(etInfo, 'Opened ' + Url);
 
   Window.Load(Url);
+  // Only to test loading empty scene (with empty bbox)
+  // Window.Load('data:model/vrml,#VRML V2.0 utf8' + NL + 'Group { }');
   Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
   Window.MainScene.ProcessEvents := true;
 
