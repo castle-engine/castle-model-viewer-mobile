@@ -66,7 +66,7 @@ type
     class procedure ViewpointSelected(ViewpointIdx: integer);
     class procedure NavigationTypeInPopupSelected(NavType: TNavigationType);
     class procedure BoundNavigationInfoChanged(Sender: TObject);
-    class procedure OnWarningHandle(Sender: TObject; const Category, S: string);
+    class procedure OnWarningHandle(const Category, S: string);
   end;
 
 var
@@ -425,7 +425,7 @@ begin
   SceneBoundingBox.Collides := false;
 end;
 
-class procedure TButtonsHandler.OnWarningHandle(Sender: TObject; const Category, S: string);
+class procedure TButtonsHandler.OnWarningHandle(const Category, S: string);
 begin
   SceneWarnings.Add(Category + ': ' + S);
 
