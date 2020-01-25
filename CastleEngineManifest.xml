@@ -7,7 +7,7 @@
   game_units="GameInitialize"
   fullscreen_immersive="false"
   >
-  <version value="1.2.0" code="3" />
+  <version value="1.3.0" code="4" />
   <compiler_options>
     <search_paths>
       <path value="code/" />
@@ -22,6 +22,7 @@
   <android project_type="integrated">
     <services>
       <service name="photo_service" />
+      <service name="read_external_storage" />
     </services>
   </android>
   <ios>
@@ -39,6 +40,10 @@
       <file_extension extension="x3dz" mime="model/x3d+xml" />
       <file_extension extension="x3dv" mime="model/x3d+vrml" />
       <file_extension extension="x3dvz" mime="model/x3d+vrml" />
+    </document_type>
+    <document_type name="glTF Scene">
+      <file_extension extension="glb" mime="model/gltf-binary" />
+      <file_extension extension="gltf" mime="model/gltf+json" />
     </document_type>
     <document_type name="COLLADA Object">
       <file_extension extension="dae" mime="model/vnd.collada+xml" />
@@ -60,6 +65,7 @@
     </document_type>
     <document_type name="Castle Animation Frames">
       <file_extension extension="castle-anim-frames" mime="application/x-castle-anim-frames" />
+      <file_extension extension="kanim" mime="application/x-castle-anim-frames" />
     </document_type>
     <document_type name="ZIP Archive">
       <file_extension extension="zip" mime="application/zip" ios_type_identifier="com.pkware.zip-archive" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->
