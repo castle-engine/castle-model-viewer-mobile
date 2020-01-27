@@ -118,7 +118,6 @@ begin
 
   Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
   Window.SceneManager.PreventInfiniteFallingDown := true;
-  ApplicationProperties.OnWarning.Add(@TButtonsHandler(nil).OnWarningHandle);
 
   // Create UI
   Window.Container.UIExplicitScale := Window.Dpi / 96.0;
@@ -428,43 +427,59 @@ end;
 class procedure TButtonsHandler.OnWarningHandle(const Category, S: string);
 begin
   SceneWarnings.Add(Category + ': ' + S);
-
-  // show only when not other warnings arrive within that timer
-  if TUIState.Current = SceneWarningsDlg then
-    TUIState.Pop;
-  SceneWarningsDlg.Caption := SceneWarnings.Text;
-  SceneWarningsDlg.KeepInFront := true;
-  TUIState.Push(SceneWarningsDlg);
 end;
 
 procedure OpenScene(const Url: string);
+
+  { Every CGE warning that happens within this procedure will be captured
+    and later shown to player. }
+  procedure LoadSceneAndCaptureWarnings;
+  begin
+    Application.Log(etInfo, 'Opened ' + Url);
+
+    Window.Load(Url);
+    // Only to test loading empty scene (with empty bbox)
+    // Window.Load('data:model/vrml,#VRML V2.0 utf8' + NL + 'Group { }');
+    Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
+    Window.MainScene.ProcessEvents := true;
+
+    Window.MainScene.Collides := AppOptions.CollisionsOn;
+
+    CurrentViewpointIdx := 0;
+
+    ShowHideNavigationButtons(false);
+
+    WindowResize(Window.Container); // to hide viewpoints, etc
+
+    InitializeSceneBoundingBox;
+  end;
+
 begin
   if LowerCase(ExtractFileExt(Url)) = '.zip' then
   begin
-    OpenZippedScene(Url);
-    exit;
+    OpenZippedScene(Url); // this may call OpenScene in turn
+    Exit;
   end;
 
   SceneBoundingBox := nil;
   SceneWarnings.Clear;
+  ApplicationProperties.OnWarning.Add(@TButtonsHandler(nil).OnWarningHandle);
+  try
+    LoadSceneAndCaptureWarnings;
+  finally
+    ApplicationProperties.OnWarning.Remove(@TButtonsHandler(nil).OnWarningHandle);
+  end;
 
-  Application.Log(etInfo, 'Opened ' + Url);
-
-  Window.Load(Url);
-  // Only to test loading empty scene (with empty bbox)
-  // Window.Load('data:model/vrml,#VRML V2.0 utf8' + NL + 'Group { }');
-  Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
-  Window.MainScene.ProcessEvents := true;
-
-  Window.MainScene.Collides := AppOptions.CollisionsOn;
-
-  CurrentViewpointIdx := 0;
-
-  ShowHideNavigationButtons(false);
-
-  WindowResize(Window.Container); // to hide viewpoints, etc
-
-  InitializeSceneBoundingBox;
+  { Show warnings, if any occurred during loading.
+    We do not catch warnings that occurred outside of LoadSceneAndCaptureWarnings
+    -- they could disrupt UI at any place.
+    They'll be in application log for developer. }
+  if SceneWarnings.Count <> 0 then
+  begin
+    SceneWarningsDlg.Caption := SceneWarnings.Text;
+    SceneWarningsDlg.KeepInFront := true;
+    TUIState.Push(SceneWarningsDlg);
+  end;
 end;
 
 procedure WindowDropFiles(Container: TUIContainer; const FileNames: array of string);
