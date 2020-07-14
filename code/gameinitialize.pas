@@ -85,6 +85,11 @@ var
   AvailableNavTypes: TNavTypeList;
   ShowNavButtonsOnMainToolbar: boolean;
 
+function MainScene: TCastleScene;
+begin
+  Result := Window.SceneManager.Items.MainScene;
+end;
+
 { One-time initialization. }
 procedure ApplicationInitialize;
 const
@@ -308,7 +313,7 @@ var
 begin
   if not ToolbarPanel.Exists then exit;
 
-  ViewpointCount := Window.MainScene.ViewpointsCount;
+  ViewpointCount := MainScene.ViewpointsCount;
   BtnViewpointPrev.Exists := (ViewpointCount > 1);
   BtnViewpointList.Exists := (ViewpointCount > 0);
   BtnViewpointNext.Exists := (ViewpointCount > 1);
@@ -390,16 +395,15 @@ var
   RootNode: TX3DRootNode;
   BBox: TBox3D;
   ShapeNode: TShapeNode;
-  Material: TMaterialNode;
+  Material: TUnlitMaterialNode;
 begin
-  BBox := Window.MainScene.BoundingBox;
+  BBox := MainScene.BoundingBox;
   if BBox.IsEmpty then Exit;
 
   BBoxGeometry := TBoxNode.Create;
   BBoxGeometry.Size := BBox.Size;
 
-  Material := TMaterialNode.Create;
-  Material.ForcePureEmissive;
+  Material := TUnlitMaterialNode.Create;
   Material.EmissiveColor := GreenRGB;
 
   ShapeNode := TShapeNode.Create;
@@ -415,10 +419,10 @@ begin
   RootNode := TX3DRootNode.Create;
   RootNode.AddChildren(BBoxTransform);
 
-  SceneBoundingBox := TCastleScene.Create(Window.MainScene);
+  SceneBoundingBox := TCastleScene.Create(MainScene);
   SceneBoundingBox.Load(RootNode, true);
 
-  Window.MainScene.Add(SceneBoundingBox);
+  MainScene.Add(SceneBoundingBox);
   SceneBoundingBox.Exists := AppOptions.ShowBBox;
   SceneBoundingBox.ExcludeFromStatistics := true;
   SceneBoundingBox.Collides := false;
@@ -440,10 +444,10 @@ procedure OpenScene(const Url: string);
     Window.Load(Url);
     // Only to test loading empty scene (with empty bbox)
     // Window.Load('data:model/vrml,#VRML V2.0 utf8' + NL + 'Group { }');
-    Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
-    Window.MainScene.ProcessEvents := true;
+    MainScene.Spatial := [ssRendering, ssDynamicCollisions];
+    MainScene.ProcessEvents := true;
 
-    Window.MainScene.Collides := AppOptions.CollisionsOn;
+    MainScene.Collides := AppOptions.CollisionsOn;
 
     CurrentViewpointIdx := 0;
 
@@ -501,12 +505,12 @@ begin
   if Status.Exists then
     Status.Caption := 'FPS: ' + Window.Fps.ToString;
 
-  if (Window.MainScene <> nil) and (SceneBoundingBox <> nil) then
+  if (MainScene <> nil) and (SceneBoundingBox <> nil) then
   begin
     SceneBoundingBox.Exists := AppOptions.ShowBBox;
     if AppOptions.ShowBBox then
     begin
-      BBox := Window.MainScene.BoundingBox;
+      BBox := MainScene.BoundingBox;
       BBoxGeometry.Size := BBox.Size;
       BBoxTransform.Translation := BBox.Center
     end;
@@ -581,7 +585,7 @@ var
   end;
 
 begin
-  if Window.MainScene = nil then
+  if MainScene = nil then
     exit;
 
   AnyTypePresent := false;
@@ -590,7 +594,7 @@ begin
   ExaminePresent := false;
   TurntablePresent := false;
 
-  CurrentNavNode := Window.MainScene.NavigationInfoStack.Top;
+  CurrentNavNode := MainScene.NavigationInfoStack.Top;
   if CurrentNavNode = nil then
     ExaminePresent := true
   else begin
@@ -668,7 +672,7 @@ end;
 
 class procedure TButtonsHandler.BtnOptionsClick(Sender: TObject);
 begin
-  StateOptionsDlg.FScene := Window.MainScene;
+  StateOptionsDlg.FScene := MainScene;
   TUIState.Push(StateOptionsDlg);
 end;
 
@@ -724,10 +728,10 @@ class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
 
 begin
 
-  StateInfoDlg.FScene := Window.MainScene;
+  StateInfoDlg.FScene := MainScene;
   StateInfoDlg.FStatistics := 'Scene information:' + NL
-                           + SceneVertexTriangleInfo(Window.MainScene)
-                           + SceneBoundingBoxInfo(Window.MainScene)
+                           + SceneVertexTriangleInfo(MainScene)
+                           + SceneBoundingBoxInfo(MainScene)
                            + SceneRenderedShapes;
   TUIState.Push(StateInfoDlg);
 end;
@@ -745,23 +749,23 @@ end;
 
 class procedure TButtonsHandler.BtnViewpointNextClick(Sender: TObject);
 begin
-  if Window.MainScene = nil then exit;
+  if MainScene = nil then exit;
   if Sender = BtnViewpointNext then
     Inc(CurrentViewpointIdx)
   else
     Dec(CurrentViewpointIdx);
 
   if CurrentViewpointIdx < 0 then
-    CurrentViewpointIdx := Window.MainScene.ViewpointsCount;
-  if CurrentViewpointIdx > Window.MainScene.ViewpointsCount - 1 then
+    CurrentViewpointIdx := MainScene.ViewpointsCount;
+  if CurrentViewpointIdx > MainScene.ViewpointsCount - 1 then
     CurrentViewpointIdx := 0;
 
-  Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
+  MainScene.MoveToViewpoint(CurrentViewpointIdx);
 end;
 
 class procedure TButtonsHandler.BtnViewpointListClick(Sender: TObject);
 begin
-  StateViewpointsDlg.FScene := Window.MainScene;
+  StateViewpointsDlg.FScene := MainScene;
   StateViewpointsDlg.FCurrentViewpointIdx := CurrentViewpointIdx;
   StateViewpointsDlg.FOnViewpointSelected := @TButtonsHandler(nil).ViewpointSelected;
   TUIState.Push(StateViewpointsDlg);
@@ -770,7 +774,7 @@ end;
 class procedure TButtonsHandler.ViewpointSelected(ViewpointIdx: integer);
 begin
   CurrentViewpointIdx := ViewpointIdx;
-  Window.MainScene.MoveToViewpoint(CurrentViewpointIdx);
+  MainScene.MoveToViewpoint(CurrentViewpointIdx);
 end;
 
 procedure DeleteDirectoryRecursive(const DirName: string);
