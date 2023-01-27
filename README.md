@@ -17,7 +17,7 @@ There are two ways to open your files:
     - Models that don't need any additional media (like textures).
     - Models that refer to the additional media using http/https links.
     - ZIP file that contains a model (X3D, glTF, ...) and the associated media (textures etc.)
-    - X3D/VRML with media embeded using [data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme). Specifically for textures, you can also embed them using X3D/VRML `PixelTexture` node.
+    - X3D/VRML with media embedded using [data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme). Specifically for textures, you can also embed them using X3D/VRML `PixelTexture` node.
     - glTF GLB variant.
 
 2. Click on your file in an application like [Total Commander for Android](https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander), that can pass to _view3dscene-mobile_ the actual filename.
