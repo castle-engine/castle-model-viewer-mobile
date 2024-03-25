@@ -7,7 +7,7 @@
   game_units="GameInitialize"
   fullscreen_immersive="false"
   >
-  <version value="1.4.0" code="5" />
+  <version value="1.5.0" code="6" />
   <compiler_options>
     <search_paths>
       <path value="code/" />
@@ -19,7 +19,7 @@
   <icons>
     <icon path="icon.png" />
   </icons>
-  <android project_type="integrated">
+  <android>
     <services>
       <service name="photo_service" />
       <service name="read_external_storage" />
@@ -31,43 +31,154 @@
     </services>
   </ios>
   <associate_document_types>
-    <document_type name="VRML Scene" icon="">
-      <file_extension extension="wrl" mime="model/vrml" />
-      <file_extension extension="wrz" mime="model/vrml" />
+    <document_type caption="VRML document" name="vrml">
+      <mime>model/vrml</mime>
+      <extension>wrl</extension>
+      <extension>wrz</extension>
+      <extension>wrl.gz</extension>
     </document_type>
-    <document_type name="X3D Scene">
-      <file_extension extension="x3d" mime="model/x3d+xml" />
-      <file_extension extension="x3dz" mime="model/x3d+xml" />
-      <file_extension extension="x3dv" mime="model/x3d+vrml" />
-      <file_extension extension="x3dvz" mime="model/x3d+vrml" />
+    <document_type caption="3DS model" name="3ds">
+      <mime>image/x-3ds</mime>
+      <extension>3ds</extension>
     </document_type>
-    <document_type name="glTF Scene">
-      <file_extension extension="glb" mime="model/gltf-binary" />
-      <file_extension extension="gltf" mime="model/gltf+json" />
+    <document_type caption="X3D model (classic VRML encoding)" name="x3dv">
+      <mime>model/x3d+vrml</mime>
+      <extension>x3dv</extension>
+      <extension>x3dv.gz</extension>
+      <extension>x3dvz</extension>
     </document_type>
-    <document_type name="COLLADA Object">
-      <file_extension extension="dae" mime="model/vnd.collada+xml" />
+    <document_type caption="X3D model (XML encoding)" name="x3d">
+      <mime>model/x3d+xml</mime>
+      <extension>x3d</extension>
+      <extension>x3d.gz</extension>
+      <extension>x3dz</extension>
     </document_type>
-    <document_type name="Inventor Object">
-      <file_extension extension="iv" mime="object/x-inventor" />
+    <document_type caption="COLLADA model" name="dae">
+      <mime>model/vnd.collada+xml</mime>
+      <extension>dae</extension>
     </document_type>
-    <document_type name="3D Studio Object">
-      <file_extension extension="3ds" mime="application/x-3ds" />
+    <document_type caption="Inventor model" name="iv">
+      <mime>application/x-inventor</mime>
+      <extension>iv</extension>
     </document_type>
-    <document_type name="Wavefront Object">
-      <file_extension extension="obj" mime="text/plain" />
+    <document_type caption="MD3 (Quake 3 engine) model" name="md3">
+      <mime>application/x-md3</mime>
+      <extension>md3</extension>
     </document_type>
-    <document_type name="Videoscape Object">
-      <file_extension extension="geo" mime="application/x-geo" />
+    <document_type caption="Wavefront OBJ model" name="obj">
+      <mime>application/x-wavefront-obj</mime>
+      <extension>obj</extension>
     </document_type>
-    <document_type name="Stereolithography Object">
-      <file_extension extension="stl" mime="application/x-stl" />
+    <document_type caption="Videoscape GEO model" name="geo">
+      <mime>application/x-geo</mime>
+      <extension>geo</extension>
     </document_type>
-    <document_type name="Castle Animation Frames">
-      <file_extension extension="castle-anim-frames" mime="application/x-castle-anim-frames" />
-      <file_extension extension="kanim" mime="application/x-castle-anim-frames" />
+    <document_type caption="Castle Animation Frames" name="castleanimframes">
+      <mime>application/x-castle-anim-frames</mime>
+      <extension>kanim</extension>
+      <extension>castle-anim-frames</extension>
     </document_type>
-    <document_type name="ZIP Archive">
+    <document_type caption="glTF" name="gltf">
+      <mime>model/gltf+json</mime>
+      <extension>gltf</extension>
+    </document_type>
+    <document_type caption="glTF Binary" name="glb">
+      <mime>model/gltf-binary</mime>
+      <extension>glb</extension>
+    </document_type>
+    <document_type caption="Spine JSON" name="spine">
+      <mime>application/json</mime>
+      <extension>json</extension>
+    </document_type>
+    <document_type caption="Castle Game Engine Sprite Sheet" name="castleSpriteSheet">
+      <mime>application/x-castle-sprite-sheet</mime>
+      <extension>castle-sprite-sheet</extension>
+    </document_type>
+    <document_type caption="Cocos2d Sprite Sheet" name="cocos2dSheet">
+      <mime>application/x-cocos2d-sprite-sheet</mime>
+      <extension>cocos2d-plist</extension>
+      <extension>plist</extension>
+    </document_type>
+    <document_type caption="Starling Sprite Sheet" name="starlingSpriteSheet">
+      <mime>application/x-starling-sprite-sheet</mime>
+      <extension>starling-xml</extension>
+    </document_type>
+  </associate_document_types>
+
+  <associate_document_types>
+    <document_type caption="VRML document" name="vrml">
+      <mime>model/vrml</mime>
+      <extension>wrl</extension>
+      <extension>wrz</extension>
+      <extension>wrl.gz</extension>
+    </document_type>
+    <document_type caption="3DS model" name="3ds">
+      <mime>image/x-3ds</mime>
+      <extension>3ds</extension>
+    </document_type>
+    <document_type caption="X3D model (classic VRML encoding)" name="x3dv">
+      <mime>model/x3d+vrml</mime>
+      <extension>x3dv</extension>
+      <extension>x3dv.gz</extension>
+      <extension>x3dvz</extension>
+    </document_type>
+    <document_type caption="X3D model (XML encoding)" name="x3d">
+      <mime>model/x3d+xml</mime>
+      <extension>x3d</extension>
+      <extension>x3d.gz</extension>
+      <extension>x3dz</extension>
+    </document_type>
+    <document_type caption="COLLADA model" name="dae">
+      <mime>model/vnd.collada+xml</mime>
+      <extension>dae</extension>
+    </document_type>
+    <document_type caption="Inventor model" name="iv">
+      <mime>application/x-inventor</mime>
+      <extension>iv</extension>
+    </document_type>
+    <document_type caption="MD3 (Quake 3 engine) model" name="md3">
+      <mime>application/x-md3</mime>
+      <extension>md3</extension>
+    </document_type>
+    <document_type caption="Wavefront OBJ model" name="obj">
+      <mime>application/x-wavefront-obj</mime>
+      <extension>obj</extension>
+    </document_type>
+    <document_type caption="Videoscape GEO model" name="geo">
+      <mime>application/x-geo</mime>
+      <extension>geo</extension>
+    </document_type>
+    <document_type caption="Castle Animation Frames (Deprecated)" name="castleanimframes">
+      <mime>application/x-castle-anim-frames</mime>
+      <extension>kanim</extension>
+      <extension>castle-anim-frames</extension>
+    </document_type>
+    <document_type caption="glTF" name="gltf">
+      <mime>model/gltf+json</mime>
+      <extension>gltf</extension>
+    </document_type>
+    <document_type caption="glTF Binary" name="glb">
+      <mime>model/gltf-binary</mime>
+      <extension>glb</extension>
+    </document_type>
+    <document_type caption="Spine JSON" name="spine">
+      <mime>application/json</mime>
+      <extension>json</extension>
+    </document_type>
+    <document_type caption="Castle Game Engine Sprite Sheet" name="castleSpriteSheet">
+      <mime>application/x-castle-sprite-sheet</mime>
+      <extension>castle-sprite-sheet</extension>
+    </document_type>
+    <document_type caption="Cocos2d Sprite Sheet" name="cocos2dSheet">
+      <mime>application/x-cocos2d-sprite-sheet</mime>
+      <extension>cocos2d-plist</extension>
+      <extension>plist</extension>
+    </document_type>
+    <document_type caption="Starling Sprite Sheet" name="starlingSpriteSheet">
+      <mime>application/x-starling-sprite-sheet</mime>
+      <extension>starling-xml</extension>
+    </document_type>
+    <document_type name="zip" caption="ZIP Archive">
       <file_extension extension="zip" mime="application/zip" ios_type_identifier="com.pkware.zip-archive" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->
     </document_type>
   </associate_document_types>
