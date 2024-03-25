@@ -1,4 +1,4 @@
-{ Auto-generated unit with information about the project.
+﻿{ Auto-generated unit with information about the project.
   The information set here reflects the CastleEngineManifest.xml properties.
 
   You should not modify this file manually.
@@ -22,8 +22,8 @@ uses CastleApplicationProperties, CastleWindow, CastleLog;
 
 initialization
   ApplicationProperties.ApplicationName := 'view3dscene-mobile';
-  ApplicationProperties.Caption := 'View Model';
-  ApplicationProperties.Version := '0.1';
+  ApplicationProperties.Caption := 'view3Dscene';
+  ApplicationProperties.Version := '1.5.0';
 
   if not IsLibrary then
     Application.ParseStandardParameters;
