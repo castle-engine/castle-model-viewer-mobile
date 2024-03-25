@@ -11,7 +11,6 @@ NavigationInfo {
 	visibilityLimit 100.0
 	type ["EXAMINE", "ANY"]
 	avatarSize [0.25, 1.75, 0.75]
-	autoCenterOfRotation TRUE
 }
 
 Background {
@@ -68840,6 +68839,8 @@ DEF OB_Camera Transform {
 			description "Camera"
 			position 0.0 0.0 0.0
 			fieldOfView 0.449
+			# Michalis manual fix, default center of rotation in zero is not good
+			autoCenterOfRotation TRUE
 		}
 
 	]
