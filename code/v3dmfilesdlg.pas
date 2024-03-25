@@ -18,7 +18,8 @@ unit V3DMFilesDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
+  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  V3DTable;
 
 type
   TFileSelectedEvent = procedure (Url : string) of object;
@@ -179,7 +180,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(buttonLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;

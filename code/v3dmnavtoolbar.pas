@@ -19,7 +19,9 @@ interface
 
 uses Classes, SysUtils, Generics.Collections,
   CastleControls, CastleUIState, CastleKeysMouse, CastleCameras,
-  GameInitialize;
+  CastleViewport,
+  GameInitialize,
+  V3DTable;
 
 type
   TNavTypeList = class(specialize TList<TNavigationType>) end;
@@ -177,7 +179,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(buttonLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;

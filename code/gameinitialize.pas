@@ -25,10 +25,10 @@ unit GameInitialize;
 
 interface
 
-uses CastleWindowTouch;
+uses CastleWindow, CastleViewport;
 
 var
-  Window: TCastleWindowTouch;
+  Window: TCastleWindow;
 
 procedure OpenScene(const Url: string);
 procedure OpenZippedScene(const Url: string);
@@ -42,10 +42,8 @@ uses Classes, SysUtils, Math, Zipper,
   CastleControls, CastleKeysMouse, CastleFilesUtils,
   CastleVectors, CastleBoxes, CastleSceneCore, CastleUtils, CastleColors,
   CastleUIControls, CastleUIState, CastleMessages, CastleMessaging, CastleLog, CastleImages,
-  CastleCameras, CastleApplicationProperties, CastleWindow, CastleScene,
-  CastleGLImages, CastleFonts, CastleFontFamily, CastleTransform,
-  CastleTextureFont_DjvSans_20, CastleTextureFont_DjvSansB_20,
-  CastleTextureFont_DjvSansO_20, CastleTextureFont_DjvSansBO_20,
+  CastleCameras, CastleApplicationProperties, CastleScene,
+  CastleGLImages, CastleFonts, CastleTransform,
   CastleDialogStates, CastlePhotoService, CastleDownload, CastleFileFilters,
   X3DNodes, X3DLoad,
   V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
@@ -85,9 +83,12 @@ var
   AvailableNavTypes: TNavTypeList;
   ShowNavButtonsOnMainToolbar: boolean;
 
+  MainViewport: TCastleAutoNavigationViewport;
+  TouchNavigation: TCastleTouchNavigation;
+
 function MainScene: TCastleScene;
 begin
-  Result := Window.SceneManager.Items.MainScene;
+  Result := MainViewport.Items.MainScene;
 end;
 
 { One-time initialization. }
@@ -99,7 +100,7 @@ var
   I: Integer;
   ToolButton: TCastleButton;
   ImgTriangle: TCastleImageControl;
-  CustomUIFont: TFontFamily;
+  //CustomUIFont: TFontFamily;
 begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
@@ -121,11 +122,11 @@ begin
   AvailableNavTypes.Add(ntExamine);
   ShowNavButtonsOnMainToolbar := true;
 
-  Window.SceneManager.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
-  Window.SceneManager.PreventInfiniteFallingDown := true;
+  MainViewport.OnBoundNavigationInfoChanged := @TButtonsHandler(nil).BoundNavigationInfoChanged;
+  MainViewport.PreventInfiniteFallingDown := true;
 
   // Create UI
-  Window.Container.UIExplicitScale := Window.Dpi / 96.0;
+  Window.Container.UIExplicitScale := Window.Container.Dpi / 96.0;
   Window.Container.UIScaling := usExplicitScale;
 
   Theme.BackgroundColor := Vector4(0.1, 0.1, 0.1, 0.5);
@@ -153,6 +154,8 @@ begin
   Theme.Corners[tiScrollbarSlider] := Vector4(3, 3, 3, 3);
 
   { prepare TFontFamily with font varians for bold, italic }
+  (* TODO: Assign custom font to use Html:=true on some labels.
+
   CustomUIFont := TFontFamily.Create(Window);
   CustomUIFont.RegularFont := TTextureFont.Create(CustomUIFont);
   (CustomUIFont.RegularFont as TTextureFont).Load(TextureFont_DejaVuSans_20);
@@ -163,7 +166,8 @@ begin
   CustomUIFont.BoldItalicFont := TTextureFont.Create(CustomUIFont);
   (CustomUIFont.BoldItalicFont as TTextureFont).Load(TextureFont_DejaVuSansBoldOblique_20);
   CustomUIFont.Size := 15;
-  UIFont := CustomUIFont;
+  Container.DefaultFont := CustomUIFont;
+  *)
 
   // toolbar
   ToolbarPanel := TCastlePanel.Create(Application);
@@ -424,7 +428,6 @@ begin
 
   MainScene.Add(SceneBoundingBox);
   SceneBoundingBox.Exists := AppOptions.ShowBBox;
-  SceneBoundingBox.ExcludeFromStatistics := true;
   SceneBoundingBox.Collides := false;
 end;
 
@@ -438,14 +441,22 @@ procedure OpenScene(const Url: string);
   { Every CGE warning that happens within this procedure will be captured
     and later shown to player. }
   procedure LoadSceneAndCaptureWarnings;
+  var
+    NewScene: TCastleScene;
   begin
     Application.Log(etInfo, 'Opened ' + Url);
 
-    Window.Load(Url);
-    // Only to test loading empty scene (with empty bbox)
-    // Window.Load('data:model/vrml,#VRML V2.0 utf8' + NL + 'Group { }');
-    MainScene.Spatial := [ssRendering, ssDynamicCollisions];
-    MainScene.ProcessEvents := true;
+    NewScene := TCastleScene.Create(Application);
+    NewScene.Load(Url);
+    NewScene.Spatial := [ssRendering, ssDynamicCollisions];
+    NewScene.ProcessEvents := true;
+
+    MainViewport.Items.MainScene.Free;
+    MainViewport.Items.MainScene := NewScene;
+    MainViewport.Items.Add(MainScene);
+
+    MainViewport.AssignDefaultCamera;
+    MainViewport.AssignDefaultNavigation;
 
     MainScene.Collides := AppOptions.CollisionsOn;
 
@@ -520,7 +531,7 @@ end;
 class procedure TButtonsHandler.BtnNavPopupClick(Sender: TObject);
 begin
   StateNavToolbarDlg.FAvailableNavTypes := AvailableNavTypes;
-  StateNavToolbarDlg.FSelectedNavType := Window.NavigationType;
+  StateNavToolbarDlg.FSelectedNavType := MainViewport.NavigationType;
   StateNavToolbarDlg.FOnNavTypeSelected := @TButtonsHandler(nil).NavigationTypeInPopupSelected;
   StateNavToolbarDlg.FShowAtPositionLeft := BtnNavPopup.Left;
   StateNavToolbarDlg.FShowAtPositionTop := Window.Container.UnscaledHeight - ToolbarPanel.Bottom + 2;
@@ -530,18 +541,18 @@ end;
 class procedure TButtonsHandler.BtnNavClick(Sender: TObject);
 begin
   if Sender = BtnNavWalk then
-     Window.NavigationType := ntWalk
+    MainViewport.NavigationType := ntWalk
   else if Sender = BtnNavFly then
-    Window.NavigationType := ntFly
+    MainViewport.NavigationType := ntFly
   else if Sender = BtnNavExamine then
-    Window.NavigationType := ntExamine
+    MainViewport.NavigationType := ntExamine
   else if Sender = BtnNavTurntable then
-    Window.NavigationType := ntTurntable;
+    MainViewport.NavigationType := ntTurntable;
 end;
 
 class procedure TButtonsHandler.NavigationTypeInPopupSelected(NavType: TNavigationType);
 begin
-  Window.NavigationType := NavType;
+  MainViewport.NavigationType := NavType;
 end;
 
 class procedure TButtonsHandler.BoundNavigationInfoChanged(Sender: TObject);
@@ -553,7 +564,7 @@ begin
   if csDestroying in Window.ComponentState then
     Exit;
 
-  NavType := Window.NavigationType;
+  NavType := MainViewport.NavigationType;
   BtnNavWalk.Pressed := (NavType = ntWalk);
   BtnNavFly.Pressed := (NavType = ntFly);
   BtnNavExamine.Pressed := (NavType = ntExamine);
@@ -647,11 +658,11 @@ var
 begin
   RestoreCtls := TCastleUserInterfaceList.Create(false);
   try
-    // hide everything except SceneManager
+    // hide everything except MainViewport
     for I := 0 to Window.Controls.Count - 1 do
     begin
       C := Window.Controls[I];
-      if C.Exists and (C <> Window.SceneManager) then
+      if C.Exists and (C <> MainViewport) then
       begin
         C.Exists := false;
         RestoreCtls.InsertFront(C);
@@ -715,24 +726,12 @@ class procedure TButtonsHandler.BtnInfoClick(Sender: TObject);
     Result := Result + NL;
   end;
 
-  function SceneRenderedShapes: string;
-  var
-    Statistics: TRenderStatistics;
-  begin
-    Statistics := Window.SceneManager.Statistics;
-    Result := Format('Rendered shapes: %d / %d', [
-      Statistics.ShapesRendered,
-      Statistics.ShapesVisible
-    ]);
-  end;
-
 begin
-
   StateInfoDlg.FScene := MainScene;
   StateInfoDlg.FStatistics := 'Scene information:' + NL
                            + SceneVertexTriangleInfo(MainScene)
                            + SceneBoundingBoxInfo(MainScene)
-                           + SceneRenderedShapes;
+                           + MainViewport.Statistics.ToString;
   TUIState.Push(StateInfoDlg);
 end;
 
@@ -882,7 +881,7 @@ begin
              + 'Zip contains:';
     for I := UnZipper.Entries.Count-1 downto 0 do
       Message := Message + NL + '  ' + UnZipper.Entries.Entries[I].DiskFileName;
-    MessageOKPushesState := true;
+    MessageOKPushesView := true;
     MessageOK(Window, Message);
   end;
 
@@ -900,17 +899,28 @@ initialization
   Application.OnInitialize := @ApplicationInitialize;
 
   { create Window and initialize Window callbacks }
-  Window := TCastleWindowTouch.Create(Application);
+  Window := TCastleWindow.Create(Application);
   Window.OnResize := @WindowResize;
   Window.OnUpdate := @WindowUpdate;
   Window.OnDropFiles := @WindowDropFiles;
   Window.FpsShowOnCaption := false;
-  Window.AutomaticTouchInterface := true;
-  Window.AutomaticExamineTouchCtl := tiNone; // use 2-finger gesture to pan, not touchControl
   Window.AutoRedisplay := false;
   Application.MainWindow := Window;
 
-  OptimizeExtensiveTransformations := true;
+  MainViewport := TCastleAutoNavigationViewport.Create(Application);
+  MainViewport.FullSize := true;
+  MainViewport.AutoCamera := true;
+  MainViewport.AutoNavigation := true;
+  Window.Controls.InsertFront(MainViewport);
+
+  TouchNavigation := TCastleTouchNavigation.Create(Application);
+  TouchNavigation.Viewport := MainViewport;
+  TouchNavigation.AutoTouchInterface := true;
+  TouchNavigation.AutoExamineTouchInterface := tiNone; // use 2-finger gesture to pan, not touchControl
+  MainViewport.InsertFront(TouchNavigation);
+
+  // TODO: buggy now in CGE
+  //OptimizeExtensiveTransformations := true;
 
 finalization
   FreeAndNil(SceneWarnings);

@@ -55,7 +55,7 @@ uses
   Math, SysUtils,
   CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
   CastleGLUtils, CastleUtils, CastleVectors, CastleOpenDocument,
-  CastleDialogStates;
+  CastleDialogViews;
 
 { TStateInfoDlg.TInfoDialog ---------------------------------------------- }
 
@@ -69,8 +69,8 @@ var
 begin
   inherited Create(AOwner);
 
-  Width := Min(320, StateInfoDlg.StateContainer.UnscaledWidth - 20);
-  Height := Min(480, StateInfoDlg.StateContainer.UnscaledHeight - 20);
+  Width := Min(320, StateInfoDlg.Container.UnscaledWidth - 20);
+  Height := Min(480, StateInfoDlg.Container.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
 
@@ -173,12 +173,12 @@ end;
 
 procedure TStateInfoDlg.TInfoDialog.BtnOpenGlInfoClick(Sender: TObject);
 var
-  Dlg: TStateDialogOK;
+  Dlg: TViewDialogOK;
 begin
   // open new UIState
-  Dlg := TStateDialogOK.Create(Self);
+  Dlg := TViewDialogOK.Create(Self);
   Dlg.Caption := GLInformationString;
-  TUIState.Push(Dlg);
+  Container.PushView(Dlg);
 end;
 
 procedure TStateInfoDlg.TInfoDialog.BtnDoneClick(Sender: TObject);
@@ -188,7 +188,7 @@ end;
 
 procedure TStateInfoDlg.TInfoDialog.DoAnswered;
 begin
-  TUIState.Pop(StateInfoDlg);
+  Container.PopView(StateInfoDlg);
 end;
 
 { TStateInfoDlg ------------------------------------------------------------ }
@@ -217,7 +217,7 @@ begin
   Result := inherited;
 
   // end dialog if clicked outside dialog
-  if Event.IsMouseButton(mbLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
+  if Event.IsMouseButton(buttonLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
   begin
     Dialog.DoAnswered;
     Result := true;
