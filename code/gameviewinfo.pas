@@ -29,7 +29,7 @@ type
         procedure BtnDonateClick(Sender: TObject);
         procedure BtnWebClick(Sender: TObject);
         procedure BtnOpenGlInfoClick(Sender: TObject);
-        procedure BtnDoneClick(Sender: TObject);
+        procedure BtnCloseClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         procedure DoAnswered;
@@ -64,12 +64,12 @@ var
   HeaderRect: TCastleRectangleControl;
   LabelWndTitle, LabelSceneStats, LabelAbout: TCastleLabel;
   ImgLogo: TCastleImageControl;
-  BtnOpenGlInfo, BtnDonate, BtnWeb, BtnDone: TCastleButton;
+  BtnOpenGlInfo, BtnDonate, BtnWeb, BtnClose: TCastleButton;
   NextTop, NextBottom, LogoHeight: Single;
 begin
   inherited Create(AOwner);
 
-  Width := Min(320, ViewInfo.Container.UnscaledWidth - 20);
+  Width := Min(400, ViewInfo.Container.UnscaledWidth - 20);
   Height := Min(480, ViewInfo.Container.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
@@ -89,14 +89,14 @@ begin
   LabelWndTitle.Anchor(vpTop, -14);
   InsertFront(LabelWndTitle);
 
-  BtnDone := TCastleButton.Create(Self);
-  BtnDone.Caption := 'Done';
-  BtnDone.OnClick := @BtnDoneClick;
-  BtnDone.Anchor(vpTop, -7);
-  BtnDone.Anchor(hpRight, -7);
-  InsertFront(BtnDone);
+  BtnClose := TCastleButton.Create(Self);
+  BtnClose.Caption := 'Close';
+  BtnClose.OnClick := @BtnCloseClick;
+  BtnClose.Anchor(vpTop, -7);
+  BtnClose.Anchor(hpRight, -7);
+  InsertFront(BtnClose);
 
-  HeaderRect.Height := BtnDone.EffectiveHeight + 12;
+  HeaderRect.Height := BtnClose.EffectiveHeight + 12;
   NextTop := HeaderRect.Height + 8;
 
   LabelSceneStats := TCastleLabel.Create(Self);
@@ -181,7 +181,7 @@ begin
   Container.PushView(Dlg);
 end;
 
-procedure TViewInfo.TInfoDialog.BtnDoneClick(Sender: TObject);
+procedure TViewInfo.TInfoDialog.BtnCloseClick(Sender: TObject);
 begin
   DoAnswered;
 end;

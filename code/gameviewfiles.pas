@@ -31,7 +31,7 @@ type
       strict private
         FileList: TStringList;
         procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
-        procedure BtnDoneClick(Sender: TObject);
+        procedure BtnCloseClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
         destructor Destroy; override;
@@ -63,7 +63,7 @@ uses
 constructor TViewFiles.TFilesDialog.Create(AOwner: TComponent);
 var
   LabelWndTitle: TCastleLabel;
-  BtnDone: TCastleButton;
+  BtnClose: TCastleButton;
   TableTop, Diff: Single;
   TableView: TCastleTableView;
 begin
@@ -91,14 +91,14 @@ begin
   LabelWndTitle.Anchor(vpTop, -14);
   InsertFront(LabelWndTitle);
 
-  BtnDone := TCastleButton.Create(Self);
-  BtnDone.Caption := 'Done';
-  BtnDone.OnClick := @BtnDoneClick;
-  BtnDone.Anchor(vpTop, -7);
-  BtnDone.Anchor(hpRight, -7);
-  InsertFront(BtnDone);
+  BtnClose := TCastleButton.Create(Self);
+  BtnClose.Caption := 'Close';
+  BtnClose.OnClick := @BtnCloseClick;
+  BtnClose.Anchor(vpTop, -7);
+  BtnClose.Anchor(hpRight, -7);
+  InsertFront(BtnClose);
 
-  TableTop := -(BtnDone.EffectiveHeight + 14);
+  TableTop := -(BtnClose.EffectiveHeight + 14);
 
   TableView := TCastleTableView.Create(Self);
   TableView.EnableDragging := true;
@@ -144,7 +144,7 @@ begin
   DoAnswered;
 end;
 
-procedure TViewFiles.TFilesDialog.BtnDoneClick(Sender: TObject);
+procedure TViewFiles.TFilesDialog.BtnCloseClick(Sender: TObject);
 begin
   DoAnswered;
 end;
