@@ -72,7 +72,7 @@ begin
   // fixed demo scenes, TODO: make it dynamic by enumerating in data/demo folder
   FileList := TStringList.Create();
   FileList.Add('castle-data:/demo/castle_walk.wrl');
-  FileList.Add('castle-data:/demo/chinchilla.wrl.gz');
+  FileList.Add('castle-data:/demo/chinchilla.wrl');
   FileList.Add('castle-data:/demo/teapot (fresnel and toon shader).x3dv');
   FileList.Add('castle-data:/demo/teapot (time to shader).x3dv');
   FileList.Add('castle-data:/demo/dragon-spine/dragon.json');
