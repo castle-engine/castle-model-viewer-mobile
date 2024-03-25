@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
-  V3DTable;
+  GameTable;
 
 type
   TFileSelectedEvent = procedure (Url : string) of object;

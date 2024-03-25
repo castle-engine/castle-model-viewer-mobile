@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  GameInitialize, V3DTable;
+  GameInitialize, GameTable;
 
 type
   TViewOptions = class(TCastleView)

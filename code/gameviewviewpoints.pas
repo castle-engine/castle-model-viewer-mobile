@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  V3DTable;
+  GameTable;
 
 type
   TViewpointSelectedEvent = procedure (ViewpointIdx : integer) of object;

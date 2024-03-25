@@ -21,7 +21,7 @@ uses Classes, SysUtils, Generics.Collections,
   CastleControls, CastleUIState, CastleKeysMouse, CastleCameras,
   CastleViewport, CastleUIControls,
   GameInitialize,
-  V3DTable;
+  GameTable;
 
 type
   TNavTypeList = class(specialize TList<TNavigationType>) end;

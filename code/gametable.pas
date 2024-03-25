@@ -14,7 +14,7 @@
 }
 
 { Table UI. }
-unit V3DTable;
+unit GameTable;
 
 { TODO:
 
