@@ -134,6 +134,7 @@ begin
   InsertFront(MainViewport);
 
   TouchNavigation := TCastleTouchNavigation.Create(FreeAtStop);
+  TouchNavigation.FullSize := true;
   TouchNavigation.Viewport := MainViewport;
   TouchNavigation.AutoTouchInterface := true;
   TouchNavigation.AutoExamineTouchInterface := tiNone; // use 2-finger gesture to pan, not touchControl
