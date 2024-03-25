@@ -13,43 +13,43 @@
   ----------------------------------------------------------------------------
 }
 
-unit V3DMViewpointsDlg;
+unit GameViewFiles;
 
 interface
 
 uses Classes, SysUtils,
-  CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
   V3DTable;
 
 type
-  TViewpointSelectedEvent = procedure (ViewpointIdx : integer) of object;
+  TFileSelectedEvent = procedure (Url : string) of object;
 
-  TStateViewpointsDlg = class(TCastleView)
+  TViewFiles = class(TCastleView)
   strict private
     type
-      TViewpointsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
+      TFilesDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
       strict private
+        FileList: TStringList;
         procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
         procedure BtnDoneClick(Sender: TObject);
       public
         constructor Create(AOwner: TComponent); reintroduce;
+        destructor Destroy; override;
         procedure DoAnswered;
 
         function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
         procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
       end;
     var
-      Dialog: TViewpointsDialog;
+      Dialog: TFilesDialog;
   public
-    FScene: TCastleScene;
-    FCurrentViewpointIdx: integer;
-    FOnViewpointSelected: TViewpointSelectedEvent;
+    FOnFileSelected: TFileSelectedEvent;
     procedure Start; override;
     function Press(const Event: TInputPressRelease): boolean; override;
   end;
 
 var
-  StateViewpointsDlg: TStateViewpointsDlg;
+  ViewFiles: TViewFiles;
 
 implementation
 
@@ -58,9 +58,9 @@ uses
   CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors;
 
-{ TStateViewpointsDlg.TViewpointsDialog ---------------------------------------------- }
+{ TViewFiles.TFilesDialog ---------------------------------------------- }
 
-constructor TStateViewpointsDlg.TViewpointsDialog.Create(AOwner: TComponent);
+constructor TViewFiles.TFilesDialog.Create(AOwner: TComponent);
 var
   LabelWndTitle: TCastleLabel;
   BtnDone: TCastleButton;
@@ -69,15 +69,24 @@ var
 begin
   inherited Create(AOwner);
 
-  Width := Min(400, StateViewpointsDlg.StateContainer.UnscaledWidth - 20);
-  Height := Min(500, StateViewpointsDlg.StateContainer.UnscaledHeight - 20);
+  // fixed demo scenes, TODO: make it dynamic by enumerating in data/demo folder
+  FileList := TStringList.Create();
+  FileList.Add('castle-data:/demo/castle_walk.wrl');
+  FileList.Add('castle-data:/demo/chinchilla.wrl.gz');
+  FileList.Add('castle-data:/demo/teapot (fresnel and toon shader).x3dv');
+  FileList.Add('castle-data:/demo/teapot (time to shader).x3dv');
+  FileList.Add('castle-data:/demo/dragon-spine/dragon.json');
+  FileList.Add('castle-data:/demo/gltf-duck/duck.gltf');
+
+  Width := Min(400, ViewFiles.StateContainer.UnscaledWidth - 20);
+  Height := Min(500, ViewFiles.StateContainer.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
 
   LabelWndTitle := TCastleLabel.Create(Self);
   LabelWndTitle.Color := White;
   LabelWndTitle.Html := true;
-  LabelWndTitle.Caption := '<b>Viewpoints</b>';
+  LabelWndTitle.Caption := '<b>Demo Scenes</b>';
   LabelWndTitle.Anchor(hpMiddle);
   LabelWndTitle.Anchor(vpTop, -14);
   InsertFront(LabelWndTitle);
@@ -110,43 +119,44 @@ begin
   end;
 end;
 
-function TStateViewpointsDlg.TViewpointsDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+destructor TViewFiles.TFilesDialog.Destroy;
 begin
-  if Assigned(StateViewpointsDlg.FScene) then
-     Result := StateViewpointsDlg.FScene.ViewpointsCount
-  else
-     Result := 0;
+  FileList.Free;
+  inherited;
 end;
 
-procedure TStateViewpointsDlg.TViewpointsDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+function TViewFiles.TFilesDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+begin
+  Result := FileList.Count;
+end;
+
+procedure TViewFiles.TFilesDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 begin
   Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
-  Cell.TextLabel.Caption := StateViewpointsDlg.FScene.GetViewpointName(Row);
-  if Row = StateViewpointsDlg.FCurrentViewpointIdx then
-    Cell.AccessoryType := tvcaCheckmark;
+  Cell.TextLabel.Caption := ExtractFileName(FileList[Row]);
 end;
 
-procedure TStateViewpointsDlg.TViewpointsDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
+procedure TViewFiles.TFilesDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
 begin
-  if Assigned(StateViewpointsDlg.FOnViewpointSelected) then
-    StateViewpointsDlg.FOnViewpointSelected(Row);
+  if Assigned(ViewFiles.FOnFileSelected) then
+    ViewFiles.FOnFileselected(FileList[Row]);
 
   DoAnswered;
 end;
 
-procedure TStateViewpointsDlg.TViewpointsDialog.BtnDoneClick(Sender: TObject);
+procedure TViewFiles.TFilesDialog.BtnDoneClick(Sender: TObject);
 begin
   DoAnswered;
 end;
 
-procedure TStateViewpointsDlg.TViewpointsDialog.DoAnswered;
+procedure TViewFiles.TFilesDialog.DoAnswered;
 begin
-  Container.PopView(StateViewpointsDlg);
+  Container.PopView(ViewFiles);
 end;
 
-{ TStateViewpointsDlg ------------------------------------------------------------ }
+{ TViewFiles ------------------------------------------------------------ }
 
-procedure TStateViewpointsDlg.Start;
+procedure TViewFiles.Start;
 var
   TransparentBackground: TCastleRectangleControl;
 begin
@@ -159,13 +169,13 @@ begin
   TransparentBackground.FullSize := true;
   InsertFront(TransparentBackground);
 
-  Dialog := TViewpointsDialog.Create(FreeAtStop);
+  Dialog := TFilesDialog.Create(FreeAtStop);
   Dialog.Anchor(hpMiddle);
   Dialog.Anchor(vpMiddle);
   InsertFront(Dialog);
 end;
 
-function TStateViewpointsDlg.Press(const Event: TInputPressRelease): boolean;
+function TViewFiles.Press(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
 

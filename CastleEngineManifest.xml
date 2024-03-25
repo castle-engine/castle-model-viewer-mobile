@@ -3,7 +3,7 @@
   caption="view3Dscene"
   author="Michalis Kamburelis and Jan Adamec"
   qualified_name="io.castleengine.view3dscene.mobile"
-  standalone_source="code/view3dscene-mobile.lpr"
+  standalone_source="view3dscene-mobile.lpr"
   game_units="GameInitialize"
   fullscreen_immersive="false"
   >

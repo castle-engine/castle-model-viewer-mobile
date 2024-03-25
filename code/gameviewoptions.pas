@@ -13,7 +13,7 @@
   ----------------------------------------------------------------------------
 }
 
-unit V3DMOptionsDlg;
+unit GameViewOptions;
 
 interface
 
@@ -22,7 +22,7 @@ uses Classes, SysUtils,
   GameInitialize, V3DTable;
 
 type
-  TStateOptionsDlg = class(TCastleView)
+  TViewOptions = class(TCastleView)
   strict private
     type
       TOptionsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -45,7 +45,7 @@ type
   end;
 
 var
-  StateOptionsDlg: TStateOptionsDlg;
+  ViewOptions: TViewOptions;
 
 implementation
 
@@ -53,7 +53,7 @@ uses
   Math,
   CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors, CastleDownload,
-  V3DMOptions, GameViewDisplayScene;
+  GameOptions, GameViewDisplayScene;
 
 const
   OptCellTagShowBBox    = 0;
@@ -65,9 +65,9 @@ const
 
   OptCellCount          = 6;
 
-{ TStateOptionsDlg.TOptionsDialog ---------------------------------------------- }
+{ TViewOptions.TOptionsDialog ---------------------------------------------- }
 
-constructor TStateOptionsDlg.TOptionsDialog.Create(AOwner: TComponent);
+constructor TViewOptions.TOptionsDialog.Create(AOwner: TComponent);
 var
   LabelWndTitle: TCastleLabel;
   BtnDone: TCastleButton;
@@ -76,8 +76,8 @@ var
 begin
   inherited Create(AOwner);
 
-  Width := Min(400, StateOptionsDlg.StateContainer.UnscaledWidth - 20);
-  Height := Min(500, StateOptionsDlg.StateContainer.UnscaledHeight - 20);
+  Width := Min(400, ViewOptions.StateContainer.UnscaledWidth - 20);
+  Height := Min(500, ViewOptions.StateContainer.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
 
@@ -116,12 +116,12 @@ begin
   end;
 end;
 
-function TStateOptionsDlg.TOptionsDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+function TViewOptions.TOptionsDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
 begin
   Result := OptCellCount;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+procedure TViewOptions.TOptionsDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 var
   CellCaption: string;
   SwitchState, CellEnabled: boolean;
@@ -145,9 +145,9 @@ begin
     OptCellTagHeadlight:
       begin
         CellCaption := 'Headlight';
-        CellEnabled := Assigned(StateOptionsDlg.FScene);
-        if Assigned(StateOptionsDlg.FScene) then
-          SwitchState := StateOptionsDlg.FScene.HeadLightOn
+        CellEnabled := Assigned(ViewOptions.FScene);
+        if Assigned(ViewOptions.FScene) then
+          SwitchState := ViewOptions.FScene.HeadLightOn
         else
           SwitchState := false;
       end;
@@ -176,7 +176,7 @@ begin
   Cell.AccessoryControl := SwitchCtl;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.TableViewSwitchChanged(Sender: TObject);
+procedure TViewOptions.TOptionsDialog.TableViewSwitchChanged(Sender: TObject);
 var
   SwitchCtl: TCastleSwitchControl;
 begin
@@ -189,16 +189,16 @@ begin
 
     OptCellTagHeadlight:
       begin
-        if Assigned(StateOptionsDlg.FScene) then
-          StateOptionsDlg.FScene.HeadLightOn := SwitchCtl.Checked;
+        if Assigned(ViewOptions.FScene) then
+          ViewOptions.FScene.HeadLightOn := SwitchCtl.Checked;
       end;
 
     OptCellTagCollisions:
       begin
         AppOptions.CollisionsOn := SwitchCtl.Checked;
 
-        if Assigned(StateOptionsDlg.FScene) then
-          StateOptionsDlg.FScene.Collides := AppOptions.CollisionsOn;
+        if Assigned(ViewOptions.FScene) then
+          ViewOptions.FScene.Collides := AppOptions.CollisionsOn;
       end;
 
     OptCellTagAllNavTypes:
@@ -215,20 +215,20 @@ begin
   end;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.BtnDoneClick(Sender: TObject);
+procedure TViewOptions.TOptionsDialog.BtnDoneClick(Sender: TObject);
 begin
   DoAnswered;
 end;
 
-procedure TStateOptionsDlg.TOptionsDialog.DoAnswered;
+procedure TViewOptions.TOptionsDialog.DoAnswered;
 begin
-  Container.PopView(StateOptionsDlg);
+  Container.PopView(ViewOptions);
   AppOptions.Save;
 end;
 
-{ TStateOptionsDlg ------------------------------------------------------------ }
+{ TViewOptions ------------------------------------------------------------ }
 
-procedure TStateOptionsDlg.Start;
+procedure TViewOptions.Start;
 var
   TransparentBackground: TCastleRectangleControl;
 begin
@@ -247,7 +247,7 @@ begin
   InsertFront(Dialog);
 end;
 
-function TStateOptionsDlg.Press(const Event: TInputPressRelease): boolean;
+function TViewOptions.Press(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
 

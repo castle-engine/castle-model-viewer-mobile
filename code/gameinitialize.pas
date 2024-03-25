@@ -32,9 +32,8 @@ uses Classes, SysUtils, Math, Zipper,
   CastleVectors, CastleUtils, CastleMessages, CastleLog,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
   CastleApplicationProperties,
-  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMViewpointsDlg, V3DMFilesDlg,
-  V3DMNavToolbar,
-  GameViewDisplayScene;
+  GameViewInfo, GameOptions, GameViewOptions, GameViewViewpoints, GameViewFiles,
+  GameNavToolbar, GameViewDisplayScene;
 
 var
   Window: TCastleWindow;
@@ -50,11 +49,11 @@ begin
   EnableNetwork := AppOptions.DownloadResourcesFromNetwork;
 
   ViewDisplayScene := TViewDisplayScene.Create(Application);
-  StateInfoDlg := TStateInfoDlg.Create(Application);
-  StateOptionsDlg := TStateOptionsDlg.Create(Application);
-  StateViewpointsDlg := TStateViewpointsDlg.Create(Application);
-  StateFilesDlg := TStateFilesDlg.Create(Application);
-  StateNavToolbarDlg := TStateNavToolbarDlg.Create(Application);
+  ViewInfo := TViewInfo.Create(Application);
+  ViewOptions := TViewOptions.Create(Application);
+  ViewViewpoints := TViewViewpoints.Create(Application);
+  ViewFiles := TViewFiles.Create(Application);
+  ViewNavToolbar := TViewNavToolbar.Create(Application);
 
   // Create UI
   Window.Container.UIExplicitScale := Window.Container.Dpi / 96.0;

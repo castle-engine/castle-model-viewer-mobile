@@ -13,7 +13,7 @@
   ----------------------------------------------------------------------------
 }
 
-unit V3DMInfoDlg;
+unit GameViewInfo;
 
 interface
 
@@ -21,7 +21,7 @@ uses Classes,
   CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
 
 type
-  TStateInfoDlg = class(TCastleView)
+  TViewInfo = class(TCastleView)
   strict private
     type
       TInfoDialog = class(TCastleRectangleControl)
@@ -44,7 +44,7 @@ type
   end;
 
 var
-  StateInfoDlg: TStateInfoDlg;
+  ViewInfo: TViewInfo;
 
 const
   SmallFontScale = 0.8;
@@ -57,9 +57,9 @@ uses
   CastleGLUtils, CastleUtils, CastleVectors, CastleOpenDocument,
   CastleDialogViews;
 
-{ TStateInfoDlg.TInfoDialog ---------------------------------------------- }
+{ TViewInfo.TInfoDialog ---------------------------------------------- }
 
-constructor TStateInfoDlg.TInfoDialog.Create(AOwner: TComponent);
+constructor TViewInfo.TInfoDialog.Create(AOwner: TComponent);
 var
   HeaderRect: TCastleRectangleControl;
   LabelWndTitle, LabelSceneStats, LabelAbout: TCastleLabel;
@@ -69,8 +69,8 @@ var
 begin
   inherited Create(AOwner);
 
-  Width := Min(320, StateInfoDlg.Container.UnscaledWidth - 20);
-  Height := Min(480, StateInfoDlg.Container.UnscaledHeight - 20);
+  Width := Min(320, ViewInfo.Container.UnscaledWidth - 20);
+  Height := Min(480, ViewInfo.Container.UnscaledHeight - 20);
   ThemeImage := tiWindow;
   UseThemeImage := true;
 
@@ -102,7 +102,7 @@ begin
   LabelSceneStats := TCastleLabel.Create(Self);
   LabelSceneStats.Color := Silver;
   LabelSceneStats.FontScale := SmallFontScale;
-  LabelSceneStats.Caption := StateInfoDlg.FStatistics;
+  LabelSceneStats.Caption := ViewInfo.FStatistics;
   LabelSceneStats.MaxWidth := Width - 16;
   LabelSceneStats.Alignment := hpLeft;
   LabelSceneStats.VerticalAlignment := vpTop;
@@ -161,17 +161,17 @@ begin
   end;
 end;
 
-procedure TStateInfoDlg.TInfoDialog.BtnDonateClick(Sender: TObject);
+procedure TViewInfo.TInfoDialog.BtnDonateClick(Sender: TObject);
 begin
   OpenURL('https://www.patreon.com/castleengine');
 end;
 
-procedure TStateInfoDlg.TInfoDialog.BtnWebClick(Sender: TObject);
+procedure TViewInfo.TInfoDialog.BtnWebClick(Sender: TObject);
 begin
   OpenURL('https://castle-engine.io');
 end;
 
-procedure TStateInfoDlg.TInfoDialog.BtnOpenGlInfoClick(Sender: TObject);
+procedure TViewInfo.TInfoDialog.BtnOpenGlInfoClick(Sender: TObject);
 var
   Dlg: TViewDialogOK;
 begin
@@ -181,19 +181,19 @@ begin
   Container.PushView(Dlg);
 end;
 
-procedure TStateInfoDlg.TInfoDialog.BtnDoneClick(Sender: TObject);
+procedure TViewInfo.TInfoDialog.BtnDoneClick(Sender: TObject);
 begin
   DoAnswered;
 end;
 
-procedure TStateInfoDlg.TInfoDialog.DoAnswered;
+procedure TViewInfo.TInfoDialog.DoAnswered;
 begin
-  Container.PopView(StateInfoDlg);
+  Container.PopView(ViewInfo);
 end;
 
-{ TStateInfoDlg ------------------------------------------------------------ }
+{ TViewInfo ------------------------------------------------------------ }
 
-procedure TStateInfoDlg.Start;
+procedure TViewInfo.Start;
 var
   TransparentBackground: TCastleRectangleControl;
 begin
@@ -212,7 +212,7 @@ begin
   InsertFront(Dialog);
 end;
 
-function TStateInfoDlg.Press(const Event: TInputPressRelease): boolean;
+function TViewInfo.Press(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
 

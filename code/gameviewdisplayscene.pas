@@ -28,7 +28,7 @@ interface
 uses Classes,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
   CastleDialogViews,
-  V3DMNavToolbar;
+  GameNavToolbar;
 
 type
   TViewDisplayScene = class(TCastleView)
@@ -92,7 +92,7 @@ uses SysUtils, Math, Zipper,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
   CastleApplicationProperties, CastleUtils, CastlePhotoService,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
-  V3DMInfoDlg, V3DMOptions, V3DMOptionsDlg, V3DMFilesDlg, V3DMViewpointsDlg;
+  GameViewInfo, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
   const FileNames: array of string);
@@ -515,12 +515,12 @@ end;
 
 procedure TViewDisplayScene.BtnNavPopupClick(Sender: TObject);
 begin
-  StateNavToolbarDlg.FAvailableNavTypes := AvailableNavTypes;
-  StateNavToolbarDlg.FSelectedNavType := MainViewport.NavigationType;
-  StateNavToolbarDlg.FOnNavTypeSelected := {$ifdef FPC}@{$endif} NavigationTypeInPopupSelected;
-  StateNavToolbarDlg.FShowAtPositionLeft := BtnNavPopup.Left;
-  StateNavToolbarDlg.FShowAtPositionTop := Container.UnscaledHeight - ToolbarPanel.Bottom + 2;
-  Container.PushView(StateNavToolbarDlg);
+  ViewNavToolbar.FAvailableNavTypes := AvailableNavTypes;
+  ViewNavToolbar.FSelectedNavType := MainViewport.NavigationType;
+  ViewNavToolbar.FOnNavTypeSelected := {$ifdef FPC}@{$endif} NavigationTypeInPopupSelected;
+  ViewNavToolbar.FShowAtPositionLeft := BtnNavPopup.Left;
+  ViewNavToolbar.FShowAtPositionTop := Container.UnscaledHeight - ToolbarPanel.Bottom + 2;
+  Container.PushView(ViewNavToolbar);
 end;
 
 procedure TViewDisplayScene.BtnNavClick(Sender: TObject);
@@ -669,8 +669,8 @@ end;
 
 procedure TViewDisplayScene.BtnOptionsClick(Sender: TObject);
 begin
-  StateOptionsDlg.FScene := MainScene;
-  Container.PushView(StateOptionsDlg);
+  ViewOptions.FScene := MainScene;
+  Container.PushView(ViewOptions);
 end;
 
 procedure TViewDisplayScene.BtnInfoClick(Sender: TObject);
@@ -697,19 +697,19 @@ procedure TViewDisplayScene.BtnInfoClick(Sender: TObject);
   end;
 
 begin
-  StateInfoDlg.FScene := MainScene;
-  StateInfoDlg.FStatistics :=
+  ViewInfo.FScene := MainScene;
+  ViewInfo.FStatistics :=
     'Scene information:' + NL +
     SceneVertexTriangleInfo(MainScene) +
     SceneBoundingBoxInfo(MainScene) +
     MainViewport.Statistics.ToString;
-  Container.PushView(StateInfoDlg);
+  Container.PushView(ViewInfo);
 end;
 
 procedure TViewDisplayScene.BtnFilesClick(Sender: TObject);
 begin
-  StateFilesDlg.FOnFileSelected := {$ifdef FPC}@{$endif} FileSelected;
-  Container.PushView(StateFilesDlg);
+  ViewFiles.FOnFileSelected := {$ifdef FPC}@{$endif} FileSelected;
+  Container.PushView(ViewFiles);
 end;
 
 procedure TViewDisplayScene.FileSelected(Url: string);
@@ -735,10 +735,10 @@ end;
 
 procedure TViewDisplayScene.BtnViewpointListClick(Sender: TObject);
 begin
-  StateViewpointsDlg.FScene := MainScene;
-  StateViewpointsDlg.FCurrentViewpointIdx := CurrentViewpointIdx;
-  StateViewpointsDlg.FOnViewpointSelected := {$ifdef FPC}@{$endif} ViewpointSelected;
-  Container.PushView(StateViewpointsDlg);
+  ViewViewpoints.FScene := MainScene;
+  ViewViewpoints.FCurrentViewpointIdx := CurrentViewpointIdx;
+  ViewViewpoints.FOnViewpointSelected := {$ifdef FPC}@{$endif} ViewpointSelected;
+  Container.PushView(ViewViewpoints);
 end;
 
 procedure TViewDisplayScene.ViewpointSelected(ViewpointIdx: integer);

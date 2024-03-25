@@ -13,7 +13,7 @@
   ----------------------------------------------------------------------------
 }
 
-unit V3DMNavToolbar;
+unit GameNavToolbar;
 
 interface
 
@@ -27,7 +27,7 @@ type
   TNavTypeList = class(specialize TList<TNavigationType>) end;
   TNavTypeSelectedEvent = procedure (NavType: TNavigationType) of object;
 
-  TStateNavToolbarDlg = class(TCastleView)
+  TViewNavToolbar = class(TCastleView)
   strict private
     type
       TNavToolbarDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -52,7 +52,7 @@ type
   end;
 
 var
-  StateNavToolbarDlg: TStateNavToolbarDlg;
+  ViewNavToolbar: TViewNavToolbar;
 
 implementation
 
@@ -61,16 +61,16 @@ uses
   CastleColors, CastleWindow, CastleImages, CastleFilesUtils,
   CastleUtils, CastleVectors;
 
-{ TStateNavToolbarDlg.TNavToolbarDialog ---------------------------------------------- }
+{ TViewNavToolbar.TNavToolbarDialog ---------------------------------------------- }
 
-constructor TStateNavToolbarDlg.TNavToolbarDialog.Create(AOwner: TComponent);
+constructor TViewNavToolbar.TNavToolbarDialog.Create(AOwner: TComponent);
 var
   TableView: TCastleTableView;
 begin
   inherited Create(AOwner);
 
   Width := 160;
-  Height := Min(300, StateNavToolbarDlg.StateContainer.UnscaledHeight - 20);
+  Height := Min(300, ViewNavToolbar.StateContainer.UnscaledHeight - 20);
   ThemeImage := tiPanel;
   UseThemeImage := true;
 
@@ -93,17 +93,17 @@ begin
   end;
 end;
 
-function TStateNavToolbarDlg.TNavToolbarDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
+function TViewNavToolbar.TNavToolbarDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
 begin
-  Result := StateNavToolbarDlg.FAvailableNavTypes.Count;
+  Result := ViewNavToolbar.FAvailableNavTypes.Count;
 end;
 
-procedure TStateNavToolbarDlg.TNavToolbarDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
+procedure TViewNavToolbar.TNavToolbarDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 var
   NavType: TNavigationType;
   Title, Icon: string;
 begin
-  NavType := StateNavToolbarDlg.FAvailableNavTypes.Items[Row];
+  NavType := ViewNavToolbar.FAvailableNavTypes.Items[Row];
   case NavType of
     ntWalk:
       begin
@@ -132,30 +132,30 @@ begin
   Cell.TextLabel.Color := Black;
   Cell.ImageIcon.Image := LoadImage(ApplicationData(Icon));
   Cell.ImageIcon.OwnsImage := true;
-  if NavType = StateNavToolbarDlg.FSelectedNavType then
+  if NavType = ViewNavToolbar.FSelectedNavType then
     Cell.AccessoryType := tvcaCheckmark;
 end;
 
-procedure TStateNavToolbarDlg.TNavToolbarDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
+procedure TViewNavToolbar.TNavToolbarDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
 var
   NavType: TNavigationType;
 begin
-  NavType := StateNavToolbarDlg.FAvailableNavTypes.Items[Row];
+  NavType := ViewNavToolbar.FAvailableNavTypes.Items[Row];
 
-  if Assigned(StateNavToolbarDlg.FOnNavTypeSelected) then
-    StateNavToolbarDlg.FOnNavTypeSelected(NavType);
+  if Assigned(ViewNavToolbar.FOnNavTypeSelected) then
+    ViewNavToolbar.FOnNavTypeSelected(NavType);
 
   DoAnswered;
 end;
 
-procedure TStateNavToolbarDlg.TNavToolbarDialog.DoAnswered;
+procedure TViewNavToolbar.TNavToolbarDialog.DoAnswered;
 begin
-  Container.PopView(StateNavToolbarDlg);
+  Container.PopView(ViewNavToolbar);
 end;
 
-{ TStateNavToolbarDlg ------------------------------------------------------------ }
+{ TViewNavToolbar ------------------------------------------------------------ }
 
-procedure TStateNavToolbarDlg.Start;
+procedure TViewNavToolbar.Start;
 var
   TransparentBackground: TCastleRectangleControl;
 begin
@@ -174,7 +174,7 @@ begin
   InsertFront(Dialog);
 end;
 
-function TStateNavToolbarDlg.Press(const Event: TInputPressRelease): boolean;
+function TViewNavToolbar.Press(const Event: TInputPressRelease): boolean;
 begin
   Result := inherited;
 
