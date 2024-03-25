@@ -18,13 +18,13 @@ unit V3DMViewpointsDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
   V3DTable;
 
 type
   TViewpointSelectedEvent = procedure (ViewpointIdx : integer) of object;
 
-  TStateViewpointsDlg = class(TUIState)
+  TStateViewpointsDlg = class(TCastleView)
   strict private
     type
       TViewpointsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -55,7 +55,7 @@ implementation
 
 uses
   Math,
-  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+  CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors;
 
 { TStateViewpointsDlg.TViewpointsDialog ---------------------------------------------- }
@@ -141,7 +141,7 @@ end;
 
 procedure TStateViewpointsDlg.TViewpointsDialog.DoAnswered;
 begin
-  TUIState.Pop(StateViewpointsDlg);
+  Container.PopView(StateViewpointsDlg);
 end;
 
 { TStateViewpointsDlg ------------------------------------------------------------ }

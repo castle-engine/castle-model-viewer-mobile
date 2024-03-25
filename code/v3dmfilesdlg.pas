@@ -18,13 +18,13 @@ unit V3DMFilesDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
   V3DTable;
 
 type
   TFileSelectedEvent = procedure (Url : string) of object;
 
-  TStateFilesDlg = class(TUIState)
+  TStateFilesDlg = class(TCastleView)
   strict private
     type
       TFilesDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -55,7 +55,7 @@ implementation
 
 uses
   Math,
-  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+  CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors;
 
 { TStateFilesDlg.TFilesDialog ---------------------------------------------- }
@@ -151,7 +151,7 @@ end;
 
 procedure TStateFilesDlg.TFilesDialog.DoAnswered;
 begin
-  TUIState.Pop(StateFilesDlg);
+  Container.PopView(StateFilesDlg);
 end;
 
 { TStateFilesDlg ------------------------------------------------------------ }

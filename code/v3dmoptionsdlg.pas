@@ -18,11 +18,11 @@ unit V3DMOptionsDlg;
 interface
 
 uses Classes, SysUtils,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
+  CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
   GameInitialize, V3DTable;
 
 type
-  TStateOptionsDlg = class(TUIState)
+  TStateOptionsDlg = class(TCastleView)
   strict private
     type
       TOptionsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -51,9 +51,9 @@ implementation
 
 uses
   Math,
-  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+  CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
   CastleUtils, CastleVectors, CastleDownload,
-  V3DMOptions;
+  V3DMOptions, GameViewDisplayScene;
 
 const
   OptCellTagShowBBox    = 0;
@@ -204,13 +204,13 @@ begin
     OptCellTagAllNavTypes:
       begin
         AppOptions.ShowAllNavgationButtons := SwitchCtl.Checked;
-        ShowHideNavigationButtons(true);
+        ViewDisplayScene.ShowHideNavigationButtons(true);
       end;
 
       OptCellTagDownloadRes:
       begin
         AppOptions.DownloadResourcesFromNetwork := SwitchCtl.Checked;
-        EnableNetwork := AppOptions.DownloadResourcesFromNetwork;
+        EnableBlockingDownloads := AppOptions.DownloadResourcesFromNetwork;
       end;
   end;
 end;
@@ -222,7 +222,7 @@ end;
 
 procedure TStateOptionsDlg.TOptionsDialog.DoAnswered;
 begin
-  TUIState.Pop(StateOptionsDlg);
+  Container.PopView(StateOptionsDlg);
   AppOptions.Save;
 end;
 

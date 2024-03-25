@@ -18,10 +18,10 @@ unit V3DMInfoDlg;
 interface
 
 uses Classes,
-  CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
+  CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse;
 
 type
-  TStateInfoDlg = class(TUIState)
+  TStateInfoDlg = class(TCastleView)
   strict private
     type
       TInfoDialog = class(TCastleRectangleControl)
@@ -53,7 +53,7 @@ implementation
 
 uses
   Math, SysUtils,
-  CastleColors, CastleWindow, CastleUIControls, CastleFilesUtils, CastleLog,
+  CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
   CastleGLUtils, CastleUtils, CastleVectors, CastleOpenDocument,
   CastleDialogViews;
 

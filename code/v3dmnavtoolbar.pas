@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils, Generics.Collections,
   CastleControls, CastleUIState, CastleKeysMouse, CastleCameras,
-  CastleViewport,
+  CastleViewport, CastleUIControls,
   GameInitialize,
   V3DTable;
 
@@ -27,7 +27,7 @@ type
   TNavTypeList = class(specialize TList<TNavigationType>) end;
   TNavTypeSelectedEvent = procedure (NavType: TNavigationType) of object;
 
-  TStateNavToolbarDlg = class(TUIState)
+  TStateNavToolbarDlg = class(TCastleView)
   strict private
     type
       TNavToolbarDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -58,7 +58,7 @@ implementation
 
 uses
   Math,
-  CastleColors, CastleWindow, CastleUIControls, CastleImages, CastleFilesUtils,
+  CastleColors, CastleWindow, CastleImages, CastleFilesUtils,
   CastleUtils, CastleVectors;
 
 { TStateNavToolbarDlg.TNavToolbarDialog ---------------------------------------------- }
@@ -130,7 +130,7 @@ begin
   Cell.Color := Vector4(1.0, 1.0, 1.0, 0.3);
   Cell.TextLabel.Caption := Title;
   Cell.TextLabel.Color := Black;
-  Cell.ImageIcon.Image := CastleImages.LoadImage(ApplicationData(Icon));
+  Cell.ImageIcon.Image := LoadImage(ApplicationData(Icon));
   Cell.ImageIcon.OwnsImage := true;
   if NavType = StateNavToolbarDlg.FSelectedNavType then
     Cell.AccessoryType := tvcaCheckmark;
@@ -150,7 +150,7 @@ end;
 
 procedure TStateNavToolbarDlg.TNavToolbarDialog.DoAnswered;
 begin
-  TUIState.Pop(StateNavToolbarDlg);
+  Container.PopView(StateNavToolbarDlg);
 end;
 
 { TStateNavToolbarDlg ------------------------------------------------------------ }
