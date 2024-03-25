@@ -90,8 +90,9 @@ implementation
 
 uses SysUtils, Math, Zipper,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
-  CastleApplicationProperties, CastleUtils, CastlePhotoService,
-  CastleMessages, CastleFileFilters, X3DLoad, CastleParameters, CastleRenderOptions,
+  CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
+  CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
+  CastleRenderOptions,
   GameViewInfo, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
@@ -466,6 +467,13 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
       MainViewport.BlendingSort := NewScene.NavigationInfoStack.Top.BlendingSort
     else
       MainViewport.BlendingSort := sortAuto;
+
+    // start 1st animation, if any; looks good on Spine models
+    if NewScene.AnimationsList.Count > 0 then
+    begin
+      NewScene.PlayAnimation(NewScene.AnimationsList[0], true);
+      WritelnLog('Animation', 'Playing animation ' + NewScene.AnimationsList[0]);
+    end;
 
     MainScene.Collides := AppOptions.CollisionsOn;
 
