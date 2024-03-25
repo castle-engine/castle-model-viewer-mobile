@@ -273,7 +273,12 @@ begin
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
 
-  if Parameters.High >= 1 then
+  { Do not use Parameters[1] on Android and iOS.
+
+    E.g. on Android, Parameters[1] may contain "ene.mobile"
+    -- suffix of our qualified name. I don't know why,
+    but these are not a useful URL to open naturally. }
+  if (not IsLibrary) and (Parameters.High >= 1) then
     OpenScene(Parameters[1])
   else
     OpenScene('castle-data:/demo/castle_walk.wrl');
