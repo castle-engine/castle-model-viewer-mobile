@@ -91,7 +91,7 @@ implementation
 uses SysUtils, Math, Zipper,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
   CastleApplicationProperties, CastleUtils, CastlePhotoService,
-  CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
+  CastleMessages, CastleFileFilters, X3DLoad, CastleParameters, CastleRenderOptions,
   GameViewInfo, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
@@ -445,7 +445,7 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
     NewScene := TCastleScene.Create(FreeAtStop);
     NewScene.Load(Url);
-    NewScene.Spatial := [ssRendering, ssDynamicCollisions];
+    NewScene.PreciseCollisions := true;
     NewScene.ProcessEvents := true;
 
     MainViewport.Items.MainScene.Free;
@@ -454,6 +454,13 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
     MainViewport.AssignDefaultCamera;
     MainViewport.AssignDefaultNavigation;
+
+    // adjust MainViewport.BlendingSort, makes blending for Spine models always good
+    if (NewScene.NavigationInfoStack.Top <> nil) and
+       (NewScene.NavigationInfoStack.Top.BlendingSort <> sortAuto) then
+      MainViewport.BlendingSort := NewScene.NavigationInfoStack.Top.BlendingSort
+    else
+      MainViewport.BlendingSort := sortAuto;
 
     MainScene.Collides := AppOptions.CollisionsOn;
 
