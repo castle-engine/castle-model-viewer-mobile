@@ -5,7 +5,7 @@
   - can we store pictures in Photo library
 - On Android, it seems we store in "Pictures" folder, not in "Photos" app.
 - Release on Google Play, AppStore
-- More modern demos - X3D, more impressive glTF
+- More modern demos - X3D, more impressive glTF (sthg animated from Sketchfab, like cat with jetpack I once used)
 - Animations panel like view3dscene?
 - Switch control (in Options) - better look
 
