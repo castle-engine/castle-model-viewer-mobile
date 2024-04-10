@@ -10,7 +10,7 @@ All supported files are automatically associated with _"Castle Model Viewer"_. J
 
 [All model formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php) are supported by this mobile _"Castle Model Viewer"_.
 
-You can try it on models in [example_models](https://github.com/castle-engine/view3dscene-mobile/tree/master/) subdirectory: visit any of the models there, click the _"Download"_ icon and choose to open with _"Castle Model Viewer"_.
+You can try it on models in [example_models](https://github.com/castle-engine/view3dscene-mobile/tree/master/example_models) subdirectory: visit any of the models there, click the _"Download"_ icon and choose to open with _"Castle Model Viewer"_.
 
 ## Models must be self-contained
 
@@ -30,3 +30,34 @@ Examples that work:
 - Models that refer to the additional media using http/https links.
 
     But you need to enable blocking downloads in the settings first. It is disabled by default, as the downloads are synchronous (blocking) for now -- there's no UI to interrupt a large download, you just have to wait for it to finish or kill the application.
+
+## Building
+
+Compile by:
+
+- [CGE editor](https://castle-engine.io/editor). Just use menu items _"Compile"_ or _"Compile And Run"_.
+
+- Or use [CGE command-line build tool](https://castle-engine.io/build_tool). Run `castle-engine compile` in this directory.
+
+- Or use [Lazarus](https://www.lazarus-ide.org/). Open in Lazarus `terrain_standalone.lpi` file and compile / run from Lazarus. Make sure to first register [CGE Lazarus packages](https://castle-engine.io/lazarus).
+
+## License
+
+GNU GPL >= 2.0. See the file `LICENSE`.
+
+## Authors
+
+- Jan Adamec
+- Michalis Kamburelis
+- Many contributors to the [Castle Game Engine](https://castle-engine.io/) project.
+
+3D demo models:
+- cat_murdered_soul_suspect.glb:
+    - From https://sketchfab.com/3d-models/cat-murdered-soul-suspect-836312def1b84e588866500a2bf79f0f
+    - License:: CC Attribution
+    - Author: mark2580 ( https://sketchfab.com/mark2580 )
+
+- steampunk_underwater_explorer.glb
+    - From https://sketchfab.com/3d-models/steampunk-underwater-explorer-127471a23e0f4790914b13b9052c4912
+    - License:: CC Attribution
+    - Author: Andrius Beconis ( https://sketchfab.com/abeconis )

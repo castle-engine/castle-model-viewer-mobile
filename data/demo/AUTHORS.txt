@@ -1,0 +1,9 @@
+cat_murdered_soul_suspect.glb
+  From https://sketchfab.com/3d-models/cat-murdered-soul-suspect-836312def1b84e588866500a2bf79f0f
+  License:: CC Attribution
+  Author: mark2580 ( https://sketchfab.com/mark2580 )
+
+steampunk_underwater_explorer.glb
+  From https://sketchfab.com/3d-models/steampunk-underwater-explorer-127471a23e0f4790914b13b9052c4912
+  License:: CC Attribution
+  Author: Andrius Beconis ( https://sketchfab.com/abeconis )
