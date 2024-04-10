@@ -3,8 +3,6 @@
 - Test iOS:
   - the ability to open custom ZIP, X3D, glTF
   - can we store pictures in Photo library
-- Test Android:
-  - can we store pictures in Photo library, after permissions change
 - On Android, it seems we store in "Pictures" folder, not in "Photos" app.
 - Release on Google Play, AppStore
 - Animations panel like view3dscene?
@@ -15,8 +13,14 @@
 - put on AppStore TestFlight
 - implement "Open" command on Android to open media directory
 - use standard UI scaling, will make everything always fit
-- test "download_urls" on Android
 - TransparentBackground in gameviewoptions, gameviewfiles handling is too broad, this also catches clicks in dialog frame e.g. on caption.
+- Turntable remove? We never really supported it fully.
+- Android:
+  `Models.Add('Downloading Network (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');`
+  fails - both with and without EnableBlockingDownloads.
+  It should show model quickly without EnableBlockingDownloads.
+  With EnableBlockingDownloads, it should be able to show model after download and play sounds.
+
 
 ## Internals
 

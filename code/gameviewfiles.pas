@@ -87,6 +87,7 @@ begin
   Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot_fresnel_toon.x3dv');
   Models.Add('Teapot (time to shader) (X3D)', 'castle-data:/demo/teapot_time.x3dv');
   Models.Add('Castle Walk (VRML)', 'castle-data:/demo/castle_walk.wrl');
+  //Models.Add('Downloading Network (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');
 end;
 
 destructor TViewFiles.Destroy;
