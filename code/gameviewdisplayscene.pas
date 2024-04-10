@@ -92,7 +92,7 @@ uses SysUtils, Math, Zipper,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
-  CastleRenderOptions,
+  CastleRenderOptions, CastleUriUtils,
   GameViewInfo, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
@@ -100,12 +100,6 @@ procedure GlobalDropFiles(AContainer: TCastleContainer;
 begin
   if ViewDisplayScene <> nil then
     ViewDisplayScene.DropFiles(FileNames);
-end;
-
-procedure ClearDir(const UnpackDir: string);
-begin
-  if DirectoryExists(UnpackDir) then
-    RemoveNonEmptyDir(UnpackDir, true);
 end;
 
 { TViewDisplayScene ---------------------------------------------------------- }
@@ -301,10 +295,7 @@ end;
 procedure TViewDisplayScene.DropFiles(const FileNames: array of string);
 begin
   if Length(FileNames) <> 0 then
-  begin
-    ClearDir(GetSceneUnpackDir);
     OpenScene(FileNames[0]);
-  end;
 end;
 
 function TViewDisplayScene.MainScene: TCastleScene;
@@ -776,15 +767,30 @@ end;
 
 function TViewDisplayScene.GetSceneUnpackDir: string;
 var
-  UnpackDir: string;
+  UnpackDirUrl: string;
 begin
-  UnpackDir := ApplicationConfig('unpack'); // returns URL
-  if LeftStr(UnpackDir, 7) = 'file://' then
-    UnpackDir := Copy(UnpackDir, 8, Length(UnpackDir)-7);
-  Result := UnpackDir;
+  UnpackDirUrl := ApplicationConfig('unpack');
+  Result := UriToFilenameSafe(UnpackDirUrl);
+  WritelnLog('Unpack directory URL "%s", directory "%s"', [
+    UnpackDirUrl,
+    Result
+  ]);
+  if Result = '' then
+    raise Exception.CreateFmt('Cannot determine unpack directory from URL "%s". It must be a regular directory, since unzip code only supports directories', [
+      UnpackDirUrl
+    ]);
 end;
 
 procedure TViewDisplayScene.OpenZippedScene(const Url: string);
+
+  { Remove a (potentially non-empty) directory, but make no errors or
+    even warnings if it does not exist. }
+  procedure ClearDir(const UnpackDir: string);
+  begin
+    if DirectoryExists(UnpackDir) then
+      RemoveNonEmptyDir(UnpackDir, true);
+  end;
+
 var
   ZippedFile, UnpackDir, SceneFileCandidate1, SceneFileCandidate2: string;
   UnpackedFile, UnpackedFilePart: string;
@@ -792,10 +798,9 @@ var
   I: Integer;
   Message: string;
 begin
-  if LeftStr(Url, 7) = 'file://' then
-    ZippedFile := Copy(Url, 8, Length(Url)-7)
-  else
-    ZippedFile := Url;
+  ZippedFile := UriToFilenameSafe(Url);
+  if ZippedFile = '' then
+    raise Exception.CreateFmt('Cannot determine filename from URL "%s". It must be a regular filename, since our unzip code only supports files for now.', [Url]);
 
   UnpackDir := GetSceneUnpackDir;
   ClearDir(UnpackDir);
