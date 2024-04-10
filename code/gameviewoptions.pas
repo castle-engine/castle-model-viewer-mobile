@@ -74,7 +74,7 @@ begin
   CheckboxHeadlight.Checked := Assigned(FScene) and FScene.HeadLightOn;
   CheckboxCollisions.Checked := AppOptions.CollisionsOn;
   CheckboxAllNavTypes.Checked := AppOptions.ShowAllNavgationButtons;
-  CheckboxEnableBlockingDownloads.Checked := AppOptions.DownloadResourcesFromNetwork;
+  CheckboxEnableBlockingDownloads.Checked := AppOptions.EnableBlockingDownloads;
 
   CheckboxBBox.OnChange := @CheckboxBBoxChange;
   CheckboxFps.OnChange := @CheckboxFpsChange;
@@ -117,8 +117,8 @@ end;
 
 procedure TViewOptions.CheckboxEnableBlockingDownloadsChange(Sender: TObject);
 begin
-  AppOptions.DownloadResourcesFromNetwork := CheckboxEnableBlockingDownloads.Checked;
-  EnableBlockingDownloads := AppOptions.DownloadResourcesFromNetwork;
+  AppOptions.EnableBlockingDownloads := CheckboxEnableBlockingDownloads.Checked;
+  EnableBlockingDownloads := AppOptions.EnableBlockingDownloads;
 end;
 
 procedure TViewOptions.ClickClose(Sender: TObject);

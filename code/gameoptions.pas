@@ -24,7 +24,7 @@ type
   TAppOptions = class
     ShowBBox, ShowFps, CollisionsOn: boolean;
     ShowAllNavgationButtons: boolean;
-    DownloadResourcesFromNetwork: boolean;
+    EnableBlockingDownloads: boolean;
 
     procedure Load;
     procedure Save;
@@ -53,7 +53,7 @@ begin
   ShowFps := UserConfig.GetValue('ShowFps', false);
   CollisionsOn := UserConfig.GetValue('CollisionsOn', true);
   ShowAllNavgationButtons := UserConfig.GetValue('ShowAllNavgationButtons', false);
-  DownloadResourcesFromNetwork := UserConfig.GetValue('DownloadResourcesFromNetwork', false);
+  EnableBlockingDownloads := UserConfig.GetValue('EnableBlockingDownloads', false);
 end;
 
 procedure TAppOptions.Save;
@@ -62,7 +62,7 @@ begin
   UserConfig.SetValue('ShowFps', ShowFps);
   UserConfig.SetValue('CollisionsOn', CollisionsOn);
   UserConfig.SetValue('ShowAllNavgationButtons', ShowAllNavgationButtons);
-  UserConfig.SetValue('DownloadResourcesFromNetwork', DownloadResourcesFromNetwork);
+  UserConfig.SetValue('EnableBlockingDownloads', EnableBlockingDownloads);
   UserConfig.Save;
 end;
 

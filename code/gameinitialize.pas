@@ -46,7 +46,7 @@ begin
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
 
-  EnableNetwork := AppOptions.DownloadResourcesFromNetwork;
+  EnableBlockingDownloads := AppOptions.EnableBlockingDownloads;
 
   ViewDisplayScene := TViewDisplayScene.Create(Application);
   ViewInfo := TViewInfo.Create(Application);
