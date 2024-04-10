@@ -73,81 +73,6 @@
       <mime>application/x-geo</mime>
       <extension>geo</extension>
     </document_type>
-    <document_type caption="Castle Animation Frames" name="castleanimframes">
-      <mime>application/x-castle-anim-frames</mime>
-      <extension>kanim</extension>
-      <extension>castle-anim-frames</extension>
-    </document_type>
-    <document_type caption="glTF" name="gltf">
-      <mime>model/gltf+json</mime>
-      <extension>gltf</extension>
-    </document_type>
-    <document_type caption="glTF Binary" name="glb">
-      <mime>model/gltf-binary</mime>
-      <extension>glb</extension>
-    </document_type>
-    <document_type caption="Spine JSON" name="spine">
-      <mime>application/json</mime>
-      <extension>json</extension>
-    </document_type>
-    <document_type caption="Castle Game Engine Sprite Sheet" name="castleSpriteSheet">
-      <mime>application/x-castle-sprite-sheet</mime>
-      <extension>castle-sprite-sheet</extension>
-    </document_type>
-    <document_type caption="Cocos2d Sprite Sheet" name="cocos2dSheet">
-      <mime>application/x-cocos2d-sprite-sheet</mime>
-      <extension>cocos2d-plist</extension>
-      <extension>plist</extension>
-    </document_type>
-    <document_type caption="Starling Sprite Sheet" name="starlingSpriteSheet">
-      <mime>application/x-starling-sprite-sheet</mime>
-      <extension>starling-xml</extension>
-    </document_type>
-  </associate_document_types>
-
-  <associate_document_types>
-    <document_type caption="VRML document" name="vrml">
-      <mime>model/vrml</mime>
-      <extension>wrl</extension>
-      <extension>wrz</extension>
-      <extension>wrl.gz</extension>
-    </document_type>
-    <document_type caption="3DS model" name="3ds">
-      <mime>image/x-3ds</mime>
-      <extension>3ds</extension>
-    </document_type>
-    <document_type caption="X3D model (classic VRML encoding)" name="x3dv">
-      <mime>model/x3d+vrml</mime>
-      <extension>x3dv</extension>
-      <extension>x3dv.gz</extension>
-      <extension>x3dvz</extension>
-    </document_type>
-    <document_type caption="X3D model (XML encoding)" name="x3d">
-      <mime>model/x3d+xml</mime>
-      <extension>x3d</extension>
-      <extension>x3d.gz</extension>
-      <extension>x3dz</extension>
-    </document_type>
-    <document_type caption="COLLADA model" name="dae">
-      <mime>model/vnd.collada+xml</mime>
-      <extension>dae</extension>
-    </document_type>
-    <document_type caption="Inventor model" name="iv">
-      <mime>application/x-inventor</mime>
-      <extension>iv</extension>
-    </document_type>
-    <document_type caption="MD3 (Quake 3 engine) model" name="md3">
-      <mime>application/x-md3</mime>
-      <extension>md3</extension>
-    </document_type>
-    <document_type caption="Wavefront OBJ model" name="obj">
-      <mime>application/x-wavefront-obj</mime>
-      <extension>obj</extension>
-    </document_type>
-    <document_type caption="Videoscape GEO model" name="geo">
-      <mime>application/x-geo</mime>
-      <extension>geo</extension>
-    </document_type>
     <document_type caption="Castle Animation Frames (Deprecated)" name="castleanimframes">
       <mime>application/x-castle-anim-frames</mime>
       <extension>kanim</extension>
@@ -179,7 +104,14 @@
       <extension>starling-xml</extension>
     </document_type>
     <document_type name="zip" caption="ZIP Archive">
-      <file_extension extension="zip" mime="application/zip" ios_type_identifier="com.pkware.zip-archive" />  <!-- registered by system https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1 -->
+      <mime>application/zip</mime>
+      <extension>zip</extension>
+      <!--
+        Registered by Apple on system level:
+        https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1
+        TODO: Ignored by CGE now, see TODO in https://castle-engine.io/project_manifest#_associated_file_types
+      -->
+      <apple_uniform_type_identifier>com.pkware.zip-archive</apple_uniform_type_identifier>
     </document_type>
   </associate_document_types>
   <dependencies>
