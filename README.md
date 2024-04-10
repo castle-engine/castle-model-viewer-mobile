@@ -1,32 +1,32 @@
-# view3dscene-mobile
+# Castle Model Viewer
 
-Mobile-friendly viewer for 3D models like X3D, VRML, glTF, Collada, Wavefront OBJ, Spine JSON and [other formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php).
+Mobile-friendly viewer for 3D and 2D models like glTF, X3D, VRML, Collada, Wavefront OBJ, Spine JSON and [many other formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php).
 
-In addition to the above formats, it also allows to open a ZIP file that contains a single model and associated media (like textures, sounds etc.). See the discussion below on how to _open your own files_ for details.
+In addition to the above formats, it also allows to open a ZIP file that contains a single model and associated media (like textures, sounds etc.).
 
-# Opening your own files
+## Opening your own models
 
-There are two ways to open your files:
+All supported files are automatically associated with _"Castle Model Viewer"_. Just open them from any application, for example from a web browser downloads, or a file browser like "My Files", "My Downloads" or ["Total Commander" for Android](https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander).
 
-1. Click on any supported file in an application like standard Android _"Downloads"_ app. (Most other Android applications will also behave like that.)
+[All model formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php) are supported by this mobile _"Castle Model Viewer"_.
 
-    This will pass the file to _view3dscene-mobile_.
+You can try it on models in [example_models](https://github.com/castle-engine/view3dscene-mobile/tree/master/) subdirectory: visit any of the models there, click the _"Download"_ icon and choose to open with _"Castle Model Viewer"_.
 
-    An important limitation: This approach will only work for _self-contained_ model files. Such files cannot refer to other files (like textures) using relative URLs. The reason behind this is that _view3dscene-mobile_ doesn't get the file path from the Android system, so it cannot resolve relative URLs. We only get file contents.
+## Models must be self-contained
 
-    Examples that work:
+However, an important limitation is that the model file must be _self-contained_.
 
-    - glTF GLB variant.
-    - ZIP file that contains a model (X3D, glTF, ...) and the associated media (textures etc.)
-    - X3D/VRML with media embedded using [data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme). You can use [to-data-uri](https://github.com/castle-engine/castle-engine/tree/master/tools/to-data-uri) utility distributed as part of [Castle Game Engine](https://castle-engine.io/) to convert any media to data URI.
-    - X3D/VRML with textures embedded using X3D/VRML `PixelTexture` node. Though we recommend "data URI", it is more universal.
-    - Models that don't need any additional media (like textures).
-    - Models that refer to the additional media using http/https links.
+This means you cannot rely on model referring to other files (like textures) using relative URLs and placing these relative files alongside the main model file (in the same directory) will not work.
 
-    Use the `example_models` directory for test models that work with this approach.
+The reason behind this is that _"Castle Model Viewer"_ doesn't get the file path from the system, so it cannot resolve relative URLs. We only get file contents.
 
-2. Click on your file in an application like [Total Commander for Android](https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander). This passes to _view3dscene-mobile_ the actual filename.
+Examples that work:
 
-    This works for all cases.
+- glTF GLB variant. This GLB version was specifically designed to "pack" everything into a single file.
+- ZIP file that contains a model (X3D, glTF... -- [anything supported by Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php)) and the associated media (textures etc.). We have implemented support for such ZIP files in _"Castle Model Viewer"_ exactly for this reason.
+- X3D/VRML with media embedded using [data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme). You can use [to-data-uri](https://github.com/castle-engine/castle-engine/tree/master/tools/to-data-uri) utility distributed as part of [Castle Game Engine](https://castle-engine.io/) to convert any media to data URI.
+- X3D/VRML with textures embedded using X3D/VRML `PixelTexture` node. Though we recommend "data URI", it is more universal.
+- Models that don't need any additional media (e.g. X3D models that just don't need textures to look reasonably).
+- Models that refer to the additional media using http/https links.
 
-    Note that _view3dscene-mobile_ must have permissions to read from given external storage location. Make sure it is so, in the Android settings, under _Applications_ -> _view3dscene_ -> _Permissions_ -> _Storage_.
+    But you need to enable blocking downloads in the settings first. It is disabled by default, as the downloads are synchronous (blocking) for now -- there's no UI to interrupt a large download, you just have to wait for it to finish or kill the application.
