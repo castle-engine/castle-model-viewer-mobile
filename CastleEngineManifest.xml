@@ -22,7 +22,9 @@
   <android>
     <services>
       <service name="photo_service" />
-      <service name="read_external_storage" />
+      <service name="download_urls" />
+      <!-- Not used for now, we don't have our own "Open" menu item. -->
+      <!-- service name="read_external_storage" / -->
     </services>
   </android>
   <ios>
