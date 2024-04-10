@@ -1,5 +1,7 @@
 # Castle Model Viewer
 
+_(Formerly known as `view3dscene-mobile`. We are in the process of renaming now.)_
+
 Mobile-friendly viewer for 3D and 2D models like glTF, X3D, VRML, Collada, Wavefront OBJ, Spine JSON and [many other formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php).
 
 In addition to the above formats, it also allows to open a ZIP file that contains a single model and associated media (like textures, sounds etc.).

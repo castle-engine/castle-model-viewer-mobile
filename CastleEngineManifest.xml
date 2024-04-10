@@ -7,7 +7,7 @@
   game_units="GameInitialize"
   fullscreen_immersive="false"
   >
-  <version value="1.6.0" code="7" />
+  <version value="1.7.0" code="8" />
   <compiler_options>
     <search_paths>
       <path value="code/" />
