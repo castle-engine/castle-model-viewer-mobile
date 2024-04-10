@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2018 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2024 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -20,7 +20,7 @@
   ----------------------------------------------------------------------------
 }
 
-{ Initialie the application, independent from the platform. }
+{ Initialize the application, independent from the platform. }
 unit GameInitialize;
 
 interface
