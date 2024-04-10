@@ -1,0 +1,289 @@
+{
+  "$$ClassName" : "TCastleUserInterface",
+  "FullSize" : true,
+  "Name" : "RootGroup",
+  "$Children" : [
+    {
+      "$$ClassName" : "TCastleButton",
+      "AutoSize" : false,
+      "CustomBackground" : true,
+      "CustomBackgroundDisabled" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "CustomBackgroundFocused" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "CustomBackgroundNormal" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "CustomBackgroundPressed" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "CustomColorNormalPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 5.0196081399917603E-001,
+        "Blue" : 1.0196078568696976E-001,
+        "Green" : 1.0196078568696976E-001,
+        "Red" : 1.0196078568696976E-001
+      },
+      "FullSize" : true,
+      "Image" : {
+        "$$ClassName" : "TCastleImagePersistent"
+      },
+      "Name" : "TransparentBackground",
+      "$Children" : [
+        {
+          "$$ClassName" : "TCastleImageControl",
+          "AutoSizeToChildren" : true,
+          "Content" : {
+            "$$ClassName" : "TCastleImagePersistent",
+            "ProtectedSides" : {
+              "$$ClassName" : "TBorder",
+              "AllSides" : 2.0000000000000000E+000
+            },
+            "Url" : "castle-data:/theme_window.png"
+          },
+          "HorizontalAnchorParent" : "hpMiddle",
+          "HorizontalAnchorSelf" : "hpMiddle",
+          "Name" : "ImageFrame",
+          "VerticalAnchorParent" : "vpMiddle",
+          "VerticalAnchorSelf" : "vpMiddle",
+          "$Children" : [
+            {
+              "$$ClassName" : "TCastleVerticalGroup",
+              "Name" : "VerticalGroup1",
+              "Padding" : 1.0000000000000000E+001,
+              "$Children" : [
+                {
+                  "$$ClassName" : "TCastleUserInterface",
+                  "Border" : {
+                    "$$ClassName" : "TBorder",
+                    "Bottom" : 5.0000000000000000E+000
+                  },
+                  "Height" : 4.5000000000000000E+001,
+                  "Name" : "GroupHeader",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 1.0000000000000000E+001,
+                    "Y" : -1.0000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 5.0000000000000000E+002,
+                  "$Children" : [
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 1.0000000000000000E+000,
+                        "Green" : 1.0000000000000000E+000,
+                        "Red" : 1.0000000000000000E+000
+                      },
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "LabelCaption",
+                      "Text" : [
+                        "Demo Scenes"
+                      ],
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    },
+                    {
+                      "$$ClassName" : "TCastleButton",
+                      "Caption" : "Close",
+                      "CustomBackgroundDisabled" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "CustomBackgroundFocused" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "CustomBackgroundNormal" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "CustomBackgroundPressed" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "HorizontalAnchorParent" : "hpRight",
+                      "HorizontalAnchorSelf" : "hpRight",
+                      "Image" : {
+                        "$$ClassName" : "TCastleImagePersistent"
+                      },
+                      "Name" : "ButtonClose",
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : -5.0000000000000000E+000
+                      },
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    }
+                  ]
+                },
+                {
+                  "$$ClassName" : "TCastleRectangleControl",
+                  "Exists" : false,
+                  "Height" : 2.0000000000000000E+000,
+                  "Name" : "UnusedHeaderDivider",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 1.0000000000000000E+001,
+                    "Y" : -6.0000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 4.0000000000000000E+002
+                },
+                {
+                  "$$ClassName" : "TCastleButton",
+                  "AutoSizeWidth" : false,
+                  "Border" : {
+                    "$$ClassName" : "TBorder",
+                    "Bottom" : 2.0000000000000000E+000
+                  },
+                  "BorderColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 6.0392159223556519E-001,
+                    "Green" : 6.0392159223556519E-001,
+                    "Red" : 6.0392159223556519E-001
+                  },
+                  "Caption" : "Castle Walk (VRML)",
+                  "CustomBackground" : true,
+                  "CustomBackgroundDisabled" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundFocused" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundNormal" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundPressed" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomColorFocusedPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 2.1176470816135406E-001,
+                    "Green" : 2.1176470816135406E-001,
+                    "Red" : 2.1176470816135406E-001
+                  },
+                  "CustomColorNormalPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.8823529779911041E-001,
+                    "Green" : 1.8823529779911041E-001,
+                    "Red" : 1.8823529779911041E-001
+                  },
+                  "CustomColorPressedPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.2156862765550613E-001,
+                    "Green" : 1.2156862765550613E-001,
+                    "Red" : 1.2156862765550613E-001
+                  },
+                  "CustomTextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 8.0000001192092896E-001,
+                    "Green" : 8.0000001192092896E-001,
+                    "Red" : 8.0000001192092896E-001
+                  },
+                  "CustomTextColorUse" : true,
+                  "Exists" : false,
+                  "Height" : 3.0000000000000000E+001,
+                  "Image" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "ButtonTemplate",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 1.0000000000000000E+001,
+                    "Y" : -6.0000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 5.0000000000000000E+002
+                },
+                {
+                  "$$ClassName" : "TCastleButton",
+                  "AutoSize" : false,
+                  "CustomBackground" : true,
+                  "CustomBackgroundDisabled" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundFocused" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundNormal" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundPressed" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomColorFocusedPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 2.1176470816135406E-001,
+                    "Green" : 2.1176470816135406E-001,
+                    "Red" : 2.1176470816135406E-001
+                  },
+                  "CustomColorNormalPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.8823529779911041E-001,
+                    "Green" : 1.8823529779911041E-001,
+                    "Red" : 1.8823529779911041E-001
+                  },
+                  "CustomColorPressedPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.2156862765550613E-001,
+                    "Green" : 1.2156862765550613E-001,
+                    "Red" : 1.2156862765550613E-001
+                  },
+                  "Height" : 2.3000000000000000E+002,
+                  "Image" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "Name" : "ButtonOpenOwnLink",
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 1.0000000000000000E+001,
+                    "Y" : -5.5000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 5.0000000000000000E+002,
+                  "$Children" : [
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "Border" : {
+                        "$$ClassName" : "TBorder",
+                        "AllSides" : 1.0000000000000000E+001
+                      },
+                      "ColorPersistent" : {
+                        "$$ClassName" : "TCastleColorPersistent",
+                        "Blue" : 1.0000000000000000E+000,
+                        "Green" : 1.0000000000000000E+000,
+                        "Red" : 1.0000000000000000E+000
+                      },
+                      "FullSize" : true,
+                      "Html" : true,
+                      "MaxWidth" : 4.8000000000000000E+002,
+                      "Name" : "LabelOpenOwnLink",
+                      "Text" : [
+                        "To open your own models: ",
+                        "",
+                        "All supported files are already associated with \"Castle Model Viewer\". Just open them from any application, for example from a web browser downloads, or a file browser like \"My Files\", \"My Downloads\" or \"Total Commander\". ",
+                        "",
+                        "See the <font color=\"#7777ff\">full documentation and examples to download</font>."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

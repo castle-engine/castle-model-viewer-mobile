@@ -70,7 +70,6 @@ type
     { }
     function MainScene: TCastleScene;
     procedure InitializeSceneBoundingBox;
-    procedure OpenScene(const Url: string);
     function GetSceneUnpackDir: string;
     procedure OpenZippedScene(const Url: string);
     procedure DropFiles(const FileNames: array of string);
@@ -81,6 +80,7 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
 
     procedure ShowHideNavigationButtons(UpdateToobar: boolean);
+    procedure OpenScene(const Url: string);
   end;
 
 var
@@ -726,7 +726,6 @@ end;
 
 procedure TViewDisplayScene.BtnFilesClick(Sender: TObject);
 begin
-  ViewFiles.FOnFileSelected := {$ifdef FPC}@{$endif} FileSelected;
   Container.PushView(ViewFiles);
 end;
 

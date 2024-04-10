@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2024 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "view3dscene-mobile".
 
@@ -13,39 +13,31 @@
   ----------------------------------------------------------------------------
 }
 
+{ Propose user to open a different model. }
 unit GameViewFiles;
 
 interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
-  GameTable;
+  CastleStringUtils;
 
 type
-  TFileSelectedEvent = procedure (Url : string) of object;
-
   TViewFiles = class(TCastleView)
+  published
+    ButtonClose: TCastleButton;
+    TransparentBackground: TCastleButton;
+    ButtonOpenOwnLink: TCastleButton;
+    ButtonTemplate: TCastleButton;
   strict private
-    type
-      TFilesDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
-      strict private
-        FileList: TStringList;
-        procedure TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
-        procedure BtnCloseClick(Sender: TObject);
-      public
-        constructor Create(AOwner: TComponent); reintroduce;
-        destructor Destroy; override;
-        procedure DoAnswered;
-
-        function TableViewNumberOfRows(Sender: TCastleTableView): Integer;
-        procedure TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
-      end;
-    var
-      Dialog: TFilesDialog;
+    Models: TStringStringMap;
+    procedure ClickClose(Sender: TObject);
+    procedure ClickOpenOwnLink(Sender: TObject);
+    procedure ClickOpenModel(Sender: TObject);
   public
-    FOnFileSelected: TFileSelectedEvent;
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Start; override;
-    function Press(const Event: TInputPressRelease): boolean; override;
   end;
 
 var
@@ -54,137 +46,84 @@ var
 implementation
 
 uses
-  Math,
+  Math, Generics.Collections,
   CastleColors, CastleWindow, CastleFilesUtils, CastleLog,
-  CastleUtils, CastleVectors;
-
-{ TViewFiles.TFilesDialog ---------------------------------------------- }
-
-constructor TViewFiles.TFilesDialog.Create(AOwner: TComponent);
-var
-  LabelWndTitle: TCastleLabel;
-  BtnClose: TCastleButton;
-  TableTop, Diff: Single;
-  TableView: TCastleTableView;
-begin
-  inherited Create(AOwner);
-
-  // fixed demo scenes, TODO: make it dynamic by enumerating in data/demo folder
-  FileList := TStringList.Create();
-  FileList.Add('castle-data:/demo/castle_walk.wrl');
-  FileList.Add('castle-data:/demo/chinchilla.wrl');
-  FileList.Add('castle-data:/demo/teapot (fresnel and toon shader).x3dv');
-  FileList.Add('castle-data:/demo/teapot (time to shader).x3dv');
-  FileList.Add('castle-data:/demo/dragon-spine/dragon.json');
-  FileList.Add('castle-data:/demo/gltf-duck/duck.gltf');
-
-  Width := Min(400, ViewFiles.StateContainer.UnscaledWidth - 20);
-  Height := Min(500, ViewFiles.StateContainer.UnscaledHeight - 20);
-  ThemeImage := tiWindow;
-  UseThemeImage := true;
-
-  LabelWndTitle := TCastleLabel.Create(Self);
-  LabelWndTitle.Color := White;
-  LabelWndTitle.Html := true;
-  LabelWndTitle.Caption := '<b>Demo Scenes</b>';
-  LabelWndTitle.Anchor(hpMiddle);
-  LabelWndTitle.Anchor(vpTop, -14);
-  InsertFront(LabelWndTitle);
-
-  BtnClose := TCastleButton.Create(Self);
-  BtnClose.Caption := 'Close';
-  BtnClose.OnClick := @BtnCloseClick;
-  BtnClose.Anchor(vpTop, -7);
-  BtnClose.Anchor(hpRight, -7);
-  InsertFront(BtnClose);
-
-  TableTop := -(BtnClose.EffectiveHeight + 14);
-
-  TableView := TCastleTableView.Create(Self);
-  TableView.EnableDragging := true;
-  TableView.OnSelectCell := @TableViewDidSelectCell;
-  TableView.Width := Width - 14;
-  TableView.Height := Height - 7 + TableTop;
-  TableView.Anchor(hpMiddle);
-  TableView.Anchor(vpTop, TableTop);
-  InsertFront(TableView);
-  TableView.DataSource := Self;
-
-  // when tableView contents take less space, make the window smaller
-  if TableView.ScrollArea.Height < TableView.Height then
-  begin
-    Diff := TableView.Height - TableView.ScrollArea.Height;
-    TableView.Height := TableView.ScrollArea.Height;
-    Height := Height - Diff;
-  end;
-end;
-
-destructor TViewFiles.TFilesDialog.Destroy;
-begin
-  FileList.Free;
-  inherited;
-end;
-
-function TViewFiles.TFilesDialog.TableViewNumberOfRows(Sender: TCastleTableView): Integer;
-begin
-  Result := FileList.Count;
-end;
-
-procedure TViewFiles.TFilesDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
-begin
-  Cell.Color := Vector4(0.2, 0.2, 0.2, 1.0);
-  Cell.TextLabel.Caption := ExtractFileName(FileList[Row]);
-end;
-
-procedure TViewFiles.TFilesDialog.TableViewDidSelectCell(Row: Integer; Sender: TCastleTableView);
-begin
-  if Assigned(ViewFiles.FOnFileSelected) then
-    ViewFiles.FOnFileselected(FileList[Row]);
-
-  DoAnswered;
-end;
-
-procedure TViewFiles.TFilesDialog.BtnCloseClick(Sender: TObject);
-begin
-  DoAnswered;
-end;
-
-procedure TViewFiles.TFilesDialog.DoAnswered;
-begin
-  Container.PopView(ViewFiles);
-end;
+  CastleUtils, CastleVectors, CastleComponentSerialize, CastleOpenDocument,
+  GameViewDisplayScene;
 
 { TViewFiles ------------------------------------------------------------ }
 
-procedure TViewFiles.Start;
-var
-  TransparentBackground: TCastleRectangleControl;
+constructor TViewFiles.Create(AOwner: TComponent);
 begin
   inherited;
+  DesignUrl := 'castle-data:/gameviewfiles.castle-user-interface';
 
-  InterceptInput := true;
-
-  TransparentBackground := TCastleRectangleControl.Create(FreeAtStop);
-  TransparentBackground.Color := Theme.BackgroundColor;
-  TransparentBackground.FullSize := true;
-  InsertFront(TransparentBackground);
-
-  Dialog := TFilesDialog.Create(FreeAtStop);
-  Dialog.Anchor(hpMiddle);
-  Dialog.Anchor(vpMiddle);
-  InsertFront(Dialog);
+  Models := TStringStringMap.Create;
+  Models.Add('Castle Walk (VRML)', 'castle-data:/demo/castle_walk.wrl');
+  Models.Add('Chinchilla (VRML)', 'castle-data:/demo/chinchilla.wrl');
+  Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot (fresnel and toon shader).x3dv');
+  Models.Add('Teapot (time to shader) (X3D)', 'castle-data:/demo/teapot (time to shader).x3dv');
+  Models.Add('Animated 2D Dragon (Spine)', 'castle-data:/demo/dragon-spine/dragon.json');
+  Models.Add('Duck (glTF)', 'castle-data:/demo/gltf-duck/duck.gltf');
 end;
 
-function TViewFiles.Press(const Event: TInputPressRelease): boolean;
+destructor TViewFiles.Destroy;
 begin
-  Result := inherited;
+  FreeAndNil(Models);
+  inherited;
+end;
 
-  // end dialog if clicked outside dialog
-  if Event.IsMouseButton(buttonLeft) and (not Dialog.RenderRect.Contains(Event.Position)) then
-  begin
-    Dialog.DoAnswered;
-    Result := true;
-  end;
+procedure TViewFiles.Start;
+var
+  ModelPair: {$ifdef FPC} TStringStringMap.TDictionaryPair {$else} TPair<string, string> {$endif};
+  ButtonOpenFactory: TCastleComponentFactory;
+  TemplateIndex: Integer;
+  ButtonOpen: TCastleButton;
+begin
+  inherited;
+  InterceptInput := true;
+
+  ButtonClose.OnClick := @ClickClose;
+  ButtonOpenOwnLink.OnClick := @ClickOpenOwnLink;
+  TransparentBackground.OnClick := @ClickClose;
+
+  ButtonOpenFactory := TCastleComponentFactory.Create(nil);
+  try
+    ButtonOpenFactory.LoadFromComponent(ButtonTemplate);
+    TemplateIndex := ButtonTemplate.Parent.IndexOfControl(ButtonTemplate);
+    for ModelPair in Models do
+    begin
+      ButtonOpen := ButtonOpenFactory.ComponentLoad(FreeAtStop) as TCastleButton;
+      ButtonOpen.Caption := ModelPair.Key;
+      ButtonOpen.OnClick := @ClickOpenModel;
+      ButtonOpen.Exists := true; // because ButtonTemplate has Exists=false
+      Inc(TemplateIndex);
+      ButtonTemplate.Parent.InsertControl(TemplateIndex, ButtonOpen);
+      // do not store ModelPair.Value, we depend that it is unique
+    end;
+  finally FreeAndNil(ButtonOpenFactory) end;
+end;
+
+procedure TViewFiles.ClickClose(Sender: TObject);
+begin
+  Container.PopView(Self);
+end;
+
+procedure TViewFiles.ClickOpenOwnLink(Sender: TObject);
+begin
+  OpenUrl('https://github.com/castle-engine/view3dscene-mobile/blob/master/README.md#view3dscene-mobile');
+  ClickClose(nil);
+end;
+
+procedure TViewFiles.ClickOpenModel(Sender: TObject);
+var
+  SenderButton: TCastleButton;
+  ModelUrl: String;
+begin
+  SenderButton := Sender as TCastleButton;
+  ModelUrl := Models[SenderButton.Caption];
+  ViewDisplayScene.OpenScene(ModelUrl);
+  ClickClose(nil);
 end;
 
 end.
