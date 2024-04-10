@@ -36,7 +36,7 @@ type
         Url: String;
       end;
       TDemoModelList = class({$ifdef FPC} specialize {$endif} TObjectList<TDemoModel>)
-        procedure Add(const ACaption, AUrl: String);
+        procedure Add(const ACaption, AUrl: String); reintroduce;
       end;
     var
       Models: TDemoModelList;
