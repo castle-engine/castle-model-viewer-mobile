@@ -64,24 +64,18 @@ begin
   Theme.TextColor := Black;
   Theme.DisabledTextColor := Gray;
 
-  Theme.Images[tiWindow] := LoadImage('castle-data:/theme_window.png'); // dialog background color and frame
-  Theme.Images[tiButtonNormal] := LoadImage('castle-data:/theme_btnNormal.png');
-  Theme.Images[tiButtonDisabled] := LoadImage('castle-data:/theme_btnDisabled.png');
-  Theme.Images[tiButtonFocused] := LoadImage('castle-data:/theme_btnFocused.png');
-  Theme.Images[tiButtonPressed] := LoadImage('castle-data:/theme_btnPressed.png');
-  Theme.OwnsImages[tiWindow] := true;
-  Theme.OwnsImages[tiButtonNormal] := true;
-  Theme.OwnsImages[tiButtonDisabled] := true;
-  Theme.OwnsImages[tiButtonFocused] := true;
-  Theme.OwnsImages[tiButtonPressed] := true;
-  Theme.Corners[tiButtonNormal] := Vector4(3, 3, 3, 3);
-  Theme.Corners[tiButtonDisabled] := Vector4(3, 3, 3, 3);
-  Theme.Corners[tiButtonFocused] := Vector4(3, 3, 3, 3);
-  Theme.Corners[tiButtonPressed] := Vector4(3, 3, 3, 3);
+  Theme.ImagesPersistent[tiWindow].Url := 'castle-data:/theme_window.png'; // dialog background color and frame
+  Theme.ImagesPersistent[tiButtonNormal].Url := 'castle-data:/theme_btnNormal.png';
+  Theme.ImagesPersistent[tiButtonDisabled].Url := 'castle-data:/theme_btnDisabled.png';
+  Theme.ImagesPersistent[tiButtonFocused].Url := 'castle-data:/theme_btnFocused.png';
+  Theme.ImagesPersistent[tiButtonPressed].Url := 'castle-data:/theme_btnPressed.png';
+  Theme.ImagesPersistent[tiScrollbarSlider].Url := 'castle-data:/theme_btnNormal.png';
 
-  Theme.Images[tiScrollbarSlider] := LoadImage('castle-data:/theme_btnNormal.png');
-  Theme.OwnsImages[tiScrollbarSlider] := true;
-  Theme.Corners[tiScrollbarSlider] := Vector4(3, 3, 3, 3);
+  Theme.ImagesPersistent[tiButtonNormal].ProtectedSides.AllSides := 3;
+  Theme.ImagesPersistent[tiButtonDisabled].ProtectedSides.AllSides := 3;
+  Theme.ImagesPersistent[tiButtonFocused].ProtectedSides.AllSides := 3;
+  Theme.ImagesPersistent[tiButtonPressed].ProtectedSides.AllSides := 3;
+  Theme.ImagesPersistent[tiScrollbarSlider].ProtectedSides.AllSides := 3;
 
   { prepare TFontFamily with font varians for bold, italic }
   (* TODO: Assign custom font to use Html:=true on some labels.
