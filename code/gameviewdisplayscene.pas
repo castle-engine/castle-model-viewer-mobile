@@ -102,6 +102,12 @@ begin
     ViewDisplayScene.DropFiles(FileNames);
 end;
 
+procedure ClearDir(const UnpackDir: string);
+begin
+  if DirectoryExists(UnpackDir) then
+    RemoveNonEmptyDir(UnpackDir, true);
+end;
+
 { TViewDisplayScene ---------------------------------------------------------- }
 
 procedure TViewDisplayScene.Start;
@@ -296,7 +302,7 @@ procedure TViewDisplayScene.DropFiles(const FileNames: array of string);
 begin
   if Length(FileNames) <> 0 then
   begin
-    RemoveNonEmptyDir(GetSceneUnpackDir);
+    ClearDir(GetSceneUnpackDir);
     OpenScene(FileNames[0]);
   end;
 end;
@@ -792,7 +798,7 @@ begin
     ZippedFile := Url;
 
   UnpackDir := GetSceneUnpackDir;
-  RemoveNonEmptyDir(UnpackDir);
+  ClearDir(UnpackDir);
 
   SceneFileCandidate1 := '';
   SceneFileCandidate2 := '';
