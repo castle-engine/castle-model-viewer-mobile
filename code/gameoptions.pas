@@ -53,7 +53,7 @@ begin
   ShowFps := UserConfig.GetValue('ShowFps', false);
   CollisionsOn := UserConfig.GetValue('CollisionsOn', true);
   ShowAllNavgationButtons := UserConfig.GetValue('ShowAllNavgationButtons', false);
-  DownloadResourcesFromNetwork := UserConfig.GetValue('DownloadResourcesFromNetwork', true);
+  DownloadResourcesFromNetwork := UserConfig.GetValue('DownloadResourcesFromNetwork', false);
 end;
 
 procedure TAppOptions.Save;
