@@ -30,7 +30,17 @@ type
     ButtonOpenOwnLink: TCastleButton;
     ButtonTemplate: TCastleButton;
   strict private
-    Models: TStringStringMap;
+    type
+      TDemoModel = class
+        Caption: String;
+        Url: String;
+      end;
+      TDemoModelList = class({$ifdef FPC} specialize {$endif} TObjectList<TDemoModel>)
+        procedure Add(const ACaption, AUrl: String);
+      end;
+    var
+      Models: TDemoModelList;
+
     procedure ClickClose(Sender: TObject);
     procedure ClickOpenOwnLink(Sender: TObject);
     procedure ClickOpenModel(Sender: TObject);
@@ -51,6 +61,18 @@ uses
   CastleUtils, CastleVectors, CastleComponentSerialize, CastleOpenDocument,
   GameViewDisplayScene;
 
+{ TViewFiles.TDemoModelList ----------------------------------------------- }
+
+procedure TViewFiles.TDemoModelList.Add(const ACaption, AUrl: String);
+var
+  Model: TDemoModel;
+begin
+  Model := TDemoModel.Create;
+  Model.Caption := ACaption;
+  Model.Url := AUrl;
+  Add(Model);
+end;
+
 { TViewFiles ------------------------------------------------------------ }
 
 constructor TViewFiles.Create(AOwner: TComponent);
@@ -58,7 +80,7 @@ begin
   inherited;
   DesignUrl := 'castle-data:/gameviewfiles.castle-user-interface';
 
-  Models := TStringStringMap.Create;
+  Models := TDemoModelList.Create(true);
   Models.Add('Castle Walk (VRML)', 'castle-data:/demo/castle_walk.wrl');
   Models.Add('Chinchilla (VRML)', 'castle-data:/demo/chinchilla.wrl');
   Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot (fresnel and toon shader).x3dv');
@@ -75,7 +97,7 @@ end;
 
 procedure TViewFiles.Start;
 var
-  ModelPair: {$ifdef FPC} TStringStringMap.TDictionaryPair {$else} TPair<string, string> {$endif};
+  Model: TDemoModel;
   ButtonOpenFactory: TCastleComponentFactory;
   TemplateIndex: Integer;
   ButtonOpen: TCastleButton;
@@ -91,15 +113,16 @@ begin
   try
     ButtonOpenFactory.LoadFromComponent(ButtonTemplate);
     TemplateIndex := ButtonTemplate.Parent.IndexOfControl(ButtonTemplate);
-    for ModelPair in Models do
+    for I := 0 to Models.Count - 1 do
     begin
+      Model := Models[I];
       ButtonOpen := ButtonOpenFactory.ComponentLoad(FreeAtStop) as TCastleButton;
-      ButtonOpen.Caption := ModelPair.Key;
+      ButtonOpen.Caption := Model.Caption;
       ButtonOpen.OnClick := @ClickOpenModel;
       ButtonOpen.Exists := true; // because ButtonTemplate has Exists=false
+      ButtonOpen.Tag := I;
       Inc(TemplateIndex);
       ButtonTemplate.Parent.InsertControl(TemplateIndex, ButtonOpen);
-      // do not store ModelPair.Value, we depend that it is unique
     end;
   finally FreeAndNil(ButtonOpenFactory) end;
 end;
@@ -121,7 +144,7 @@ var
   ModelUrl: String;
 begin
   SenderButton := Sender as TCastleButton;
-  ModelUrl := Models[SenderButton.Caption];
+  ModelUrl := Models[SenderButton.Tag].Url;
   ViewDisplayScene.OpenScene(ModelUrl);
   ClickClose(nil);
 end;
