@@ -12,7 +12,7 @@ All supported files are automatically associated with _"Castle Model Viewer"_. J
 
 [All model formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php) are supported by this mobile _"Castle Model Viewer"_.
 
-You can try it on models in [example_models](https://github.com/castle-engine/view3dscene-mobile/tree/master/example_models) subdirectory: visit any of the models there, click the _"Download"_ icon and choose to open with _"Castle Model Viewer"_.
+You can try it on models in [example_models](https://github.com/castle-engine/castle-model-viewer-mobile/tree/master/example_models) subdirectory: visit any of the models there, click the _"Download"_ icon and choose to open with _"Castle Model Viewer"_.
 
 ## Models must be self-contained
 
