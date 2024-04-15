@@ -15,16 +15,11 @@
 - use standard UI scaling, will make everything always fit
 - TransparentBackground in gameviewoptions, gameviewfiles handling is too broad, this also catches clicks in dialog frame e.g. on caption.
 - Turntable remove? We never really supported it fully.
-- Android:
-  `Models.Add('Downloading Network (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');`
-  fails - both with and without EnableBlockingDownloads.
-  It should show model quickly without EnableBlockingDownloads.
-  With EnableBlockingDownloads, it should be able to show model after download and play sounds.
-
+- needs_download_network_resources.x3dv fails with EnableBlockingDownloads -- download never finishes?
 
 ## Internals
 
-- Remake UI using editor (for now: gameviewfiles done)
+- Remake UI using editor (partially done: gameviewfiles, gameviewoptions)
 - Upgrade all deprecated CGE usage
 
 ## iOS
