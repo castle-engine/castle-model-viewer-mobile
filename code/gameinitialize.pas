@@ -1,20 +1,20 @@
 {
   Copyright 2017-2024 Michalis Kamburelis and Jan Adamec.
 
-  This file is part of "view3dscene-mobile".
+  This file is part of "castle-model-viewer-mobile".
 
-  "view3dscene-mobile" is free software; you can redistribute it and/or modify
+  "castle-model-viewer-mobile" is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
 
-  "view3dscene-mobile" is distributed in the hope that it will be useful,
+  "castle-model-viewer-mobile" is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with "view3dscene-mobile"; if not, write to the Free Software
+  along with "castle-model-viewer-mobile"; if not, write to the Free Software
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
 
   ----------------------------------------------------------------------------
@@ -79,6 +79,7 @@ begin
 
   { prepare TFontFamily with font varians for bold, italic }
   (* TODO: Assign custom font to use Html:=true on some labels.
+     Or just don't use Html:=true, seems not really necessary for this application UI.
 
   CustomUIFont := TFontFamily.Create(Window);
   CustomUIFont.RegularFont := TTextureFont.Create(CustomUIFont);
@@ -97,7 +98,7 @@ begin
 end;
 
 initialization
-  ApplicationProperties.ApplicationName := 'view3dscene-mobile';
+  ApplicationProperties.ApplicationName := 'castle-model-viewer-mobile';
 
   InitializeLog;
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="view3dscene-mobile"
-  caption="view3Dscene"
+<project name="castle-model-viewer-mobile"
+  caption="Castle Model Viewer"
   author="Michalis Kamburelis and Jan Adamec"
-  qualified_name="io.castleengine.view3dscene.mobile"
-  standalone_source="view3dscene-mobile.lpr"
+  qualified_name="io.castleengine.castle.model.viewer.mobile"
+  standalone_source="castle_model_viewer_mobile.dpr"
   game_units="GameInitialize"
   fullscreen_immersive="false"
   >

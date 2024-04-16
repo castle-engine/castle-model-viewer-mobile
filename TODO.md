@@ -5,9 +5,9 @@
   - can we store pictures in Photo library
 - On Android, it seems we store in "Pictures" folder, not in "Photos" app.
 - Release on Google Play, AppStore
-- Animations panel like view3dscene?
+- Animations panel like desktop castle-model-viewer?
 - Checkboxes in Options - upgrade look of "switch" to be modern in CGE, use it
-- Implement "zip with model" handling at CGE level, also in regular view3dscene
+- Implement "zip with model" handling at CGE level, also in desktop castle-model-viewer
 - build release with CGE keys
 - put on Google Play open testing
 - put on AppStore TestFlight

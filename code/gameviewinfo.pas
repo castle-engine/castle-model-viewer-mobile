@@ -1,12 +1,12 @@
 {
   Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
 
-  This file is part of "view3dscene-mobile".
+  This file is part of "castle-model-viewer-mobile".
 
-  "view3dscene-mobile" is free software; see the file COPYING.txt,
+  "castle-model-viewer-mobile" is free software; see the file COPYING.txt,
   included in this distribution, for details about the copyright.
 
-  "view3dscene-mobile" is distributed in the hope that it will be useful,
+  "castle-model-viewer-mobile" is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
@@ -84,7 +84,7 @@ begin
   LabelWndTitle := TCastleLabel.Create(Self);
   LabelWndTitle.Color := White;
   LabelWndTitle.Html := true;
-  LabelWndTitle.Caption := '<b>About view3Dscene</b>';
+  LabelWndTitle.Caption := 'Castle Model Viewer - About';
   LabelWndTitle.Anchor(hpMiddle);
   LabelWndTitle.Anchor(vpTop, -14);
   InsertFront(LabelWndTitle);

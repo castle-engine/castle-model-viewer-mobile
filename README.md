@@ -1,6 +1,4 @@
-# Castle Model Viewer
-
-_(Formerly known as `view3dscene-mobile`. We are in the process of renaming now.)_
+# Castle Model Viewer (formerly view3dscene-mobile)
 
 Mobile-friendly viewer for 3D and 2D models like glTF, X3D, VRML, Collada, Wavefront OBJ, Spine JSON and [many other formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php).
 
@@ -41,7 +39,7 @@ Compile by:
 
 - Or use [CGE command-line build tool](https://castle-engine.io/build_tool). Run `castle-engine compile` in this directory.
 
-- Or use [Lazarus](https://www.lazarus-ide.org/). Open in Lazarus `terrain_standalone.lpi` file and compile / run from Lazarus. Make sure to first register [CGE Lazarus packages](https://castle-engine.io/lazarus).
+- Or use [Lazarus](https://www.lazarus-ide.org/). Open in Lazarus `castle_model_viewer_mobile.lpi` file and compile / run from Lazarus. Make sure to first register [CGE Lazarus packages](https://castle-engine.io/lazarus).
 
 ## License
 

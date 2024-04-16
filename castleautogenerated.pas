@@ -21,8 +21,8 @@ implementation
 uses CastleApplicationProperties, CastleWindow, CastleLog;
 
 initialization
-  ApplicationProperties.ApplicationName := 'view3dscene-mobile';
-  ApplicationProperties.Caption := 'view3Dscene';
+  ApplicationProperties.ApplicationName := 'castle-model-viewer-mobile';
+  ApplicationProperties.Caption := 'Castle Model Viewer';
   ApplicationProperties.Version := '1.5.0';
 
   if not IsLibrary then

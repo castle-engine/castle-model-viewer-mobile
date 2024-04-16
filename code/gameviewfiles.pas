@@ -1,12 +1,12 @@
 {
   Copyright 2017-2024 Michalis Kamburelis and Jan Adamec.
 
-  This file is part of "view3dscene-mobile".
+  This file is part of "castle-model-viewer-mobile".
 
-  "view3dscene-mobile" is free software; see the file COPYING.txt,
+  "castle-model-viewer-mobile" is free software; see the file COPYING.txt,
   included in this distribution, for details about the copyright.
 
-  "view3dscene-mobile" is distributed in the hope that it will be useful,
+  "castle-model-viewer-mobile" is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
@@ -136,7 +136,7 @@ end;
 
 procedure TViewFiles.ClickOpenOwnLink(Sender: TObject);
 begin
-  OpenUrl('https://github.com/castle-engine/view3dscene-mobile/blob/master/README.md#view3dscene-mobile');
+  OpenUrl('https://github.com/castle-engine/castle-model-viewer-mobile/blob/master/README.md');
   ClickClose(nil);
 end;
 

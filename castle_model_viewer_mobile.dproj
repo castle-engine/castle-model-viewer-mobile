@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{D03A1026-E24A-4D46-87FB-B42FDA71DC3D}</ProjectGuid>
-        <MainSource>view3dscene-mobile.lpr</MainSource>
+        <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>33939</TargetedPlatforms>
@@ -94,7 +94,7 @@
         <DCC_N>false</DCC_N>
         <DCC_S>false</DCC_S>
         <DCC_ImageBase>00400000</DCC_ImageBase>
-        <SanitizedProjectName>view3dscene-mobile</SanitizedProjectName>
+        <SanitizedProjectName>castle_model_viewer_mobile</SanitizedProjectName>
         <VerInfo_Locale>1045</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=;CFBundleName=</VerInfo_Keys>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
@@ -184,7 +184,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <None Include="README.md"/>
-        <None Include="view3dscene-mobile.lpr"/>
+        <None Include="castle_model_viewer_mobile.dpr"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -203,7 +203,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">view3dscene-mobile.lpr</Source>
+                    <Source Name="MainSource">castle_model_viewer_mobile.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k280.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
@@ -232,41 +232,41 @@
                 </DeployFile>
 
                 <!-- Deploy executables on all platforms, for Debug -->
-                <DeployFile LocalName="view3dscene-mobile.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="castle_model_viewer_mobile.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>view3dscene-mobile.exe</RemoteName>
+                        <RemoteName>castle_model_viewer_mobile.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="view3dscene-mobile.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="castle_model_viewer_mobile.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>view3dscene-mobile.exe</RemoteName>
+                        <RemoteName>castle_model_viewer_mobile.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="view3dscene-mobile" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="castle_model_viewer_mobile" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Linux64">
-                        <RemoteName>view3dscene-mobile</RemoteName>
+                        <RemoteName>castle_model_viewer_mobile</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
 
                 <!-- Deploy executables on all platforms, for Release -->
-                <DeployFile LocalName="view3dscene-mobile.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="castle_model_viewer_mobile.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>view3dscene-mobile.exe</RemoteName>
+                        <RemoteName>castle_model_viewer_mobile.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="view3dscene-mobile.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="castle_model_viewer_mobile.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>view3dscene-mobile.exe</RemoteName>
+                        <RemoteName>castle_model_viewer_mobile.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="view3dscene-mobile" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="castle_model_viewer_mobile" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Linux64">
-                        <RemoteName>view3dscene-mobile</RemoteName>
+                        <RemoteName>castle_model_viewer_mobile</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

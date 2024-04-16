@@ -6,5 +6,5 @@ backup
 castle-engine-output
 .DS_Store
 # standalone binaries
-view3dscene-mobile
-view3dscene-mobile.exe
+castle-model-viewer-mobile
+castle-model-viewer-mobile.exe

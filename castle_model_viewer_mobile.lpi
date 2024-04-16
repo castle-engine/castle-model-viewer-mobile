@@ -11,7 +11,7 @@
         <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="view3dscene_mobile"/>
+      <Title Value="Castle Model Viewer"/>
     </General>
     <RequiredPackages Count="2">
       <Item1>
@@ -23,7 +23,7 @@
     </RequiredPackages>
     <Units Count="11">
       <Unit0>
-        <Filename Value="view3dscene-mobile.lpr"/>
+        <Filename Value="castle_model_viewer_mobile.dpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -81,7 +81,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="view3dscene-mobile"/>
+      <Filename Value="castle-model-viewer-mobile"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="code/"/>
