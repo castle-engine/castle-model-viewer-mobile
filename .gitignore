@@ -5,6 +5,11 @@
 backup
 castle-engine-output
 .DS_Store
+
 # standalone binaries
 castle-model-viewer-mobile
 castle-model-viewer-mobile.exe
+
+# secrets
+AndroidSigningProperties.txt
+*.keystore
