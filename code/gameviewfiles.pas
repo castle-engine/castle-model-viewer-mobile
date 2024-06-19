@@ -136,7 +136,7 @@ end;
 
 procedure TViewFiles.ClickOpenOwnLink(Sender: TObject);
 begin
-  OpenUrl('https://github.com/castle-engine/castle-model-viewer-mobile/blob/master/README.md');
+  OpenUrl('https://castle-engine.io/castle-model-viewer-mobile');
   ClickClose(nil);
 end;
 
