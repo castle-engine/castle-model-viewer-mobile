@@ -4,32 +4,16 @@ Mobile-friendly viewer for 3D and 2D models like glTF, X3D, VRML, Collada, Wavef
 
 In addition to the above formats, it also allows to open a ZIP file that contains a single model and associated media (like textures, sounds etc.).
 
-## Opening your own models
+## Usage
 
-All supported files are automatically associated with _"Castle Model Viewer"_. Just open them from any application, for example from a web browser downloads, or a file browser like "My Files", "My Downloads" or ["Total Commander" for Android](https://play.google.com/store/apps/details?id=com.ghisler.android.TotalCommander).
+The application comes with a few sample files, and naturally you can open your own 3D and 2D model files. 
 
-[All model formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php) are supported by this mobile _"Castle Model Viewer"_.
+The models must be _self-contained_, e.g. you have to 
 
-You can try it on models in [example_models](https://github.com/castle-engine/castle-model-viewer-mobile/tree/master/example_models) subdirectory: visit any of the models there, click the _"Download"_ icon and choose to open with _"Castle Model Viewer"_.
-
-## Models must be self-contained
-
-However, an important limitation is that the model file must be _self-contained_.
-
-This means you cannot rely on model referring to other files (like textures) using relative URLs and placing these relative files alongside the main model file (in the same directory) will not work.
-
-The reason behind this is that _"Castle Model Viewer"_ doesn't get the file path from the system, so it cannot resolve relative URLs. We only get file contents.
-
-Examples that work:
-
-- glTF GLB variant. This GLB version was specifically designed to "pack" everything into a single file.
-- ZIP file that contains a model (X3D, glTF... -- [anything supported by Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php)) and the associated media (textures etc.). We have implemented support for such ZIP files in _"Castle Model Viewer"_ exactly for this reason.
-- X3D/VRML with media embedded using [data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme). You can use [to-data-uri](https://github.com/castle-engine/castle-engine/tree/master/tools/to-data-uri) utility distributed as part of [Castle Game Engine](https://castle-engine.io/) to convert any media to data URI.
-- X3D/VRML with textures embedded using X3D/VRML `PixelTexture` node. Though we recommend "data URI", it is more universal.
-- Models that don't need any additional media (e.g. X3D models that just don't need textures to look reasonably).
-- Models that refer to the additional media using http/https links.
-
-    But you need to enable blocking downloads in the settings first. It is disabled by default, as the downloads are synchronous (blocking) for now -- there's no UI to interrupt a large download, you just have to wait for it to finish or kill the application.
+- use GLB with all the textures packed in one file,
+- or X3D with all textures expressed as `PixelTexture` or data URI,
+- or just put your model with data (like textures) inside a zip.
+- We have [documented how to make your models self-contained here](https://castle-engine.io/castle-model-viewer-mobile).
 
 ## Building
 
