@@ -17,42 +17,24 @@ on: [push, pull_request]
 jobs:
   # Build for platforms supported by
   # CGE Docker image https://hub.docker.com/r/kambi/castle-engine-cloud-builds-tools/ .
-  #
-  # Since setting up Docker image takes majority of time (5-6 mins)
-  # compared to actually getting and compiling CGE (1 min)
-  # and building application (~1 min for each platform),
-  # we build all platforms possible within one job.
   build-using-docker:
     name: Build Using Docker
     runs-on: ubuntu-latest
-    container: kambi/castle-engine-cloud-builds-tools:cge-none
+    container: kambi/castle-engine-cloud-builds-tools:cge-unstable
     steps:
       - uses: actions/checkout@v4
-      # Set env CASTLE_ENGINE_PATH following
-      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#environment-files
-      # https://brandur.org/fragments/github-actions-env-vars-in-env-vars
-      - name: Castle Game Engine - Setup environment
-        run: echo "CASTLE_ENGINE_PATH=$GITHUB_WORKSPACE/castle-engine" >> $GITHUB_ENV
-      - name: Castle Game Engine - Clone snapshot
-        run: git clone --depth 1 --single-branch --branch snapshot https://github.com/castle-engine/castle-engine/
-      - name: Castle Game Engine - Build
-        run: cd $CASTLE_ENGINE_PATH/tools/build-tool/ && ./castle-engine_compile.sh
 
       - name: Package Windows
-        run: $CASTLE_ENGINE_PATH/tools/build-tool/castle-engine package --os=win64 --cpu=x86_64 --verbose
+        run: castle-engine package --os=win64 --cpu=x86_64 --verbose
       - name: Archive Artifacts
-        # See https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-build
-          # Note: Keep paths that start with asterisk in double qoutes, to avoid misinterpreting as YAML reference.
-          # See https://stackoverflow.com/questions/19109912/yaml-do-i-need-quotes-for-strings-in-yaml
-          # https://yamlchecker.com/
           path: "*-win64-x86_64.zip"
           if-no-files-found: error
 
       - name: Package Linux
-        run: $CASTLE_ENGINE_PATH/tools/build-tool/castle-engine package --os=linux --cpu=x86_64 --verbose
+        run: castle-engine package --os=linux --cpu=x86_64 --verbose
       - name: Archive Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -60,8 +42,15 @@ jobs:
           path: "*-linux-x86_64.tar.gz"
           if-no-files-found: error
 
+      - name: Unpack Android Secrets
+        env: # Set environment variables for the next steps
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_SIGNING_PROPERTIES: ${{ secrets.ANDROID_SIGNING_PROPERTIES }}
+        run: |
+          echo "$ANDROID_KEYSTORE" | base64 --decode > cge.keystore
+          echo "$ANDROID_SIGNING_PROPERTIES" | sed -e "s|WORKSPACE|${GITHUB_WORKSPACE}|" - > AndroidSigningProperties.txt
       - name: Package Android
-        run: $CASTLE_ENGINE_PATH/tools/build-tool/castle-engine package --target=android --verbose
+        run: castle-engine package --target=android --verbose
       - name: Archive Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -80,18 +69,58 @@ jobs:
         uses: gcarreno/setup-lazarus@v3.2.17
         with:
           lazarus-version: stable
-      - name: Castle Game Engine - Setup environment
+
+      - name: Castle Game Engine - Env CASTLE_ENGINE_PATH
         run: echo "CASTLE_ENGINE_PATH=$GITHUB_WORKSPACE/castle-engine" >> $GITHUB_ENV
+      - name: Castle Game Engine - Env PATH (non-Windows)
+        run: echo "PATH=$PATH:$CASTLE_ENGINE_PATH/tools/build-tool/" >> $GITHUB_ENV
       - name: Castle Game Engine - Clone snapshot
         run: git clone --depth 1 --single-branch --branch snapshot https://github.com/castle-engine/castle-engine/
       - name: Castle Game Engine - Build
         run: cd $CASTLE_ENGINE_PATH/tools/build-tool/ && ./castle-engine_compile.sh
 
       - name: Package macOS
-        run: $CASTLE_ENGINE_PATH/tools/build-tool/castle-engine package --os=darwin --cpu=x86_64 --verbose
+        run: castle-engine package --os=darwin --cpu=x86_64 --verbose
       - name: Archive Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: macos-build
           path: "*-darwin-x86_64.zip"
           if-no-files-found: error
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    # Only upload release if all builds, on all runners, succeeded.
+    needs: [build-using-docker, build-macos]
+    steps:
+    - name: Download packaged releases
+      uses: actions/download-artifact@v4
+      with:
+        merge-multiple: true
+    - name: List downloaded files
+      run: ls -R
+    - name: GH CLI status
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh auth status
+    # Releases files in the "snapshot" release.
+    - name: Release Artifacts
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: gh release --repo ${{ github.repository }} upload snapshot --clobber *.zip *.tar.gz *.apk
+      env:
+        GH_TOKEN: ${{ github.token }}
+
+  update-release-tag:
+    name: Update Release Tag (make snapshot tag point to the build commit on master branch)
+    runs-on: ubuntu-latest
+    needs: [release]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Update Release Tag
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: |
+        # --force allows to overwrite previous tag
+        git tag --force snapshot
+        # --force allows to push with overwritten tag
+        git push --force origin snapshot
