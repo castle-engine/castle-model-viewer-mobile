@@ -15,6 +15,7 @@
   </compiler_options>
   <package>
     <include path="LICENSE" />
+    <include path="README.md" />
   </package>
   <icons>
     <icon path="icon.png" />
