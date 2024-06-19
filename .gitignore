@@ -1,9 +1,13 @@
-*~
+# outputs
 *.o
 *.ppu
 *.apk
-backup
+*.aab
 castle-engine-output
+
+# backups
+*~
+backup
 .DS_Store
 
 # standalone binaries
