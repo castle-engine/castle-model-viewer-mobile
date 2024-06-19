@@ -43,7 +43,7 @@ jobs:
           if-no-files-found: error
 
       - name: Unpack Android Secrets
-        env: # Set environment variables for the next steps
+        env:
           ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
           ANDROID_SIGNING_PROPERTIES: ${{ secrets.ANDROID_SIGNING_PROPERTIES }}
         run: |
