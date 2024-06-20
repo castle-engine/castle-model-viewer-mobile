@@ -6,9 +6,9 @@ In addition to the above formats, it also allows to open a ZIP file that contain
 
 ## Usage
 
-The application comes with a few sample files, and naturally you can open your own 3D and 2D model files. 
+The application comes with a few sample files, and naturally you can open your own 3D and 2D model files.
 
-The models must be _self-contained_, e.g. you have to 
+The models must be _self-contained_, e.g. you have to
 
 - use GLB with all the textures packed in one file,
 - or X3D with all textures expressed as `PixelTexture` or data URI,
@@ -22,6 +22,14 @@ Compile by:
 - [CGE editor](https://castle-engine.io/editor). Just use menu items _"Compile"_ or _"Compile And Run"_.
 
 - Or use [CGE command-line build tool](https://castle-engine.io/build_tool). Run `castle-engine compile` in this directory.
+
+    To upload to Google Play as AAB, place here correct `AndroidSigningProperties.txt` and then run:
+
+    ```
+    castle-engine package --target=android --package-format=android-app-bundle --fast
+    ```
+
+    (Remove `--fast` if you don't trust FPC to make a correct incremental build.)
 
 - Or use [Lazarus](https://www.lazarus-ide.org/). Open in Lazarus `castle_model_viewer_mobile.lpi` file and compile / run from Lazarus. Make sure to first register [CGE Lazarus packages](https://castle-engine.io/lazarus).
 
