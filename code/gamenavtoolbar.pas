@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2020 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2024 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "castle-model-viewer-mobile".
 
@@ -101,37 +101,36 @@ end;
 procedure TViewNavToolbar.TNavToolbarDialog.TableViewUpdateCell(Cell: TCastleTableViewCell; Row: Integer; Sender: TCastleTableView);
 var
   NavType: TNavigationType;
-  Title, Icon: string;
+  Title, IconUrl: String;
 begin
   NavType := ViewNavToolbar.FAvailableNavTypes.Items[Row];
   case NavType of
     ntWalk:
       begin
         Title := 'Walk';
-        Icon := 'nav_walk.png';
+        IconUrl := 'castle-data:/nav_walk.png';
       end;
     ntFly:
       begin
         Title := 'Fly';
-        Icon := 'nav_fly.png';
+        IconUrl := 'castle-data:/nav_fly.png';
       end;
     ntExamine:
       begin
         Title := 'Examine';
-        Icon := 'nav_examine.png';
+        IconUrl := 'castle-data:/nav_examine.png';
       end;
     ntTurntable:
       begin
         Title := 'Turntable';
-        Icon := 'nav_turntable.png';
+        IconUrl := 'castle-data:/nav_turntable.png';
       end;
   end;
 
   Cell.Color := Vector4(1.0, 1.0, 1.0, 0.3);
   Cell.TextLabel.Caption := Title;
   Cell.TextLabel.Color := Black;
-  Cell.ImageIcon.Image := LoadImage(ApplicationData(Icon));
-  Cell.ImageIcon.OwnsImage := true;
+  Cell.ImageIcon.Url := IconUrl;
   if NavType = ViewNavToolbar.FSelectedNavType then
     Cell.AccessoryType := tvcaCheckmark;
 end;
