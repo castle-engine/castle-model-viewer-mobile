@@ -81,7 +81,7 @@ begin
   DesignUrl := 'castle-data:/gameviewfiles.castle-user-interface';
 
   Models := TDemoModelList.Create(true);
-  Models.Add('Animated Cat (glTF)', 'castle-data:/demo/cat_murdered_soul_suspect.glb');
+  Models.Add('Animated Cat (glTF)', 'castle-data:/demo/cat_final.x3dv');
   Models.Add('Steampunk Explorer (glTF)', 'castle-data:/demo/steampunk_underwater_explorer.glb');
   Models.Add('Animated 2D Dragon (Spine)', 'castle-data:/demo/dragon-spine/dragon.json');
   Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot_fresnel_toon.x3dv');
