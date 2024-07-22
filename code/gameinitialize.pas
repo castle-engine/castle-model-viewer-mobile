@@ -31,7 +31,7 @@ uses Classes, SysUtils, Math, Zipper,
   CastleWindow, CastleControls, CastleFilesUtils,
   CastleVectors, CastleUtils, CastleMessages, CastleLog,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
-  CastleApplicationProperties,
+  CastleApplicationProperties, CastleSceneCore,
   GameViewInfo, GameOptions, GameViewOptions, GameViewViewpoints, GameViewFiles,
   GameNavToolbar, GameViewDisplayScene;
 
@@ -43,6 +43,8 @@ procedure ApplicationInitialize;
 //var
   //CustomUIFont: TFontFamily;
 begin
+  OptimizeExtensiveTransformations := true;
+
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
 
@@ -98,18 +100,21 @@ begin
 end;
 
 initialization
-  ApplicationProperties.ApplicationName := 'castle-model-viewer-mobile';
+  { This initialization section configures:
+    - Application.OnInitialize
+    - Application.MainWindow
+    - determines initial window size
 
-  InitializeLog;
+    You should not need to do anything more in this initialization section.
+    Most of your actual application initialization (in particular, any file reading)
+    should happen inside ApplicationInitialize. }
 
-  { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;
 
-  { create Window and initialize Window callbacks }
   Window := TCastleWindow.Create(Application);
-  Window.FpsShowOnCaption := false;
   Application.MainWindow := Window;
 
-  // TODO: buggy now in CGE
-  //OptimizeExtensiveTransformations := true;
+  { Handle command-line parameters like --fullscreen and --window.
+    By doing this last, you let user to override your fullscreen / mode setup. }
+  Window.ParseParameters;
 end.
