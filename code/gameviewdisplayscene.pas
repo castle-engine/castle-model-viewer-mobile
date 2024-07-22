@@ -25,11 +25,13 @@ unit GameViewDisplayScene;
 
 interface
 
-uses Classes,
+uses Classes, Generics.Collections,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
   CastleDialogViews;
 
 type
+  TNavTypeList = class(specialize TList<TNavigationType>) end;
+
   TViewDisplayScene = class(TCastleView)
   private
     BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
