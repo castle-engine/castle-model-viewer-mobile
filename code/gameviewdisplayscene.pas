@@ -27,13 +27,12 @@ interface
 
 uses Classes,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
-  CastleDialogViews,
-  GameNavToolbar;
+  CastleDialogViews;
 
 type
   TViewDisplayScene = class(TCastleView)
   private
-    BtnNavPopup, BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
+    BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
       BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
       BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
     ToolbarPanel: TCastlePanel;
@@ -45,14 +44,12 @@ type
     BBoxGeometry: TBoxNode;
     SceneWarnings: TStringList;
     AvailableNavTypes: TNavTypeList;
-    ShowNavButtonsOnMainToolbar: boolean;
 
     MainViewport: TCastleAutoNavigationViewport;
     TouchNavigation: TCastleTouchNavigation;
 
     { CGE event handlers }
     { }
-    procedure BtnNavPopupClick(Sender: TObject);
     procedure BtnNavClick(Sender: TObject);
     procedure BtnScreenshotClick(Sender: TObject);
     procedure BtnOptionsClick(Sender: TObject);
@@ -92,7 +89,7 @@ uses SysUtils, Math, Zipper,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
-  CastleRenderOptions, CastleUriUtils,
+  CastleRenderOptions, CastleUriUtils, CastleVectors,
   GameViewInfo, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
@@ -111,6 +108,7 @@ procedure TViewDisplayScene.Start;
   var
     RootNode: TX3DRootNode;
     BBoxShape: TShapeNode;
+    Appearance: TAppearanceNode;
     Material: TUnlitMaterialNode;
   begin
     BBoxGeometry := TBoxNode.Create;
@@ -118,10 +116,13 @@ procedure TViewDisplayScene.Start;
     Material := TUnlitMaterialNode.Create;
     Material.EmissiveColor := GreenRGB;
 
+    Appearance := TAppearanceNode.Create;
+    Appearance.Material := Material;
+
     BBoxShape := TShapeNode.Create;
     BBoxShape.Geometry := BBoxGeometry;
     BBoxShape.Shading := shWireframe;
-    BBoxShape.Material := Material;
+    BBoxShape.Appearance := Appearance;
     BBoxShape.Appearance.ShadowCaster := false;
 
     BBoxTransform := TTransformNode.Create;
@@ -156,7 +157,6 @@ begin
 
   AvailableNavTypes := TNavTypeList.Create;
   AvailableNavTypes.Add(ntExamine);
-  ShowNavButtonsOnMainToolbar := true;
 
   { TODO: Design UI in editor }
 
@@ -180,21 +180,7 @@ begin
   ToolbarPanel := TCastlePanel.Create(FreeAtStop);
   InsertFront(ToolbarPanel);
 
-  // add buttons to toolbar - Tag=1 marks button should not add space after it
-  BtnNavPopup := TCastleButton.Create(ToolbarPanel);
-  BtnNavPopup.Caption := ' ';  // leave space for triangle
-  BtnNavPopup.Tooltip := 'Navigation type';
-  BtnNavPopup.OnClick := {$ifdef FPC}@{$endif} BtnNavPopupClick;
-  BtnNavPopup.Image.Url := 'castle-data:/nav_examine.png';
-  ToolbarPanel.InsertFront(BtnNavPopup);
-
-  ImgTriangle := TCastleImageControl.Create(BtnNavPopup);
-  ImgTriangle.Image := LoadImage('castle-data:/popup_triangle.png');
-  ImgTriangle.OwnsImage := true;
-  ImgTriangle.Anchor(hpRight, -6);
-  ImgTriangle.Anchor(vpMiddle);
-  BtnNavPopup.InsertFront(ImgTriangle);
-
+  // add buttons to toolbar (Tag=1 marks button should not add space after it)
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
   BtnNavWalk.Image.Url := 'castle-data:/nav_walk.png';
@@ -278,7 +264,7 @@ begin
     begin
       ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
       ToolButton.CustomBackground := true;
-      ToolButton.CustomBackgroundPressed.Image := Theme.Images[tiButtonPressed];
+      ToolButton.CustomBackgroundPressed.Image := Theme.ImagesPersistent[tiButtonPressed].Image;
       ToolButton.CustomBackgroundPressed.OwnsImage := false;
       ToolButton.CustomBackgroundPressed.ProtectedSides.AllSides := 3;
       ToolButton.PaddingHorizontal := ButtonPadding;
@@ -294,18 +280,6 @@ begin
   Status.Color := Red;
   Status.FontScale := SmallFontScale;
   InsertFront(Status);
-
-  // decide if to show all navigation buttons on the toolbar or not (i.e. hide on phones, show on tablets)
-  ShowNavButtonsOnMainToolbar := (Min(Container.UnscaledWidth, Container.UnscaledHeight)
-                                   > BtnNavWalk.EffectiveWidth * 10);
-  if ShowNavButtonsOnMainToolbar then
-    BtnNavPopup.Exists := false
-  else begin
-    BtnNavWalk.Exists := false;
-    BtnNavFly.Exists := false;
-    BtnNavExamine.Exists := false;
-    BtnNavTurntable.Exists := false;
-  end;
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
 
@@ -386,9 +360,8 @@ begin
     ToolbarPanel.Height := ButtonsHeight + 2*ToolbarMargin + Container.StatusBarHeight;
 
   // toolbar
-  ToolbarPanel.Left := 0;
-  ToolbarPanel.Width := Container.UnscaledWidth;
-  ToolbarPanel.Bottom := Container.UnscaledHeight - ToolbarPanel.Height;
+  ToolbarPanel.Translation := Vector2(0, Container.UnscaledHeight - ToolbarPanel.Height);
+  ToolbarPanel.WidthFraction := 1;
 
   NextLeft1 := ToolbarMargin;
   NextLeft2 := ToolbarMargin;
@@ -404,33 +377,28 @@ begin
         if TwoLineToolbar and ((ToolButton = BtnViewpointPrev) or (ToolButton = BtnViewpointList) or (ToolButton = BtnViewpointNext)) then
         begin
            // 2nd line
-          ToolButton.Left := NextLeft2;
-          ToolButton.Bottom := ToolbarMargin;
-
+          ToolButton.Translation := Vector2(NextLeft2, ToolbarMargin);
           NextLeft2 := NextLeft2 + ToolButton.EffectiveWidth;
           if ToolButton.Tag = 0 then
             NextLeft2 := NextLeft2 + ButtonsMargin;
-        end
-        else begin
-           // 1st line
-           ToolButton.Left := NextLeft1;
-           if TwoLineToolbar then
-             ToolButton.Bottom := ToolbarMargin + ButtonsHeight + ToolbarMargin
-           else
-             ToolButton.Bottom := ToolbarMargin;
-
-           NextLeft1 := NextLeft1 + ToolButton.EffectiveWidth;
-           if ToolButton.Tag = 0 then
-             NextLeft1 := NextLeft1 + ButtonsMargin;
+        end else
+        begin
+          // 1st line
+          if TwoLineToolbar then
+            ToolButton.Translation := Vector2(NextLeft1, ToolbarMargin + ButtonsHeight + ToolbarMargin)
+          else
+            ToolButton.Translation := Vector2(NextLeft1, ToolbarMargin);
+          NextLeft1 := NextLeft1 + ToolButton.EffectiveWidth;
+          if ToolButton.Tag = 0 then
+            NextLeft1 := NextLeft1 + ButtonsMargin;
         end;
-
       end;
     end;
   end;
 
   // status text (FPS)
-  Status.Left := 10;
-  Status.Bottom := ToolbarPanel.Bottom - ButtonsMargin - Status.EffectiveHeight;
+  Status.Translation := Vector2(10,
+    ToolbarPanel.EffectiveRect.Bottom - ButtonsMargin - Status.EffectiveHeight);
 end;
 
 procedure TViewDisplayScene.OnWarningHandle(const Category, S: string);
@@ -531,23 +499,11 @@ procedure TViewDisplayScene.Update(const SecondsPassed: Single; var HandleInput:
 begin
   inherited;
 
-  if Status.Exists <> AppOptions.ShowFps then
-    Status.Exists := AppOptions.ShowFps;
-
+  Status.Exists := AppOptions.ShowFps;
   if Status.Exists then
     Status.Caption := 'FPS: ' + Container.Fps.ToString;
 
   UpdateBBox;
-end;
-
-procedure TViewDisplayScene.BtnNavPopupClick(Sender: TObject);
-begin
-  ViewNavToolbar.FAvailableNavTypes := AvailableNavTypes;
-  ViewNavToolbar.FSelectedNavType := MainViewport.NavigationType;
-  ViewNavToolbar.FOnNavTypeSelected := {$ifdef FPC}@{$endif} NavigationTypeInPopupSelected;
-  ViewNavToolbar.FShowAtPositionLeft := BtnNavPopup.Left;
-  ViewNavToolbar.FShowAtPositionTop := Container.UnscaledHeight - ToolbarPanel.Bottom + 2;
-  Container.PushView(ViewNavToolbar);
 end;
 
 procedure TViewDisplayScene.BtnNavClick(Sender: TObject);
@@ -582,13 +538,6 @@ begin
   BtnNavFly.Pressed := (NavType = ntFly);
   BtnNavExamine.Pressed := (NavType = ntExamine);
   BtnNavTurntable.Pressed := (NavType = ntTurntable);
-
-  case NavType of
-    ntWalk  :    BtnNavPopup.Image.Url := BtnNavWalk.Image.Url;
-    ntFly  :     BtnNavPopup.Image.Url := BtnNavFly.Image.Url;
-    ntExamine  : BtnNavPopup.Image.Url := BtnNavExamine.Image.Url;
-    ntTurntable: BtnNavPopup.Image.Url := BtnNavTurntable.Image.Url;
-  end;
 
   ShowHideNavigationButtons(true);
 end;
@@ -650,15 +599,12 @@ begin
   if TurntablePresent or AnyTypePresent then AvailableNavTypes.Add(ntTurntable);
 
   { Update the visibility of toolbar buttons }
-  if ShowNavButtonsOnMainToolbar then
-  begin
-    NeedsToolbarUpdate := ShowNavButton(BtnNavWalk, AvailableNavTypes.Contains(ntWalk));
-    NeedsToolbarUpdate := ShowNavButton(BtnNavFly, AvailableNavTypes.Contains(ntFly)) or NeedsToolbarUpdate;
-    NeedsToolbarUpdate := ShowNavButton(BtnNavExamine, AvailableNavTypes.Contains(ntExamine)) or NeedsToolbarUpdate;
-    NeedsToolbarUpdate := ShowNavButton(BtnNavTurntable, AvailableNavTypes.Contains(ntTurntable)) or NeedsToolbarUpdate;
-    if UpdateToobar and NeedsToolbarUpdate then
-      Resize;
-  end;
+  NeedsToolbarUpdate := ShowNavButton(BtnNavWalk, AvailableNavTypes.Contains(ntWalk));
+  NeedsToolbarUpdate := ShowNavButton(BtnNavFly, AvailableNavTypes.Contains(ntFly)) or NeedsToolbarUpdate;
+  NeedsToolbarUpdate := ShowNavButton(BtnNavExamine, AvailableNavTypes.Contains(ntExamine)) or NeedsToolbarUpdate;
+  NeedsToolbarUpdate := ShowNavButton(BtnNavTurntable, AvailableNavTypes.Contains(ntTurntable)) or NeedsToolbarUpdate;
+  if UpdateToobar and NeedsToolbarUpdate then
+    Resize;
 end;
 
 procedure TViewDisplayScene.BtnScreenshotClick(Sender: TObject);

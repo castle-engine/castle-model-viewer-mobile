@@ -33,7 +33,7 @@ uses Classes, SysUtils, Math, Zipper,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
   CastleApplicationProperties, CastleSceneCore,
   GameViewInfo, GameOptions, GameViewOptions, GameViewViewpoints, GameViewFiles,
-  GameNavToolbar, GameViewDisplayScene;
+  GameViewDisplayScene;
 
 var
   Window: TCastleWindow;
@@ -55,7 +55,6 @@ begin
   ViewOptions := TViewOptions.Create(Application);
   ViewViewpoints := TViewViewpoints.Create(Application);
   ViewFiles := TViewFiles.Create(Application);
-  ViewNavToolbar := TViewNavToolbar.Create(Application);
 
   // Create UI
   Window.Container.UIExplicitScale := Window.Container.Dpi / 96.0;
