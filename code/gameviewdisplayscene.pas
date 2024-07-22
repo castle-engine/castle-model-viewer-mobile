@@ -40,7 +40,7 @@ type
     Status: TCastleLabel;
 
     CurrentViewpointIdx: integer;
-    SceneBoundingBox: TCastleScene;
+    BBoxScene: TCastleScene;
     BBoxTransform: TTransformNode;
     BBoxGeometry: TBoxNode;
     SceneWarnings: TStringList;
@@ -66,13 +66,13 @@ type
     procedure BoundNavigationInfoChanged(Sender: TObject);
     procedure OnWarningHandle(const Category, S: string);
 
-    { Other helpful routines. }
-    { }
+    { Currently loaded scene. May be @nil only before first OpenScene from Start. }
     function MainScene: TCastleScene;
-    procedure InitializeSceneBoundingBox;
     function GetSceneUnpackDir: string;
     procedure OpenZippedScene(const Url: string);
     procedure DropFiles(const FileNames: array of string);
+    { Call each frame to update BBox* values to match current MainScene.BoundingBox. }
+    procedure UpdateBBox;
   public
     procedure Start; override;
     procedure Stop; override;
@@ -105,6 +105,41 @@ end;
 { TViewDisplayScene ---------------------------------------------------------- }
 
 procedure TViewDisplayScene.Start;
+
+  { Create BBox* stuff. }
+  procedure InitializeBBox;
+  var
+    RootNode: TX3DRootNode;
+    BBoxShape: TShapeNode;
+    Material: TUnlitMaterialNode;
+  begin
+    BBoxGeometry := TBoxNode.Create;
+
+    Material := TUnlitMaterialNode.Create;
+    Material.EmissiveColor := GreenRGB;
+
+    BBoxShape := TShapeNode.Create;
+    BBoxShape.Geometry := BBoxGeometry;
+    BBoxShape.Shading := shWireframe;
+    BBoxShape.Material := Material;
+    BBoxShape.Appearance.ShadowCaster := false;
+
+    BBoxTransform := TTransformNode.Create;
+    BBoxTransform.AddChildren(BBoxShape);
+
+    RootNode := TX3DRootNode.Create;
+    RootNode.AddChildren(BBoxTransform);
+
+    BBoxScene := TCastleScene.Create(FreeAtStop);
+    BBoxScene.Load(RootNode, true);
+
+    { Note: It's critical that BBoxScene is *not* child of MainScene,
+      so that it doesn't influence MainScene.BoundingBox,
+      preventing bbox visualization from getting smaller. }
+    MainViewport.Items.Add(BBoxScene);
+    BBoxScene.Collides := false;
+  end;
+
 const
   ButtonPadding = 3;
 var
@@ -115,7 +150,6 @@ var
 begin
   inherited;
 
-  SceneBoundingBox := nil;
   CurrentViewpointIdx := 0;
 
   SceneWarnings := TStringList.Create;
@@ -275,6 +309,9 @@ begin
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
 
+  InitializeBBox;
+  UpdateBBox;
+
   { Do not use Parameters[1] on Android and iOS.
 
     E.g. on Android, Parameters[1] may contain "ene.mobile"
@@ -290,6 +327,7 @@ procedure TViewDisplayScene.Stop;
 begin
   FreeAndNil(SceneWarnings);
   FreeAndNil(AvailableNavTypes);
+  BBoxScene := nil; // freed by FreeAtStop
   inherited;
 end;
 
@@ -395,43 +433,6 @@ begin
   Status.Bottom := ToolbarPanel.Bottom - ButtonsMargin - Status.EffectiveHeight;
 end;
 
-procedure TViewDisplayScene.InitializeSceneBoundingBox;
-var
-  RootNode: TX3DRootNode;
-  BBox: TBox3D;
-  ShapeNode: TShapeNode;
-  Material: TUnlitMaterialNode;
-begin
-  BBox := MainScene.BoundingBox;
-  if BBox.IsEmpty then Exit;
-
-  BBoxGeometry := TBoxNode.Create;
-  BBoxGeometry.Size := BBox.Size;
-
-  Material := TUnlitMaterialNode.Create;
-  Material.EmissiveColor := GreenRGB;
-
-  ShapeNode := TShapeNode.Create;
-  ShapeNode.Geometry := BBoxGeometry;
-  ShapeNode.Shading := shWireframe;
-  ShapeNode.Material := Material;
-  ShapeNode.Appearance.ShadowCaster := false;
-
-  BBoxTransform := TTransformNode.Create;
-  BBoxTransform.Translation := BBox.Center;
-  BBoxTransform.AddChildren(ShapeNode);
-
-  RootNode := TX3DRootNode.Create;
-  RootNode.AddChildren(BBoxTransform);
-
-  SceneBoundingBox := TCastleScene.Create(MainScene);
-  SceneBoundingBox.Load(RootNode, true);
-
-  MainScene.Add(SceneBoundingBox);
-  SceneBoundingBox.Exists := AppOptions.ShowBBox;
-  SceneBoundingBox.Collides := false;
-end;
-
 procedure TViewDisplayScene.OnWarningHandle(const Category, S: string);
 begin
   SceneWarnings.Add(Category + ': ' + S);
@@ -455,6 +456,11 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
     MainViewport.Items.MainScene.Free;
     MainViewport.Items.MainScene := NewScene;
     MainViewport.Items.Add(MainScene);
+
+    { Do not take BBoxScene (with outdated now sizes)
+      into account by MainViewport.AssignDefaultCamera.
+      We will set BBoxScene.Exists correctly by UpdateBBox later in this routine. }
+    BBoxScene.Exists := false;
 
     MainViewport.AssignDefaultCamera;
     MainViewport.AssignDefaultNavigation;
@@ -480,8 +486,7 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
     ShowHideNavigationButtons(false);
 
     Resize; // to hide viewpoints, etc
-
-    InitializeSceneBoundingBox;
+    UpdateBBox;
   end;
 
 begin
@@ -491,7 +496,6 @@ begin
     Exit;
   end;
 
-  SceneBoundingBox := nil;
   SceneWarnings.Clear;
   ApplicationProperties.OnWarning.Add({$ifdef FPC}@{$endif} OnWarningHandle);
   try
@@ -508,9 +512,22 @@ begin
     MessageOK(Application.MainWindow, SceneWarnings.Text);
 end;
 
-procedure TViewDisplayScene.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TViewDisplayScene.UpdateBBox;
 var
   BBox: TBox3D;
+begin
+  BBoxScene.Exists := (MainScene <> nil) and AppOptions.ShowBBox;
+  if not BBoxScene.Exists then Exit;
+
+  BBox := MainScene.BoundingBox;
+  BBoxScene.Exists := not BBox.IsEmpty;
+  if not BBoxScene.Exists then Exit;
+
+  BBoxGeometry.Size := BBox.Size;
+  BBoxTransform.Translation := BBox.Center;
+end;
+
+procedure TViewDisplayScene.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
 
@@ -520,16 +537,7 @@ begin
   if Status.Exists then
     Status.Caption := 'FPS: ' + Container.Fps.ToString;
 
-  if (MainScene <> nil) and (SceneBoundingBox <> nil) then
-  begin
-    SceneBoundingBox.Exists := AppOptions.ShowBBox;
-    if AppOptions.ShowBBox then
-    begin
-      BBox := MainScene.BoundingBox;
-      BBoxGeometry.Size := BBox.Size;
-      BBoxTransform.Translation := BBox.Center
-    end;
-  end;
+  UpdateBBox;
 end;
 
 procedure TViewDisplayScene.BtnNavPopupClick(Sender: TObject);
@@ -702,7 +710,7 @@ procedure TViewDisplayScene.BtnInfoClick(Sender: TObject);
     ]);
   end;
 
-  function SceneBoundingBoxInfo(const Scene: TCastleScene): string;
+  function BBoxInfo(const Scene: TCastleScene): string;
   var
     BBox: TBox3D;
   begin
@@ -720,7 +728,7 @@ begin
   ViewInfo.FStatistics :=
     'Scene information:' + NL +
     SceneVertexTriangleInfo(MainScene) +
-    SceneBoundingBoxInfo(MainScene) +
+    BBoxInfo(MainScene) +
     MainViewport.Statistics.ToString;
   Container.PushView(ViewInfo);
 end;
