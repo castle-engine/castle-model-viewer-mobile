@@ -11,8 +11,50 @@
         <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="Castle Model Viewer"/>
+      <Title Value="castle_model_viewer_mobile"/>
     </General>
+    <BuildModes Count="2">
+      <Item1 Name="Debug" Default="True"/>
+      <Item2 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="castle-model-viewer-mobile"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="code/"/>
+            <OtherUnitFiles Value="code/"/>
+            <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
+            <Libraries Value="" />
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Checks>
+              <IOChecks Value="True"/>
+            </Checks>
+            <Optimizations>
+              <OptimizationLevel Value="2"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowHints Value="False"/>
+            </Verbosity>
+            <CustomOptions Value="-dRELEASE
+
+"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+    </BuildModes>
     <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="castle_window"/>
@@ -37,39 +79,39 @@
         <UnitName Value="gameinitialize"/>
       </Unit2>
       <Unit3>
-        <Filename Value="code/gamenavtoolbar.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="gamenavtoolbar"/>
-      </Unit3>
-      <Unit4>
         <Filename Value="code/gameoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameoptions"/>
-      </Unit4>
-      <Unit5>
+      </Unit3>
+      <Unit4>
         <Filename Value="code/gametable.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gametable"/>
-      </Unit5>
-      <Unit6>
+      </Unit4>
+      <Unit5>
         <Filename Value="code/gameviewdisplayscene.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameviewdisplayscene"/>
-      </Unit6>
-      <Unit7>
+      </Unit5>
+      <Unit6>
         <Filename Value="code/gameviewfiles.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameviewfiles"/>
-      </Unit7>
-      <Unit8>
+      </Unit6>
+      <Unit7>
         <Filename Value="code/gameviewinfo.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameviewinfo"/>
-      </Unit8>
-      <Unit9>
+      </Unit7>
+      <Unit8>
         <Filename Value="code/gameviewoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameviewoptions"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="code/gameviewsomething.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="gameviewsomething"/>
       </Unit9>
       <Unit10>
         <Filename Value="code/gameviewviewpoints.pas"/>
@@ -99,18 +141,22 @@
         <IOChecks Value="True"/>
         <RangeChecks Value="True"/>
         <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
       </Checks>
+      <VerifyObjMethodCallValidity Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <DebugInfoType Value="dsDwarf2Set"/>
+        <DebugInfoType Value="dsDwarf3"/>
+        <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
     <Other>
       <Verbosity>
         <ShowHints Value="False"/>
       </Verbosity>
-      <CustomOptions Value="
+      <CustomOptions Value="-dDEBUG
+
 "/>
     </Other>
   </CompilerOptions>
