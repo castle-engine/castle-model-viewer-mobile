@@ -138,6 +138,7 @@ begin
   TouchNavigation.FullSize := true;
   TouchNavigation.Viewport := MainViewport;
   TouchNavigation.AutoTouchInterface := true;
+  TouchNavigation.AutoWalkTouchInterface := tiWalkRotate; // show both walk and rotate gizmos, more obvious for users
   TouchNavigation.AutoExamineTouchInterface := tiNone; // use 2-finger gesture to pan, not touchControl
   MainViewport.InsertFront(TouchNavigation);
 
