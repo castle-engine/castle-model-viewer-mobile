@@ -82,11 +82,11 @@ begin
 
   Models := TDemoModelList.Create(true);
   Models.Add('Animated Cat (glTF)', 'castle-data:/demo/cat_final.x3dv');
+  Models.Add('Dungeon (glTF + X3D, walking)', 'castle-data:/demo/dungeon_final.x3dv');
   Models.Add('Steampunk Explorer (glTF)', 'castle-data:/demo/steampunk_underwater_explorer.glb');
   Models.Add('Animated 2D Dragon (Spine)', 'castle-data:/demo/dragon-spine/dragon.json');
   Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot_fresnel_toon.x3dv');
   Models.Add('Teapot (time to shader) (X3D)', 'castle-data:/demo/teapot_time.x3dv');
-  Models.Add('Castle Walk (VRML)', 'castle-data:/demo/castle_walk.wrl');
   //Models.Add('Test Downloading Resources (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');
 end;
 

@@ -44,12 +44,18 @@ GNU GPL >= 2.0. See the file `LICENSE`.
 - Many contributors to the [Castle Game Engine](https://castle-engine.io/) project.
 
 3D demo models:
-- cat_murdered_soul_suspect.glb:
+
+- cat:
     - From https://sketchfab.com/3d-models/cat-murdered-soul-suspect-836312def1b84e588866500a2bf79f0f
-    - License:: CC Attribution
+    - License: CC Attribution
     - Author: mark2580 ( https://sketchfab.com/mark2580 )
 
-- steampunk_underwater_explorer.glb
+- steampunk underwater explorer:
     - From https://sketchfab.com/3d-models/steampunk-underwater-explorer-127471a23e0f4790914b13b9052c4912
-    - License:: CC Attribution
+    - License: CC Attribution
     - Author: Andrius Beconis ( https://sketchfab.com/abeconis )
+
+- dungeon:
+    - From https://sketchfab.com/3d-models/dungeon-2ee94272dbf5456792eb9909c4638d1d
+    - License: CC Attribution
+    - Author: Federico.Terzi ( https://sketchfab.com/Federico.Terzi )
