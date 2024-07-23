@@ -296,7 +296,7 @@ begin
   if (not IsLibrary) and (Parameters.High >= 1) then
     OpenScene(Parameters[1])
   else
-    OpenScene('castle-data:/demo/castle_walk.wrl');
+    OpenScene('castle-data:/demo/cat_final.x3dv');
 end;
 
 procedure TViewDisplayScene.Stop;
