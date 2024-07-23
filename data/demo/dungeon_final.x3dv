@@ -83,10 +83,10 @@ NavigationInfo {
 
 # Display a skybox
 Background {
-  backUrl   "skies/foggy_sky_back.png"
-  bottomUrl "skies/foggy_sky_bottom.png"
-  frontUrl  "skies/foggy_sky_front.png"
-  leftUrl   "skies/foggy_sky_left.png"
-  rightUrl  "skies/foggy_sky_right.png"
-  topUrl    "skies/foggy_sky_top.png"
+  backUrl   "dungeon/skies/sunset_neg_z_back.png"
+  bottomUrl "dungeon/skies/sunset_neg_y_bottom.png"
+  frontUrl  "dungeon/skies/sunset_pos_z_front.png"
+  leftUrl   "dungeon/skies/sunset_neg_x_left.png"
+  rightUrl  "dungeon/skies/sunset_pos_x_right.png"
+  topUrl    "dungeon/skies/sunset_pos_y_top.png"
 }
