@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{A422B289-C341-446A-8254-6329D1BC050A}</ProjectGuid>
+        <ProjectGuid>{99D39D23-EC0D-4EC5-9E2E-E4D6D901CA16}</ProjectGuid>
         <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -345,20 +345,20 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/castle_walk.wrl" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\demo/cat_final.x3dv" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>castle_walk.wrl</RemoteName>
+  <RemoteName>cat_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>castle_walk.wrl</RemoteName>
+  <RemoteName>cat_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>castle_walk.wrl</RemoteName>
+  <RemoteName>cat_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -444,6 +444,465 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/dragon-spine/</RemoteDir>
   <RemoteName>dragon.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/license.txt" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>license.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>license.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>license.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/scene.bin" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/scene.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Assi_Legno_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Cotone_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cotone_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cotone_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cotone_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Cylinder__0_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro1_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro2_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro3_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro4_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro5_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro6_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro7_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.002_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.002_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.002_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.002_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.004_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.009_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.010_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.010_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.010_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.010_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.011_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.011_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.011_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.011_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.014_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.014_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.014_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.014_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.017_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.017_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.017_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.017_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/MuroMattoni_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/MuroPietra_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroPietra_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroPietra_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroPietra_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/PavimentoCella_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/PavimentoPietre_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Tappeto_baseColor.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Tappeto_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Tappeto_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Tappeto_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/paper_baseColor.jpeg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>paper_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>paper_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>paper_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon_final.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dungeon_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dungeon_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dungeon_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -583,40 +1042,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/support/castle.wrl" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/support/castle_with_lights.wrl" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle_with_lights.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle_with_lights.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle_with_lights.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\demo/teapot_fresnel_toon.x3dv" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
@@ -648,584 +1073,6 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
   <RemoteName>teapot_time.x3dv</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/airbase_radar_panels.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>airbase_radar_panels.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>airbase_radar_panels.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>airbase_radar_panels.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/bricksmokesidebot.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>bricksmokesidebot.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>bricksmokesidebot.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>bricksmokesidebot.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/france_housered.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>france_housered.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>france_housered.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>france_housered.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/grassfull.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>grassfull.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>grassfull.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>grassfull.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/misslescararm.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>misslescararm.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>misslescararm.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>misslescararm.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/water2.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>water2.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>water2.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>water2.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/waterwall.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>waterwall.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>waterwall.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>waterwall.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/wood_clear.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>wood_clear.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>wood_clear.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>wood_clear.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/license.txt" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>license.txt</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>license.txt</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>license.txt</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/scene.bin" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.bin</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.bin</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.bin</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/scene.gltf" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.gltf</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.gltf</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.gltf</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Assi_Legno_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Cotone_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cotone_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cotone_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cotone_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Cylinder__0_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro1_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro2_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro3_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro4_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro5_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro6_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro7_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.002_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.002_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.002_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.002_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.004_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.009_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.010_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.010_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.010_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.010_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.011_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.011_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.011_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.011_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.014_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.014_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.014_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.014_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.017_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.017_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.017_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.017_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/MuroMattoni_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/MuroPietra_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroPietra_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroPietra_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroPietra_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/PavimentoCella_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/PavimentoPietre_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Tappeto_baseColor.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Tappeto_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Tappeto_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Tappeto_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/paper_baseColor.jpeg" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>paper_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>paper_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>paper_baseColor.jpeg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1603,20 +1450,20 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/castle_walk.wrl" Configuration="Release" Class="File">
+<DeployFile LocalName="data\demo/cat_final.x3dv" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>castle_walk.wrl</RemoteName>
+  <RemoteName>cat_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>castle_walk.wrl</RemoteName>
+  <RemoteName>cat_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>castle_walk.wrl</RemoteName>
+  <RemoteName>cat_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1702,6 +1549,465 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/dragon-spine/</RemoteDir>
   <RemoteName>dragon.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/license.txt" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>license.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>license.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>license.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/scene.bin" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/scene.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Assi_Legno_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Cotone_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cotone_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cotone_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cotone_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Cylinder__0_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro1_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro2_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro3_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro4_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro5_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro6_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Libro7_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.002_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.002_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.002_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.002_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.004_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.009_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.010_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.010_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.010_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.010_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.011_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.011_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.011_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.011_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.014_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.014_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.014_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.014_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Material.017_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.017_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.017_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Material.017_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/MuroMattoni_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/MuroPietra_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroPietra_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroPietra_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>MuroPietra_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/PavimentoCella_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/PavimentoPietre_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/Tappeto_baseColor.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Tappeto_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Tappeto_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>Tappeto_baseColor.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/textures/paper_baseColor.jpeg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>paper_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>paper_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/textures/</RemoteDir>
+  <RemoteName>paper_baseColor.jpeg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon_final.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dungeon_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dungeon_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dungeon_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1841,40 +2147,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/support/castle.wrl" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/support/castle_with_lights.wrl" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle_with_lights.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle_with_lights.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/support/</RemoteDir>
-  <RemoteName>castle_with_lights.wrl</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\demo/teapot_fresnel_toon.x3dv" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
@@ -1906,584 +2178,6 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
   <RemoteName>teapot_time.x3dv</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/airbase_radar_panels.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>airbase_radar_panels.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>airbase_radar_panels.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>airbase_radar_panels.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/bricksmokesidebot.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>bricksmokesidebot.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>bricksmokesidebot.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>bricksmokesidebot.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/france_housered.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>france_housered.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>france_housered.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>france_housered.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/grassfull.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>grassfull.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>grassfull.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>grassfull.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/misslescararm.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>misslescararm.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>misslescararm.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>misslescararm.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/water2.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>water2.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>water2.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>water2.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/waterwall.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>waterwall.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>waterwall.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>waterwall.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/textures/castle/wood_clear.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>wood_clear.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>wood_clear.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/textures/castle/</RemoteDir>
-  <RemoteName>wood_clear.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/license.txt" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>license.txt</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>license.txt</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>license.txt</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/scene.bin" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.bin</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.bin</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.bin</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/scene.gltf" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.gltf</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.gltf</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/</RemoteDir>
-  <RemoteName>scene.gltf</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Assi_Legno_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Assi_Legno_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Cotone_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cotone_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cotone_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cotone_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Cylinder__0_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Cylinder__0_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro1_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro1_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro2_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro2_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro3_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro3_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro4_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro4_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro5_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro5_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro6_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro6_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Libro7_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Libro7_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.002_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.002_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.002_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.002_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.004_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.004_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.009_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.009_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.010_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.010_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.010_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.010_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.011_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.011_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.011_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.011_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.014_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.014_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.014_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.014_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Material.017_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.017_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.017_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Material.017_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/MuroMattoni_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroMattoni_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/MuroPietra_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroPietra_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroPietra_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>MuroPietra_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/PavimentoCella_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoCella_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/PavimentoPietre_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>PavimentoPietre_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/Tappeto_baseColor.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Tappeto_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Tappeto_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>Tappeto_baseColor.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\dungeons/dungeon/textures/paper_baseColor.jpeg" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>paper_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>paper_baseColor.jpeg</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/dungeons/dungeon/textures/</RemoteDir>
-  <RemoteName>paper_baseColor.jpeg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
