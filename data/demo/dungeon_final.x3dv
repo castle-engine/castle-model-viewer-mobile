@@ -45,6 +45,18 @@ Transform {
       color 1 1 1
       intensity 10
     }
+
+    # add invisible wall that prevents walking outside, and falling down
+    Collision {
+      proxy Transform {
+        translation 0.75 0 -0.2
+        children Shape {
+          geometry Box {
+            size 1 1 0.05
+          }
+        }
+      }
+    }
   ]
 }
 
@@ -65,7 +77,7 @@ Viewpoint {
 # Navigate by walking (gravity, collision detection).
 NavigationInfo {
   type "WALK"
-  speed 20
+  speed 5
   headlight FALSE
 }
 
