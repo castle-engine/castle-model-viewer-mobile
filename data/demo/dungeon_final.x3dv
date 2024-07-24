@@ -11,7 +11,11 @@ Transform {
   scale 10 10 10
   children [
     # Include the glTF model with dungeon meshes, materials, textures.
-    Inline { url "dungeon/scene.gltf" }
+    #Inline { url "dungeon/scene.gltf" }
+
+    # Include the glTF model with dungeon meshes, materials, textures
+    # - simplified version, with less polygons (done in Blender).
+    Inline { url "dungeon/dungeon_simplified.gltf" }
 
     # Add a few lights (designed in Castle Game Engine editor, copied here manually)
     PointLight {

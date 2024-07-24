@@ -9,6 +9,7 @@ castle-engine-output
 *~
 backup
 .DS_Store
+*.blend?*
 
 # standalone binaries
 castle-model-viewer-mobile
