@@ -43,7 +43,9 @@ GNU GPL >= 2.0. See the file `LICENSE`.
 - Michalis Kamburelis
 - Many contributors to the [Castle Game Engine](https://castle-engine.io/) project.
 
-3D demo models:
+### Authors of 3D graphics used in this project
+
+Thank you for the amazing 3D stuff we could use to showcase our project!
 
 - cat:
     - From https://sketchfab.com/3d-models/cat-murdered-soul-suspect-836312def1b84e588866500a2bf79f0f
@@ -58,4 +60,6 @@ GNU GPL >= 2.0. See the file `LICENSE`.
 - dungeon:
     - From https://sketchfab.com/3d-models/dungeon-2ee94272dbf5456792eb9909c4638d1d
     - License: CC Attribution
-    - Author: Federico.Terzi ( https://sketchfab.com/Federico.Terzi )
+    - Author: Federico Terzi ( https://sketchfab.com/Federico.Terzi )
+
+- The rest of graphics (mostly hand-crafted X3D files) was done by _Michalis Kamburelis_.
