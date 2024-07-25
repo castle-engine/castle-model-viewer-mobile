@@ -40,6 +40,7 @@ uses Classes, SysUtils, Math, Zipper,
   , GameViewFiles
   , GameViewAbout
   , GameViewChoice
+  , GameViewNavigation
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -68,6 +69,7 @@ begin
   ViewFiles := TViewFiles.Create(Application);
   ViewAbout := TViewAbout.Create(Application);
   ViewChoice := TViewChoice.Create(Application);
+  ViewNavigation := TViewNavigation.Create(Application);
   {$endregion 'Castle View Creation'}
 
   // Create UI

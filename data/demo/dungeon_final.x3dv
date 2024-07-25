@@ -76,6 +76,7 @@ Transform {
 Viewpoint {
   position 13.795154571533203 1.5807617902755737 -28.40308952331543
   orientation -0.00024414106155745685 1 -0.00034862899337895215 1.221838116645813
+  autoCenterOfRotation TRUE
 }
 
 # Navigate by walking (gravity, collision detection).

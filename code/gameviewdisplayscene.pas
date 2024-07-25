@@ -34,21 +34,19 @@ type
 
   { Actions to do when we have Resume, possibly coming back from a dialog
     to choose new viewpoint / animation to play. }
-  TResumeAction = (raNone, raMoveViewpoint, raPlayAnimation);
+  TResumeAction = (raNone, raMoveViewpoint, raPlayAnimation, raChangeNavigation);
 
   TViewDisplayScene = class(TCastleView)
   private
-    BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
-      BtnViewpoints, BtnAnimations,
+    BtnNavigations, BtnOptions, BtnViewpoints, BtnAnimations,
       BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
-    ToolbarPanel: TCastlePanel;
+    ToolbarPanel: TCastleHorizontalGroup;
     Status: TCastleLabel;
 
     BBoxScene: TCastleScene;
     BBoxTransform: TTransformNode;
     BBoxGeometry: TBoxNode;
     SceneWarnings: TStringList;
-    AvailableNavTypes: TNavTypeList;
     ResumeAction: TResumeAction;
 
     {$warnings off}
@@ -61,16 +59,15 @@ type
 
     { CGE event handlers }
     { }
-    procedure BtnNavClick(Sender: TObject);
     procedure BtnScreenshotClick(Sender: TObject);
     procedure BtnOptionsClick(Sender: TObject);
     procedure BtnInfoClick(Sender: TObject);
     procedure BtnFilesClick(Sender: TObject);
     procedure ClickViewpoints(Sender: TObject);
     procedure ClickAnimations(Sender: TObject);
+    procedure ClickNavigations(Sender: TObject);
     procedure FileSelected(Url: string);
     procedure NavigationTypeInPopupSelected(NavType: TNavigationType);
-    procedure BoundNavigationInfoChanged(Sender: TObject);
     procedure OnWarningHandle(const Category, S: string);
 
     { Currently loaded scene. May be @nil only before first OpenScene from Start. }
@@ -87,7 +84,6 @@ type
     procedure Resize; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
 
-    procedure ShowHideNavigationButtons(UpdateToobar: boolean);
     procedure OpenScene(const Url: string);
   end;
 
@@ -101,7 +97,8 @@ uses SysUtils, Math, Zipper,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
   CastleRenderOptions, CastleUriUtils, CastleVectors,
-  GameViewAbout, GameOptions, GameViewOptions, GameViewFiles, GameViewChoice;
+  GameViewAbout, GameOptions, GameViewOptions, GameViewFiles, GameViewChoice,
+  GameViewNavigation;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
   const FileNames: array of string);
@@ -164,9 +161,6 @@ begin
   ResumeAction := raNone;
   SceneWarnings := TStringList.Create;
 
-  AvailableNavTypes := TNavTypeList.Create;
-  AvailableNavTypes.Add(ntExamine);
-
   { TODO: Design UI in editor }
 
   {$warnings off}
@@ -179,7 +173,6 @@ begin
   {$warnings on}
   MainViewport.FullSize := true;
   MainViewport.AutoNavigation := true;
-  MainViewport.OnBoundNavigationInfoChanged := {$ifdef FPC}@{$endif} BoundNavigationInfoChanged;
   MainViewport.PreventInfiniteFallingDown := true;
   InsertFront(MainViewport);
 
@@ -192,40 +185,19 @@ begin
   MainViewport.InsertFront(TouchNavigation);
 
   // toolbar
-  ToolbarPanel := TCastlePanel.Create(FreeAtStop);
+  ToolbarPanel := TCastleHorizontalGroup.Create(FreeAtStop);
+  ToolbarPanel.Anchor(vpTop, 0);
   InsertFront(ToolbarPanel);
 
   // add buttons to toolbar
-  BtnNavWalk := TCastleButton.Create(ToolbarPanel);
-  BtnNavWalk.Tooltip := 'Walk';
-  BtnNavWalk.Image.Url := 'castle-data:/nav_walk.png';
-  BtnNavWalk.OnClick := {$ifdef FPC}@{$endif} BtnNavClick;
-  BtnNavWalk.Toggle := true;
-  BtnNavWalk.PaddingHorizontal := ButtonPadding;
-  BtnNavWalk.PaddingVertical := ButtonPadding;
-  ToolbarPanel.InsertFront(BtnNavWalk);
-  ButtonsHeight := BtnNavWalk.EffectiveHeight;
+  BtnNavigations := TCastleButton.Create(ToolbarPanel);
+  BtnNavigations.Caption := 'Navigations';
+  BtnNavigations.OnClick := {$ifdef FPC}@{$endif} ClickNavigations;
+  BtnNavigations.PaddingHorizontal := ButtonPadding;
+  BtnNavigations.PaddingVertical := ButtonPadding;
+  ToolbarPanel.InsertFront(BtnNavigations);
 
-  BtnNavFly := TCastleButton.Create(ToolbarPanel);
-  BtnNavFly.Tooltip := 'Fly';
-  BtnNavFly.Image.Url := 'castle-data:/nav_fly.png';
-  BtnNavFly.OnClick := {$ifdef FPC}@{$endif} BtnNavClick;
-  BtnNavFly.Toggle := true;
-  ToolbarPanel.InsertFront(BtnNavFly);
-
-  BtnNavExamine := TCastleButton.Create(ToolbarPanel);
-  BtnNavExamine.Tooltip := 'Examine';
-  BtnNavExamine.Image.Url := 'castle-data:/nav_examine.png';
-  BtnNavExamine.OnClick := {$ifdef FPC}@{$endif} BtnNavClick;
-  BtnNavExamine.Toggle := true;
-  ToolbarPanel.InsertFront(BtnNavExamine);
-
-  BtnNavTurntable := TCastleButton.Create(ToolbarPanel);
-  BtnNavTurntable.Tooltip := 'Turntable';
-  BtnNavTurntable.Image.Url := 'castle-data:/nav_turntable.png';
-  BtnNavTurntable.OnClick := {$ifdef FPC}@{$endif} BtnNavClick;
-  BtnNavTurntable.Toggle := true;
-  ToolbarPanel.InsertFront(BtnNavTurntable);
+  ButtonsHeight := BtnNavigations.EffectiveHeight;
 
   BtnViewpoints := TCastleButton.Create(ToolbarPanel);
   BtnViewpoints.Caption := 'Viewpoints';
@@ -304,7 +276,6 @@ end;
 procedure TViewDisplayScene.Stop;
 begin
   FreeAndNil(SceneWarnings);
-  FreeAndNil(AvailableNavTypes);
   BBoxScene := nil; // freed by FreeAtStop
   inherited;
 end;
@@ -328,42 +299,12 @@ end;
 
 procedure TViewDisplayScene.Resize;
 const
-  ToolbarMargin = 2;  {< between buttons and toolbar panel }
-  ButtonsMargin = 3;  {< between buttons }
-var
-  ToolButton: TCastleButton;
-  NextLeft1, ButtonsHeight: Single;
-  I: Integer;
+  ButtonsMargin = 5;  {< between buttons }
 begin
   inherited;
-  if not ToolbarPanel.Exists then exit;
-
-  // TODO: To remove, use TCastleHorizontalGroup and UI designed in editor
 
   BtnViewpoints.Exists := MainScene.ViewpointsCount > 0;
   BtnAnimations.Exists := MainScene.AnimationsList.Count > 0;
-
-  ButtonsHeight := Max(BtnNavExamine.EffectiveHeight, BtnOptions.EffectiveHeight);
-
-  // toolbar
-  ToolbarPanel.Translation := Vector2(0, Container.UnscaledHeight - ToolbarPanel.Height);
-  ToolbarPanel.WidthFraction := 1;
-  ToolbarPanel.Height := ButtonsHeight + 2 * ToolbarMargin;
-
-  NextLeft1 := ToolbarMargin;
-
-  for I := 0 to ToolbarPanel.ControlsCount - 1 do
-  begin
-    if ToolbarPanel.Controls[I] is TCastleButton then
-    begin
-      ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
-      if ToolButton.Exists then
-      begin
-        ToolButton.Translation := Vector2(NextLeft1, ToolbarMargin);
-        NextLeft1 := NextLeft1 + ToolButton.EffectiveWidth + ButtonsMargin;
-      end;
-    end;
-  end;
 
   // status text (FPS)
   Status.Translation := Vector2(10,
@@ -424,8 +365,6 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
     MainScene.Collides := AppOptions.CollisionsOn;
 
-    ShowHideNavigationButtons(false);
-
     Resize; // to hide viewpoints, animations buttons etc.
     UpdateBBox;
   end;
@@ -479,105 +418,16 @@ begin
   UpdateBBox;
 end;
 
-procedure TViewDisplayScene.BtnNavClick(Sender: TObject);
+procedure TViewDisplayScene.ClickNavigations(Sender: TObject);
 begin
-  if Sender = BtnNavWalk then
-    MainViewport.NavigationType := ntWalk
-  else if Sender = BtnNavFly then
-    MainViewport.NavigationType := ntFly
-  else if Sender = BtnNavExamine then
-    MainViewport.NavigationType := ntExamine
-  else if Sender = BtnNavTurntable then
-    MainViewport.NavigationType := ntTurntable;
+  ViewNavigation.Navigation := MainViewport.NavigationType;
+  ResumeAction := raChangeNavigation;
+  Container.PushView(ViewNavigation);
 end;
 
 procedure TViewDisplayScene.NavigationTypeInPopupSelected(NavType: TNavigationType);
 begin
   MainViewport.NavigationType := NavType;
-end;
-
-procedure TViewDisplayScene.BoundNavigationInfoChanged(Sender: TObject);
-var
-  NavType: TNavigationType;
-begin
-  { this may be called when Window, and everythig it owned (like BtnNavWalk)
-    is getting destroyed.
-    TODO: Is this safeguard still necessary? }
-  if csDestroying in Application.ComponentState then
-    Exit;
-
-  NavType := MainViewport.NavigationType;
-  BtnNavWalk.Pressed := (NavType = ntWalk);
-  BtnNavFly.Pressed := (NavType = ntFly);
-  BtnNavExamine.Pressed := (NavType = ntExamine);
-  BtnNavTurntable.Pressed := (NavType = ntTurntable);
-
-  ShowHideNavigationButtons(true);
-end;
-
-procedure TViewDisplayScene.ShowHideNavigationButtons(UpdateToobar: boolean);
-var
-  CurrentNavNode: TNavigationInfoNode;
-  AnyTypePresent, WalkPresent, FlyPresent, ExaminePresent, TurntablePresent: boolean;
-  I: Integer;
-  TypeString: string;
-  NeedsToolbarUpdate: boolean;
-
-  function ShowNavButton(Btn: TCastleButton; ShowButton: boolean): boolean;
-  begin
-    Result := (Btn.Exists <> ShowButton);
-    if Result then
-      Btn.Exists := ShowButton;
-  end;
-
-begin
-  if MainScene = nil then
-    exit;
-
-  AnyTypePresent := false;
-  WalkPresent := false;
-  FlyPresent := false;
-  ExaminePresent := false;
-  TurntablePresent := false;
-
-  CurrentNavNode := MainScene.NavigationInfoStack.Top;
-  if CurrentNavNode = nil then
-    ExaminePresent := true
-  else begin
-    for I := 0 to CurrentNavNode.FdType.Items.Count - 1 do
-    begin
-      TypeString := CurrentNavNode.FdType.ItemsSafe[I];
-      if CompareText(TypeString, 'ANY') = 0 then AnyTypePresent := true
-      else if CompareText(TypeString, 'WALK') = 0 then WalkPresent := true
-      else if CompareText(TypeString, 'FLY') = 0 then FlyPresent := true
-      else if CompareText(TypeString, 'EXAMINE') = 0 then ExaminePresent := true
-      else if CompareText(TypeString, 'TURNTABLE') = 0 then TurntablePresent := true;
-    end;
-  end;
-
-  { When only default VRML 97 types set, it probably means the 3D file did not
-    contain any navigationInfo node. IMHO it's better to show only Examine. }
-  if ExaminePresent and AnyTypePresent and (not WalkPresent)
-      and (not FlyPresent) and (not TurntablePresent) then
-    AnyTypePresent := false;
-
-  { Option to show all navigation types }
-  if AppOptions.ShowAllNavgationButtons then
-    AnyTypePresent := true;
-
-  AvailableNavTypes.Clear;
-  if WalkPresent or AnyTypePresent then AvailableNavTypes.Add(ntWalk);
-  if FlyPresent or AnyTypePresent then AvailableNavTypes.Add(ntFly);
-  if ExaminePresent or AnyTypePresent then AvailableNavTypes.Add(ntExamine);
-  if TurntablePresent or AnyTypePresent then AvailableNavTypes.Add(ntTurntable);
-
-  { Update the visibility of toolbar buttons }
-  NeedsToolbarUpdate := ShowNavButton(BtnNavWalk, AvailableNavTypes.Contains(ntWalk));
-  NeedsToolbarUpdate := ShowNavButton(BtnNavFly, AvailableNavTypes.Contains(ntFly)) or NeedsToolbarUpdate;
-  NeedsToolbarUpdate := ShowNavButton(BtnNavExamine, AvailableNavTypes.Contains(ntExamine)) or NeedsToolbarUpdate;
-  NeedsToolbarUpdate := ShowNavButton(BtnNavTurntable, AvailableNavTypes.Contains(ntTurntable)) or NeedsToolbarUpdate;
-  if UpdateToobar and NeedsToolbarUpdate then
-    Resize;
 end;
 
 procedure TViewDisplayScene.BtnScreenshotClick(Sender: TObject);
@@ -708,6 +558,8 @@ begin
     raPlayAnimation:
       if ViewChoice.Answer <> -1 then
         MainScene.PlayAnimation(ViewChoice.Choices[ViewChoice.Answer], true);
+    raChangeNavigation:
+      MainViewport.NavigationType := ViewNavigation.Navigation;
     else raise EInternalError.Create('TViewDisplayScene.Resume: ResumeAction not implemented');
   end;
 end;

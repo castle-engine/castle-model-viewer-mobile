@@ -23,7 +23,6 @@ uses
 type
   TAppOptions = class
     ShowBBox, ShowFps, CollisionsOn: boolean;
-    ShowAllNavgationButtons: boolean;
     EnableBlockingDownloads: boolean;
 
     procedure Load;
@@ -52,7 +51,6 @@ begin
   ShowBBox := UserConfig.GetValue('ShowBBox', true);
   ShowFps := UserConfig.GetValue('ShowFps', false);
   CollisionsOn := UserConfig.GetValue('CollisionsOn', true);
-  ShowAllNavgationButtons := UserConfig.GetValue('ShowAllNavgationButtons', false);
   EnableBlockingDownloads := UserConfig.GetValue('EnableBlockingDownloads', false);
 end;
 
@@ -61,7 +59,6 @@ begin
   UserConfig.SetValue('ShowBBox', ShowBBox);
   UserConfig.SetValue('ShowFps', ShowFps);
   UserConfig.SetValue('CollisionsOn', CollisionsOn);
-  UserConfig.SetValue('ShowAllNavgationButtons', ShowAllNavgationButtons);
   UserConfig.SetValue('EnableBlockingDownloads', EnableBlockingDownloads);
   UserConfig.Save;
 end;

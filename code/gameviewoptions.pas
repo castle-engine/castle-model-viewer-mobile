@@ -13,6 +13,7 @@
   ----------------------------------------------------------------------------
 }
 
+{ View to change options (FPS display etc.). }
 unit GameViewOptions;
 
 interface
@@ -28,14 +29,12 @@ type
     CheckboxFps: TCastleCheckbox;
     CheckboxHeadlight: TCastleCheckbox;
     CheckboxCollisions: TCastleCheckbox;
-    CheckboxAllNavTypes: TCastleCheckbox;
     CheckboxEnableBlockingDownloads: TCastleCheckbox;
   strict private
     procedure CheckboxBBoxChange(Sender: TObject);
     procedure CheckboxFpsChange(Sender: TObject);
     procedure CheckboxHeadlightChange(Sender: TObject);
     procedure CheckboxCollisionsChange(Sender: TObject);
-    procedure CheckboxAllNavTypesChange(Sender: TObject);
     procedure CheckboxEnableBlockingDownloadsChange(Sender: TObject);
   public
     FScene: TCastleScene;
@@ -70,14 +69,12 @@ begin
   CheckboxFps.Checked := AppOptions.ShowFps;
   CheckboxHeadlight.Checked := Assigned(FScene) and FScene.HeadLightOn;
   CheckboxCollisions.Checked := AppOptions.CollisionsOn;
-  CheckboxAllNavTypes.Checked := AppOptions.ShowAllNavgationButtons;
   CheckboxEnableBlockingDownloads.Checked := AppOptions.EnableBlockingDownloads;
 
   CheckboxBBox.OnChange := @CheckboxBBoxChange;
   CheckboxFps.OnChange := @CheckboxFpsChange;
   CheckboxHeadlight.OnChange := @CheckboxHeadlightChange;
   CheckboxCollisions.OnChange := @CheckboxCollisionsChange;
-  CheckboxAllNavTypes.OnChange := @CheckboxAllNavTypesChange;
   CheckboxEnableBlockingDownloads.OnChange := @CheckboxEnableBlockingDownloadsChange;
 end;
 
@@ -102,12 +99,6 @@ begin
   AppOptions.CollisionsOn := CheckboxCollisions.Checked;
   if Assigned(FScene) then
     FScene.Collides := AppOptions.CollisionsOn;
-end;
-
-procedure TViewOptions.CheckboxAllNavTypesChange(Sender: TObject);
-begin
-  AppOptions.ShowAllNavgationButtons := CheckboxAllNavTypes.Checked;
-  ViewDisplayScene.ShowHideNavigationButtons(true);
 end;
 
 procedure TViewOptions.CheckboxEnableBlockingDownloadsChange(Sender: TObject);

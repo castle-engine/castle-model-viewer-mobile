@@ -450,7 +450,7 @@
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
                       },
-                      "Caption" : "Show Bounding Box",
+                      "Caption" : "Bounding Box",
                       "CheckboxColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -511,7 +511,7 @@
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
                       },
-                      "Caption" : "Show Frames Per Second (FPS)",
+                      "Caption" : "FPS (Frames Per Second)",
                       "CheckboxColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
@@ -675,7 +675,7 @@
                     "Red" : 1.8823529779911041E-001
                   },
                   "Height" : 4.0000000000000000E+001,
-                  "Name" : "Group5",
+                  "Name" : "Group6",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "X" : 1.0000000000000000E+001,
@@ -694,68 +694,7 @@
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
                       },
-                      "Caption" : "Enable All Navigation Types",
-                      "CheckboxColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FullSize" : true,
-                      "Name" : "CheckboxAllNavTypes",
-                      "TextColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent"
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    }
-                  ]
-                },
-                {
-                  "$$ClassName" : "TCastleRectangleControl",
-                  "Border" : {
-                    "$$ClassName" : "TBorder",
-                    "Bottom" : 2.0000000000000000E+000
-                  },
-                  "BorderColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 6.0392159223556519E-001,
-                    "Green" : 6.0392159223556519E-001,
-                    "Red" : 6.0392159223556519E-001
-                  },
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 1.8823529779911041E-001,
-                    "Green" : 1.8823529779911041E-001,
-                    "Red" : 1.8823529779911041E-001
-                  },
-                  "Height" : 4.0000000000000000E+001,
-                  "Name" : "Group6",
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 1.0000000000000000E+001,
-                    "Y" : -2.5500000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "Width" : 5.0000000000000000E+002,
-                  "$Children" : [
-                    {
-                      "$$ClassName" : "TCastleCheckbox",
-                      "Border" : {
-                        "$$ClassName" : "TBorder",
-                        "Left" : 5.0000000000000000E+000
-                      },
-                      "BorderColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent"
-                      },
-                      "Caption" : "Enable Blocking Downloads From Network",
+                      "Caption" : "Enable Blocking Downloads",
                       "CheckboxColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
                         "Blue" : 1.0000000000000000E+000,
