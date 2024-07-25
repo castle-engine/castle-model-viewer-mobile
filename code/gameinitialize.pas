@@ -51,6 +51,9 @@ procedure ApplicationInitialize;
 //var
   //CustomUIFont: TFontFamily;
 begin
+  { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
+  Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
+
   OptimizeExtensiveTransformations := true;
 
   AppOptions := TAppOptions.Create;
@@ -71,10 +74,6 @@ begin
   ViewChoice := TViewChoice.Create(Application);
   ViewNavigation := TViewNavigation.Create(Application);
   {$endregion 'Castle View Creation'}
-
-  // Create UI
-  Window.Container.UIExplicitScale := Window.Container.Dpi / 96.0;
-  Window.Container.UIScaling := usExplicitScale;
 
   Theme.BackgroundColor := Vector4(0.1, 0.1, 0.1, 0.5);
   Theme.MessageTextColor := Silver;
