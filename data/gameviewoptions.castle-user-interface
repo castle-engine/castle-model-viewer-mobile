@@ -444,7 +444,8 @@
                     {
                       "$$ClassName" : "TCastleCheckbox",
                       "Border" : {
-                        "$$ClassName" : "TBorder"
+                        "$$ClassName" : "TBorder",
+                        "Left" : 5.0000000000000000E+000
                       },
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
@@ -456,6 +457,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
+                      "FullSize" : true,
                       "Name" : "CheckboxBBox",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -464,8 +466,7 @@
                         "Red" : 1.0000000000000000E+000
                       },
                       "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 5.0000000000000000E+000
+                        "$$ClassName" : "TCastleVector2Persistent"
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -504,7 +505,8 @@
                     {
                       "$$ClassName" : "TCastleCheckbox",
                       "Border" : {
-                        "$$ClassName" : "TBorder"
+                        "$$ClassName" : "TBorder",
+                        "Left" : 5.0000000000000000E+000
                       },
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
@@ -516,6 +518,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
+                      "FullSize" : true,
                       "Name" : "CheckboxFps",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -524,8 +527,7 @@
                         "Red" : 1.0000000000000000E+000
                       },
                       "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 5.0000000000000000E+000
+                        "$$ClassName" : "TCastleVector2Persistent"
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -564,7 +566,8 @@
                     {
                       "$$ClassName" : "TCastleCheckbox",
                       "Border" : {
-                        "$$ClassName" : "TBorder"
+                        "$$ClassName" : "TBorder",
+                        "Left" : 5.0000000000000000E+000
                       },
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
@@ -576,6 +579,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
+                      "FullSize" : true,
                       "Name" : "CheckboxHeadlight",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -584,8 +588,7 @@
                         "Red" : 1.0000000000000000E+000
                       },
                       "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 5.0000000000000000E+000
+                        "$$ClassName" : "TCastleVector2Persistent"
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -624,7 +627,8 @@
                     {
                       "$$ClassName" : "TCastleCheckbox",
                       "Border" : {
-                        "$$ClassName" : "TBorder"
+                        "$$ClassName" : "TBorder",
+                        "Left" : 5.0000000000000000E+000
                       },
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
@@ -636,6 +640,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
+                      "FullSize" : true,
                       "Name" : "CheckboxCollisions",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -644,8 +649,7 @@
                         "Red" : 1.0000000000000000E+000
                       },
                       "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 5.0000000000000000E+000
+                        "$$ClassName" : "TCastleVector2Persistent"
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -684,7 +688,8 @@
                     {
                       "$$ClassName" : "TCastleCheckbox",
                       "Border" : {
-                        "$$ClassName" : "TBorder"
+                        "$$ClassName" : "TBorder",
+                        "Left" : 5.0000000000000000E+000
                       },
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
@@ -696,6 +701,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
+                      "FullSize" : true,
                       "Name" : "CheckboxAllNavTypes",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -704,8 +710,7 @@
                         "Red" : 1.0000000000000000E+000
                       },
                       "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 5.0000000000000000E+000
+                        "$$ClassName" : "TCastleVector2Persistent"
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
@@ -744,7 +749,8 @@
                     {
                       "$$ClassName" : "TCastleCheckbox",
                       "Border" : {
-                        "$$ClassName" : "TBorder"
+                        "$$ClassName" : "TBorder",
+                        "Left" : 5.0000000000000000E+000
                       },
                       "BorderColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent"
@@ -756,6 +762,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
+                      "FullSize" : true,
                       "Name" : "CheckboxEnableBlockingDownloads",
                       "TextColorPersistent" : {
                         "$$ClassName" : "TCastleColorPersistent",
@@ -764,8 +771,7 @@
                         "Red" : 1.0000000000000000E+000
                       },
                       "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 5.0000000000000000E+000
+                        "$$ClassName" : "TCastleVector2Persistent"
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle"
