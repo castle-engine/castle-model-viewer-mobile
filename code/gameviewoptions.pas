@@ -19,10 +19,10 @@ interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  GameInitialize, GameTable;
+  GameInitialize, GameTable, GameAbstractViewDialog;
 
 type
-  TViewOptions = class(TCastleView)
+  TViewOptions = class(TAbstractViewDialog)
   published
     CheckboxBBox: TCastleCheckbox;
     CheckboxFps: TCastleCheckbox;
@@ -30,8 +30,6 @@ type
     CheckboxCollisions: TCastleCheckbox;
     CheckboxAllNavTypes: TCastleCheckbox;
     CheckboxEnableBlockingDownloads: TCastleCheckbox;
-    ButtonClose: TCastleButton;
-    TransparentBackground: TCastleButton;
   strict private
     procedure CheckboxBBoxChange(Sender: TObject);
     procedure CheckboxFpsChange(Sender: TObject);
@@ -39,7 +37,6 @@ type
     procedure CheckboxCollisionsChange(Sender: TObject);
     procedure CheckboxAllNavTypesChange(Sender: TObject);
     procedure CheckboxEnableBlockingDownloadsChange(Sender: TObject);
-    procedure ClickClose(Sender: TObject);
   public
     FScene: TCastleScene;
     constructor Create(AOwner: TComponent); override;
@@ -68,7 +65,6 @@ end;
 procedure TViewOptions.Start;
 begin
   inherited;
-  InterceptInput := true;
 
   CheckboxBBox.Checked := AppOptions.ShowBBox;
   CheckboxFps.Checked := AppOptions.ShowFps;
@@ -83,9 +79,6 @@ begin
   CheckboxCollisions.OnChange := @CheckboxCollisionsChange;
   CheckboxAllNavTypes.OnChange := @CheckboxAllNavTypesChange;
   CheckboxEnableBlockingDownloads.OnChange := @CheckboxEnableBlockingDownloadsChange;
-
-  ButtonClose.OnClick := @ClickClose;
-  TransparentBackground.OnClick := @ClickClose;
 end;
 
 procedure TViewOptions.CheckboxBBoxChange(Sender: TObject);
@@ -121,11 +114,6 @@ procedure TViewOptions.CheckboxEnableBlockingDownloadsChange(Sender: TObject);
 begin
   AppOptions.EnableBlockingDownloads := CheckboxEnableBlockingDownloads.Checked;
   EnableBlockingDownloads := AppOptions.EnableBlockingDownloads;
-end;
-
-procedure TViewOptions.ClickClose(Sender: TObject);
-begin
-  Container.PopView(Self);
 end;
 
 end.

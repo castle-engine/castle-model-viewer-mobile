@@ -19,21 +19,19 @@ unit GameViewAbout;
 interface
 
 uses Classes,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse;
+  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
+  GameAbstractViewDialog;
 
 type
-  TViewAbout = class(TCastleView)
+  TViewAbout = class(TAbstractViewDialog)
   published
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
-    ButtonClose: TCastleButton;
-    TransparentBackground: TCastleButton;
     ButtonDonate: TCastleButton;
     ButtonEngineWebsite: TCastleButton;
     ButtonRendererInfo: TCastleButton;
     LabelStats: TCastleLabel;
   private
-    procedure ClickClose(Sender: TObject);
     procedure ClickDonate(Sender: TObject);
     procedure ClickEngineWebsite(Sender: TObject);
     procedure ClickRendererInfo(Sender: TObject);
@@ -64,13 +62,6 @@ begin
   ButtonRendererInfo.OnClick := @ClickRendererInfo;
   ButtonEngineWebsite.OnClick := @ClickEngineWebsite;
   ButtonDonate.OnClick := @ClickDonate;
-  ButtonClose.OnClick := @ClickClose;
-  TransparentBackground.OnClick := @ClickClose;
-end;
-
-procedure TViewAbout.ClickClose(Sender: TObject);
-begin
-  Container.PopView(Self);
 end;
 
 procedure TViewAbout.ClickDonate(Sender: TObject);

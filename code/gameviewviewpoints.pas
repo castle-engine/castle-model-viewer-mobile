@@ -19,12 +19,12 @@ interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  GameTable;
+  GameTable, GameAbstractViewDialog;
 
 type
   TViewpointSelectedEvent = procedure (ViewpointIdx : integer) of object;
 
-  TViewViewpoints = class(TCastleView)
+  TViewViewpoints = class(TAbstractViewDialog)
   strict private
     type
       TViewpointsDialog = class(TCastleRectangleControl, ICastleTableViewDataSource)
@@ -147,17 +147,8 @@ end;
 { TViewViewpoints ------------------------------------------------------------ }
 
 procedure TViewViewpoints.Start;
-var
-  TransparentBackground: TCastleRectangleControl;
 begin
   inherited;
-
-  InterceptInput := true;
-
-  TransparentBackground := TCastleRectangleControl.Create(FreeAtStop);
-  TransparentBackground.Color := Theme.BackgroundColor;
-  TransparentBackground.FullSize := true;
-  InsertFront(TransparentBackground);
 
   Dialog := TViewpointsDialog.Create(FreeAtStop);
   Dialog.Anchor(hpMiddle);

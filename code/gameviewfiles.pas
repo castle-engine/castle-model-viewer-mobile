@@ -20,13 +20,12 @@ interface
 
 uses Classes, SysUtils, Generics.Collections,
   CastleUIControls, CastleControls, CastleScene, CastleKeysMouse,
-  CastleStringUtils;
+  CastleStringUtils,
+  GameAbstractViewDialog;
 
 type
-  TViewFiles = class(TCastleView)
+  TViewFiles = class(TAbstractViewDialog)
   published
-    ButtonClose: TCastleButton;
-    TransparentBackground: TCastleButton;
     ButtonOpenOwnLink: TCastleButton;
     ButtonTemplate: TCastleButton;
   strict private
@@ -41,7 +40,6 @@ type
     var
       Models: TDemoModelList;
 
-    procedure ClickClose(Sender: TObject);
     procedure ClickOpenOwnLink(Sender: TObject);
     procedure ClickOpenModel(Sender: TObject);
   public
@@ -105,11 +103,8 @@ var
   I: Integer;
 begin
   inherited;
-  InterceptInput := true;
 
-  ButtonClose.OnClick := @ClickClose;
   ButtonOpenOwnLink.OnClick := @ClickOpenOwnLink;
-  TransparentBackground.OnClick := @ClickClose;
 
   ButtonOpenFactory := TCastleComponentFactory.Create(nil);
   try
@@ -129,15 +124,10 @@ begin
   finally FreeAndNil(ButtonOpenFactory) end;
 end;
 
-procedure TViewFiles.ClickClose(Sender: TObject);
-begin
-  Container.PopView(Self);
-end;
-
 procedure TViewFiles.ClickOpenOwnLink(Sender: TObject);
 begin
   OpenUrl('https://castle-engine.io/castle-model-viewer-mobile');
-  ClickClose(nil);
+  Container.PopView(Self);
 end;
 
 procedure TViewFiles.ClickOpenModel(Sender: TObject);
@@ -148,7 +138,7 @@ begin
   SenderButton := Sender as TCastleButton;
   ModelUrl := Models[SenderButton.Tag].Url;
   ViewDisplayScene.OpenScene(ModelUrl);
-  ClickClose(nil);
+  Container.PopView(Self);
 end;
 
 end.
