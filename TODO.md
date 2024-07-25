@@ -2,7 +2,6 @@
 
 High priority:
 
-- Animations panel like desktop castle-model-viewer
 - use standard UI scaling, will make everything always fit
 - Turntable remove? We never really supported it fully.
 - needs_download_network_resources.x3dv fails with EnableBlockingDownloads -- download never finishes?

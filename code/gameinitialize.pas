@@ -57,6 +57,9 @@ begin
 
   EnableBlockingDownloads := AppOptions.EnableBlockingDownloads;
 
+  // We use MessageOK here, we need MessageOKPushesView to make it work on iOS
+  MessageOKPushesView := true;
+
   { Create views (see https://castle-engine.io/views ). }
   {$region 'Castle View Creation'}
   // The content here may be automatically updated by CGE editor.

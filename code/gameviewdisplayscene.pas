@@ -801,7 +801,6 @@ begin
              + 'Zip contains:';
     for I := UnZipper.Entries.Count-1 downto 0 do
       Message := Message + NL + '  ' + UnZipper.Entries.Entries[I].DiskFileName;
-    MessageOKPushesView := true;
     MessageOK(Application.MainWindow, Message);
   end;
 
