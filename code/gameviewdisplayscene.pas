@@ -32,22 +32,31 @@ uses Classes, Generics.Collections,
 type
   TNavTypeList = class(specialize TList<TNavigationType>) end;
 
+  { Actions to do when we have Resume, possibly coming back from a dialog
+    to choose new viewpoint / animation to play. }
+  TResumeAction = (raNone, raMoveViewpoint, raPlayAnimation);
+
   TViewDisplayScene = class(TCastleView)
   private
     BtnNavWalk, BtnNavFly, BtnNavExamine, BtnNavTurntable, BtnOptions,
-      BtnViewpointPrev, BtnViewpointNext, BtnViewpointList,
+      BtnViewpoints, BtnAnimations,
       BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
     ToolbarPanel: TCastlePanel;
     Status: TCastleLabel;
 
-    CurrentViewpointIdx: integer;
     BBoxScene: TCastleScene;
     BBoxTransform: TTransformNode;
     BBoxGeometry: TBoxNode;
     SceneWarnings: TStringList;
     AvailableNavTypes: TNavTypeList;
+    ResumeAction: TResumeAction;
 
+    {$warnings off}
+    { Knowingly using deprecated TCastleAutoNavigationViewport:
+      for X3D browser, it is still the best choice, to auto-adjust navigation
+      based on X3D nodes. }
     MainViewport: TCastleAutoNavigationViewport;
+    {$warnings on}
     TouchNavigation: TCastleTouchNavigation;
 
     { CGE event handlers }
@@ -57,10 +66,9 @@ type
     procedure BtnOptionsClick(Sender: TObject);
     procedure BtnInfoClick(Sender: TObject);
     procedure BtnFilesClick(Sender: TObject);
+    procedure ClickViewpoints(Sender: TObject);
+    procedure ClickAnimations(Sender: TObject);
     procedure FileSelected(Url: string);
-    procedure BtnViewpointNextClick(Sender: TObject);
-    procedure BtnViewpointListClick(Sender: TObject);
-    procedure ViewpointSelected(ViewpointIdx: integer);
     procedure NavigationTypeInPopupSelected(NavType: TNavigationType);
     procedure BoundNavigationInfoChanged(Sender: TObject);
     procedure OnWarningHandle(const Category, S: string);
@@ -75,6 +83,7 @@ type
   public
     procedure Start; override;
     procedure Stop; override;
+    procedure Resume; override;
     procedure Resize; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
 
@@ -92,7 +101,7 @@ uses SysUtils, Math, Zipper,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
   CastleRenderOptions, CastleUriUtils, CastleVectors,
-  GameViewAbout, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
+  GameViewAbout, GameOptions, GameViewOptions, GameViewFiles, GameViewChoice;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
   const FileNames: array of string);
@@ -149,12 +158,10 @@ var
   ButtonsHeight: Single;
   I: Integer;
   ToolButton: TCastleButton;
-  ImgTriangle: TCastleImageControl;
 begin
   inherited;
 
-  CurrentViewpointIdx := 0;
-
+  ResumeAction := raNone;
   SceneWarnings := TStringList.Create;
 
   AvailableNavTypes := TNavTypeList.Create;
@@ -162,9 +169,15 @@ begin
 
   { TODO: Design UI in editor }
 
+  {$warnings off}
+  { Knowingly using deprecated TCastleAutoNavigationViewport and AutoCamera:
+    for X3D browser, it is still the best choice, to:
+    - auto-adjust navigation based on X3D nodes.
+    - follow X3D camera animations. }
   MainViewport := TCastleAutoNavigationViewport.Create(FreeAtStop);
-  MainViewport.FullSize := true;
   MainViewport.AutoCamera := true;
+  {$warnings on}
+  MainViewport.FullSize := true;
   MainViewport.AutoNavigation := true;
   MainViewport.OnBoundNavigationInfoChanged := {$ifdef FPC}@{$endif} BoundNavigationInfoChanged;
   MainViewport.PreventInfiniteFallingDown := true;
@@ -182,7 +195,7 @@ begin
   ToolbarPanel := TCastlePanel.Create(FreeAtStop);
   InsertFront(ToolbarPanel);
 
-  // add buttons to toolbar (Tag=1 marks button should not add space after it)
+  // add buttons to toolbar
   BtnNavWalk := TCastleButton.Create(ToolbarPanel);
   BtnNavWalk.Tooltip := 'Walk';
   BtnNavWalk.Image.Url := 'castle-data:/nav_walk.png';
@@ -190,7 +203,6 @@ begin
   BtnNavWalk.Toggle := true;
   BtnNavWalk.PaddingHorizontal := ButtonPadding;
   BtnNavWalk.PaddingVertical := ButtonPadding;
-  BtnNavWalk.Tag := 1;
   ToolbarPanel.InsertFront(BtnNavWalk);
   ButtonsHeight := BtnNavWalk.EffectiveHeight;
 
@@ -199,7 +211,6 @@ begin
   BtnNavFly.Image.Url := 'castle-data:/nav_fly.png';
   BtnNavFly.OnClick := {$ifdef FPC}@{$endif} BtnNavClick;
   BtnNavFly.Toggle := true;
-  BtnNavFly.Tag := 1;
   ToolbarPanel.InsertFront(BtnNavFly);
 
   BtnNavExamine := TCastleButton.Create(ToolbarPanel);
@@ -216,24 +227,15 @@ begin
   BtnNavTurntable.Toggle := true;
   ToolbarPanel.InsertFront(BtnNavTurntable);
 
-  BtnViewpointPrev := TCastleButton.Create(ToolbarPanel);
-  BtnViewpointPrev.Tooltip := 'Previous viewpoint';
-  BtnViewpointPrev.Image.Url := 'castle-data:/arrow-left-b.png';
-  BtnViewpointPrev.OnClick := {$ifdef FPC}@{$endif} BtnViewpointNextClick;
-  BtnViewpointPrev.Tag := 1;
-  ToolbarPanel.InsertFront(BtnViewpointPrev);
+  BtnViewpoints := TCastleButton.Create(ToolbarPanel);
+  BtnViewpoints.Caption := 'Viewpoints';
+  BtnViewpoints.OnClick := {$ifdef FPC}@{$endif} ClickViewpoints;
+  ToolbarPanel.InsertFront(BtnViewpoints);
 
-  BtnViewpointList := TCastleButton.Create(ToolbarPanel);
-  BtnViewpointList.Caption := 'Viewpoints';
-  BtnViewpointList.OnClick := {$ifdef FPC}@{$endif} BtnViewpointListClick;
-  BtnViewpointList.Tag := 1;
-  ToolbarPanel.InsertFront(BtnViewpointList);
-
-  BtnViewpointNext := TCastleButton.Create(ToolbarPanel);
-  BtnViewpointNext.Tooltip := 'Next viewpoint';
-  BtnViewpointNext.Image.Url := 'castle-data:/arrow-right-b.png';
-  BtnViewpointNext.OnClick := {$ifdef FPC}@{$endif} BtnViewpointNextClick;
-  ToolbarPanel.InsertFront(BtnViewpointNext);
+  BtnAnimations := TCastleButton.Create(ToolbarPanel);
+  BtnAnimations.Caption := 'Animations';
+  BtnAnimations.OnClick := {$ifdef FPC}@{$endif} ClickAnimations;
+  ToolbarPanel.InsertFront(BtnAnimations);
 
   BtnScreenshot := TCastleButton.Create(ToolbarPanel);
   BtnScreenshot.Tooltip := 'Screenshot';
@@ -315,7 +317,13 @@ end;
 
 function TViewDisplayScene.MainScene: TCastleScene;
 begin
+  {$warnings off}
+  { Knowingly using deprecated MainScene, it is necessary for
+    TCastleViewport.AutoCamera and TCastleAutoNavigationViewport
+    which in turn are necessary for X3D browser to synchronize camera/navigation
+    ideally. }
   Result := MainViewport.Items.MainScene;
+  {$warnings on}
 end;
 
 procedure TViewDisplayScene.Resize;
@@ -324,49 +332,25 @@ const
   ButtonsMargin = 3;  {< between buttons }
 var
   ToolButton: TCastleButton;
-  NextLeft1, NextLeft2, ButtonsHeight: Single;
-  I, ViewpointCount: Integer;
-  SpaceForButtons: Single;
-  TwoLineToolbar: boolean;
+  NextLeft1, ButtonsHeight: Single;
+  I: Integer;
 begin
   inherited;
   if not ToolbarPanel.Exists then exit;
 
-  ViewpointCount := MainScene.ViewpointsCount;
-  BtnViewpointPrev.Exists := (ViewpointCount > 1);
-  BtnViewpointList.Exists := (ViewpointCount > 0);
-  BtnViewpointNext.Exists := (ViewpointCount > 1);
+  // TODO: To remove, use TCastleHorizontalGroup and UI designed in editor
 
-  SpaceForButtons := 0;
-  for I := 0 to ToolbarPanel.ControlsCount - 1 do
-  begin
-    if ToolbarPanel.Controls[I] is TCastleButton then
-    begin
-      ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
-      if ToolButton.Exists then
-      begin
-        SpaceForButtons := SpaceForButtons + ToolButton.EffectiveWidth;
-        if ToolButton.Tag = 0 then
-          SpaceForButtons := SpaceForButtons + ButtonsMargin;
-      end;
-    end;
-  end;
+  BtnViewpoints.Exists := MainScene.ViewpointsCount > 0;
+  BtnAnimations.Exists := MainScene.AnimationsList.Count > 0;
 
   ButtonsHeight := Max(BtnNavExamine.EffectiveHeight, BtnOptions.EffectiveHeight);
-
-  // test if all buttons fit on one line
-  TwoLineToolbar := (SpaceForButtons + 2*ToolbarMargin > Container.UnscaledWidth);
-  if TwoLineToolbar then
-    ToolbarPanel.Height := 2*ButtonsHeight + 3*ToolbarMargin + Container.StatusBarHeight { window extends below top status bar (clock, battery)}
-  else
-    ToolbarPanel.Height := ButtonsHeight + 2*ToolbarMargin + Container.StatusBarHeight;
 
   // toolbar
   ToolbarPanel.Translation := Vector2(0, Container.UnscaledHeight - ToolbarPanel.Height);
   ToolbarPanel.WidthFraction := 1;
+  ToolbarPanel.Height := ButtonsHeight + 2 * ToolbarMargin;
 
   NextLeft1 := ToolbarMargin;
-  NextLeft2 := ToolbarMargin;
 
   for I := 0 to ToolbarPanel.ControlsCount - 1 do
   begin
@@ -375,25 +359,8 @@ begin
       ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
       if ToolButton.Exists then
       begin
-        // put viewpoints on next line, let's hope it's enough
-        if TwoLineToolbar and ((ToolButton = BtnViewpointPrev) or (ToolButton = BtnViewpointList) or (ToolButton = BtnViewpointNext)) then
-        begin
-           // 2nd line
-          ToolButton.Translation := Vector2(NextLeft2, ToolbarMargin);
-          NextLeft2 := NextLeft2 + ToolButton.EffectiveWidth;
-          if ToolButton.Tag = 0 then
-            NextLeft2 := NextLeft2 + ButtonsMargin;
-        end else
-        begin
-          // 1st line
-          if TwoLineToolbar then
-            ToolButton.Translation := Vector2(NextLeft1, ToolbarMargin + ButtonsHeight + ToolbarMargin)
-          else
-            ToolButton.Translation := Vector2(NextLeft1, ToolbarMargin);
-          NextLeft1 := NextLeft1 + ToolButton.EffectiveWidth;
-          if ToolButton.Tag = 0 then
-            NextLeft1 := NextLeft1 + ButtonsMargin;
-        end;
+        ToolButton.Translation := Vector2(NextLeft1, ToolbarMargin);
+        NextLeft1 := NextLeft1 + ToolButton.EffectiveWidth + ButtonsMargin;
       end;
     end;
   end;
@@ -423,9 +390,15 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
     NewScene.PreciseCollisions := true;
     NewScene.ProcessEvents := true;
 
+    {$warnings off}
+    { Knowingly using deprecated MainScene, it is necessary for
+      TCastleViewport.AutoCamera and TCastleAutoNavigationViewport
+      which in turn are necessary for X3D browser to synchronize camera/navigation
+      ideally. }
     MainViewport.Items.MainScene.Free;
     MainViewport.Items.MainScene := NewScene;
     MainViewport.Items.Add(MainScene);
+  {$warnings on}
 
     { Do not take BBoxScene (with outdated now sizes)
       into account by MainViewport.AssignDefaultCamera.
@@ -451,11 +424,9 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
     MainScene.Collides := AppOptions.CollisionsOn;
 
-    CurrentViewpointIdx := 0;
-
     ShowHideNavigationButtons(false);
 
-    Resize; // to hide viewpoints, etc
+    Resize; // to hide viewpoints, animations buttons etc.
     UpdateBBox;
   end;
 
@@ -687,36 +658,59 @@ begin
   OpenScene(Url);
 end;
 
-procedure TViewDisplayScene.BtnViewpointNextClick(Sender: TObject);
+procedure TViewDisplayScene.ClickViewpoints(Sender: TObject);
+var
+  I: Integer;
 begin
-  if MainScene = nil then exit;
-  if Sender = BtnViewpointNext then
-    Inc(CurrentViewpointIdx)
-  else
-    Dec(CurrentViewpointIdx);
+  ViewChoice.ChoicesCaption := 'Viewpoints';
+  ViewChoice.ChoiceCurrent := -1; // initially
+  ViewChoice.Choices.Clear;
 
-  if CurrentViewpointIdx < 0 then
-    CurrentViewpointIdx := MainScene.ViewpointsCount;
-  if CurrentViewpointIdx > MainScene.ViewpointsCount - 1 then
-    CurrentViewpointIdx := 0;
+  for I := 0 to MainScene.ViewpointsCount - 1 do
+  begin
+    if MainScene.GetViewpointNode(I).Bound then
+      ViewChoice.ChoiceCurrent := I;
+    ViewChoice.Choices.Add(MainScene.GetViewpointName(I));
+  end;
 
-  MainScene.MoveToViewpoint(CurrentViewpointIdx);
+  ResumeAction := raMoveViewpoint;
+  Container.PushView(ViewChoice);
 end;
 
-procedure TViewDisplayScene.BtnViewpointListClick(Sender: TObject);
+procedure TViewDisplayScene.ClickAnimations(Sender: TObject);
+var
+  I: Integer;
 begin
-  ViewViewpoints.FScene := MainScene;
-  ViewViewpoints.FCurrentViewpointIdx := CurrentViewpointIdx;
-  ViewViewpoints.FOnViewpointSelected := {$ifdef FPC}@{$endif} ViewpointSelected;
-  Container.PushView(ViewViewpoints);
+  ViewChoice.ChoicesCaption := 'Animations';
+  ViewChoice.ChoiceCurrent := -1; // initially
+  ViewChoice.Choices.Clear;
+
+  for I := 0 to MainScene.AnimationsList.Count - 1 do
+  begin
+    if MainScene.AnimationTimeSensor(I) = MainScene.CurrentAnimation then
+      ViewChoice.ChoiceCurrent := I;
+    ViewChoice.Choices.Add(MainScene.AnimationsList[I]);
+  end;
+
+  ResumeAction := raPlayAnimation;
+  Container.PushView(ViewChoice);
 end;
 
-procedure TViewDisplayScene.ViewpointSelected(ViewpointIdx: integer);
+procedure TViewDisplayScene.Resume;
 begin
-  CurrentViewpointIdx := ViewpointIdx;
-  MainScene.MoveToViewpoint(CurrentViewpointIdx);
-end;
+  inherited;
 
+  case ResumeAction of
+    raNone: ;
+    raMoveViewpoint:
+      if ViewChoice.Answer <> -1 then
+        MainScene.MoveToViewpoint(ViewChoice.Answer);
+    raPlayAnimation:
+      if ViewChoice.Answer <> -1 then
+        MainScene.PlayAnimation(ViewChoice.Choices[ViewChoice.Answer], true);
+    else raise EInternalError.Create('TViewDisplayScene.Resume: ResumeAction not implemented');
+  end;
+end;
 function TViewDisplayScene.GetSceneUnpackDir: string;
 var
   UnpackDirUrl: string;

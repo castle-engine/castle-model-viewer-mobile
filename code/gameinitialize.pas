@@ -37,9 +37,9 @@ uses Classes, SysUtils, Math, Zipper,
   // The content here may be automatically updated by CGE editor.
   , GameViewDisplayScene
   , GameViewOptions
-  , GameViewViewpoints
   , GameViewFiles
   , GameViewAbout
+  , GameViewChoice
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -62,9 +62,9 @@ begin
   // The content here may be automatically updated by CGE editor.
   ViewDisplayScene := TViewDisplayScene.Create(Application);
   ViewOptions := TViewOptions.Create(Application);
-  ViewViewpoints := TViewViewpoints.Create(Application);
   ViewFiles := TViewFiles.Create(Application);
   ViewAbout := TViewAbout.Create(Application);
+  ViewChoice := TViewChoice.Create(Application);
   {$endregion 'Castle View Creation'}
 
   // Create UI
@@ -76,18 +76,15 @@ begin
   Theme.TextColor := Black;
   Theme.DisabledTextColor := Gray;
 
-  Theme.ImagesPersistent[tiWindow].Url := 'castle-data:/theme_window.png'; // dialog background color and frame
   Theme.ImagesPersistent[tiButtonNormal].Url := 'castle-data:/theme_btnNormal.png';
   Theme.ImagesPersistent[tiButtonDisabled].Url := 'castle-data:/theme_btnDisabled.png';
   Theme.ImagesPersistent[tiButtonFocused].Url := 'castle-data:/theme_btnFocused.png';
   Theme.ImagesPersistent[tiButtonPressed].Url := 'castle-data:/theme_btnPressed.png';
-  Theme.ImagesPersistent[tiScrollbarSlider].Url := 'castle-data:/theme_btnNormal.png';
 
   Theme.ImagesPersistent[tiButtonNormal].ProtectedSides.AllSides := 3;
   Theme.ImagesPersistent[tiButtonDisabled].ProtectedSides.AllSides := 3;
   Theme.ImagesPersistent[tiButtonFocused].ProtectedSides.AllSides := 3;
   Theme.ImagesPersistent[tiButtonPressed].ProtectedSides.AllSides := 3;
-  Theme.ImagesPersistent[tiScrollbarSlider].ProtectedSides.AllSides := 3;
 
   { prepare TFontFamily with font varians for bold, italic }
   (* TODO: Assign custom font to use Html:=true on some labels.

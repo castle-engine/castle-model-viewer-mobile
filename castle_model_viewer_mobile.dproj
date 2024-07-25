@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{99D39D23-EC0D-4EC5-9E2E-E4D6D901CA16}</ProjectGuid>
+        <ProjectGuid>{62F3E029-65A9-49D3-8178-E15A876BD620}</ProjectGuid>
         <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -277,40 +277,6 @@
      to non-Windows targets,
      see https://castle-engine.io/delphi_linux#data_files_deployment .
 -->
-<DeployFile LocalName="data\arrow-left-b.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-left-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-left-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-left-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\arrow-right-b.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-right-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-right-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-right-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\castle_game_engine_icon.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -328,20 +294,37 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/AUTHORS.txt" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\check.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>check.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>check.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>check.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/AUTHORS.md" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>AUTHORS.txt</RemoteName>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>AUTHORS.txt</RemoteName>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>AUTHORS.txt</RemoteName>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -447,6 +430,40 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\demo/dungeon/dungeon_simplified.bin" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/dungeon_simplified.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\demo/dungeon/license.txt" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/dungeon/</RemoteDir>
@@ -495,6 +512,108 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/dungeon/</RemoteDir>
   <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_neg_x_left.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_x_left.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_x_left.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_x_left.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_neg_y_bottom.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_y_bottom.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_y_bottom.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_y_bottom.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_neg_z_back.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_z_back.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_z_back.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_z_back.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_pos_x_right.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_x_right.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_x_right.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_x_right.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_pos_y_top.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_y_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_y_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_y_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_pos_z_front.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_z_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_z_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_z_front.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -923,108 +1042,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_back.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_back.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_back.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_back.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_bottom.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_bottom.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_bottom.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_bottom.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_front.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_front.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_front.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_front.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_left.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_left.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_left.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_left.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_right.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_right.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_right.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_right.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_top.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_top.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_top.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_top.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\demo/steampunk_underwater_explorer.glb" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
@@ -1093,6 +1110,40 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\gameviewabout.castle-user-interface" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewabout.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewabout.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewabout.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\gameviewchoice.castle-user-interface" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewchoice.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewchoice.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewchoice.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\gameviewfiles.castle-user-interface" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -1124,23 +1175,6 @@
  <Platform Name="Win64">
   <RemoteDir>./data/</RemoteDir>
   <RemoteName>gameviewoptions.castle-user-interface</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\gameviewsomething.castle-user-interface" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gameviewsomething.castle-user-interface</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gameviewsomething.castle-user-interface</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gameviewsomething.castle-user-interface</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1263,23 +1297,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\popup_triangle.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>popup_triangle.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>popup_triangle.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>popup_triangle.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\screenshot.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -1382,40 +1399,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\arrow-left-b.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-left-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-left-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-left-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\arrow-right-b.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-right-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-right-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>arrow-right-b.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\castle_game_engine_icon.png" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -1433,20 +1416,37 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/AUTHORS.txt" Configuration="Release" Class="File">
+<DeployFile LocalName="data\check.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>check.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>check.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>check.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/AUTHORS.md" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>AUTHORS.txt</RemoteName>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>AUTHORS.txt</RemoteName>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>AUTHORS.txt</RemoteName>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1552,6 +1552,40 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\demo/dungeon/dungeon_simplified.bin" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/dungeon_simplified.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/</RemoteDir>
+  <RemoteName>dungeon_simplified.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\demo/dungeon/license.txt" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/dungeon/</RemoteDir>
@@ -1600,6 +1634,108 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/dungeon/</RemoteDir>
   <RemoteName>scene.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_neg_x_left.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_x_left.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_x_left.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_x_left.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_neg_y_bottom.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_y_bottom.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_y_bottom.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_y_bottom.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_neg_z_back.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_z_back.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_z_back.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_neg_z_back.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_pos_x_right.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_x_right.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_x_right.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_x_right.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_pos_y_top.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_y_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_y_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_y_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dungeon/skies/sunset_pos_z_front.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_z_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_z_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/dungeon/skies/</RemoteDir>
+  <RemoteName>sunset_pos_z_front.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -2028,108 +2164,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_back.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_back.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_back.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_back.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_bottom.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_bottom.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_bottom.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_bottom.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_front.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_front.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_front.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_front.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_left.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_left.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_left.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_left.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_right.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_right.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_right.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_right.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\demo/skies/foggy_sky_top.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_top.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_top.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/demo/skies/</RemoteDir>
-  <RemoteName>foggy_sky_top.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\demo/steampunk_underwater_explorer.glb" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
@@ -2198,6 +2232,40 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\gameviewabout.castle-user-interface" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewabout.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewabout.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewabout.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\gameviewchoice.castle-user-interface" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewchoice.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewchoice.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewchoice.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\gameviewfiles.castle-user-interface" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -2229,23 +2297,6 @@
  <Platform Name="Win64">
   <RemoteDir>./data/</RemoteDir>
   <RemoteName>gameviewoptions.castle-user-interface</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\gameviewsomething.castle-user-interface" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gameviewsomething.castle-user-interface</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gameviewsomething.castle-user-interface</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gameviewsomething.castle-user-interface</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -2365,23 +2416,6 @@
  <Platform Name="Win64">
   <RemoteDir>./data/</RemoteDir>
   <RemoteName>nav_walk.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
-<DeployFile LocalName="data\popup_triangle.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>popup_triangle.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>popup_triangle.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>popup_triangle.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>

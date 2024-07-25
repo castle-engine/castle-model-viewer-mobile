@@ -19,7 +19,7 @@ interface
 
 uses Classes, SysUtils,
   CastleUIControls, CastleControls, CastleScene, CastleUIState, CastleKeysMouse,
-  GameInitialize, GameTable, GameAbstractViewDialog;
+  GameInitialize, GameAbstractViewDialog;
 
 type
   TViewOptions = class(TAbstractViewDialog)
