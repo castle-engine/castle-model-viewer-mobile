@@ -92,7 +92,7 @@ uses SysUtils, Math, Zipper,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
   CastleRenderOptions, CastleUriUtils, CastleVectors,
-  GameViewInfo, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
+  GameViewAbout, GameOptions, GameViewOptions, GameViewFiles, GameViewViewpoints;
 
 procedure GlobalDropFiles(AContainer: TCastleContainer;
   const FileNames: array of string);
@@ -280,7 +280,7 @@ begin
   Status.Caption := ' ';
   Status.Padding := 5;
   Status.Color := Red;
-  Status.FontScale := SmallFontScale;
+  Status.FontScale := 0.8;
   InsertFront(Status);
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
@@ -665,20 +665,16 @@ procedure TViewDisplayScene.BtnInfoClick(Sender: TObject);
     BBox := Scene.BoundingBox;
     Result := 'Bounding box : ' + BBox.ToString;
     if not BBox.IsEmpty then
-    begin
       Result := Result + Format(', average size : %f', [BBox.AverageSize]);
-    end;
-    Result := Result + NL;
   end;
 
 begin
-  ViewInfo.FScene := MainScene;
-  ViewInfo.FStatistics :=
+  ViewAbout.StatsText :=
     'Scene information:' + NL +
-    SceneVertexTriangleInfo(MainScene) +
-    BBoxInfo(MainScene) +
+    SceneVertexTriangleInfo(MainScene) + NL +
+    BBoxInfo(MainScene) + NL +
     MainViewport.Statistics.ToString;
-  Container.PushView(ViewInfo);
+  Container.PushView(ViewAbout);
 end;
 
 procedure TViewDisplayScene.BtnFilesClick(Sender: TObject);

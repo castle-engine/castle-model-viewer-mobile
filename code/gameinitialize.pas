@@ -32,8 +32,15 @@ uses Classes, SysUtils, Math, Zipper,
   CastleVectors, CastleUtils, CastleMessages, CastleLog,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
   CastleApplicationProperties, CastleSceneCore,
-  GameViewInfo, GameOptions, GameViewOptions, GameViewViewpoints, GameViewFiles,
-  GameViewDisplayScene;
+  GameOptions
+  {$region 'Castle Initialization Uses'}
+  // The content here may be automatically updated by CGE editor.
+  , GameViewDisplayScene
+  , GameViewOptions
+  , GameViewViewpoints
+  , GameViewFiles
+  , GameViewAbout
+  {$endregion 'Castle Initialization Uses'};
 
 var
   Window: TCastleWindow;
@@ -50,11 +57,15 @@ begin
 
   EnableBlockingDownloads := AppOptions.EnableBlockingDownloads;
 
+  { Create views (see https://castle-engine.io/views ). }
+  {$region 'Castle View Creation'}
+  // The content here may be automatically updated by CGE editor.
   ViewDisplayScene := TViewDisplayScene.Create(Application);
-  ViewInfo := TViewInfo.Create(Application);
   ViewOptions := TViewOptions.Create(Application);
   ViewViewpoints := TViewViewpoints.Create(Application);
   ViewFiles := TViewFiles.Create(Application);
+  ViewAbout := TViewAbout.Create(Application);
+  {$endregion 'Castle View Creation'}
 
   // Create UI
   Window.Container.UIExplicitScale := Window.Container.Dpi / 96.0;

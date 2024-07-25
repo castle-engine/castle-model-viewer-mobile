@@ -95,10 +95,18 @@
         }
       },
       "CustomColorDisabledPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 5.0196081399917603E-001,
+        "Blue" : 1.0196078568696976E-001,
+        "Green" : 1.0196078568696976E-001,
+        "Red" : 1.0196078568696976E-001
       },
       "CustomColorFocusedPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 5.0196081399917603E-001,
+        "Blue" : 1.0196078568696976E-001,
+        "Green" : 1.0196078568696976E-001,
+        "Red" : 1.0196078568696976E-001
       },
       "CustomColorNormalPersistent" : {
         "$$ClassName" : "TCastleColorPersistent",
@@ -108,7 +116,11 @@
         "Red" : 1.0196078568696976E-001
       },
       "CustomColorPressedPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 5.0196081399917603E-001,
+        "Blue" : 1.0196078568696976E-001,
+        "Green" : 1.0196078568696976E-001,
+        "Red" : 1.0196078568696976E-001
       },
       "CustomTextColorPersistent" : {
         "$$ClassName" : "TCastleColorPersistent"

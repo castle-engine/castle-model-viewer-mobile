@@ -31,6 +31,7 @@ type
     CheckboxAllNavTypes: TCastleCheckbox;
     CheckboxEnableBlockingDownloads: TCastleCheckbox;
     ButtonClose: TCastleButton;
+    TransparentBackground: TCastleButton;
   strict private
     procedure CheckboxBBoxChange(Sender: TObject);
     procedure CheckboxFpsChange(Sender: TObject);
@@ -84,6 +85,7 @@ begin
   CheckboxEnableBlockingDownloads.OnChange := @CheckboxEnableBlockingDownloadsChange;
 
   ButtonClose.OnClick := @ClickClose;
+  TransparentBackground.OnClick := @ClickClose;
 end;
 
 procedure TViewOptions.CheckboxBBoxChange(Sender: TObject);
