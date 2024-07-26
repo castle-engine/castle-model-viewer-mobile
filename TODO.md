@@ -2,16 +2,9 @@
 
 High priority:
 
-- use standard UI scaling, will make everything always fit
-- Turntable remove? We never really supported it fully.
 - needs_download_network_resources.x3dv fails with EnableBlockingDownloads -- download never finishes?
 
 ## Internals
-
-High priority:
-
-- Remake UI using editor (almost done now, viewpoints and top panel remain)
-- Upgrade all deprecated CGE usage
 
 Lower priority:
 
