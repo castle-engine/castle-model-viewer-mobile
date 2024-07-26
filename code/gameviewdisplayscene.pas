@@ -163,8 +163,6 @@ begin
   ResumeAction := raNone;
   SceneWarnings := TStringList.Create;
 
-  { TODO: Design UI in editor }
-
   {$warnings off}
   { Knowingly using deprecated TCastleAutoNavigationViewport and AutoCamera:
     for X3D browser, it is still the best choice, to:
