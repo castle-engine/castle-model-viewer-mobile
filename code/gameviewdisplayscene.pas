@@ -37,12 +37,14 @@ type
   TResumeAction = (raNone, raMoveViewpoint, raPlayAnimation, raChangeNavigation);
 
   TViewDisplayScene = class(TCastleView)
+  published
+    { Components designed using CGE editor.
+      These fields will be automatically initialized at Start. }
+    ButtonNavigations, ButtonOptions, ButtonViewpoints, ButtonAnimations,
+      ButtonScreenshot, ButtonInfo, ButtonFiles: TCastleButton;
+    LabelFpsStats: TCastleLabel;
+    ViewportContainer: TCastleUserInterface;
   private
-    BtnNavigations, BtnOptions, BtnViewpoints, BtnAnimations,
-      BtnScreenshot, BtnInfo, BtnFiles: TCastleButton;
-    ToolbarPanel: TCastleHorizontalGroup;
-    Status: TCastleLabel;
-
     BBoxScene: TCastleScene;
     BBoxTransform: TTransformNode;
     BBoxGeometry: TBoxNode;
@@ -57,17 +59,14 @@ type
     {$warnings on}
     TouchNavigation: TCastleTouchNavigation;
 
-    { CGE event handlers }
-    { }
-    procedure BtnScreenshotClick(Sender: TObject);
-    procedure BtnOptionsClick(Sender: TObject);
-    procedure BtnInfoClick(Sender: TObject);
-    procedure BtnFilesClick(Sender: TObject);
+    { Event handlers }
+    procedure ClickScreenshot(Sender: TObject);
+    procedure ClickOptions(Sender: TObject);
+    procedure ClickInfo(Sender: TObject);
+    procedure ClickFiles(Sender: TObject);
     procedure ClickViewpoints(Sender: TObject);
     procedure ClickAnimations(Sender: TObject);
     procedure ClickNavigations(Sender: TObject);
-    procedure FileSelected(Url: string);
-    procedure NavigationTypeInPopupSelected(NavType: TNavigationType);
     procedure OnWarningHandle(const Category, S: string);
 
     { Currently loaded scene. May be @nil only before first OpenScene from Start. }
@@ -78,10 +77,10 @@ type
     { Call each frame to update BBox* values to match current MainScene.BoundingBox. }
     procedure UpdateBBox;
   public
+    constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Stop; override;
     procedure Resume; override;
-    procedure Resize; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
 
     procedure OpenScene(const Url: string);
@@ -108,6 +107,12 @@ begin
 end;
 
 { TViewDisplayScene ---------------------------------------------------------- }
+
+constructor TViewDisplayScene.Create(AOwner: TComponent);
+begin
+  inherited;
+  DesignUrl := 'castle-data:/gameviewdisplayscene.castle-user-interface';
+end;
 
 procedure TViewDisplayScene.Start;
 
@@ -149,12 +154,6 @@ procedure TViewDisplayScene.Start;
     BBoxScene.Collides := false;
   end;
 
-const
-  ButtonPadding = 3;
-var
-  ButtonsHeight: Single;
-  I: Integer;
-  ToolButton: TCastleButton;
 begin
   inherited;
 
@@ -174,7 +173,7 @@ begin
   MainViewport.FullSize := true;
   MainViewport.AutoNavigation := true;
   MainViewport.PreventInfiniteFallingDown := true;
-  InsertFront(MainViewport);
+  ViewportContainer.InsertFront(MainViewport);
 
   TouchNavigation := TCastleTouchNavigation.Create(FreeAtStop);
   TouchNavigation.FullSize := true;
@@ -184,78 +183,13 @@ begin
   TouchNavigation.AutoExamineTouchInterface := tiNone; // use 2-finger gesture to pan, not touchControl
   MainViewport.InsertFront(TouchNavigation);
 
-  // toolbar
-  ToolbarPanel := TCastleHorizontalGroup.Create(FreeAtStop);
-  ToolbarPanel.Anchor(vpTop, 0);
-  InsertFront(ToolbarPanel);
-
-  // add buttons to toolbar
-  BtnNavigations := TCastleButton.Create(ToolbarPanel);
-  BtnNavigations.Caption := 'Navigations';
-  BtnNavigations.OnClick := {$ifdef FPC}@{$endif} ClickNavigations;
-  BtnNavigations.PaddingHorizontal := ButtonPadding;
-  BtnNavigations.PaddingVertical := ButtonPadding;
-  ToolbarPanel.InsertFront(BtnNavigations);
-
-  ButtonsHeight := BtnNavigations.EffectiveHeight;
-
-  BtnViewpoints := TCastleButton.Create(ToolbarPanel);
-  BtnViewpoints.Caption := 'Viewpoints';
-  BtnViewpoints.OnClick := {$ifdef FPC}@{$endif} ClickViewpoints;
-  ToolbarPanel.InsertFront(BtnViewpoints);
-
-  BtnAnimations := TCastleButton.Create(ToolbarPanel);
-  BtnAnimations.Caption := 'Animations';
-  BtnAnimations.OnClick := {$ifdef FPC}@{$endif} ClickAnimations;
-  ToolbarPanel.InsertFront(BtnAnimations);
-
-  BtnScreenshot := TCastleButton.Create(ToolbarPanel);
-  BtnScreenshot.Tooltip := 'Screenshot';
-  BtnScreenshot.Image.Url := 'castle-data:/screenshot.png';
-  BtnScreenshot.OnClick := {$ifdef FPC}@{$endif} BtnScreenshotClick;
-  ToolbarPanel.InsertFront(BtnScreenshot);
-
-  BtnOptions := TCastleButton.Create(ToolbarPanel);
-  BtnOptions.Tooltip := 'Options';
-  BtnOptions.Image.Url := 'castle-data:/gear-b.png';
-  BtnOptions.OnClick := {$ifdef FPC}@{$endif} BtnOptionsClick;
-  ToolbarPanel.InsertFront(BtnOptions);
-
-  BtnFiles := TCastleButton.Create(ToolbarPanel);
-  BtnFiles.Tooltip := 'Saved scenes';
-  BtnFiles.Image.Url := 'castle-data:/file.png';
-  BtnFiles.OnClick := {$ifdef FPC}@{$endif} BtnFilesClick;
-  ToolbarPanel.InsertFront(BtnFiles);
-
-  BtnInfo := TCastleButton.Create(ToolbarPanel);
-  BtnInfo.Tooltip := 'About';
-  BtnInfo.Image.Url := 'castle-data:/info-circle.png';
-  BtnInfo.OnClick := {$ifdef FPC}@{$endif} BtnInfoClick;
-  ToolbarPanel.InsertFront(BtnInfo);
-
-  // style all toolbar buttons - make them flat (no background), apart from PressedState
-  for I := 0 to ToolbarPanel.ControlsCount - 1 do
-  begin
-    if ToolbarPanel.Controls[I] is TCastleButton then
-    begin
-      ToolButton := ToolbarPanel.Controls[I] as TCastleButton;
-      ToolButton.CustomBackground := true;
-      ToolButton.CustomBackgroundPressed.Image := Theme.ImagesPersistent[tiButtonPressed].Image;
-      ToolButton.CustomBackgroundPressed.OwnsImage := false;
-      ToolButton.CustomBackgroundPressed.ProtectedSides.AllSides := 3;
-      ToolButton.PaddingHorizontal := ButtonPadding;
-      ToolButton.PaddingVertical := ButtonPadding;
-      ToolButton.Height := ButtonsHeight;
-      ToolButton.AutoSizeHeight := false;
-    end;
-  end;
-
-  Status := TCastleLabel.Create(FreeAtStop);
-  Status.Caption := ' ';
-  Status.Padding := 5;
-  Status.Color := Red;
-  Status.FontScale := 0.8;
-  InsertFront(Status);
+  ButtonNavigations.OnClick := @ClickNavigations;
+  ButtonOptions.OnClick := @ClickOptions;
+  ButtonScreenshot.OnClick := @ClickScreenshot;
+  ButtonInfo.OnClick := @ClickInfo;
+  ButtonFiles.OnClick := @ClickFiles;
+  ButtonViewpoints.OnClick := @ClickViewpoints;
+  ButtonAnimations.OnClick := @ClickAnimations;
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
 
@@ -295,20 +229,6 @@ begin
     ideally. }
   Result := MainViewport.Items.MainScene;
   {$warnings on}
-end;
-
-procedure TViewDisplayScene.Resize;
-const
-  ButtonsMargin = 5;  {< between buttons }
-begin
-  inherited;
-
-  BtnViewpoints.Exists := MainScene.ViewpointsCount > 0;
-  BtnAnimations.Exists := MainScene.AnimationsList.Count > 0;
-
-  // status text (FPS)
-  Status.Translation := Vector2(10,
-    ToolbarPanel.EffectiveRect.Bottom - ButtonsMargin - Status.EffectiveHeight);
 end;
 
 procedure TViewDisplayScene.OnWarningHandle(const Category, S: string);
@@ -365,7 +285,12 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
     MainScene.Collides := AppOptions.CollisionsOn;
 
-    Resize; // to hide viewpoints, animations buttons etc.
+    // update buttons enabled/captions based on scene counts
+    ButtonViewpoints.Enabled := MainScene.ViewpointsCount > 0;
+    ButtonViewpoints.Caption := 'Vie (' + IntToStr(MainScene.ViewpointsCount) + ')';
+    ButtonAnimations.Enabled := MainScene.AnimationsList.Count > 0;
+    ButtonAnimations.Caption := 'Ani (' + IntToStr(MainScene.AnimationsList.Count) + ')';
+
     UpdateBBox;
   end;
 
@@ -411,9 +336,9 @@ procedure TViewDisplayScene.Update(const SecondsPassed: Single; var HandleInput:
 begin
   inherited;
 
-  Status.Exists := AppOptions.ShowFps;
-  if Status.Exists then
-    Status.Caption := 'FPS: ' + Container.Fps.ToString;
+  LabelFpsStats.Exists := AppOptions.ShowFps;
+  if LabelFpsStats.Exists then
+    LabelFpsStats.Caption := 'FPS: ' + Container.Fps.ToString;
 
   UpdateBBox;
 end;
@@ -425,12 +350,7 @@ begin
   Container.PushView(ViewNavigation);
 end;
 
-procedure TViewDisplayScene.NavigationTypeInPopupSelected(NavType: TNavigationType);
-begin
-  MainViewport.NavigationType := NavType;
-end;
-
-procedure TViewDisplayScene.BtnScreenshotClick(Sender: TObject);
+procedure TViewDisplayScene.ClickScreenshot(Sender: TObject);
 var
   Image: TRGBImage;
   Filename: string;
@@ -463,13 +383,13 @@ begin
   finally FreeAndNil(RestoreCtls) end;
 end;
 
-procedure TViewDisplayScene.BtnOptionsClick(Sender: TObject);
+procedure TViewDisplayScene.ClickOptions(Sender: TObject);
 begin
   ViewOptions.FScene := MainScene;
   Container.PushView(ViewOptions);
 end;
 
-procedure TViewDisplayScene.BtnInfoClick(Sender: TObject);
+procedure TViewDisplayScene.ClickInfo(Sender: TObject);
 
   function SceneVertexTriangleInfo(const Scene: TCastleScene): string;
   begin
@@ -498,14 +418,9 @@ begin
   Container.PushView(ViewAbout);
 end;
 
-procedure TViewDisplayScene.BtnFilesClick(Sender: TObject);
+procedure TViewDisplayScene.ClickFiles(Sender: TObject);
 begin
   Container.PushView(ViewFiles);
-end;
-
-procedure TViewDisplayScene.FileSelected(Url: string);
-begin
-  OpenScene(Url);
 end;
 
 procedure TViewDisplayScene.ClickViewpoints(Sender: TObject);
