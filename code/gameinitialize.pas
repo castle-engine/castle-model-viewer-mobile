@@ -48,8 +48,6 @@ var
 
 { One-time initialization. }
 procedure ApplicationInitialize;
-//var
-  //CustomUIFont: TFontFamily;
 begin
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
@@ -74,38 +72,6 @@ begin
   ViewChoice := TViewChoice.Create(Application);
   ViewNavigation := TViewNavigation.Create(Application);
   {$endregion 'Castle View Creation'}
-
-  Theme.BackgroundColor := Vector4(0.1, 0.1, 0.1, 0.5);
-  Theme.MessageTextColor := Silver;
-  Theme.TextColor := Black;
-  Theme.DisabledTextColor := Gray;
-
-  Theme.ImagesPersistent[tiButtonNormal].Url := 'castle-data:/theme_btnNormal.png';
-  Theme.ImagesPersistent[tiButtonDisabled].Url := 'castle-data:/theme_btnDisabled.png';
-  Theme.ImagesPersistent[tiButtonFocused].Url := 'castle-data:/theme_btnFocused.png';
-  Theme.ImagesPersistent[tiButtonPressed].Url := 'castle-data:/theme_btnPressed.png';
-
-  Theme.ImagesPersistent[tiButtonNormal].ProtectedSides.AllSides := 3;
-  Theme.ImagesPersistent[tiButtonDisabled].ProtectedSides.AllSides := 3;
-  Theme.ImagesPersistent[tiButtonFocused].ProtectedSides.AllSides := 3;
-  Theme.ImagesPersistent[tiButtonPressed].ProtectedSides.AllSides := 3;
-
-  { prepare TFontFamily with font varians for bold, italic }
-  (* TODO: Assign custom font to use Html:=true on some labels.
-     Or just don't use Html:=true, seems not really necessary for this application UI.
-
-  CustomUIFont := TFontFamily.Create(Window);
-  CustomUIFont.RegularFont := TTextureFont.Create(CustomUIFont);
-  (CustomUIFont.RegularFont as TTextureFont).Load(TextureFont_DejaVuSans_20);
-  CustomUIFont.BoldFont := TTextureFont.Create(CustomUIFont);
-  (CustomUIFont.BoldFont as TTextureFont).Load(TextureFont_DejaVuSansBold_20);
-  CustomUIFont.ItalicFont := TTextureFont.Create(CustomUIFont);
-  (CustomUIFont.ItalicFont as TTextureFont).Load(TextureFont_DejaVuSansOblique_20);
-  CustomUIFont.BoldItalicFont := TTextureFont.Create(CustomUIFont);
-  (CustomUIFont.BoldItalicFont as TTextureFont).Load(TextureFont_DejaVuSansBoldOblique_20);
-  CustomUIFont.Size := 15;
-  Container.DefaultFont := CustomUIFont;
-  *)
 
   Window.Container.View := ViewDisplayScene;
 end;

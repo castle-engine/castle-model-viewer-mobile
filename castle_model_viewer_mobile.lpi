@@ -63,7 +63,7 @@
         <PackageName Value="castle_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="11">
       <Unit0>
         <Filename Value="castle_model_viewer_mobile.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -109,10 +109,15 @@
         <UnitName Value="gameviewfiles"/>
       </Unit8>
       <Unit9>
+        <Filename Value="code/gameviewnavigation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="gameviewnavigation"/>
+      </Unit9>
+      <Unit10>
         <Filename Value="code/gameviewoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameviewoptions"/>
-      </Unit9>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

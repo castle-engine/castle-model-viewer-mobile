@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{62F3E029-65A9-49D3-8178-E15A876BD620}</ProjectGuid>
+        <ProjectGuid>{F2492169-BC0F-4168-BE85-BC10621AF7D7}</ProjectGuid>
         <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -277,6 +277,23 @@
      to non-Windows targets,
      see https://castle-engine.io/delphi_linux#data_files_deployment .
 -->
+<DeployFile LocalName="data\CastleSettings.xml" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>CastleSettings.xml</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>CastleSettings.xml</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>CastleSettings.xml</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\castle_game_engine_icon.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -1093,23 +1110,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\file.png" Configuration="Debug" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>file.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>file.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>file.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\gameviewabout.castle-user-interface" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -1144,6 +1144,23 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\gameviewdisplayscene.castle-user-interface" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewdisplayscene.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewdisplayscene.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewdisplayscene.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\gameviewfiles.castle-user-interface" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -1158,6 +1175,23 @@
  <Platform Name="Win64">
   <RemoteDir>./data/</RemoteDir>
   <RemoteName>gameviewfiles.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\gameviewnavigation.castle-user-interface" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewnavigation.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewnavigation.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewnavigation.castle-user-interface</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1178,207 +1212,513 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\gear-b.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/AUTHORS.md" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gear-b.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gear-b.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gear-b.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\info-circle.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/Makefile" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>info-circle.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>Makefile</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>info-circle.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>Makefile</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>info-circle.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>Makefile</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_examine.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/file.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_examine.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_examine.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_examine.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_fly.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/file.svg" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_fly.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_fly.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_fly.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_turntable.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/heart.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_turntable@2x.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/heart.svg" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable@2x.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable@2x.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable@2x.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_walk.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/image.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_walk.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_walk.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_walk.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\screenshot.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/image.svg" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>screenshot.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>screenshot.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>screenshot.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnDisabled.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/info.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnDisabled.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnDisabled.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnDisabled.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnFocused.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/info.svg" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnFocused.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnFocused.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnFocused.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnNormal.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/navigation.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnNormal.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnNormal.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnNormal.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnPressed.png" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\icons/navigation.svg" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnPressed.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnPressed.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnPressed.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/play-circle.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/play-circle.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/settings.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/settings.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/tool.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/tool.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/heart.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/help-circle.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>help-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>help-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>help-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/menu.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>menu.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>menu.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>menu.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/navigation-2.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/2d.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/2d.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/examine.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/examine.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/fly.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/fly.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/walk.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/walk.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1396,6 +1736,23 @@
  <Platform Name="Win64">
   <RemoteDir>./data/</RemoteDir>
   <RemoteName>theme_window.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\CastleSettings.xml" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>CastleSettings.xml</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>CastleSettings.xml</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>CastleSettings.xml</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -2215,23 +2572,6 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\file.png" Configuration="Release" Class="File">
- <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>file.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>file.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
- <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>file.png</RemoteName>
-  <Overwrite>true</Overwrite>
- </Platform>
-</DeployFile>
 <DeployFile LocalName="data\gameviewabout.castle-user-interface" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -2266,6 +2606,23 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\gameviewdisplayscene.castle-user-interface" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewdisplayscene.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewdisplayscene.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewdisplayscene.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\gameviewfiles.castle-user-interface" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/</RemoteDir>
@@ -2280,6 +2637,23 @@
  <Platform Name="Win64">
   <RemoteDir>./data/</RemoteDir>
   <RemoteName>gameviewfiles.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\gameviewnavigation.castle-user-interface" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewnavigation.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewnavigation.castle-user-interface</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/</RemoteDir>
+  <RemoteName>gameviewnavigation.castle-user-interface</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -2300,207 +2674,513 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\gear-b.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/AUTHORS.md" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gear-b.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gear-b.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>gear-b.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\info-circle.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/Makefile" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>info-circle.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>Makefile</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>info-circle.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>Makefile</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>info-circle.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>Makefile</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_examine.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/file.png" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_examine.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_examine.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_examine.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_fly.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/file.svg" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_fly.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_fly.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_fly.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>file.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_turntable.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/heart.png" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_turntable@2x.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/heart.svg" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable@2x.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable@2x.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_turntable@2x.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\nav_walk.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/image.png" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_walk.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_walk.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>nav_walk.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\screenshot.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/image.svg" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>screenshot.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>screenshot.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>screenshot.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>image.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnDisabled.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/info.png" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnDisabled.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnDisabled.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnDisabled.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnFocused.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/info.svg" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnFocused.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnFocused.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnFocused.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>info.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnNormal.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/navigation.png" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnNormal.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnNormal.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnNormal.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.png</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\theme_btnPressed.png" Configuration="Release" Class="File">
+<DeployFile LocalName="data\icons/navigation.svg" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnPressed.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnPressed.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/</RemoteDir>
-  <RemoteName>theme_btnPressed.png</RemoteName>
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>navigation.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/play-circle.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/play-circle.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>play-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/settings.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/settings.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>settings.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/tool.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/tool.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>tool.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/heart.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>heart.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/help-circle.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>help-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>help-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>help-circle.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/menu.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>menu.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>menu.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>menu.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/unused/navigation-2.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/unused/</RemoteDir>
+  <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/2d.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/2d.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>2d.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/examine.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/examine.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>examine.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/fly.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/fly.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>fly.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/walk.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\navigation/walk.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/navigation/</RemoteDir>
+  <RemoteName>walk.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>

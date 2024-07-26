@@ -39,9 +39,11 @@ GNU GPL >= 2.0. See the file `LICENSE`.
 
 ## Authors
 
-- Jan Adamec
 - Michalis Kamburelis
+- Jan Adamec
 - Many contributors to the [Castle Game Engine](https://castle-engine.io/) project.
+
+Pretty toolbar icons from https://feathericons.com/ .
 
 ### Authors of 3D graphics used in this project
 

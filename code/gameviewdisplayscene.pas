@@ -41,7 +41,7 @@ type
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
     ButtonNavigations, ButtonOptions, ButtonViewpoints, ButtonAnimations,
-      ButtonScreenshot, ButtonInfo, ButtonFiles: TCastleButton;
+      ButtonScreenshot, ButtonInfo, ButtonFiles, ButtonDonate: TCastleButton;
     LabelFpsStats: TCastleLabel;
     ViewportContainer: TCastleUserInterface;
   private
@@ -67,6 +67,7 @@ type
     procedure ClickViewpoints(Sender: TObject);
     procedure ClickAnimations(Sender: TObject);
     procedure ClickNavigations(Sender: TObject);
+    procedure ClickDonate(Sender: TObject);
     procedure OnWarningHandle(const Category, S: string);
 
     { Currently loaded scene. May be @nil only before first OpenScene from Start. }
@@ -95,7 +96,7 @@ uses SysUtils, Math, Zipper,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
-  CastleRenderOptions, CastleUriUtils, CastleVectors,
+  CastleRenderOptions, CastleUriUtils, CastleVectors, CastleOpenDocument,
   GameViewAbout, GameOptions, GameViewOptions, GameViewFiles, GameViewChoice,
   GameViewNavigation;
 
@@ -190,6 +191,7 @@ begin
   ButtonFiles.OnClick := @ClickFiles;
   ButtonViewpoints.OnClick := @ClickViewpoints;
   ButtonAnimations.OnClick := @ClickAnimations;
+  ButtonDonate.OnClick := @ClickDonate;
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
 
@@ -241,6 +243,15 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
   { Every CGE warning that happens within this procedure will be captured
     and later shown to player. }
   procedure LoadSceneAndCaptureWarnings;
+
+    procedure AdjustIconColorFromEnabled(const Button: TCastleButton);
+    begin
+      if Button.Enabled then
+        Button.Image.Color := Black
+      else
+        Button.Image.Color := Gray;
+    end;
+
   var
     NewScene: TCastleScene;
   begin
@@ -287,9 +298,11 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
     // update buttons enabled/captions based on scene counts
     ButtonViewpoints.Enabled := MainScene.ViewpointsCount > 0;
-    ButtonViewpoints.Caption := 'Vie (' + IntToStr(MainScene.ViewpointsCount) + ')';
+    ButtonViewpoints.Tooltip := 'Viewpoints (' + IntToStr(MainScene.ViewpointsCount) + ')';
+    AdjustIconColorFromEnabled(ButtonViewpoints);
     ButtonAnimations.Enabled := MainScene.AnimationsList.Count > 0;
-    ButtonAnimations.Caption := 'Ani (' + IntToStr(MainScene.AnimationsList.Count) + ')';
+    ButtonAnimations.Tooltip := 'Animations (' + IntToStr(MainScene.AnimationsList.Count) + ')';
+    AdjustIconColorFromEnabled(ButtonAnimations);
 
     UpdateBBox;
   end;
@@ -348,6 +361,11 @@ begin
   ViewNavigation.Navigation := MainViewport.NavigationType;
   ResumeAction := raChangeNavigation;
   Container.PushView(ViewNavigation);
+end;
+
+procedure TViewDisplayScene.ClickDonate(Sender: TObject);
+begin
+  OpenUrl('https://www.patreon.com/castleengine');
 end;
 
 procedure TViewDisplayScene.ClickScreenshot(Sender: TObject);
