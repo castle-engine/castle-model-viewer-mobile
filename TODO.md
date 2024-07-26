@@ -4,6 +4,11 @@ High priority:
 
 - needs_download_network_resources.x3dv fails with EnableBlockingDownloads -- download never finishes?
 
+Lower priority:
+
+- Demo model with shadows
+- Demo model with water
+
 ## Internals
 
 Lower priority:

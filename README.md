@@ -64,4 +64,10 @@ Thank you for the amazing 3D stuff we could use to showcase our project!
     - License: CC Attribution
     - Author: Federico Terzi ( https://sketchfab.com/Federico.Terzi )
 
+- bunny:
+    - From Quaternius
+    - https://quaternius.com/packs/ultimatemonsters.html
+    - License: public domain
+    - Support the artist: https://www.patreon.com/quaternius
+
 - The rest of graphics (mostly hand-crafted X3D files) was done by _Michalis Kamburelis_.

@@ -292,7 +292,11 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
     // start 1st animation, if any; looks good on Spine models
     if NewScene.AnimationsList.Count > 0 then
     begin
-      NewScene.PlayAnimation(NewScene.AnimationsList[0], true);
+      // Hack to play Walk, not Death, when Bunny loads
+      if NewScene.HasAnimation('Walk') then
+        NewScene.PlayAnimation('Walk', true)
+      else
+        NewScene.PlayAnimation(NewScene.AnimationsList[0], true);
       WritelnLog('Animation', 'Playing animation ' + NewScene.AnimationsList[0]);
     end;
 

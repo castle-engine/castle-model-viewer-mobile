@@ -79,10 +79,11 @@ begin
   DesignUrl := 'castle-data:/gameviewfiles.castle-user-interface';
 
   Models := TDemoModelList.Create(true);
-  Models.Add('Animated Cat (glTF)', 'castle-data:/demo/cat_final.x3dv');
-  Models.Add('Dungeon (glTF + X3D, walking)', 'castle-data:/demo/dungeon_final.x3dv');
-  Models.Add('Steampunk Explorer (glTF)', 'castle-data:/demo/steampunk_underwater_explorer.glb');
-  Models.Add('Animated 2D Dragon (Spine)', 'castle-data:/demo/dragon-spine/dragon.json');
+  Models.Add('Animated Cat (glTF + X3D, viewpoints)', 'castle-data:/demo/cat_final.x3dv');
+  Models.Add('Dungeon (glTF + X3D, walk, viewpoints)', 'castle-data:/demo/dungeon_final.x3dv');
+  //Models.Add('Steampunk Explorer (glTF)', 'castle-data:/demo/steampunk_underwater_explorer.glb');
+  Models.Add('Bunny (glTF, animations)', 'castle-data:/demo/quaternius_monsters/Bunny.gltf');
+  Models.Add('Animated 2D Dragon (Spine, animations)', 'castle-data:/demo/dragon-spine/dragon.json');
   Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot_fresnel_toon.x3dv');
   Models.Add('Teapot (time to shader) (X3D)', 'castle-data:/demo/teapot_time.x3dv');
   //Models.Add('Test Downloading Resources (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');
