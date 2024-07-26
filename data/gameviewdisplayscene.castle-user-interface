@@ -40,7 +40,7 @@
         "Alpha" : 5.1372551918029785E-001
       },
       "Height" : 5.0000000000000000E+001,
-      "Name" : "RectangleControl1",
+      "Name" : "Toolbar",
       "TranslationPersistent" : {
         "$$ClassName" : "TCastleVector2Persistent"
       },
@@ -1272,6 +1272,28 @@
       "TranslationPersistent" : {
         "$$ClassName" : "TCastleVector2Persistent",
         "X" : 1.0000000000000000E+001,
+        "Y" : 6.0000000000000000E+001
+      }
+    },
+    {
+      "$$ClassName" : "TCastleNotifications",
+      "Border" : {
+        "$$ClassName" : "TBorder"
+      },
+      "BorderColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent"
+      },
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent"
+      },
+      "HorizontalAnchorParent" : "hpMiddle",
+      "HorizontalAnchorSelf" : "hpMiddle",
+      "Name" : "OnScreenNotifications",
+      "OutlineColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent"
+      },
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector2Persistent",
         "Y" : 6.0000000000000000E+001
       }
     }

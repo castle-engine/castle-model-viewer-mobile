@@ -27,7 +27,7 @@ interface
 
 uses Classes, Generics.Collections,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
-  CastleDialogViews;
+  CastleDialogViews, CastleNotifications;
 
 type
   TNavTypeList = class(specialize TList<TNavigationType>) end;
@@ -44,6 +44,8 @@ type
       ButtonScreenshot, ButtonInfo, ButtonFiles, ButtonDonate: TCastleButton;
     LabelFpsStats: TCastleLabel;
     ViewportContainer: TCastleUserInterface;
+    OnScreenNotifications: TCastleNotifications;
+    Toolbar: TCastleUserInterface;
   private
     BBoxScene: TCastleScene;
     BBoxTransform: TTransformNode;
@@ -371,34 +373,37 @@ end;
 procedure TViewDisplayScene.ClickScreenshot(Sender: TObject);
 var
   Image: TRGBImage;
-  Filename: string;
-  RestoreCtls: TCastleUserInterfaceList;
-  I: Integer;
-  C: TCastleUserInterface;
+  SavedLabelFpsStatsExists: Boolean;
+  SavedViewportContainerBorderBottom: Single;
+  ImageUrl: String;
 begin
-  RestoreCtls := TCastleUserInterfaceList.Create(false);
+  SavedLabelFpsStatsExists := LabelFpsStats.Exists;
+  SavedViewportContainerBorderBottom := ViewportContainer.Border.Bottom;
+
+  // hide everything except viewport, and make viewport fill container
+  Toolbar.Exists := false;
+  OnScreenNotifications.Exists := false;
+  LabelFpsStats.Exists := false;
+  TouchNavigation.Exists := false;
+  ViewportContainer.Border.Bottom := 0;
+  Container.InternalTooltipHide;
+
+  // make screenshot
+  Image := Container.SaveScreen;
   try
-    // hide everything except MainViewport
-    for I := 0 to ControlsCount - 1 do
-    begin
-      C := Controls[I];
-      if C.Exists and (C <> MainViewport) then
-      begin
-        C.Exists := false;
-        RestoreCtls.InsertFront(C);
-      end;
-    end;
-    // make screenshot
-    Image := Container.SaveScreen;
-    try
-      Filename := ApplicationConfig('screenshot.png');
-      SaveImage(Image, Filename);
-      TPhotoService.StoreImage(Filename);
-    finally FreeAndNil(Image) end;
-    // restore hidden controls
-    for I := 0 to RestoreCtls.Count - 1 do
-      RestoreCtls[I].Exists := true;
-  finally FreeAndNil(RestoreCtls) end;
+    ImageUrl := FileNameAutoInc(ApplicationConfig('screenshots/'), 'screenshot_%d.png');
+    SaveImage(Image, ImageUrl);
+    TPhotoService.StoreImage(ImageUrl);
+  finally FreeAndNil(Image) end;
+
+  // restore hidden controls
+  Toolbar.Exists := true;
+  OnScreenNotifications.Exists := true;
+  LabelFpsStats.Exists := SavedLabelFpsStatsExists;
+  TouchNavigation.Exists := true;
+  ViewportContainer.Border.Bottom := SavedViewportContainerBorderBottom;
+
+  OnScreenNotifications.Show('Screenshot saved to ' + ExtractUriName(ImageUrl));
 end;
 
 procedure TViewDisplayScene.ClickOptions(Sender: TObject);
