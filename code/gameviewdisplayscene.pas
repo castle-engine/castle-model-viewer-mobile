@@ -512,7 +512,9 @@ begin
       MainViewport.NavigationType := ViewNavigation.Navigation;
     else raise EInternalError.Create('TViewDisplayScene.Resume: ResumeAction not implemented');
   end;
+  ResumeAction := raNone;
 end;
+
 function TViewDisplayScene.GetSceneUnpackDir: string;
 var
   UnpackDirUrl: string;
