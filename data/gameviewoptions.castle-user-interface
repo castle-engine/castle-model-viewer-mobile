@@ -710,7 +710,7 @@
                         "$$ClassName" : "TCastleColorPersistent"
                       },
                       "Text" : [
-                        "Temporary Options (reset at app restart):"
+                        "Temporary Options (reset at model load):"
                       ],
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",

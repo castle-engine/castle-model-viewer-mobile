@@ -308,7 +308,7 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
       WritelnLog('Animation', 'Playing animation ' + NewScene.AnimationsList[0]);
     end;
 
-    MainScene.Collides := AppOptions.CollisionsOn;
+    MainScene.Collides := true; // always start with Collisions = on
 
     // update buttons enabled/captions based on scene counts
     ButtonViewpoints.Enabled := MainScene.ViewpointsCount > 0;

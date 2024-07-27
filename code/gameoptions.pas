@@ -22,7 +22,7 @@ uses
 
 type
   TAppOptions = class
-    ShowBBox, ShowFps, CollisionsOn: boolean;
+    ShowBBox, ShowFps: boolean;
     EnableBlockingDownloads: boolean;
     procedure Load;
     procedure Save;

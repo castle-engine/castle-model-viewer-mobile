@@ -65,11 +65,14 @@ procedure TViewOptions.Start;
 begin
   inherited;
 
+  // persistent options
   CheckboxBBox.Checked := AppOptions.ShowBBox;
   CheckboxFps.Checked := AppOptions.ShowFps;
-  CheckboxHeadlight.Checked := Assigned(FScene) and FScene.HeadLightOn;
-  CheckboxCollisions.Checked := AppOptions.CollisionsOn;
   CheckboxEnableBlockingDownloads.Checked := AppOptions.EnableBlockingDownloads;
+
+  // non-persistent options
+  CheckboxHeadlight.Checked := Assigned(FScene) and FScene.HeadLightOn;
+  CheckboxCollisions.Checked := Assigned(FScene) and FScene.Collides;
 
   CheckboxBBox.OnChange := @CheckboxBBoxChange;
   CheckboxFps.OnChange := @CheckboxFpsChange;
@@ -98,9 +101,8 @@ end;
 
 procedure TViewOptions.CheckboxCollisionsChange(Sender: TObject);
 begin
-  AppOptions.CollisionsOn := CheckboxCollisions.Checked;
   if Assigned(FScene) then
-    FScene.Collides := AppOptions.CollisionsOn;
+    FScene.Collides := CheckboxCollisions.Checked;
 end;
 
 procedure TViewOptions.CheckboxEnableBlockingDownloadsChange(Sender: TObject);
