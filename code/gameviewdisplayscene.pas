@@ -30,8 +30,6 @@ uses Classes, Generics.Collections,
   CastleDialogViews, CastleNotifications;
 
 type
-  TNavTypeList = class(specialize TList<TNavigationType>) end;
-
   { Actions to do when we have Resume, possibly coming back from a dialog
     to choose new viewpoint / animation to play. }
   TResumeAction = (raNone, raMoveViewpoint, raPlayAnimation, raChangeNavigation);
