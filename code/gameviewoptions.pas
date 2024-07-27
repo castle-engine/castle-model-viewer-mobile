@@ -81,11 +81,13 @@ end;
 procedure TViewOptions.CheckboxBBoxChange(Sender: TObject);
 begin
   AppOptions.ShowBBox := CheckboxBBox.Checked;
+  AppOptions.Save;
 end;
 
 procedure TViewOptions.CheckboxFpsChange(Sender: TObject);
 begin
   AppOptions.ShowFps := CheckboxFps.Checked;
+  AppOptions.Save;
 end;
 
 procedure TViewOptions.CheckboxHeadlightChange(Sender: TObject);
@@ -105,6 +107,7 @@ procedure TViewOptions.CheckboxEnableBlockingDownloadsChange(Sender: TObject);
 begin
   AppOptions.EnableBlockingDownloads := CheckboxEnableBlockingDownloads.Checked;
   EnableBlockingDownloads := AppOptions.EnableBlockingDownloads;
+  AppOptions.Save;
 end;
 
 end.
