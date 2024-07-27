@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{F2492169-BC0F-4168-BE85-BC10621AF7D7}</ProjectGuid>
+        <ProjectGuid>{10C54596-DAD4-4A59-A8DF-E33C9943FE62}</ProjectGuid>
         <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -444,6 +444,23 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/dragon-spine/</RemoteDir>
   <RemoteName>dragon.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/dragon_spine_final.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dragon_spine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dragon_spine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dragon_spine_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1056,6 +1073,40 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
   <RemoteName>needs_download_network_resources.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/quaternius_monsters/AUTHORS.txt" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>AUTHORS.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>AUTHORS.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>AUTHORS.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/quaternius_monsters/Bunny.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>Bunny.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>Bunny.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>Bunny.gltf</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1909,6 +1960,23 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\demo/dragon_spine_final.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dragon_spine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dragon_spine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/</RemoteDir>
+  <RemoteName>dragon_spine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\demo/dungeon/dungeon_simplified.bin" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/dungeon/</RemoteDir>
@@ -2518,6 +2586,40 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/</RemoteDir>
   <RemoteName>needs_download_network_resources.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/quaternius_monsters/AUTHORS.txt" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>AUTHORS.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>AUTHORS.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>AUTHORS.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/quaternius_monsters/Bunny.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>Bunny.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>Bunny.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
+  <RemoteName>Bunny.gltf</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>

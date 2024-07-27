@@ -23,7 +23,7 @@ uses CastleApplicationProperties, CastleWindow, CastleLog;
 initialization
   ApplicationProperties.ApplicationName := 'castle-model-viewer-mobile';
   ApplicationProperties.Caption := 'Castle Model Viewer';
-  ApplicationProperties.Version := '1.7.1';
+  ApplicationProperties.Version := '2.0.0';
 
   if not IsLibrary then
     Application.ParseStandardParameters;
