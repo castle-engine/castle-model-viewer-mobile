@@ -50,6 +50,7 @@ type
     BBoxGeometry: TBoxNode;
     SceneWarnings: TStringList;
     ResumeAction: TResumeAction;
+    ToolbarBaseHeight: Single;
 
     {$warnings off}
     { Knowingly using deprecated TCastleAutoNavigationViewport:
@@ -68,7 +69,8 @@ type
     procedure ClickAnimations(Sender: TObject);
     procedure ClickNavigations(Sender: TObject);
     procedure ClickDonate(Sender: TObject);
-    procedure OnWarningHandle(const Category, S: string);
+    procedure WarningHandle(const Category, S: string);
+    procedure SafeBorderChanged(Sender: TObject);
 
     { Currently loaded scene. May be @nil only before first OpenScene from Start. }
     function MainScene: TCastleScene;
@@ -196,6 +198,9 @@ begin
   InitializeBBox;
   UpdateBBox;
 
+  ToolbarBaseHeight := Toolbar.EffectiveHeight;
+  Container.OnSafeBorderChanged := {$ifdef FPC}@{$endif} SafeBorderChanged;
+
   { Do not use Parameters[1] on Android and iOS.
 
     E.g. on Android, Parameters[1] may contain "ene.mobile"
@@ -211,6 +216,7 @@ procedure TViewDisplayScene.Stop;
 begin
   FreeAndNil(SceneWarnings);
   BBoxScene := nil; // freed by FreeAtStop
+  Container.OnSafeBorderChanged := nil;
   inherited;
 end;
 
@@ -231,7 +237,7 @@ begin
   {$warnings on}
 end;
 
-procedure TViewDisplayScene.OnWarningHandle(const Category, S: string);
+procedure TViewDisplayScene.WarningHandle(const Category, S: string);
 begin
   SceneWarnings.Add(Category + ': ' + S);
 end;
@@ -317,11 +323,11 @@ begin
   end;
 
   SceneWarnings.Clear;
-  ApplicationProperties.OnWarning.Add({$ifdef FPC}@{$endif} OnWarningHandle);
+  ApplicationProperties.OnWarning.Add({$ifdef FPC}@{$endif} WarningHandle);
   try
     LoadSceneAndCaptureWarnings;
   finally
-    ApplicationProperties.OnWarning.Remove({$ifdef FPC}@{$endif} OnWarningHandle);
+    ApplicationProperties.OnWarning.Remove({$ifdef FPC}@{$endif} WarningHandle);
   end;
 
   { Show warnings, if any occurred during loading.
@@ -597,6 +603,14 @@ begin
   // cannot delete all unpacked files now, textures load a bit later
 
   FreeAndNil(UnZipper);
+end;
+
+procedure TViewDisplayScene.SafeBorderChanged(Sender: TObject);
+begin
+  Toolbar.Height := ToolbarBaseHeight + Container.SafeBorder.Bottom;
+
+  // update Border.Bottom border, to move touch gizmos up
+  ViewportContainer.Border.Bottom := Toolbar.EffectiveHeight;
 end;
 
 end.

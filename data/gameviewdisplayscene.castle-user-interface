@@ -65,6 +65,8 @@
           "TranslationPersistent" : {
             "$$ClassName" : "TCastleVector2Persistent"
           },
+          "VerticalAnchorParent" : "vpTop",
+          "VerticalAnchorSelf" : "vpTop",
           "$Children" : [
             {
               "$$ClassName" : "TCastleButton",
@@ -1242,60 +1244,62 @@
               "Width" : 5.0000000000000000E+001
             }
           ]
+        },
+        {
+          "$$ClassName" : "TCastleLabel",
+          "Border" : {
+            "$$ClassName" : "TBorder"
+          },
+          "BorderColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent"
+          },
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent",
+            "Blue" : 5.2156865596771240E-001,
+            "Green" : 1.0000000000000000E+000,
+            "Red" : 5.0196081399917603E-001
+          },
+          "FrameColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent"
+          },
+          "Name" : "LabelFpsStats",
+          "OutlineColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent"
+          },
+          "Text" : [
+            "LabelFpsStats"
+          ],
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "X" : 1.0000000000000000E+001,
+            "Y" : 1.0000000000000000E+001
+          },
+          "VerticalAnchorParent" : "vpTop"
+        },
+        {
+          "$$ClassName" : "TCastleNotifications",
+          "Border" : {
+            "$$ClassName" : "TBorder"
+          },
+          "BorderColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent"
+          },
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent"
+          },
+          "HorizontalAnchorParent" : "hpMiddle",
+          "HorizontalAnchorSelf" : "hpMiddle",
+          "Name" : "OnScreenNotifications",
+          "OutlineColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent"
+          },
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "Y" : 1.0000000000000000E+001
+          },
+          "VerticalAnchorParent" : "vpTop"
         }
       ]
-    },
-    {
-      "$$ClassName" : "TCastleLabel",
-      "Border" : {
-        "$$ClassName" : "TBorder"
-      },
-      "BorderColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
-      },
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Blue" : 5.2156865596771240E-001,
-        "Green" : 1.0000000000000000E+000,
-        "Red" : 5.0196081399917603E-001
-      },
-      "FrameColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
-      },
-      "Name" : "LabelFpsStats",
-      "OutlineColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
-      },
-      "Text" : [
-        "LabelFpsStats"
-      ],
-      "TranslationPersistent" : {
-        "$$ClassName" : "TCastleVector2Persistent",
-        "X" : 1.0000000000000000E+001,
-        "Y" : 6.0000000000000000E+001
-      }
-    },
-    {
-      "$$ClassName" : "TCastleNotifications",
-      "Border" : {
-        "$$ClassName" : "TBorder"
-      },
-      "BorderColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
-      },
-      "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
-      },
-      "HorizontalAnchorParent" : "hpMiddle",
-      "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "OnScreenNotifications",
-      "OutlineColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent"
-      },
-      "TranslationPersistent" : {
-        "$$ClassName" : "TCastleVector2Persistent",
-        "Y" : 6.0000000000000000E+001
-      }
     }
   ]
 }
