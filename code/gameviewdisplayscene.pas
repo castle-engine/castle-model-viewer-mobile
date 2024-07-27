@@ -182,6 +182,12 @@ begin
   TouchNavigation.AutoTouchInterface := true;
   TouchNavigation.AutoWalkTouchInterface := tiWalkRotate; // show both walk and rotate gizmos, more obvious for users
   TouchNavigation.AutoExamineTouchInterface := tiNone; // use 2-finger gesture to pan, not touchControl
+  { We allow movement using TouchNavigation and so disable movement by
+    dragging elsewhere on the screen, it is too easy to move by accident then.
+    ControlMouseDragMode will do it, setting mdRotate on walk navigations,
+    so they only allow rotations.
+    See https://castle-engine.io/touch_input . }
+  TouchNavigation.ControlMouseDragMode := true;
   MainViewport.InsertFront(TouchNavigation);
 
   ButtonNavigations.OnClick := @ClickNavigations;
@@ -274,7 +280,7 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
     MainViewport.Items.MainScene.Free;
     MainViewport.Items.MainScene := NewScene;
     MainViewport.Items.Add(MainScene);
-  {$warnings on}
+    {$warnings on}
 
     { Do not take BBoxScene (with outdated now sizes)
       into account by MainViewport.AssignDefaultCamera.
