@@ -3,12 +3,16 @@
 		"generator":"Khronos glTF Blender I/O v4.2.57",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_unlit"
+	],
 	"scene":0,
 	"scenes":[
 		{
 			"name":"Scene",
 			"nodes":[
-				304
+				304,
+				305
 			]
 		}
 	],
@@ -5898,6 +5902,20 @@
 				0.0013050299603492022,
 				0.0013050299603492022
 			]
+		},
+		{
+			"mesh":15,
+			"name":"TorchLight",
+			"scale":[
+				0.0075182607397437096,
+				0.024040285497903824,
+				0.0075182607397437096
+			],
+			"translation":[
+				0.4378379285335541,
+				0.21149684488773346,
+				-2.1027772426605225
+			]
 		}
 	],
 	"materials":[
@@ -6216,6 +6234,23 @@
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.8211145401000977
+			}
+		},
+		{
+			"doubleSided":true,
+			"extensions":{
+				"KHR_materials_unlit":{}
+			},
+			"name":"MatTorchLight",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.9520478248596191,
+					1,
+					0,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.9
 			}
 		}
 	],
@@ -6670,6 +6705,20 @@
 					},
 					"indices":156,
 					"material":27
+				}
+			]
+		},
+		{
+			"name":"Cylinder",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":157,
+						"NORMAL":158,
+						"TEXCOORD_0":159
+					},
+					"indices":160,
+					"material":28
 				}
 			]
 		}
@@ -8255,6 +8304,40 @@
 			"componentType":5123,
 			"count":30,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":157,
+			"componentType":5126,
+			"count":170,
+			"max":[
+				1,
+				0.7940877676010132,
+				1
+			],
+			"min":[
+				-1,
+				-1,
+				-1
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":158,
+			"componentType":5126,
+			"count":170,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":159,
+			"componentType":5126,
+			"count":170,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":160,
+			"componentType":5123,
+			"count":570,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -9199,6 +9282,30 @@
 			"byteLength":60,
 			"byteOffset":2055912,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":2040,
+			"byteOffset":2055972,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2040,
+			"byteOffset":2058012,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1360,
+			"byteOffset":2060052,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1140,
+			"byteOffset":2061412,
+			"target":34963
 		}
 	],
 	"samplers":[
@@ -9209,7 +9316,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":2055972,
+			"byteLength":2062552,
 			"uri":"dungeon_simplified.bin"
 		}
 	]

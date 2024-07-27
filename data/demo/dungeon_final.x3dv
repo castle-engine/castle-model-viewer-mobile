@@ -50,6 +50,13 @@ Transform {
       intensity 10
     }
 
+    DEF AnimatedTorchLight PointLight {
+      location 0.47 0.167 -2.124
+      attenuation 0 0 2
+      color 1 1 0
+      intensity 10
+    }
+
     # add invisible wall that prevents walking outside, and falling down
     Collision {
       proxy Transform {
@@ -63,6 +70,18 @@ Transform {
     }
   ]
 }
+
+# Animate AnimatedTorchLight intensity.
+DEF AnimatedTorchLightAnimation TimeSensor {
+  cycleInterval 0.5
+  loop TRUE
+}
+DEF AnimatedTorchLightInterpolator ScalarInterpolator {
+  key      [  0 0.2 0.4 0.6 0.8 1.0 ]
+  keyValue [ 10   6   8   7   8  10 ]
+}
+ROUTE AnimatedTorchLightAnimation.fraction_changed TO AnimatedTorchLightInterpolator.set_fraction
+ROUTE AnimatedTorchLightInterpolator.value_changed TO AnimatedTorchLight.intensity
 
 # Starting camera position in the world.
 #
