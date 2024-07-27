@@ -1,8 +1,14 @@
-# Castle Model Viewer (formerly view3dscene-mobile)
+# Castle Model Viewer
 
 Mobile-friendly viewer for 3D and 2D models like glTF, X3D, VRML, Collada, Wavefront OBJ, Spine JSON and [many other formats supported by the Castle Game Engine](https://castle-engine.io/creating_data_model_formats.php).
 
 In addition to the above formats, it also allows to open a ZIP file that contains a single model and associated media (like textures, sounds etc.).
+
+You can change navigation type (walk, fly, examine, 2D), jump between viewpoints, play chosen animations, save a screenshot, display scene statistics (triangle, vertex count) and more.
+
+## Screenshots
+
+![Examine view of a dungeon](store/google-play/feature.png)
 
 ## Usage
 
