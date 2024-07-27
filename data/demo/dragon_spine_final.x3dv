@@ -1,0 +1,13 @@
+#X3D V4.0 utf8
+PROFILE Interchange
+
+# ------------------------------------------------------------------------
+# X3D file that includes (using "Inline") a Spine model and adds
+# Navigation node to instruct viewer to use 2D navigation.
+# ------------------------------------------------------------------------
+
+NavigationInfo {
+  type ["2D" "ANY"]
+}
+
+Inline { url "dragon-spine/dragon.json" }
