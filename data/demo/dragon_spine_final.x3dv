@@ -8,6 +8,7 @@ PROFILE Interchange
 
 NavigationInfo {
   type ["2D" "ANY"]
+  blendingSort "2D"
 }
 
 Inline { url "dragon-spine/dragon.json" }
