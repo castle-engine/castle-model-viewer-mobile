@@ -27,7 +27,7 @@ interface
 
 uses Classes, Generics.Collections,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
-  CastleDialogViews, CastleNotifications;
+  CastleDialogViews, CastleNotifications, CastleCameras;
 
 type
   { Actions to do when we have Resume, possibly coming back from a dialog
@@ -174,6 +174,13 @@ begin
   MainViewport.FullSize := true;
   MainViewport.AutoNavigation := true;
   MainViewport.PreventInfiniteFallingDown := true;
+  { We allow movement using TouchNavigation and so disable movement by
+    dragging elsewhere on the screen, it would be too easy to move by accident then.
+    So change MouseDragMode from mdWalkRotate to mdRotate.
+    Note that we don't change to mdNone -- it is still nice to allow user to rotate
+    by draging on the screen, even though TouchNavigation also allows it by gizmo.
+    See https://castle-engine.io/touch_input . }
+  MainViewport.InternalWalkNavigation.MouseDragMode := mdRotate;
   ViewportContainer.InsertFront(MainViewport);
 
   TouchNavigation := TCastleTouchNavigation.Create(FreeAtStop);
@@ -182,12 +189,6 @@ begin
   TouchNavigation.AutoTouchInterface := true;
   TouchNavigation.AutoWalkTouchInterface := tiWalkRotate; // show both walk and rotate gizmos, more obvious for users
   TouchNavigation.AutoExamineTouchInterface := tiNone; // use 2-finger gesture to pan, not touchControl
-  { We allow movement using TouchNavigation and so disable movement by
-    dragging elsewhere on the screen, it is too easy to move by accident then.
-    ControlMouseDragMode will do it, setting mdRotate on walk navigations,
-    so they only allow rotations.
-    See https://castle-engine.io/touch_input . }
-  TouchNavigation.ControlMouseDragMode := true;
   MainViewport.InsertFront(TouchNavigation);
 
   ButtonNavigations.OnClick := @ClickNavigations;
