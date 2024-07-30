@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{10C54596-DAD4-4A59-A8DF-E33C9943FE62}</ProjectGuid>
+        <ProjectGuid>{A4A39AD2-DC4C-4939-A759-2620E03AD5A5}</ProjectGuid>
         <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
