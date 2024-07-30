@@ -47,8 +47,7 @@ procedure TAbstractViewDialog.ClickTransparentBackground(Sender: TObject);
 begin
   { Only react to clicks directly on TransparentBackground,
     not on children like colored rectangles showing dialog inside. }
-  if (Container.Focus.Count <> 0) and
-     (Container.Focus.Last = TransparentBackground) then
+  if Container.FocusFront = TransparentBackground then
     ClickClose(nil);
 end;
 
