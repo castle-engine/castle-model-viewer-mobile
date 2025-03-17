@@ -87,7 +87,7 @@ begin
     'castle-data:/demo/dragon_spine_final.x3dv');
     //'castle-data:/demo/dragon-spine/dragon.json');
   // Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot_fresnel_toon.x3dv');
-  Models.Add('House Floors (IFC)', 'castle-data:/demo/ifc/house_floors.ifcjson');
+  Models.Add('House Floors (IFC)', 'castle-data:/demo/ifc/house_floors_viewpoints.x3dv');
   Models.Add('Teapot (time to shader) (X3D)', 'castle-data:/demo/teapot_time.x3dv');
   //Models.Add('Test Downloading Resources (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');
 end;
