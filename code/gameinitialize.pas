@@ -27,7 +27,7 @@ interface
 
 implementation
 
-uses Classes, SysUtils, Math, Zipper,
+uses Classes, SysUtils, Math,
   CastleWindow, CastleControls, CastleFilesUtils,
   CastleVectors, CastleUtils, CastleMessages, CastleLog,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
