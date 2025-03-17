@@ -539,6 +539,11 @@ end;
 
 procedure TViewDisplayScene.OpenZippedScene(const Url: string);
 
+  { TODO: Use TCastleZip, to
+    - allow opening ZIP files in memory, no need for GetSceneUnpackDir
+    - be compatible with both FPC and Delphi
+  }
+
   { Remove a (potentially non-empty) directory, but make no errors or
     even warnings if it does not exist. }
   procedure ClearDir(const UnpackDir: string);
