@@ -34,6 +34,7 @@ type
     procedure ClickTransparentBackground(Sender: TObject);
   public
     procedure Start; override;
+    function Press(const Event: TInputPressRelease): Boolean; override;
   end;
 
 implementation
@@ -59,5 +60,18 @@ begin
   ButtonClose.OnClick := @ClickClose;
 end;
 
-end.
+function TAbstractViewDialog.Press(const Event: TInputPressRelease): Boolean;
+begin
+  Result := inherited;
+  // if Result then Exit; // ignore Result, because InterceptInput sets it always to true
 
+  // Allow to exit by Escape.
+  // This is not useful on mobile, but it's useful on the web.
+  if Event.IsKey(keyEscape) then
+  begin
+    ClickClose(nil);
+    Exit(true);
+  end;
+end;
+
+end.
