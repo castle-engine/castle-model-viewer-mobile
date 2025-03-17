@@ -340,9 +340,14 @@ begin
   { Show warnings, if any occurred during loading.
     We do not catch warnings that occurred outside of LoadSceneAndCaptureWarnings
     -- they could disrupt UI at any place.
-    They'll be in application log for developer. }
-  if SceneWarnings.Count <> 0 then
-    MessageOK(Application.MainWindow, SceneWarnings.Text);
+    They'll be in application log for developer.
+
+    Later: hide the warnings. Too disruptive to show this when opening the model.
+    At least for house_floors.ifcjson (which has a number of known warnings).
+    TODO: Allow showing them later -- by a button UI, when user requests.
+  }
+  // if SceneWarnings.Count <> 0 then
+  //   MessageOK(Application.MainWindow, SceneWarnings.Text);
 end;
 
 procedure TViewDisplayScene.UpdateBBox;
