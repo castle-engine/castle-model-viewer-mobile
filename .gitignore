@@ -18,3 +18,6 @@ castle-model-viewer-mobile.exe
 # secrets
 AndroidSigningProperties.txt
 *.keystore
+
+# local
+CastleProjectLocalSettings.json
