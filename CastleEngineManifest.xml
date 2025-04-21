@@ -28,7 +28,7 @@
       <!-- service name="read_external_storage" / -->
     </services>
   </android>
-  <ios>
+  <ios team="HJ95YRBGJZ">
     <services>
       <service name="photo_service" />
     </services>
