@@ -630,6 +630,11 @@ begin
 
   // update Border.Bottom border, to move touch gizmos up
   ViewportContainer.Border.Bottom := Toolbar.EffectiveHeight;
+
+  // on Android in landscape mode, make touch navigation (e.g. in dungeon level)
+  // not overlap with the buttons (back, home...) on the left
+  TouchNavigation.Border.Left := Container.SafeBorder.Left;
+  TouchNavigation.Border.Right := Container.SafeBorder.Right;
 end;
 
 end.
