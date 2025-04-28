@@ -254,6 +254,10 @@
                 {
                   "$$ClassName" : "TCastleButton",
                   "AutoSize" : false,
+                  "Border" : {
+                    "$$ClassName" : "TBorder",
+                    "Top" : 2.0000000000000000E+000
+                  },
                   "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
