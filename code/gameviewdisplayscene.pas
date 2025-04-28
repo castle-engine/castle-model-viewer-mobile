@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2024 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2025 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "castle-model-viewer-mobile".
 
@@ -27,7 +27,7 @@ interface
 
 uses Classes, Generics.Collections,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
-  CastleDialogViews, CastleNotifications, CastleCameras;
+  CastleDialogViews, CastleNotifications, CastleCameras, CastleZip;
 
 type
   { Actions to do when we have Resume, possibly coming back from a dialog
@@ -51,6 +51,7 @@ type
     SceneWarnings: TStringList;
     ResumeAction: TResumeAction;
     ToolbarBaseHeight: Single;
+    SceneZip: TCastleZip;
 
     {$warnings off}
     { Knowingly using deprecated TCastleAutoNavigationViewport:
@@ -74,7 +75,6 @@ type
 
     { Currently loaded scene. May be @nil only before first OpenScene from Start. }
     function MainScene: TCastleScene;
-    function GetSceneUnpackDir: string;
     procedure OpenZippedScene(const Url: string);
     procedure DropFiles(const FileNames: array of string);
     { Call each frame to update BBox* values to match current MainScene.BoundingBox. }
@@ -94,7 +94,7 @@ var
 
 implementation
 
-uses SysUtils, Math, Zipper,
+uses SysUtils, Math,
   CastleImages, CastleFilesUtils, CastleWindow, CastleColors, CastleBoxes,
   CastleApplicationProperties, CastleUtils, CastlePhotoService, CastleLog,
   CastleMessages, CastleFileFilters, X3DLoad, CastleParameters,
@@ -222,6 +222,7 @@ end;
 procedure TViewDisplayScene.Stop;
 begin
   FreeAndNil(SceneWarnings);
+  FreeAndNil(SceneZip);
   BBoxScene := nil; // freed by FreeAtStop
   Container.OnSafeBorderChanged := nil;
   inherited;
@@ -521,107 +522,70 @@ begin
   ResumeAction := raNone;
 end;
 
-function TViewDisplayScene.GetSceneUnpackDir: string;
-var
-  UnpackDirUrl: string;
-begin
-  UnpackDirUrl := ApplicationConfig('unpack');
-  Result := UriToFilenameSafe(UnpackDirUrl);
-  WritelnLog('Unpack directory URL "%s", directory "%s"', [
-    UnpackDirUrl,
-    Result
-  ]);
-  if Result = '' then
-    raise Exception.CreateFmt('Cannot determine unpack directory from URL "%s". It must be a regular directory, since unzip code only supports directories', [
-      UnpackDirUrl
-    ]);
-end;
-
 procedure TViewDisplayScene.OpenZippedScene(const Url: string);
-
-  { TODO: Use TCastleZip, to
-    - allow opening ZIP files in memory, no need for GetSceneUnpackDir
-    - be compatible with both FPC and Delphi
-  }
-
-  { Remove a (potentially non-empty) directory, but make no errors or
-    even warnings if it does not exist. }
-  procedure ClearDir(const UnpackDir: string);
-  begin
-    if DirectoryExists(UnpackDir) then
-      RemoveNonEmptyDir(UnpackDir, true);
-  end;
-
 var
-  ZippedFile, UnpackDir, SceneFileCandidate1, SceneFileCandidate2: string;
-  UnpackedFile, UnpackedFilePart: string;
-  UnZipper: TUnZipper;
-  I: Integer;
-  Message: string;
+  SceneFileCandidate1, SceneFileCandidate2, SceneFileInZip, FileInZip: String;
+  NewZip: TCastleZip;
 begin
-  ZippedFile := UriToFilenameSafe(Url);
-  if ZippedFile = '' then
-    raise Exception.CreateFmt('Cannot determine filename from URL "%s". It must be a regular filename, since our unzip code only supports files for now.', [Url]);
+  NewZip := TCastleZip.Create;
 
-  UnpackDir := GetSceneUnpackDir;
-  ClearDir(UnpackDir);
+  try
+    NewZip.Open(Url);
+  except
+    on E: Exception do
+    begin
+      // This pushes new view with error message
+      MessageOK(Application.MainWindow, 'Cannot open ZIP: ' + ExceptMessage(E));
+      Exit;
+    end;
+  end;
 
   SceneFileCandidate1 := '';
   SceneFileCandidate2 := '';
 
-  // unzip everything
-  UnZipper := TUnZipper.Create;
-  try
-    UnZipper.FileName := ZippedFile;
-    UnZipper.OutputPath := UnpackDir;
-    UnZipper.Examine;
-    UnZipper.UnZipAllFiles;
-  except
-    on E: Exception do
-         Application.Log(etError, 'Unzip error: ' + E.ClassName + #13#10 + E.Message);
-  end;
-
   // find the scene file
-  for I := UnZipper.Entries.Count-1 downto 0 do
+  for FileInZip in NewZip.Files do
   begin
-    UnpackedFilePart := UnZipper.Entries.Entries[I].DiskFileName;
-    UnpackedFile := IncludeTrailingPathDelimiter(UnpackDir) + UnpackedFilePart;
-
-    // check if it is file and is not inside a subdir
-    if FileExists(UnpackedFile) and
-       (ExtractFileDir(UnpackedFilePart) = '') and
-       TFileFilterList.Matches(LoadScene_FileFilters, UnpackedFile) then
+    // check if it is not inside a subdir
+    if (Pos('/', FileInZip) = 0) and
+       TFileFilterList.Matches(LoadScene_FileFilters, FileInZip) then
     begin
       { Prefer other filenames than 'library'
         to allow opening archive with Room Arranger data,
         where library.wrl is an empty collection of PROTOs. }
-      if ChangeFileExt(ExtractFileName(UnpackedFile), '') = 'library' then
-        SceneFileCandidate2 := UnpackedFile
+      if ChangeFileExt(FileInZip, '') = 'library' then
+        SceneFileCandidate2 := FileInZip
       else
-        SceneFileCandidate1 := UnpackedFile;
+        SceneFileCandidate1 := FileInZip;
     end;
   end;
 
-  // open it (or show error message)
+  // calculate SceneFileInZip
   if SceneFileCandidate1 <> '' then
-    OpenScene(SceneFileCandidate1)
+    SceneFileInZip := SceneFileCandidate1
   else
   if SceneFileCandidate2 <> '' then
-    OpenScene(SceneFileCandidate2)
+    SceneFileInZip := SceneFileCandidate2
   else
+    SceneFileInZip := '';
+
+  // open SceneFileInZip (or show error message)
+  if SceneFileInZip <> '' then
   begin
-    Message := 'No supported scene file found inside the zip file.' + NL + NL
-             + 'We enable opening scenes from ZIP archives to easily ship the main geometry file '
-             + 'together with material files and textures inside one file.' + NL + NL
-             + 'Zip contains:';
-    for I := UnZipper.Entries.Count-1 downto 0 do
-      Message := Message + NL + '  ' + UnZipper.Entries.Entries[I].DiskFileName;
-    MessageOK(Application.MainWindow, Message);
+    FreeAndNil(SceneZip);
+    NewZip.RegisterUrlProtocol('model-viewer-zip');
+    OpenScene('model-viewer-zip:/' + UrlEncode(SceneFileInZip));
+  end else
+  begin
+    MessageOK(Application.MainWindow, 'No supported scene file found inside the zip file.' + NL +
+      NL +
+      'We enable opening scenes from ZIP archives to easily ship the main geometry file together with material files and textures inside one file.' + NL +
+      NL +
+      'Zip contents:' + NL +
+      NL +
+      NewZip.Files.Text);
+    Exit;
   end;
-
-  // cannot delete all unpacked files now, textures load a bit later
-
-  FreeAndNil(UnZipper);
 end;
 
 procedure TViewDisplayScene.SafeBorderChanged(Sender: TObject);
