@@ -410,7 +410,7 @@ begin
   // make screenshot
   Image := Container.SaveScreen;
   try
-    ImageUrl := FileNameAutoInc(ApplicationConfig('screenshots/'), 'screenshot_%d.png');
+    ImageUrl := FileNameAutoInc('castle-config:/screenshots/', 'screenshot_%d.png');
     SaveImage(Image, ImageUrl);
     TPhotoService.StoreImage(ImageUrl);
   finally FreeAndNil(Image) end;
