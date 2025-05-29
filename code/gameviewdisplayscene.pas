@@ -412,7 +412,7 @@ begin
   try
     ImageUrl := FileNameAutoInc('castle-config:/screenshots/', 'screenshot_%d.png');
     SaveImage(Image, ImageUrl);
-    TPhotoService.StoreImage(ResolveCastleConfigUrl(ImageUrl));
+    TPhotoService.StoreImage(ImageUrl);
   finally FreeAndNil(Image) end;
 
   // restore hidden controls
