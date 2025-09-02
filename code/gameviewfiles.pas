@@ -90,6 +90,9 @@ begin
   Models.Add('Teapot (fresnel and toon shader) (X3D)', 'castle-data:/demo/teapot_fresnel_toon.x3dv');
   Models.Add('Teapot (time to shader) (X3D)', 'castle-data:/demo/teapot_time.x3dv');
   //Models.Add('Test Downloading Resources (X3D)', 'castle-data:/demo/needs_download_network_resources.x3dv');
+  Models.Add('Chopper + Stonehenge (shadow volumes)', 'castle-data:/demo/shadow_volumes/stonehenge_with_chopper.x3dv');
+  Models.Add('Shinto Shrine (shadow maps, bump mapping)', 'castle-data:/demo/shadow_maps/shinto_shrine/rhan_shrine_final.x3dv');
+  Models.Add('Simple Shadow Maps', 'castle-data:/demo/shadow_maps/shadow_spot_simple.wrl');
 end;
 
 destructor TViewFiles.Destroy;
