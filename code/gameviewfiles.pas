@@ -93,6 +93,8 @@ begin
   Models.Add('Chopper + Stonehenge (shadow volumes)', 'castle-data:/demo/shadow_volumes/stonehenge_with_chopper.x3dv');
   Models.Add('Shinto Shrine (shadow maps, bump mapping)', 'castle-data:/demo/shadow_maps/shinto_shrine/rhan_shrine_final.x3dv');
   Models.Add('Simple Shadow Maps', 'castle-data:/demo/shadow_maps/shadow_spot_simple.wrl');
+  Models.Add('Defocus Post-Processing Effect', 'castle-data:/demo/screen_effects/defocus.x3dv');
+  Models.Add('Chromatic Aberration Post-Processing Effect', 'castle-data:/demo/screen_effects/chromatic_aberration.x3dv');
 end;
 
 destructor TViewFiles.Destroy;
