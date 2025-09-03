@@ -95,6 +95,7 @@ begin
   Models.Add('Simple Shadow Maps', 'castle-data:/demo/shadow_maps/shadow_spot_simple.wrl');
   Models.Add('Defocus Post-Processing Effect', 'castle-data:/demo/screen_effects/defocus.x3dv');
   Models.Add('Chromatic Aberration Post-Processing Effect', 'castle-data:/demo/screen_effects/chromatic_aberration.x3dv');
+  Models.Add('Screen Space Ambient Occlusion', 'castle-data:/demo/screen_effects/screen_space_ambient_occlusion.x3dv');
 end;
 
 destructor TViewFiles.Destroy;
