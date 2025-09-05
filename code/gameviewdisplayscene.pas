@@ -148,7 +148,9 @@ procedure TViewDisplayScene.Start;
     RootNode.AddChildren(BBoxTransform);
 
     BBoxScene := TCastleScene.Create(FreeAtStop);
+    // BBoxScene.Name := 'BBoxScene'; // nice for debugging
     BBoxScene.Load(RootNode, true);
+    BBoxScene.Pickable := false; // allow raycasts (like for TouchSensor clicks) to reach MainScene
 
     { Note: It's critical that BBoxScene is *not* child of MainScene,
       so that it doesn't influence MainScene.BoundingBox,
@@ -270,6 +272,7 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
     Application.Log(etInfo, 'Opened ' + Url);
 
     NewScene := TCastleScene.Create(FreeAtStop);
+    // NewScene.Name := 'MainScene' + IntToStr(Random(1000000000));  // nice for debugging
     NewScene.Load(Url);
     NewScene.PreciseCollisions := true;
     NewScene.ProcessEvents := true;
