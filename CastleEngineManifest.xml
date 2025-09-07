@@ -28,7 +28,12 @@
       <!-- service name="read_external_storage" / -->
     </services>
   </android>
-  <ios team="HJ95YRBGJZ">
+  <ios team="HJ95YRBGJZ" uses_non_exempt_encryption="false">
+    <!--
+    Start version numbering from 1.0 on AppStore, to not confuse iOS users.
+    TODO: eventually unify to the same versioning as Android.
+    -->
+    <override_version value="1.0" code="1" />
     <services>
       <service name="photo_service" />
     </services>
