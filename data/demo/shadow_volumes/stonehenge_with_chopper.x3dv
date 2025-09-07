@@ -22,6 +22,8 @@ NavigationInfo {
 Viewpoint {
   position -2.4143199920654297 21.864189147949219 -19.07440185546875
   orientation -0.21831285953521729 0.94789814949035645 0.2320096492767334 2.4177298545837402
+  centerOfRotation -20 7.5 2.5 # rotate around chopper
+  # autoCenterOfRotation TRUE
 }
 
 # Shadow receiver
