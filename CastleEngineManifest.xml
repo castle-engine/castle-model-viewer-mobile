@@ -28,7 +28,10 @@
       <!-- service name="read_external_storage" / -->
     </services>
   </android>
-  <ios team="HJ95YRBGJZ" uses_non_exempt_encryption="false">
+  <ios team="HJ95YRBGJZ"
+    uses_non_exempt_encryption="false"
+    override_icon="icom-for-ios.png"
+  >
     <!--
     Start version numbering from 1.0 on AppStore, to not confuse iOS users.
     TODO: eventually unify to the same versioning as Android.
