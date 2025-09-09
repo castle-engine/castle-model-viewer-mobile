@@ -32,7 +32,7 @@ uses Classes, SysUtils, Math,
   CastleVectors, CastleUtils, CastleMessages, CastleLog,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
   CastleApplicationProperties, CastleSceneCore,
-  GameOptions
+  GameOptions, GameScreenShotArbitrarySize
   {$region 'Castle Initialization Uses'}
   // The content here may be automatically updated by CGE editor.
   , GameViewDisplayScene
@@ -74,6 +74,10 @@ begin
   {$endregion 'Castle View Creation'}
 
   Window.Container.View := ViewDisplayScene;
+
+  // uncomment to use ScreenShotArbitrarySize
+  // ScreenShotArbitrarySize := TScreenShotArbitrarySize.Create(Application);
+  // Window.Container.Controls.InsertFront(ScreenShotArbitrarySize);
 end;
 
 initialization
