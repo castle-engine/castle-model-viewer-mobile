@@ -16,6 +16,8 @@
 { About dialog, showing scene information, application and engine version. }
 unit GameViewAbout;
 
+{$I conf.inc}
+
 interface
 
 uses Classes,
@@ -30,7 +32,7 @@ type
     ButtonDonate: TCastleButton;
     ButtonEngineWebsite: TCastleButton;
     ButtonRendererInfo: TCastleButton;
-    LabelStats: TCastleLabel;
+    LabelStats, LabelEngineInfo: TCastleLabel;
   private
     procedure ClickDonate(Sender: TObject);
     procedure ClickEngineWebsite(Sender: TObject);
@@ -47,7 +49,8 @@ var
 
 implementation
 
-uses CastleOpenDocument, CastleDialogViews, CastleGLUtils;
+uses SysUtils,
+  CastleOpenDocument, CastleDialogViews, CastleGLUtils;
 
 constructor TViewAbout.Create(AOwner: TComponent);
 begin
@@ -62,6 +65,13 @@ begin
   ButtonRendererInfo.OnClick := @ClickRendererInfo;
   ButtonEngineWebsite.OnClick := @ClickEngineWebsite;
   ButtonDonate.OnClick := @ClickDonate;
+
+  ButtonDonate.Exists := {$ifdef HIDE_DONATE} false {$else} true {$endif};
+  {$ifdef HIDE_DONATE}
+  LabelEngineInfo.Caption := Trim(StringReplace(LabelEngineInfo.Caption,
+    'We count on your donations to support the development of both this aplication and the engine.',
+    '', [rfReplaceAll]));
+  {$endif}
 end;
 
 procedure TViewAbout.ClickDonate(Sender: TObject);

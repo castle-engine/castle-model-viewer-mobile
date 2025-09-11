@@ -23,6 +23,8 @@
 { Main view that displays 3D model. }
 unit GameViewDisplayScene;
 
+{$I conf.inc}
+
 interface
 
 uses Classes, Generics.Collections,
@@ -201,6 +203,8 @@ begin
   ButtonViewpoints.OnClick := @ClickViewpoints;
   ButtonAnimations.OnClick := @ClickAnimations;
   ButtonDonate.OnClick := @ClickDonate;
+
+  ButtonDonate.Exists := {$ifdef HIDE_DONATE} false {$else} true {$endif};
 
   Application.MainWindow.OnDropFiles := {$ifdef FPC}@{$endif} GlobalDropFiles;
 
