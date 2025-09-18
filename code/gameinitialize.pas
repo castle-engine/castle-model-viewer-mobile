@@ -31,7 +31,7 @@ uses Classes, SysUtils, Math,
   CastleWindow, CastleControls, CastleFilesUtils,
   CastleVectors, CastleUtils, CastleMessages, CastleLog,
   CastleDownload, CastleFileFilters, CastleUIControls, CastleColors, CastleImages,
-  CastleApplicationProperties, CastleSceneCore,
+  CastleApplicationProperties, CastleSceneCore, CastleHttps,
   GameOptions, GameScreenShotArbitrarySize
   {$region 'Castle Initialization Uses'}
   // The content here may be automatically updated by CGE editor.
