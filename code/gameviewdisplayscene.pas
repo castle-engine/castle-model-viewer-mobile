@@ -82,6 +82,8 @@ type
     { Call each frame to update BBox* values to match current MainScene.BoundingBox. }
     procedure UpdateBBox;
   public
+    class function BestSceneInZip(const Files: TStrings): String;
+
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Stop; override;
@@ -529,9 +531,69 @@ begin
   ResumeAction := raNone;
 end;
 
+class function TViewDisplayScene.BestSceneInZip(const Files: TStrings): String;
+type
+  TCandidate = (
+    { Anything that can be opened with LoadNode / TCastleScene.Load,
+      and is not 'library',
+      and is not an image.
+
+      Prefer other filenames than 'library'
+      to allow opening archive with Room Arranger data,
+      where library.wrl is an empty collection of PROTOs. }
+    SceneNotImageNotLibrary,
+
+    { Scene that can be opened with LoadNode / TCastleScene.Load,
+      and is 'library',
+      and not image. }
+    SceneLibrary,
+
+    { Scene that is also an image. }
+    SceneImage
+  );
+var
+  FileInZip: String;
+  Candidate: TCandidate;
+  Candidates: array [TCandidate] of String;
+begin
+  for Candidate := Low(Candidate) to High(Candidate) do
+    Candidates[Candidate] := '';
+
+  // find the scene file
+  for FileInZip in Files do
+  begin
+    // check if it is not inside a subdir
+    if (Pos('/', FileInZip) = 0) and
+       TFileFilterList.Matches(LoadScene_FileFilters, FileInZip) then
+    begin
+      // calculate Candidate type
+      if LoadImage_FileFilters.Matches(FileInZip) then
+        Candidate := SceneImage
+      else
+      if ChangeFileExt(FileInZip, '') = 'library' then
+        Candidate := SceneLibrary
+      else
+        Candidate := SceneNotImageNotLibrary;
+
+      // update Candidates[Candidate], prefer 1st alphabetically
+      if (Candidates[Candidate] = '') or (FileInZip < Candidates[Candidate]) then
+        Candidates[Candidate] := FileInZip;
+    end;
+  end;
+
+  // calculate Result
+  Result := '';
+  for Candidate := Low(Candidate) to High(Candidate) do
+    if Candidates[Candidate] <> '' then
+    begin
+      Result := Candidates[Candidate];
+      Break;
+    end;
+end;
+
 procedure TViewDisplayScene.OpenZippedScene(const Url: string);
 var
-  SceneFileCandidate1, SceneFileCandidate2, SceneFileInZip, FileInZip: String;
+  BestCandidate: String;
   NewZip: TCastleZip;
 begin
   NewZip := TCastleZip.Create;
@@ -547,41 +609,14 @@ begin
     end;
   end;
 
-  SceneFileCandidate1 := '';
-  SceneFileCandidate2 := '';
+  BestCandidate := BestSceneInZip(NewZip.Files);
 
-  // find the scene file
-  for FileInZip in NewZip.Files do
-  begin
-    // check if it is not inside a subdir
-    if (Pos('/', FileInZip) = 0) and
-       TFileFilterList.Matches(LoadScene_FileFilters, FileInZip) then
-    begin
-      { Prefer other filenames than 'library'
-        to allow opening archive with Room Arranger data,
-        where library.wrl is an empty collection of PROTOs. }
-      if ChangeFileExt(FileInZip, '') = 'library' then
-        SceneFileCandidate2 := FileInZip
-      else
-        SceneFileCandidate1 := FileInZip;
-    end;
-  end;
-
-  // calculate SceneFileInZip
-  if SceneFileCandidate1 <> '' then
-    SceneFileInZip := SceneFileCandidate1
-  else
-  if SceneFileCandidate2 <> '' then
-    SceneFileInZip := SceneFileCandidate2
-  else
-    SceneFileInZip := '';
-
-  // open SceneFileInZip (or show error message)
-  if SceneFileInZip <> '' then
+  // open BestCandidate (or show error message)
+  if BestCandidate <> '' then
   begin
     FreeAndNil(SceneZip);
     NewZip.RegisterUrlProtocol('model-viewer-zip');
-    OpenScene('model-viewer-zip:/' + UrlEncode(SceneFileInZip));
+    OpenScene('model-viewer-zip:/' + UrlEncode(BestCandidate));
   end else
   begin
     MessageOK(Application.MainWindow, 'No supported scene file found inside the zip file.' + NL +
@@ -590,7 +625,8 @@ begin
       NL +
       'Zip contents:' + NL +
       NL +
-      NewZip.Files.Text);
+      NewZip.Files.Text
+    );
     Exit;
   end;
 end;
