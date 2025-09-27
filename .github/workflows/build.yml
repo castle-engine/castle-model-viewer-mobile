@@ -29,6 +29,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Run Auto-Tests
+        run: |
+          cd tests
+          # build and run in debug mode
+          castle-engine compile --mode=debug
+          castle-engine run
+          # rebuild and run in release mode
+          castle-engine clean
+          castle-engine compile --mode=release
+          castle-engine run
+
       - name: Package Windows
         run: castle-engine package --os=win64 --cpu=x86_64 --verbose
       - name: Archive Artifacts
