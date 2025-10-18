@@ -1,13 +1,8 @@
 ## User Visible
 
-High priority:
-
-- needs_download_network_resources.x3dv fails with EnableBlockingDownloads -- download never finishes?
-
 Lower priority:
 
-- Demo model with shadows
-- Demo model with water
+- Add demo model with water
 
 ## Internals
 
@@ -25,14 +20,9 @@ Lower priority:
 
 ## iOS-specific
 
-- Release on iOS (AppStore) too
-  - donations welcome, to become iOS developer as CGE!
+Lower priority:
 
-- Test iOS (we focused on Android testing in later iterations):
-  - the ability to open custom ZIP, X3D, glTF
-  - can we store pictures in Photo library
-
-- handle in CGE `apple_uniform_type_identifier` if needed (test on iOS)
+- handle in CGE `apple_uniform_type_identifier`, though doesn't really seem needed in practice:
 
       <!--
         Registered by Apple on system level:
