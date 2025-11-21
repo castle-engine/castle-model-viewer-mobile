@@ -52,8 +52,6 @@ begin
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
 
-  OptimizeExtensiveTransformations := true;
-
   AppOptions := TAppOptions.Create;
   AppOptions.Load;
 
