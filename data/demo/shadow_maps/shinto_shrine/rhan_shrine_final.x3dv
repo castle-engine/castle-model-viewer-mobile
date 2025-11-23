@@ -45,7 +45,8 @@ PointLight {
 	intensity 1
 }
 
-DEF SpotLight2 SpotLight {
+#DEF SpotLight2
+SpotLight {
 	global TRUE
 	projectionNear 3.7475478649139404
 	projectionFar 43.149383544921875
@@ -82,9 +83,9 @@ Viewpoint {
 # ROUTE SpotLight1Animation.fraction_changed TO SpotLight1AnimationInterpolator.set_fraction
 # ROUTE SpotLight1AnimationInterpolator.value_changed TO SpotLight1.location
 
-# Animate spot light 2 rotation, to see that it works and shadow change.
-DEF SpotLight2Animation TimeSensor { loop TRUE cycleInterval 10 }
-DEF SpotLight2AnimationInterpolator OrientationInterpolator {
+# Animate spot light rotation, to see that it works and shadow change.
+DEF SpotLightRotationAnimation TimeSensor { loop TRUE cycleInterval 10 }
+DEF SpotLightRotationAnimationInterpolator OrientationInterpolator {
   key [ 0 0.5 1 ]
   keyValue [
     0 0 1 0,
@@ -92,7 +93,7 @@ DEF SpotLight2AnimationInterpolator OrientationInterpolator {
     0 0 1 0
   ]
 }
-ROUTE SpotLight2Animation.fraction_changed TO SpotLight2AnimationInterpolator.set_fraction
-ROUTE SpotLight2AnimationInterpolator.value_changed TO SpotLight1Transform.rotation
+ROUTE SpotLightRotationAnimation.fraction_changed TO SpotLightRotationAnimationInterpolator.set_fraction
+ROUTE SpotLightRotationAnimationInterpolator.value_changed TO SpotLight1Transform.rotation
 
 Inline { url "rhan_shrine.x3d" }
