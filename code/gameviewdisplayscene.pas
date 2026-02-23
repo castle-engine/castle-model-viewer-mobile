@@ -1,5 +1,5 @@
 {
-  Copyright 2017-2025 Michalis Kamburelis and Jan Adamec.
+  Copyright 2017-2026 Michalis Kamburelis and Jan Adamec.
 
   This file is part of "castle-model-viewer-mobile".
 
@@ -41,7 +41,7 @@ type
     { Components designed using CGE editor.
       These fields will be automatically initialized at Start. }
     ButtonNavigations, ButtonOptions, ButtonViewpoints, ButtonAnimations,
-      ButtonScreenshot, ButtonInfo, ButtonFiles, ButtonDonate: TCastleButton;
+      ButtonScreenshot, ButtonInfo, ButtonFiles, ButtonDonate, ButtonWarnings: TCastleButton;
     LabelFpsStats: TCastleLabel;
     ViewportContainer: TCastleUserInterface;
     OnScreenNotifications: TCastleNotifications;
@@ -72,6 +72,7 @@ type
     procedure ClickAnimations(Sender: TObject);
     procedure ClickNavigations(Sender: TObject);
     procedure ClickDonate(Sender: TObject);
+    procedure ClickWarnings(Sender: TObject);
     procedure WarningHandle(const Category, S: string);
     procedure SafeBorderChanged(Sender: TObject);
 
@@ -205,6 +206,7 @@ begin
   ButtonViewpoints.OnClick := @ClickViewpoints;
   ButtonAnimations.OnClick := @ClickAnimations;
   ButtonDonate.OnClick := @ClickDonate;
+  ButtonWarnings.OnClick := @ClickWarnings;
 
   ButtonDonate.Exists := {$ifdef HIDE_DONATE} false {$else} true {$endif};
 
@@ -254,8 +256,30 @@ begin
 end;
 
 procedure TViewDisplayScene.WarningHandle(const Category, S: string);
+const
+  MaxWarnings = 1000;
 begin
-  SceneWarnings.Add(Category + ': ' + S);
+  if SceneWarnings.Count < MaxWarnings then
+  begin
+    if Category <> '' then
+      SceneWarnings.Add(Category + ': ' + S)
+    else
+      SceneWarnings.Add(S);
+
+    if SceneWarnings.Count = MaxWarnings then
+    begin
+      SceneWarnings.Add(Format('The scene has caused %d warnings. Truncating the rest of warnings, to prevent overwhelming the UI. Consult the desktop Castle Model Viewer log to access all warnings.', [
+        MaxWarnings
+      ]));
+    end;
+  end;
+
+  { Show warnings, if any occurred during loading, by
+    appearing ButtonWarnings and showing the count in its tooltip.
+    We do not catch warnings that occurred outside of LoadSceneAndCaptureWarnings
+    -- they could disrupt UI at any place. }
+  ButtonWarnings.Exists := true;
+  ButtonWarnings.Tooltip := Format('Warnings (%d)', [SceneWarnings.Count]);
 end;
 
 procedure TViewDisplayScene.OpenScene(const Url: string);
@@ -340,24 +364,13 @@ begin
   end;
 
   SceneWarnings.Clear;
+  ButtonWarnings.Exists := false;
   ApplicationProperties.OnWarning.Add({$ifdef FPC}@{$endif} WarningHandle);
   try
     LoadSceneAndCaptureWarnings;
   finally
     ApplicationProperties.OnWarning.Remove({$ifdef FPC}@{$endif} WarningHandle);
   end;
-
-  { Show warnings, if any occurred during loading.
-    We do not catch warnings that occurred outside of LoadSceneAndCaptureWarnings
-    -- they could disrupt UI at any place.
-    They'll be in application log for developer.
-
-    Later: hide the warnings. Too disruptive to show this when opening the model.
-    At least for house_floors.ifcjson (which has a number of known warnings).
-    TODO: Allow showing them later -- by a button UI, when user requests.
-  }
-  // if SceneWarnings.Count <> 0 then
-  //   MessageOK(Application.MainWindow, SceneWarnings.Text);
 end;
 
 procedure TViewDisplayScene.UpdateBBox;
@@ -510,6 +523,20 @@ begin
 
   ResumeAction := raPlayAnimation;
   Container.PushView(ViewChoice);
+end;
+
+procedure TViewDisplayScene.ClickWarnings(Sender: TObject);
+var
+  Dlg: TViewDialogOK;
+begin
+  // open new view with dialog
+  Dlg := TViewDialogOK.Create(Self);
+  Dlg.Caption := Format('%d warnings:', [SceneWarnings.Count]) + NL +
+    NL +
+    TrimRight(SceneWarnings.Text) + NL +
+    NL +
+    'Scene URL: "' + UriDisplay(MainScene.Url) + '".';
+  Container.PushView(Dlg);
 end;
 
 procedure TViewDisplayScene.Resume;

@@ -10,6 +10,10 @@ default: $(OUTPUT)
 clean:
 	rm -Rf $(OUTPUT)
 
+warning.png: warning.svg
+	inkscape --export-width=40 --export-height=40 $< --export-filename=$@
+# do not change colors for this icon
+
 %.png: %.svg
 	inkscape --export-width=40 --export-height=40 $< --export-filename=$@
 # change to white, following
