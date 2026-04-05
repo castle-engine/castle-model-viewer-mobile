@@ -114,6 +114,14 @@
       <mime>application/x-starling-sprite-sheet</mime>
       <extension>starling-xml</extension>
     </document_type>
+    <document_type caption="STL model" name="stl">
+      <mime>application/x-stl</mime>
+      <extension>stl</extension>
+    </document_type>
+    <document_type caption="PLY model" name="ply">
+      <mime>application/x-ply</mime>
+      <extension>ply</extension>
+    </document_type>
     <document_type name="zip" caption="ZIP Archive">
       <mime>application/zip</mime>
       <extension>zip</extension>
