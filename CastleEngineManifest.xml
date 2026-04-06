@@ -115,7 +115,7 @@
       <extension>starling-xml</extension>
     </document_type>
     <document_type caption="STL model" name="stl">
-      <mime>application/x-stl</mime>
+      <mime>model/stl</mime>
       <extension>stl</extension>
     </document_type>
     <document_type caption="PLY model" name="ply">
