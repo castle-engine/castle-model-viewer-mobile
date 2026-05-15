@@ -29,7 +29,8 @@ interface
 
 uses Classes, Generics.Collections,
   CastleUIControls, CastleControls, CastleScene, X3DNodes, CastleViewport,
-  CastleDialogViews, CastleNotifications, CastleCameras, CastleZip;
+  CastleDialogViews, CastleNotifications, CastleCameras, CastleZip,
+  CastleDownload;
 
 type
   { Actions to do when we have Resume, possibly coming back from a dialog
@@ -75,6 +76,7 @@ type
     procedure ClickWarnings(Sender: TObject);
     procedure WarningHandle(const Category, S: string);
     procedure SafeBorderChanged(Sender: TObject);
+    procedure ModelDownloadFinish(const Sender: TCastleDownload; var FreeSender: Boolean);
 
     { Currently loaded scene. May be @nil only before first OpenScene from Start. }
     function MainScene: TCastleScene;
@@ -91,7 +93,13 @@ type
     procedure Resume; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
 
-    procedure OpenScene(const Url: string);
+    { Open scene from given Stream. The Url given is only used to resolve
+      relative URLs inside the scene, and MimeType is used to determine
+      the file format. }
+    procedure OpenScene(const Url: string; const Stream: TStream; const MimeType: string); overload;
+
+    { Download URL and open. }
+    procedure OpenScene(const Url: string); overload;
   end;
 
 var
@@ -164,6 +172,9 @@ procedure TViewDisplayScene.Start;
     BBoxScene.Collides := false;
   end;
 
+var
+  ModelUrlFromBrowser: String;
+  ModelDownload: TCastleDownload;
 begin
   inherited;
 
@@ -223,6 +234,23 @@ begin
     E.g. on Android, Parameters[1] may contain "ene.mobile"
     -- suffix of our qualified name. I don't know why,
     but these are not a useful URL to open naturally. }
+
+  { Testing downloading on web below.
+    Try
+    http://localhost:3000/index.html?model=https://github.com/castle-engine/castle-model-viewer-mobile/raw/refs/heads/master/example_models/castle.glb
+    (disable CORS in browser to make it work).
+  }
+  ModelUrlFromBrowser := Application.PageUrlParameter('model');
+  if ModelUrlFromBrowser <> '' then
+  begin
+    { Load default scene first (shown while model downloads asynchronously),
+      then start async download of the model from the URL parameter. }
+    OpenScene('castle-data:/demo/cat_final.x3dv');
+    ModelDownload := TCastleDownload.Create(FreeAtStop);
+    ModelDownload.Url := ModelUrlFromBrowser;
+    ModelDownload.OnFinish := {$ifdef FPC}@{$endif} ModelDownloadFinish;
+    ModelDownload.Start;
+  end else
   if (not IsLibrary) and (Parameters.High >= 1) then
     OpenScene(Parameters[1])
   else
@@ -282,7 +310,7 @@ begin
   ButtonWarnings.Tooltip := Format('Warnings (%d)', [SceneWarnings.Count]);
 end;
 
-procedure TViewDisplayScene.OpenScene(const Url: string);
+procedure TViewDisplayScene.OpenScene(const Url: string; const Stream: TStream; const MimeType: string);
 
   { Every CGE warning that happens within this procedure will be captured
     and later shown to player. }
@@ -298,12 +326,14 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
 
   var
     NewScene: TCastleScene;
+    RootNode: TX3DRootNode;
   begin
     Application.Log(etInfo, 'Opened ' + Url);
 
     NewScene := TCastleScene.Create(FreeAtStop);
     // NewScene.Name := 'MainScene' + IntToStr(Random(1000000000));  // nice for debugging
-    NewScene.Load(Url);
+    RootNode := LoadNode(Stream, Url, MimeType);
+    NewScene.Load(RootNode, true);
     NewScene.PreciseCollisions := true;
     NewScene.ProcessEvents := true;
 
@@ -357,12 +387,6 @@ procedure TViewDisplayScene.OpenScene(const Url: string);
   end;
 
 begin
-  if LowerCase(ExtractFileExt(Url)) = '.zip' then
-  begin
-    OpenZippedScene(Url); // this may call OpenScene in turn
-    Exit;
-  end;
-
   SceneWarnings.Clear;
   ButtonWarnings.Exists := false;
   ApplicationProperties.OnWarning.Add({$ifdef FPC}@{$endif} WarningHandle);
@@ -371,6 +395,25 @@ begin
   finally
     ApplicationProperties.OnWarning.Remove({$ifdef FPC}@{$endif} WarningHandle);
   end;
+end;
+
+procedure TViewDisplayScene.OpenScene(const Url: string);
+var
+  Stream: TStream;
+  MimeType: String;
+begin
+  { TODO: For now, .zip is only supported when opening this way,
+    so not for network resources. }
+  if LowerCase(ExtractFileExt(Url)) = '.zip' then
+  begin
+    OpenZippedScene(Url); // this may call OpenScene in turn
+    Exit;
+  end;
+
+  Stream := Download(Url, [soForceMemoryStream], MimeType);
+  try
+    OpenScene(Url, Stream, MimeType);
+  finally FreeAndNil(Stream) end;
 end;
 
 procedure TViewDisplayScene.UpdateBBox;
@@ -656,6 +699,25 @@ begin
     );
     Exit;
   end;
+end;
+
+procedure TViewDisplayScene.ModelDownloadFinish(
+  const Sender: TCastleDownload; var FreeSender: Boolean);
+begin
+  if Sender.Status <> dsSuccess then
+  begin
+    WritelnLog('Network', 'Failed to download model from "%s": %s', [
+      Sender.Url,
+      Sender.ErrorMessage
+    ]);
+    Exit;
+  end;
+
+  WritelnLog('Network', 'Model downloaded from "%s", loading...', [
+    Sender.Url
+  ]);
+
+  OpenScene(Sender.Url, Sender.Contents, Sender.MimeType);
 end;
 
 procedure TViewDisplayScene.SafeBorderChanged(Sender: TObject);
