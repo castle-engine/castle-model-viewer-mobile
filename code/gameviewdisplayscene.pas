@@ -220,9 +220,9 @@ begin
 
   { Do not use Parameters[1] on Android and iOS.
 
-    E.g. on Android, Parameters[1] may contain "ene.mobile"
-    -- suffix of our qualified name. I don't know why,
-    but these are not a useful URL to open naturally. }
+    On Android, Parameters[1] may contain random garbage,
+    like "ene.mobile". See also CastleParameters comments about garbage / crashes
+    when reading Argv on Android. }
   if (not IsLibrary) and (Parameters.High >= 1) then
     OpenScene(Parameters[1])
   else
