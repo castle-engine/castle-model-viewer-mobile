@@ -88,9 +88,9 @@ DEF SpotLightRotationAnimation TimeSensor { loop TRUE cycleInterval 10 }
 DEF SpotLightRotationAnimationInterpolator OrientationInterpolator {
   key [ 0 0.5 1 ]
   keyValue [
-    0 0 1 0,
-    0 0 1 1,
-    0 0 1 0
+    0 1 0 0,
+    0 1 0 1,
+    0 1 0 0
   ]
 }
 ROUTE SpotLightRotationAnimation.fraction_changed TO SpotLightRotationAnimationInterpolator.set_fraction
