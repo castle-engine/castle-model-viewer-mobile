@@ -55,10 +55,10 @@ Pretty toolbar icons from https://feathericons.com/ .
 
 Thank you for the amazing 3D stuff we could use to showcase our project!
 
-- cat:
-    - From https://sketchfab.com/3d-models/cat-murdered-soul-suspect-836312def1b84e588866500a2bf79f0f
-    - License: CC Attribution
-    - Author: mark2580 ( https://sketchfab.com/mark2580 )
+- cheetah:
+    - From https://blendswap.com/blend/6963
+    - License: CC0
+    - Author: BlenderBoy55 ( https://blendswap.com/profile/11799 )
 
 - steampunk underwater explorer:
     - From https://sketchfab.com/3d-models/steampunk-underwater-explorer-127471a23e0f4790914b13b9052c4912
