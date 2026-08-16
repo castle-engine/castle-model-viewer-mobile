@@ -79,7 +79,7 @@ begin
   DesignUrl := 'castle-data:/gameviewfiles.castle-user-interface';
 
   Models := TDemoModelList.Create(true);
-  Models.Add('Animated Cat (glTF + X3D, viewpoints)', 'castle-data:/demo/cat_final.x3dv');
+  Models.Add('Cheetah (glTF + X3D, viewpoints)', 'castle-data:/demo/cheetah/cheetah_final.x3dv');
   Models.Add('Dungeon (glTF + X3D, walk, viewpoints)', 'castle-data:/demo/dungeon_final.x3dv');
   Models.Add('Bunny (glTF, animations)', 'castle-data:/demo/quaternius_monsters/Bunny.gltf');
   Models.Add('Animated 2D Dragon (Spine, animations)',
