@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{DEA5B796-6B39-407C-A5F1-2EC09E9C83B3}</ProjectGuid>
+        <ProjectGuid>{A833AFA1-F837-F6A4-F360-19863FAC65D2}</ProjectGuid>
         <MainSource>castle_model_viewer_mobile.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -345,37 +345,411 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/cat_final.x3dv" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\demo/castle/castle.bin" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_final.x3dv</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.bin</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_final.x3dv</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.bin</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_final.x3dv</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.bin</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/cat_murdered_soul_suspect.glb" Configuration="Debug" Class="File">
+<DeployFile LocalName="data\demo/castle/castle.gltf" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_murdered_soul_suspect.glb</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.gltf</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_murdered_soul_suspect.glb</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.gltf</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_murdered_soul_suspect.glb</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/AUTHORS.md" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/airbase_radar_panels.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/airbase_radar_panels_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/bricksmokesidebot.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/bricksmokesidebot_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/france_housered.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/france_housered_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/grassfull.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/grassfull_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/misslescararm.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/misslescararm_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/water2.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/water2_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/waterwall.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/waterwall_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/wood_clear.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/wood_clear_normalmap.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/BLENDSWAP_LICENSE.txt" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>BLENDSWAP_LICENSE.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>BLENDSWAP_LICENSE.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>BLENDSWAP_LICENSE.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/Cheetah_1024_UV_B19.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_1024_UV_B19.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_1024_UV_B19.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_1024_UV_B19.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/Cheetah_Head_44_FinalModel.bin" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/Cheetah_Head_44_FinalModel.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/cheetah_final.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>cheetah_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>cheetah_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>cheetah_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1093,6 +1467,23 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\demo/ifc/house_floors_viewpoints.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/ifc/</RemoteDir>
+  <RemoteName>house_floors_viewpoints.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/ifc/</RemoteDir>
+  <RemoteName>house_floors_viewpoints.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/ifc/</RemoteDir>
+  <RemoteName>house_floors_viewpoints.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\demo/needs_download_network_resources.x3dv" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
@@ -1141,6 +1532,397 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
   <RemoteName>Bunny.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/chromatic_aberration.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/chromatic_aberration_shader.fs" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/defocus.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/defocus_shader.fs" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/screen_space_ambient_occlusion.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/screen_space_ambient_occlusion_shader.fs" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/sterile_room.bin" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/sterile_room.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shadow_spot_simple.wrl" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/</RemoteDir>
+  <RemoteName>shadow_spot_simple.wrl</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/</RemoteDir>
+  <RemoteName>shadow_spot_simple.wrl</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/</RemoteDir>
+  <RemoteName>shadow_spot_simple.wrl</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/README.md" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>README.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>README.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>README.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/rhan_shrine.x3d" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/rhan_shrine.x3d_screenshot.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d_screenshot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d_screenshot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d_screenshot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/rhan_shrine_final.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/shrine_001_diff1.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_001_diff1.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_001_diff1.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_001_diff1.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/shrine_texture_nrm1.jpg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_texture_nrm1.jpg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_texture_nrm1.jpg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_texture_nrm1.jpg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper.bin" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper_front.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper_side.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_side.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_side.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_side.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper_top.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/stonehenge.bin" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/stonehenge.gltf" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/stonehenge_with_chopper.x3dv" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge_with_chopper.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge_with_chopper.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge_with_chopper.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -1671,6 +2453,40 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\icons/warning.png" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/warning.svg" Configuration="Debug" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\navigation/2d.png" Configuration="Debug" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/navigation/</RemoteDir>
@@ -1892,37 +2708,411 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/cat_final.x3dv" Configuration="Release" Class="File">
+<DeployFile LocalName="data\demo/castle/castle.bin" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_final.x3dv</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.bin</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_final.x3dv</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.bin</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_final.x3dv</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.bin</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
-<DeployFile LocalName="data\demo/cat_murdered_soul_suspect.glb" Configuration="Release" Class="File">
+<DeployFile LocalName="data\demo/castle/castle.gltf" Configuration="Release" Class="File">
  <Platform Name="Linux64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_murdered_soul_suspect.glb</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.gltf</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win32">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_murdered_soul_suspect.glb</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.gltf</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
  <Platform Name="Win64">
-  <RemoteDir>./data/demo/</RemoteDir>
-  <RemoteName>cat_murdered_soul_suspect.glb</RemoteName>
+  <RemoteDir>./data/demo/castle/</RemoteDir>
+  <RemoteName>castle.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/AUTHORS.md" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>AUTHORS.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/airbase_radar_panels.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/airbase_radar_panels_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>airbase_radar_panels_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/bricksmokesidebot.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/bricksmokesidebot_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>bricksmokesidebot_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/france_housered.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/france_housered_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>france_housered_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/grassfull.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/grassfull_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>grassfull_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/misslescararm.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/misslescararm_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>misslescararm_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/water2.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/water2_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>water2_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/waterwall.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/waterwall_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>waterwall_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/wood_clear.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/castle/textures/wood_clear_normalmap.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/castle/textures/</RemoteDir>
+  <RemoteName>wood_clear_normalmap.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/BLENDSWAP_LICENSE.txt" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>BLENDSWAP_LICENSE.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>BLENDSWAP_LICENSE.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>BLENDSWAP_LICENSE.txt</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/Cheetah_1024_UV_B19.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_1024_UV_B19.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_1024_UV_B19.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_1024_UV_B19.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/Cheetah_Head_44_FinalModel.bin" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/Cheetah_Head_44_FinalModel.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>Cheetah_Head_44_FinalModel.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/cheetah/cheetah_final.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>cheetah_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>cheetah_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/cheetah/</RemoteDir>
+  <RemoteName>cheetah_final.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -2640,6 +3830,23 @@
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
+<DeployFile LocalName="data\demo/ifc/house_floors_viewpoints.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/ifc/</RemoteDir>
+  <RemoteName>house_floors_viewpoints.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/ifc/</RemoteDir>
+  <RemoteName>house_floors_viewpoints.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/ifc/</RemoteDir>
+  <RemoteName>house_floors_viewpoints.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
 <DeployFile LocalName="data\demo/needs_download_network_resources.x3dv" Configuration="Release" Class="File">
  <Platform Name="Linux64">
   <RemoteDir>./data/demo/</RemoteDir>
@@ -2688,6 +3895,397 @@
  <Platform Name="Win64">
   <RemoteDir>./data/demo/quaternius_monsters/</RemoteDir>
   <RemoteName>Bunny.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/chromatic_aberration.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/chromatic_aberration_shader.fs" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>chromatic_aberration_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/defocus.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/defocus_shader.fs" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>defocus_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/screen_space_ambient_occlusion.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/screen_space_ambient_occlusion_shader.fs" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>screen_space_ambient_occlusion_shader.fs</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/sterile_room.bin" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/screen_effects/sterile_room.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/screen_effects/</RemoteDir>
+  <RemoteName>sterile_room.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shadow_spot_simple.wrl" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/</RemoteDir>
+  <RemoteName>shadow_spot_simple.wrl</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/</RemoteDir>
+  <RemoteName>shadow_spot_simple.wrl</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/</RemoteDir>
+  <RemoteName>shadow_spot_simple.wrl</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/README.md" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>README.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>README.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>README.md</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/rhan_shrine.x3d" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/rhan_shrine.x3d_screenshot.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d_screenshot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d_screenshot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine.x3d_screenshot.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/rhan_shrine_final.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>rhan_shrine_final.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/shrine_001_diff1.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_001_diff1.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_001_diff1.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_001_diff1.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_maps/shinto_shrine/shrine_texture_nrm1.jpg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_texture_nrm1.jpg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_texture_nrm1.jpg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_maps/shinto_shrine/</RemoteDir>
+  <RemoteName>shrine_texture_nrm1.jpg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper.bin" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper_front.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_front.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper_side.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_side.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_side.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_side.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/chopper/chopper_top.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/chopper/</RemoteDir>
+  <RemoteName>chopper_top.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/stonehenge.bin" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.bin</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/stonehenge.gltf" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge.gltf</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\demo/shadow_volumes/stonehenge_with_chopper.x3dv" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge_with_chopper.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge_with_chopper.x3dv</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/demo/shadow_volumes/</RemoteDir>
+  <RemoteName>stonehenge_with_chopper.x3dv</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
@@ -3215,6 +4813,40 @@
  <Platform Name="Win64">
   <RemoteDir>./data/icons/unused/</RemoteDir>
   <RemoteName>navigation-2.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/warning.png" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.png</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+</DeployFile>
+<DeployFile LocalName="data\icons/warning.svg" Configuration="Release" Class="File">
+ <Platform Name="Linux64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win32">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.svg</RemoteName>
+  <Overwrite>true</Overwrite>
+ </Platform>
+ <Platform Name="Win64">
+  <RemoteDir>./data/icons/</RemoteDir>
+  <RemoteName>warning.svg</RemoteName>
   <Overwrite>true</Overwrite>
  </Platform>
 </DeployFile>
