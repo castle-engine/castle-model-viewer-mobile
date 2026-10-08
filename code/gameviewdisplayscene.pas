@@ -669,6 +669,9 @@ begin
   // not overlap with the buttons (back, home...) on the left
   TouchNavigation.Border.Left := Container.SafeBorder.Left;
   TouchNavigation.Border.Right := Container.SafeBorder.Right;
+
+  ButtonWarnings.Translation := Vector2(ButtonWarnings.Translation.X,
+    Container.SafeBorder.Bottom/2);
 end;
 
 end.
